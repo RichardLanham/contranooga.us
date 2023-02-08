@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=EB+Garamond:ital@1&family=Roboto&family=Roboto+Condensed&family=Roboto+Flex:opsz@8..144&family=Roboto+Mono&family=Roboto+Serif:opsz@8..144&family=Roboto+Slab&display=swap");
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: scroll; /* Must be 'scroll' not 'auto' */
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-family: "EB Garamond", serif;
+}
+
+ListItemButton {
+  box-shadow: inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5),
+    inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5);
+}
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cdtsBoxLink {
+  font-size: 1.5em;
+  background-color: #090909;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+  font-family: "arial, sans serif";
+  margin-right: auto;
+  padding: 4px;
+  width: 200px;
+}
+
+.text-huge {
+  font-size: 3.2em;
+}
+.text-big {
+  font-size: 2em;
+}
+.text-small {
+  font-size: 0.9em;
+}
+.text-tiny {
+  font-size: 0.7em;
+}
+.player-wrapper {
+  width: auto;
+  height: auto;
+}
+.react-player {
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.react-player > div {
+  position: absolute;
+}
+.form-required {
+  color: "red";
+}
+.rbc-agenda-time-cell {
+  border: 0 !important;
+}
+.rbc-agenda-date-cell {
+  border: 0 !important;
+}
+
+.rbc-agenda-event-cell {
+  border: 0 !important;
+}
+
+.rbc-agenda-table {
+  border: 0 !important;
+  border-collapse: separate !important;
+}
+
+.shadowbox {
+  /* width: "80%"; */
+  border: 1px solid #333;
+  box-shadow: 8px 8px 5px #444;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+/* a {
+  color: "#f0f0f0";
+  background-color: "#9db2c7";
+} */
+.fade-in-image {
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+  -moz-animation: fadeIn 2s;
+  -o-animation: fadeIn 2s;
+  -ms-animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button.red {
+  background: #ea3d33;
+}
+button.green {
+  background: #7ed321;
+}
+button.blue {
+  background: #4a90e2;
+}
+button:before,
+button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  height: 3px;
+}
+button:before {
+  top: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 2px 0 rgba(255, 255, 255, 0.6);
+}
+button:after {
+  bottom: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.15);
+}
