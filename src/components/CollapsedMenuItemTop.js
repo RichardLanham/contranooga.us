@@ -24,21 +24,20 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
   useEffect(() => {
     //   console.log(subMenusPages);
     eventEmitter.subscribe("EXPAND", (data) => {
-      setOpen(data.anch === anch);
-      // if (!data.open) {
-      //   return false;
-      // }
-      // if (data.anch === anch) {
-      //   return false;
-      // }
-      // setOpen(false);
+      if (!data.open) {
+        return false;
+      }
+      if (data.anch === anch) {
+        return false;
+      }
+      setOpen(false);
     });
     const exists = subMenusPages.Link.findIndex(
       (page) => page.slug === location.pathname.replace("/page/", "")
     );
-    setOpen(exists > -1);
+    setOpen(exists > -1 && !hideOnRender);
     return () => {
-      setOpen(false);
+      // setOpen(false);
       eventEmitter.unsubscribe("EXPAND");
     };
   }, []);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import List from "@mui/material/List";
 import { useTheme, styled } from "@mui/material/styles";
-import CollapsedMenuItem from "./CollapsedMenuItem";
+import CollapsedMenuItemTop from "./CollapsedMenuItemTop";
 import ColorButton from "./ColorButton";
 import MenuButton from "./MenuButton";
 const StrapiPages = (props) => {
@@ -55,7 +55,7 @@ const StrapiPages = (props) => {
       {user ? <ColorButton /> : null}
       {theme.global.navbar.dropdown.map((dropdown, key) => {
         return (
-          <CollapsedMenuItem
+          <CollapsedMenuItemTop
             hideOnRender={true}
             key={key}
             subMenusPages={dropdown}
