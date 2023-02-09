@@ -64,7 +64,7 @@ const Login = () => {
           zIndex: theme.zIndex.tooltip + 1,
           position: "fixed",
           top: 2,
-          right: 3,
+          left: 3,
         }}
         // onClick={logout}
       >
@@ -83,7 +83,7 @@ const Login = () => {
           position: "fixed",
           margin: "auto",
           top: 10,
-          right: 10,
+          left: 10,
           height: 90,
           maxWidth: 380,
         }}
@@ -133,7 +133,7 @@ const Login = () => {
         color: theme.palette.info.contrastLight,
         position: "fixed",
         top: 2,
-        right: 3,
+        left: 3,
       }}
       onClick={() => setShowUi(true)}
     >

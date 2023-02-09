@@ -1,4 +1,4 @@
-import StrapiPagesDrawer from "../StrapiPagesDrawer";
+import StrapiPages from "../StrapiPages";
 
 const slideDrawer = (props) => {
   // const [open, setOpen] = useState(false);
@@ -10,9 +10,9 @@ const slideDrawer = (props) => {
   }
 
   return (
-    <div style={{ width: "calc(50%)" }} className={drawerClasses}>
+    <div style={{ width: "50%", maxWidth: 300 }} className={drawerClasses}>
       <div style={{ height: 30 }}></div>
-      <StrapiPagesDrawer />
+      <StrapiPages position="drawer" />
     </div>
   );
 };

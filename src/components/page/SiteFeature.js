@@ -44,7 +44,7 @@ const SiteFeature = ({ slug }) => {
       <div style={{ ...theme.typography.body1 }}>{feature.body}</div>
       <div
         style={{
-          border: "1px solid green",
+          //sborder: "1px solid green",
           display: "flex",
           flexDirection: "row",
           flexWrap: "nowrap",

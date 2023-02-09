@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import SiteTopBar from "./components/SiteTopBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { eventEmitter } from "./events";
-import { Button, Card } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import StrapiPages from "./components/StrapiPages";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { StyledSideBar } from "./styles/ComponentStyles";
@@ -142,12 +142,12 @@ const Site = (props) => {
         <SiteTopBar key="cdtstopbar" />
 
         <StyledSideBar>
-          <StrapiPages />
+          <StrapiPages position="side" />
         </StyledSideBar>
         <div style={{ position: "relative" }}>
           <Login />
 
-          <Button
+          <IconButton
             onClick={scrollToTop}
             style={{
               backgroundColor: theme.palette.background.default,
@@ -162,7 +162,7 @@ const Site = (props) => {
             }}
           >
             <ArrowUpwardIcon />
-          </Button>
+          </IconButton>
           <Banners />
 
           {props.children}

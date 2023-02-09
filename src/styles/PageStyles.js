@@ -113,7 +113,7 @@ export const StyledPageSection = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {
     // width: "calc(80% - 1px)",
     width: "100%",
-    background: "green",
+    // background: "green",
   },
   [theme.breakpoints.down("md")]: {
     // width: "calc(95% - 1rem)",

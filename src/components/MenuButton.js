@@ -1,24 +1,40 @@
-import React from "react";
+// import React, { useEffect, useState } from "react";
 import { Typography, Button } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 const MenuButton = (props) => {
+  const page = props.page;
   const location = useLocation();
   const theme = useTheme();
   return (
     <Button
+      to={page.url}
+      key={props.key}
+      button="true"
       component={Link}
-      to={props.page}
       style={{
-        marginLeft: 3,
-        marginRight: 3,
-        backgroundColor: theme.palette.secondary.light,
-        color: theme.palette.secondary.contrastText,
-        border: location.pathname === props.page ? "2px solid" : 0,
-        borderColor: theme.palette.secondary.dark,
+        ...theme.typography.button,
+        height: 30,
+        borderRadius: 5,
+        margin: 3,
+        width: "calc(80%)",
+        maxWidth: 150,
+        boxShadow: theme.shadows[10],
+        // boxShadow:
+        //   "inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5)",
+        border: 0,
+        backgroundColor:
+          location.pathname === page.url
+            ? theme.palette.primary.light
+            : theme.palette.background.default,
+        color:
+          location.pathname === page.url
+            ? theme.palette.primary.contrastLight
+            : theme.palette.text.primary,
+        // backgroundColor: "yellow",
       }}
     >
-      <Typography>{props.children}</Typography>
+      {page.text}
     </Button>
   );
 };

@@ -394,22 +394,6 @@ export const GET_PAGES = gql`
               title
               description
               facebook_bound
-              video {
-                data {
-                  id
-                  attributes {
-                    name
-                    alternativeText
-                    caption
-                    width
-                    height
-                    formats
-                    mime
-                    size
-                    url
-                  }
-                }
-              }
             }
           }
         }

@@ -108,21 +108,6 @@ export const StyledReactPlayerDiv = styled("div")(({ theme }) => ({
   },
 }));
 
-export const StyledAppBar = styled("div")(({ theme }) => ({
-  height: 60,
-  marginBottom: 20,
-  marginTop: 5,
-  width: "100%",
-  position: "fixed",
-  top: 5,
-  zIndex: theme.zIndex.tooltip,
-  // backgroundColor: theme.palette.primary.main,
-  opacity: 1,
-  [theme.breakpoints.down("md")]: {
-    //backgroundColor: "yellow",
-  },
-}));
-
 // background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
 //                   url("../../media/examples/lizard.png");
 

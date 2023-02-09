@@ -432,7 +432,7 @@ const Color = (props) => {
       if (modes.length === 8) {
         await putTheme({
           variables: {
-            id: themeId,
+            id: theme.defaultThemeId,
             // name: "default",
             // theme: JSON.stringify(theme),
             // color_modes: JSON.stringify(
@@ -688,9 +688,8 @@ const Color = (props) => {
     const handleTabChange = (newValue) => {
       //dispatch({ type: "COLORMODETABVALUE", payload: newValue });
       window.localStorage.setItem("ColorModeTabValue", newValue);
-      const colors = JSON.parse(theme.color_modes).filter(
-        (m) => m.mode === newValue
-      )[0].colors;
+      const colors = theme.color_modes.filter((m) => m.mode === newValue)[0]
+        .colors;
       // setModeSelectionColors(colors);
       setSelectedMode(newValue);
     };
