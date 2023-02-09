@@ -17,10 +17,14 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   StyledCalendar,
-  StyledRoot,
   StyledFormContainer,
   StyledEventButton,
 } from "../styles/CalendarStyles";
+import {
+  StyledPage,
+  StyledHeader,
+  StyledPageSection,
+} from "../styles/PageStyles";
 import { StyledHeading } from "../styles/ComponentStyles";
 import Site from "../Site";
 import { eventEmitter } from "../events.tsx";
@@ -798,12 +802,23 @@ const Calendar = () => {
   };
 
   return (
-    <Site style={{ position: "relative" }} title="Events">
-      <StyledRoot>
-        <Header />
-        <EventCalendar />
-        <EventList key="evenlist" />
-      </StyledRoot>
+    <Site title="Events">
+      <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
+      <StyledPage style={{ backgroundColor: theme.palette.background.default }}>
+        <StyledHeader>
+          <StyledHeading></StyledHeading>
+          {
+            // attribs.subhead ? null : null // todo
+          }
+        </StyledHeader>
+
+        <StyledPageSection>
+          <Header />
+
+          <EventCalendar />
+          <EventList key="evenlist" />
+        </StyledPageSection>
+      </StyledPage>
     </Site>
   );
 };

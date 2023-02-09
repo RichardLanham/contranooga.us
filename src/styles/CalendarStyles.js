@@ -15,21 +15,21 @@ const CalendarStyles = () => {
 export const StyledRoot = styled("div")(({ theme }) => ({
   width: "calc(60% - 1rem)",
   margin: "auto",
-  // position: "relative",
-  top: 30,
-  backgroundColor: theme.palette.background.default,
-  opacity: 1.0,
-  [theme.breakpoints.down("xl")]: {},
-  [theme.breakpoints.down("lg")]: {
-    width: "calc(80% - 1rem)",
-  },
-  [theme.breakpoints.down("md")]: {
-    width: "90%",
-    // margin: 0,
-  },
-  [theme.breakpoints.down("sm")]: {
-    width: "100%",
-  },
+  // // position: "relative",
+  // top: 30,
+  // backgroundColor: theme.palette.background.default,
+  // opacity: 1.0,
+  // [theme.breakpoints.down("xl")]: {},
+  // [theme.breakpoints.down("lg")]: {
+  //   width: "calc(80% - 1rem)",
+  // },
+  // [theme.breakpoints.down("md")]: {
+  //   width: "90%",
+  //   // margin: 0,
+  // },
+  // [theme.breakpoints.down("sm")]: {
+  //   width: "100%",
+  // },
 }));
 
 export const StyledEventList = styled(Box)(({ theme }) => ({
