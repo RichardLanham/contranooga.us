@@ -42,30 +42,8 @@ const Site = (props) => {
     });
   };
 
-  let counter = 1;
-  // async function changeImage() {}
-
-  // const switchBg = () => {
-  //   document.body.style.backgroundImage =
-  //     "url('/images/bgimages/bg" + counter + ".png')";
-
-  //   counter++;
-  //   if (counter > 14) {
-  //     counter = 1;
-  //   }
-  // };
   useEffect(() => {
-    // document.body.style.backgroundImage =
-    //   "url('/images/bgimages/bg" +
-    //   Math.round(Math.random() * (14 - 1) + 1) +
-    //   ".png')";
-
-    // document.body.style.transition = "all 1s";
-
-    // document.body.style.backgroundSize = "fill";
     window.addEventListener("scroll", toggleVisible);
-
-    // const bgInterval = setInterval(switchBg, 10000);
 
     return () => {
       window.removeEventListener("scroll", toggleVisible);

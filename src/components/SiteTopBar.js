@@ -90,8 +90,9 @@ const SiteTopBar = () => {
   return (
     <div>
       <SlideDrawer show={drawerOpen} />
-      <CornerBurger />
+
       <StyledAppBar>
+        <CornerBurger />
         <StyledToolbar>
           <StrapiPagesTop position="top" />
         </StyledToolbar>

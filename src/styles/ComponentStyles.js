@@ -35,7 +35,7 @@ export const StyledSideBar = styled("div")(({ theme }) => ({
   position: "fixed",
   width: "calc(15% - 2em)",
   minHeight: "calc(65% - 1em)",
-  marginTop: 40,
+  marginTop: 60,
   marginLeft: 20,
   // border: `3px solid ${theme.palette.primary.dark}`,
   boxShadow: theme.shadows[8],
@@ -129,7 +129,7 @@ export const StyledPage = styled("div")(({ theme }) => ({
     width: "calc(95% - 1rem)",
   },
 }));
-export const StyledHeading = styled(Typography)(({ theme }) => ({
+export const StyledHeading = styled("div")(({ theme }) => ({
   ...theme.typography.h4,
   //width: "calc(20% - 10px)",
   margin: "auto",

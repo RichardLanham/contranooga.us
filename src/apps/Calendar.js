@@ -798,7 +798,7 @@ const Calendar = () => {
   };
 
   return (
-    <Site title="Events">
+    <Site style={{ position: "relative" }} title="Events">
       <StyledRoot>
         <Header />
         <EventCalendar />

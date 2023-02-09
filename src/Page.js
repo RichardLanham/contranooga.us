@@ -33,10 +33,9 @@ import PledgeForm from "./components/page/PledgeForm";
 // import { isNullableType } from "graphql";
 
 const Page = ({ _slug }) => {
+  useEffect(() => {}, []);
   let { slug } = useParams();
-
   slug = slug ? slug : _slug;
-
   slug = slug.toLowerCase();
 
   const { data, loading, error } = useQuery(GET_PAGE, {

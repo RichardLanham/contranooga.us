@@ -15,6 +15,8 @@ const CalendarStyles = () => {
 export const StyledRoot = styled("div")(({ theme }) => ({
   width: "calc(60% - 1rem)",
   margin: "auto",
+  // position: "relative",
+  top: 30,
   backgroundColor: theme.palette.background.default,
   opacity: 1.0,
   [theme.breakpoints.down("xl")]: {},
