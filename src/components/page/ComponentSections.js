@@ -18,13 +18,15 @@ import {
   StyledImg,
   StyledImgCaption,
 } from "../../styles/PageStyles";
-import { PUT_THEME_SELECTED_COLOR_MODES } from "../../gql/theme";
 
-import { typography } from "@mui/system";
+import { getThumb, getLarge } from "../../apps/functions";
+// import { PUT_THEME_SELECTED_COLOR_MODES } from "../../gql/theme";
 
-const Main = () => {
-  return <div></div>;
-};
+// import { typography } from "@mui/system";
+
+// const Main = () => {
+//   return <div></div>;
+// };
 
 const StyledLargeVideo = styled(Box)(({ theme }) => ({
   // ...typography.caption,
@@ -48,6 +50,121 @@ const StyledLargeVideo = styled(Box)(({ theme }) => ({
     // width: 320,
   },
 }));
+
+export const FlexGroup = ({ section }) => {
+  const theme = useTheme();
+  return (
+    <StyledPageSection>
+      <StyledSubHead>{section.title}</StyledSubHead>
+
+      {section.group.map((group, key) => {
+        //GROUP
+        const thumb = getThumb(group.logo.data.attributes);
+        return (
+          <div>
+            {group.groupTitle && <div>{group.groupTitle}</div>}
+            <div
+              style={{
+                display: "flex",
+                gap: 2,
+                // width: "100%",
+                // backgroundColor: theme.palette.background.default,
+              }}
+            >
+              <div>
+                {thumb && (
+                  <img
+                    title="group image"
+                    style={{
+                      height: thumb.height,
+                      width: "auto",
+                      verticalAlign: "middle",
+                      // float: "left",
+                    }}
+                    src={process.env.REACT_APP_STRAPI + thumb.url}
+                  />
+                )}
+                {group.richtext.richtext && (
+                  <span
+                    dangerouslySetInnerHTML={createMarkup(
+                      group.richtext.richtext
+                    )}
+                  ></span>
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexWrap: "wrap",
+                flexDirection: "row",
+                // backgroundColor: "yellow",
+                gap: 20,
+                // width: 300,
+              }}
+            >
+              {group.box.map((box, key) => {
+                // BOX
+                const boxThumb = getThumb(box.poster.data.attributes);
+                return (
+                  <div
+                    style={{
+                      border: "1px solid",
+                      // borderColor: theme.palette.primary.main,
+                      borderRadius: 5,
+                      shadow: theme.shadows[10],
+                    }}
+                  >
+                    {box.title && <div>{box.title}</div>}
+                    {box.description && <div>{box.description}</div>}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        flexDirection: "row",
+                        gap: 20,
+                        // backgroundColor: "green",
+                        maxWidth: 320,
+                        height: "100%",
+                        // verticalAlign: "middle",
+                      }}
+                    >
+                      <div>
+                        {box.richtext && (
+                          <span
+                            dangerouslySetInnerHTML={createMarkup(box.richtext)}
+                          />
+                        )}
+                        {boxThumb && (
+                          <img
+                            title="box image"
+                            style={{
+                              height: boxThumb.height,
+                              width: "auto",
+                              float: "left",
+                            }}
+                            src={process.env.REACT_APP_STRAPI + boxThumb.url}
+                          />
+                        )}
+                      </div>
+
+                      {box.url && (
+                        <div style={{ width: 300 }}>
+                          <ReactPlayer width="100%" url={box.url} controls />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </StyledPageSection>
+  );
+};
 
 export const LargeVideo = ({ section }) => {
   const theme = useTheme();

@@ -6,6 +6,8 @@ import { eventEmitter } from "../events.tsx";
 import SlideDrawer from "./drawer/SlideDrawer.js";
 import MenuIcon from "@mui/icons-material/Menu";
 
+import HideOnScroll from "./HideOnScroll";
+
 const SiteTopBar = () => {
   const theme = useTheme();
   const [user, setUser] = useState(false);
@@ -50,11 +52,12 @@ const SiteTopBar = () => {
 
   const StyledAppBar = styled("div")(({ theme }) => ({
     height: 60,
+
     marginBottom: 20,
-    marginTop: 5,
+    marginTop: 0,
     width: "100%",
     position: "fixed",
-    top: 5,
+    top: 0,
     zIndex: theme.zIndex.tooltip,
 
     opacity: 1,
@@ -65,13 +68,14 @@ const SiteTopBar = () => {
 
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     maxHeight: 100,
+
     whiteSpace: "nowrap",
     flexWrap: "nowrap",
     width: "100%",
     margin: "auto",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    //marginTop: 10,
     [theme.breakpoints.up("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
     },
@@ -90,13 +94,14 @@ const SiteTopBar = () => {
   return (
     <div>
       <SlideDrawer show={drawerOpen} />
-
-      <StyledAppBar>
-        <CornerBurger />
-        <StyledToolbar>
-          <StrapiPagesTop position="top" />
-        </StyledToolbar>
-      </StyledAppBar>
+      <HideOnScroll>
+        <StyledAppBar>
+          <CornerBurger />
+          <StyledToolbar>
+            <StrapiPagesTop position="top" />
+          </StyledToolbar>
+        </StyledAppBar>
+      </HideOnScroll>
     </div>
   );
 };

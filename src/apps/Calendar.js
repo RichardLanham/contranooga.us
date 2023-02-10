@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   FormLabel,
   Button,
@@ -709,9 +710,16 @@ const Calendar = () => {
                 }}
               >
                 {event.title === saturdayLabel ? (
-                  <StyledEventButton href="/page/newdancer">
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      fontWeight: "bold",
+                      color: "#000666",
+                    }}
+                    to="/page/newdancer"
+                  >
                     {event.title}
-                  </StyledEventButton>
+                  </Link>
                 ) : (
                   <StyledEventButton href={"#" + title.replaceAll(" ", "")}>
                     {event.title}

@@ -26,9 +26,10 @@ const StrapiPages = (props) => {
     margin: "auto",
     justifyContent: "center",
     height: 45,
-    padding: 10,
+    // padding: 10,
     borderRadius: 5,
     display: theme.menuPosition === "top" ? "flex" : "none",
+    // display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
     "&:hover": {

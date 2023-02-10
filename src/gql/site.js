@@ -37,9 +37,13 @@ export const GET_PAGE = gql`
         mime
         url
         formats
+        __typename
       }
+      __typename
     }
+    __typename
   }
+
   query GetPages(
     $slug: String!
     $publicationState: PublicationState!
@@ -59,8 +63,11 @@ export const GET_PAGE = gql`
               id
               attributes {
                 locale
+                __typename
               }
+              __typename
             }
+            __typename
           }
           slug
           metadata {
@@ -68,12 +75,40 @@ export const GET_PAGE = gql`
             metaDescription
             shareImage {
               ...FileParts
+              __typename
             }
             twitterCardType
             twitterUsername
+            __typename
           }
           contentSections {
             __typename
+            ... on ComponentSectionsFlexGroup {
+              id
+              title
+              group {
+                id
+                groupTitle
+                richtext {
+                  id
+                  richtext
+                }
+                logo {
+                  ...FileParts
+                }
+                box {
+                  id
+                  title
+                  description
+                  url
+                  facebook_bound
+                  poster {
+                    ...FileParts
+                  }
+                  richtext
+                }
+              }
+            }
             ... on ComponentSectionsBottomActions {
               id
               title
@@ -83,7 +118,9 @@ export const GET_PAGE = gql`
                 text
                 type
                 url
+                __typename
               }
+              __typename
             }
             ... on ComponentSectionsHero {
               id
@@ -96,13 +133,16 @@ export const GET_PAGE = gql`
                 text
                 type
                 url
+                __typename
               }
               title
               description
               label
               picture {
                 ...FileParts
+                __typename
               }
+              __typename
             }
             ... on ComponentSectionsFeatureColumnsGroup {
               id
@@ -111,9 +151,12 @@ export const GET_PAGE = gql`
                 description
                 icon {
                   ...FileParts
+                  __typename
                 }
                 title
+                __typename
               }
+              __typename
             }
             ... on ComponentSectionsFeatureRowsGroup {
               id
@@ -125,12 +168,16 @@ export const GET_PAGE = gql`
                   newTab
                   text
                   url
+                  __typename
                 }
                 media {
                   ...FileParts
+                  __typename
                 }
                 title
+                __typename
               }
+              __typename
             }
             ... on ComponentSectionsTestimonialsGroup {
               id
@@ -140,28 +187,35 @@ export const GET_PAGE = gql`
                 newTab
                 text
                 url
+                __typename
               }
               logos {
                 id
                 title
                 logo {
                   ...FileParts
+                  __typename
                 }
+                __typename
               }
               testimonials {
                 id
                 logo {
                   ...FileParts
+                  __typename
                 }
                 picture {
                   ...FileParts
+                  __typename
                 }
                 text
                 authorName
                 authorTitle
                 link
+                __typename
               }
               title
+              __typename
             }
             ... on ComponentSectionsLargeVideo {
               id
@@ -169,13 +223,16 @@ export const GET_PAGE = gql`
               title
               poster {
                 ...FileParts
+                __typename
               }
               url
               facebook_bound
+              __typename
             }
             ... on ComponentSectionsRichText {
               id
               content
+              __typename
             }
             ... on ComponentSectionsPricing {
               id
@@ -185,13 +242,16 @@ export const GET_PAGE = gql`
                 features {
                   id
                   name
+                  __typename
                 }
                 id
                 isRecommended
                 name
                 price
                 pricePeriod
+                __typename
               }
+              __typename
             }
             ... on ComponentSectionsLeadForm {
               id
@@ -201,12 +261,17 @@ export const GET_PAGE = gql`
                 id
                 text
                 type
+                __typename
               }
               title
+              __typename
             }
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;

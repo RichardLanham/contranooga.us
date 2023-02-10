@@ -22,6 +22,7 @@ import {
 import {
   Hero,
   RichText,
+  FlexGroup,
   LargeVideo,
   Feature,
   FeatureColumnsGroup,
@@ -64,6 +65,8 @@ const Page = ({ _slug }) => {
             {attribs.contentSections.map((section, key) => {
               // ComponentSections
               switch (section.__typename.replace("ComponentSections", "")) {
+                case "FlexGroup":
+                  return <FlexGroup key={key} section={section} />;
                 case "RichText":
                   return <RichText key={key} section={section} />;
                 case "Hero":
