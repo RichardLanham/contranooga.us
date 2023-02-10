@@ -51,6 +51,23 @@ const StyledLargeVideo = styled(Box)(({ theme }) => ({
   },
 }));
 
+const StyledFlexBox = styled("div")(({ theme }) => ({
+  border: "1px solid",
+  borderColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.grey[300],
+  borderRadius: 5,
+  shadow: theme.shadows[9],
+  width: "30%",
+  marginTop: 20,
+  [theme.breakpoints.down("lg")]: {
+    // width: "calc(60% - 1rem)",
+    width: "45%",
+  },
+  [theme.breakpoints.down("md")]: {
+    width: "85%",
+  },
+}));
+
 export const FlexGroup = ({ section }) => {
   const theme = useTheme();
   return (
@@ -59,16 +76,20 @@ export const FlexGroup = ({ section }) => {
 
       {section.group.map((group, key) => {
         //GROUP
-        const thumb = getThumb(group.logo.data.attributes);
+        const thumb = group.logo.data
+          ? getThumb(group.logo.data.attributes)
+          : false;
         return (
           <div>
-            {group.groupTitle && <div>{group.groupTitle}</div>}
+            {group.groupTitle && (
+              <div style={{ ...theme.typography.h4 }}>{group.groupTitle}</div>
+            )}
             <div
               style={{
                 display: "flex",
                 gap: 2,
-                // width: "100%",
-                // backgroundColor: theme.palette.background.default,
+                borderRadius: 5,
+                backgroundColor: theme.palette.grey[200],
               }}
             >
               <div>
@@ -79,7 +100,9 @@ export const FlexGroup = ({ section }) => {
                       height: thumb.height,
                       width: "auto",
                       verticalAlign: "middle",
-                      // float: "left",
+                      float: "left",
+                      borderRadius: 5,
+                      margin: 3,
                     }}
                     src={process.env.REACT_APP_STRAPI + thumb.url}
                   />
@@ -106,18 +129,19 @@ export const FlexGroup = ({ section }) => {
             >
               {group.box.map((box, key) => {
                 // BOX
-                const boxThumb = getThumb(box.poster.data.attributes);
+                const boxThumb = box.poster.data
+                  ? getThumb(box.poster.data.attributes)
+                  : false;
                 return (
-                  <div
-                    style={{
-                      border: "1px solid",
-                      // borderColor: theme.palette.primary.main,
-                      borderRadius: 5,
-                      shadow: theme.shadows[10],
-                    }}
-                  >
-                    {box.title && <div>{box.title}</div>}
-                    {box.description && <div>{box.description}</div>}
+                  <StyledFlexBox>
+                    {box.title && (
+                      <div style={{ ...theme.typography.h4 }}>{box.title}</div>
+                    )}
+                    {box.description && (
+                      <div style={{ ...theme.typography.body1 }}>
+                        {box.description}
+                      </div>
+                    )}
                     <div
                       style={{
                         display: "flex",
@@ -131,20 +155,22 @@ export const FlexGroup = ({ section }) => {
                       }}
                     >
                       <div>
-                        {box.richtext && (
-                          <span
-                            dangerouslySetInnerHTML={createMarkup(box.richtext)}
-                          />
-                        )}
                         {boxThumb && (
                           <img
                             title="box image"
                             style={{
                               height: boxThumb.height,
                               width: "auto",
+                              borderRadius: 5,
+                              margin: 3,
                               float: "left",
                             }}
                             src={process.env.REACT_APP_STRAPI + boxThumb.url}
+                          />
+                        )}
+                        {box.richtext && (
+                          <span
+                            dangerouslySetInnerHTML={createMarkup(box.richtext)}
                           />
                         )}
                       </div>
@@ -155,7 +181,7 @@ export const FlexGroup = ({ section }) => {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </StyledFlexBox>
                 );
               })}
             </div>

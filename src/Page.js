@@ -12,7 +12,7 @@ import Site from "./Site";
 import {
   StyledPageSection,
   StyledPage,
-  StyledHeader,
+  // StyledHeader,
   StyledHeading,
   // StyledSubHead,
   // StyledBody1,
@@ -39,6 +39,36 @@ const Page = ({ _slug }) => {
   slug = slug ? slug : _slug;
   slug = slug.toLowerCase();
 
+  const StyledHeader = styled("div")(({ theme }) => ({
+    fontSize: 32,
+    margin: "auto",
+    width: "calc(90% -1px)",
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 120,
+    borderRadius: 5,
+    // border: "2px solid",
+    borderColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[10],
+    // whiteSpace: "wrap",
+    // justifyContent: "center",
+    backgroundColor: theme.palette.background.paper,
+    // color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down("lg")]: {
+      // top: 0,
+      marginTop: 120,
+      fontSize: 30,
+      left: 50,
+    },
+    [theme.breakpoints.down("md")]: {
+      // width: 300,
+
+      fontSize: 22,
+      left: 8,
+    },
+  }));
+
   const { data, loading, error } = useQuery(GET_PAGE, {
     variables: { slug: slug, publicationState: "LIVE", locale: "en" },
   });
@@ -53,12 +83,7 @@ const Page = ({ _slug }) => {
           description={attribs.metadata.metaDescription}
         >
           <StyledPage>
-            <StyledHeader>
-              <StyledHeading>{attribs.header}</StyledHeading>
-              {
-                attribs.subhead ? null : null // todo
-              }
-            </StyledHeader>
+            <StyledHeader>{attribs.metadata.metaTitle}</StyledHeader>
 
             <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
             <SiteFeature slug={slug} />

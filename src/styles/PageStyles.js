@@ -75,7 +75,7 @@ export const StyledPage = styled("div")(({ theme }) => ({
   position: "relative",
   width: "calc(70% - 1px)",
   margin: "auto",
-  marginTop: 5,
+  marginTop: 65,
   borderRadius: 10,
   // paddingTop: 1,
   zIndex: 0,
@@ -88,11 +88,13 @@ export const StyledPage = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.down("lg")]: {
     width: "calc(85% - 1px)",
+    marginTop: 20,
     // marginLeft: 20,
     // marginRight: 20,
   },
   [theme.breakpoints.down("md")]: {
     width: "calc(95% - 1rem)",
+    // marginTop: 85,
   },
 }));
 

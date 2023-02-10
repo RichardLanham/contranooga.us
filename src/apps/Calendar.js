@@ -811,7 +811,7 @@ const Calendar = () => {
 
   return (
     <Site title="Events">
-      <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
+      <div style={{ height: 105, opacity: 0 }}>&nbsp;</div>
       <StyledPage style={{ backgroundColor: theme.palette.background.default }}>
         <StyledHeader>
           <StyledHeading></StyledHeading>
