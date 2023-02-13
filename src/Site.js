@@ -4,13 +4,15 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import SiteTopBar from "./components/SiteTopBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { eventEmitter } from "./events";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import StrapiPages from "./components/StrapiPages";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { StyledSideBar } from "./styles/ComponentStyles";
 // import { StyledTopBar } from "./styles/ComponentStyles";
+import { Link } from "react-router-dom";
 import Banners from "./components/Banners";
 import Login from "./components/Login";
+import { getThumb } from "./apps/functions";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -116,7 +118,9 @@ const Site = (props) => {
       left: 8,
     },
   }));
+  const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
 
+  console.log(thumb);
   return (
     <HelmetProvider title={title}>
       <Helmet prioritizeSeoTags>
@@ -145,9 +149,17 @@ const Site = (props) => {
             {width}
           </div>
         )}
+        <Link to="/" style={{ zIndex: 3000 }}>
+          <img
+            style={{ width: "calc(15%)", position: "absolute", top: 0 }}
+            // width={thumb.width}
+            // height={thumb.height}
+
+            src={process.env.REACT_APP_STRAPI + thumb.url}
+          />
+        </Link>
 
         <SiteTopBar key="cdtstopbar" />
-
         <StyledSideBar>
           <StrapiPages position="side" />
         </StyledSideBar>

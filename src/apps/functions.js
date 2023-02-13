@@ -5,7 +5,7 @@ export const getThumb = (attribs) => {
 
   const formats = attribs.formats;
   if (!formats) {
-    return false;
+    return attribs;
   }
   if (formats.thumbnail) {
     return formats.thumbnail;

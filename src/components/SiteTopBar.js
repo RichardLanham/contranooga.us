@@ -69,8 +69,8 @@ const SiteTopBar = () => {
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     maxHeight: 100,
 
-    whiteSpace: "nowrap",
-    flexWrap: "nowrap",
+    // whiteSpace: "nowrap",
+    flexWrap: "wrap",
     width: "100%",
     margin: "auto",
     justifyContent: "center",
@@ -78,6 +78,48 @@ const SiteTopBar = () => {
     //marginTop: 10,
     [theme.breakpoints.up("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
+    },
+  }));
+
+  const StyledHeading = styled("div")(({ theme }) => ({
+    ...theme.typography.h2,
+    // display: "none",
+    // fontSize: 42,
+    // margin: "auto",
+    position: "absolute",
+    top: 50,
+    // width: "calc(90% -1px)",
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    // marginTop: 40,
+    // borderRadius: 5,
+    // border: "2px solid",
+    // borderColor: theme.palette.primary.main,
+    // boxShadow: theme.shadows[10],
+    // // whiteSpace: "wrap",
+    // // justifyContent: "center",
+    // backgroundColor: theme.palette.background.paper,
+    // color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down("lg")]: {
+      ...theme.typography.h3,
+      // top: 0,
+      // marginTop: 60,
+      // fontSize: 30,
+      // left: 50,
+    },
+    [theme.breakpoints.down("md")]: {
+      ...theme.typography.h4,
+      // width: 300,
+      // marginTop: 40,
+      // fontSize: 20,
+      // left: 8,
+    },
+    [theme.breakpoints.down("sm")]: {
+      ...theme.typography.h5,
+      // width: 300,
+      // marginTop: 40,
+      // fontSize: 20,
+      // left: 8,
     },
   }));
 
@@ -91,37 +133,6 @@ const SiteTopBar = () => {
       </StyledMenuButton>
     );
   };
-
-  const StyledHeading = styled("div")(({ theme }) => ({
-    fontSize: 42,
-    margin: "auto",
-    position: "absolute",
-    top: 0,
-    width: "calc(90% -1px)",
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 40,
-    borderRadius: 5,
-    border: "2px solid",
-    borderColor: theme.palette.primary.main,
-    boxShadow: theme.shadows[10],
-    // whiteSpace: "wrap",
-    // justifyContent: "center",
-    backgroundColor: theme.palette.background.paper,
-    // color: theme.palette.primary.contrastText,
-    [theme.breakpoints.down("lg")]: {
-      // top: 0,
-      marginTop: 60,
-      fontSize: 30,
-      left: 50,
-    },
-    [theme.breakpoints.down("md")]: {
-      // width: 300,
-      marginTop: 40,
-      fontSize: 22,
-      left: 8,
-    },
-  }));
 
   return (
     <div>

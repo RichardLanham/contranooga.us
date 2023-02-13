@@ -41,11 +41,11 @@ const Page = ({ _slug }) => {
 
   const StyledHeader = styled("div")(({ theme }) => ({
     fontSize: 32,
-    margin: "auto",
-    width: "calc(90% -1px)",
+    // margin: "auto",
+    width: "50%",
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 120,
+    marginTop: 150,
     borderRadius: 5,
     // border: "2px solid",
     borderColor: theme.palette.primary.main,
@@ -57,7 +57,7 @@ const Page = ({ _slug }) => {
     // color: theme.palette.primary.contrastText,
     [theme.breakpoints.down("lg")]: {
       // top: 0,
-      marginTop: 120,
+      // marginTop: 120,
       fontSize: 30,
       left: 50,
     },
@@ -66,6 +66,13 @@ const Page = ({ _slug }) => {
 
       fontSize: 22,
       left: 8,
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 110,
+      // width: 300,
+      // marginTop: 40,
+      // fontSize: 20,
+      // left: 8,
     },
   }));
 
