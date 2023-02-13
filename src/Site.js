@@ -136,7 +136,7 @@ const Site = (props) => {
               backgroundColor: theme.palette.background.default,
               color: "#000",
               position: "fixed",
-              bottom: 2,
+              bottom: 42,
               right: 10,
               padding: 5,
               zIndex: theme.zIndex.modal,
@@ -158,6 +158,7 @@ const Site = (props) => {
             onClick={scrollToTop}
             style={{
               backgroundColor: theme.palette.background.default,
+              zIndex: theme.zIndex.tooltip,
               borderRadius: 5,
               // width: "1.7em",
               // height: "1.7em",
