@@ -70,7 +70,7 @@ const Page = ({ _slug }) => {
       left: 8,
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: 130,
+      marginTop: 150,
       // width: 300,
       // marginTop: 40,
       // fontSize: 20,
