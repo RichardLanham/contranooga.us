@@ -9,6 +9,8 @@ import { Zoom } from "@mui/material";
 import SiteFeature from "./components/page/SiteFeature";
 import Site from "./Site";
 
+import DownloadingIcon from "@mui/icons-material/Downloading";
+
 import {
   StyledPageSection,
   StyledPage,
@@ -68,7 +70,7 @@ const Page = ({ _slug }) => {
       left: 8,
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: 110,
+      marginTop: 130,
       // width: 300,
       // marginTop: 40,
       // fontSize: 20,
@@ -132,7 +134,11 @@ const Page = ({ _slug }) => {
     }
     return <div>error</div>;
   }
-  return <div>loading</div>;
+  return (
+    <div>
+      <DownloadingIcon />
+    </div>
+  );
 };
 
 export default Page;

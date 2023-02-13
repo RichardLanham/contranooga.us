@@ -8,6 +8,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import HideOnScroll from "./HideOnScroll";
 
+import { getThumb } from "../apps/functions";
+import { Link } from "react-router-dom";
+
 const SiteTopBar = () => {
   const theme = useTheme();
   const [user, setUser] = useState(false);
@@ -24,7 +27,7 @@ const SiteTopBar = () => {
       []
     );
     return () => {
-      eventEmitter.unsubscribe("DRAWER_STATE");
+      eventEmitter.unsubscribe("TOGGLE_DRAWER");
     };
   }, []);
 
@@ -81,48 +84,6 @@ const SiteTopBar = () => {
     },
   }));
 
-  const StyledHeading = styled("div")(({ theme }) => ({
-    ...theme.typography.h2,
-    // display: "none",
-    // fontSize: 42,
-    // margin: "auto",
-    position: "absolute",
-    top: 50,
-    // width: "calc(90% -1px)",
-    // paddingLeft: 10,
-    // paddingRight: 10,
-    // marginTop: 40,
-    // borderRadius: 5,
-    // border: "2px solid",
-    // borderColor: theme.palette.primary.main,
-    // boxShadow: theme.shadows[10],
-    // // whiteSpace: "wrap",
-    // // justifyContent: "center",
-    // backgroundColor: theme.palette.background.paper,
-    // color: theme.palette.primary.contrastText,
-    [theme.breakpoints.down("lg")]: {
-      ...theme.typography.h3,
-      // top: 0,
-      // marginTop: 60,
-      // fontSize: 30,
-      // left: 50,
-    },
-    [theme.breakpoints.down("md")]: {
-      ...theme.typography.h4,
-      // width: 300,
-      // marginTop: 40,
-      // fontSize: 20,
-      // left: 8,
-    },
-    [theme.breakpoints.down("sm")]: {
-      ...theme.typography.h5,
-      // width: 300,
-      // marginTop: 40,
-      // fontSize: 20,
-      // left: 8,
-    },
-  }));
-
   const CornerBurger = () => {
     return (
       <StyledMenuButton
@@ -133,7 +94,7 @@ const SiteTopBar = () => {
       </StyledMenuButton>
     );
   };
-
+  const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
   return (
     <div>
       <SlideDrawer show={drawerOpen} />
@@ -141,9 +102,20 @@ const SiteTopBar = () => {
         <StyledAppBar>
           <CornerBurger />
           <StyledToolbar>
-            <StyledHeading>
-              {theme.global.metadata.metaDescription}
-            </StyledHeading>
+            <Link to="/" style={{ zIndex: 3000 }}>
+              <img
+                style={{
+                  width: "calc(15%)",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                }}
+                // width={thumb.width}
+                // height={thumb.height}
+
+                src={process.env.REACT_APP_STRAPI + thumb.url}
+              />
+            </Link>
             <StrapiPagesTop position="top" />
           </StyledToolbar>
         </StyledAppBar>

@@ -9,10 +9,10 @@ import StrapiPages from "./components/StrapiPages";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { StyledSideBar } from "./styles/ComponentStyles";
 // import { StyledTopBar } from "./styles/ComponentStyles";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Banners from "./components/Banners";
 import Login from "./components/Login";
-import { getThumb } from "./apps/functions";
+// import { getThumb } from "./apps/functions";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -90,14 +90,15 @@ const Site = (props) => {
     // [theme.breakpoints.down("sm")]: {},
   }));
 
-  const StyledHeading = styled("div")(({ theme }) => ({
+  const StyledSiteName = styled("div")(({ theme }) => ({
     fontSize: 42,
     margin: "auto",
     position: "absolute",
-    top: 0,
+    top: 20,
+    left: "calc(20%)",
     width: "calc(90% -1px)",
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
     marginTop: 40,
     borderRadius: 5,
     border: "2px solid",
@@ -105,22 +106,63 @@ const Site = (props) => {
     boxShadow: theme.shadows[10],
     // whiteSpace: "wrap",
     // justifyContent: "center",
-    backgroundColor: theme.palette.background.paper,
+    //  backgroundColor: theme.palette.background.paper,
     // color: theme.palette.primary.contrastText,
     [theme.breakpoints.down("lg")]: {
       // top: 0,
       fontSize: 30,
-      left: 50,
+      // left: 50,
     },
     [theme.breakpoints.down("md")]: {
       // width: 300,
-
-      left: 8,
+      // left: 8,
     },
   }));
-  const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
 
-  console.log(thumb);
+  const StyledHeading = styled("div")(({ theme }) => ({
+    ...theme.typography.h2,
+    // display: "none",
+    // fontSize: 42,
+    // margin: "auto",
+    // position: "absolute",
+    top: 50,
+    width: "100%",
+    margin: "auto",
+    // width: "calc(90% -1px)",
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    // marginTop: 40,
+    // borderRadius: 5,
+    // border: "2px solid",
+    // borderColor: theme.palette.primary.main,
+    // boxShadow: theme.shadows[10],
+    // // whiteSpace: "wrap",
+    // // justifyContent: "center",
+    // backgroundColor: theme.palette.background.paper,
+    // color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down("lg")]: {
+      ...theme.typography.h3,
+      // top: 0,
+      // marginTop: 60,
+      // fontSize: 30,
+      // left: 50,
+    },
+    [theme.breakpoints.down("md")]: {
+      ...theme.typography.h4,
+      // width: 300,
+      // marginTop: 40,
+      // fontSize: 20,
+      // left: 8,
+    },
+    [theme.breakpoints.down("sm")]: {
+      ...theme.typography.h5,
+      // width: 300,
+      // marginTop: 40,
+      // fontSize: 20,
+      // left: 8,
+    },
+  }));
+  // const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
   return (
     <HelmetProvider title={title}>
       <Helmet prioritizeSeoTags>
@@ -133,6 +175,7 @@ const Site = (props) => {
         {<meta name="theme-color" content={theme.palette.primary.main} />}
         <link rel="canonical" href="http://contranooga.us/" />
       </Helmet>
+      <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName>
       <StyledSiteDiv>
         {user && (
           <div
@@ -149,15 +192,6 @@ const Site = (props) => {
             {width}
           </div>
         )}
-        <Link to="/" style={{ zIndex: 3000 }}>
-          <img
-            style={{ width: "calc(15%)", position: "absolute", top: 0 }}
-            // width={thumb.width}
-            // height={thumb.height}
-
-            src={process.env.REACT_APP_STRAPI + thumb.url}
-          />
-        </Link>
 
         <SiteTopBar key="cdtstopbar" />
         <StyledSideBar>

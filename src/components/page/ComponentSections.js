@@ -80,7 +80,7 @@ export const FlexGroup = ({ section }) => {
           ? getThumb(group.logo.data.attributes)
           : false;
         return (
-          <div>
+          <div key={key}>
             {group.groupTitle && (
               <div style={{ ...theme.typography.h4 }}>{group.groupTitle}</div>
             )}
@@ -133,7 +133,7 @@ export const FlexGroup = ({ section }) => {
                   ? getThumb(box.poster.data.attributes)
                   : false;
                 return (
-                  <StyledFlexBox>
+                  <StyledFlexBox key={key}>
                     {box.title && (
                       <div style={{ ...theme.typography.h4 }}>{box.title}</div>
                     )}

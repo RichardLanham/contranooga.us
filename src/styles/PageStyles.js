@@ -72,10 +72,11 @@ export const StyledAppBar = styled(AppBar)(
 
 export const StyledPage = styled("div")(({ theme }) => ({
   // backgroundColor: theme.palette.background.default,
+  // backgroundColor: "yellow",
   position: "relative",
   width: "calc(70% - 1px)",
   margin: "auto",
-  marginTop: 65,
+  // marginTop: 45,
   borderRadius: 10,
   // paddingTop: 1,
   zIndex: 0,
@@ -88,7 +89,7 @@ export const StyledPage = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.down("lg")]: {
     width: "calc(85% - 1px)",
-    marginTop: 20,
+    // marginTop: 20,
     // marginLeft: 20,
     // marginRight: 20,
   },
@@ -102,8 +103,8 @@ export const StyledPageSection = styled("div")(({ theme }) => ({
   // backgroundColor: theme.palette.primary.light,
   width: "calc(90% - 1px)",
   marginRight: "auto",
-  marginTop: 20,
-  marginBottom: 20,
+  // marginTop: 20,
+  // marginBottom: 20,
   // paddingTop: 10,
   borderRadius: 10,
   padding: 0,
