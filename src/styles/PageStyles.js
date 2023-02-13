@@ -108,7 +108,7 @@ export const StyledPageSection = styled("div")(({ theme }) => ({
   // paddingTop: 10,
   borderRadius: 10,
   padding: 0,
-  //border: `1px solid ${theme.palette.primary.main}`,
+  // border: `1px solid ${theme.palette.primary.main}`,
   // minHeight: 200,
   [theme.breakpoints.down("xl")]: {
     //width: "calc(80% - 1px)",
