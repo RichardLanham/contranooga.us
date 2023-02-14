@@ -41,8 +41,8 @@ export const StyledSideBar = styled("div")(({ theme }) => ({
   boxShadow: theme.shadows[8],
   borderRadius: 15,
   // backgroundImage: `url(${sidebar_bg})`,
-  backgroundSize: "cover",
-  backgroudPosition: "center",
+  // backgroundSize: "cover",
+  // backgroudPosition: "center",
   //borderColor: "green",
   [theme.breakpoints.down("xl")]: {
     // borderColor: "yellow",

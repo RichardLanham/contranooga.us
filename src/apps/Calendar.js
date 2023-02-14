@@ -706,7 +706,7 @@ const Calendar = () => {
                   borderColor: future
                     ? theme.palette.primary.main
                     : theme.palette.background.default, //the past is
-                  //color: future ? theme.palette.info.contrastLight : "#000", // greyed
+                  color: future ? theme.palette.info.contrastLight : "#000", // greyed
                 }}
               >
                 {event.title === saturdayLabel ? (
@@ -721,8 +721,13 @@ const Calendar = () => {
                     {event.title}
                   </Link>
                 ) : (
-                  <StyledEventButton href={"#" + title.replaceAll(" ", "")}>
-                    {event.title}
+                  <StyledEventButton>
+                    <a
+                      style={{ textDecoration: "none" }}
+                      href={"#" + title.replaceAll(" ", "")}
+                    >
+                      {event.title}
+                    </a>
                   </StyledEventButton>
                 )}
               </div>

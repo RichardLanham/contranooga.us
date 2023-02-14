@@ -131,14 +131,14 @@ export const StyledEventTypography = styled(Typography)(
     },
   })
 );
-export const StyledEventButton = styled(Button)(({ theme }) => ({
+export const StyledEventButton = styled("a")(({ theme }) => ({
   ...theme.typography.h6,
-  // color: theme.palette.info.contrastText,
-  // backgroundColor: theme.palette.info.main,
-  textDecoration: "none",
+  color: theme.palette.info.contrastText,
+  backgroundColor: theme.palette.info.main,
+
   textTransform: "none",
   "&:hover": {
-    backgroundColor: theme.palette.info.light,
+    backgroundColor: theme.palette.info.dark,
     color: theme.palette.info.contrastLight,
   },
   "&:visited": {

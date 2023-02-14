@@ -96,7 +96,7 @@ const Site = (props) => {
     margin: "auto",
     position: "absolute",
     top: 20,
-    left: "calc(16%)",
+    left: "calc(28%)",
     width: "calc(90% -1px)",
     // paddingLeft: 10,
     // paddingRight: 10,
