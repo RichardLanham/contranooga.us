@@ -44,29 +44,30 @@ const InputHex = () => {
   const [inputHex, setInputHex] = useState(theme.palette[targ].main);
   const orgHex = theme.palette.primary.main;
 
-  const {
-    loading: loading2,
-    error: error2,
-    data: data2,
-  } = useQuery(GET_THEME, {
-    client: client,
-    variables: { id: selectedTheme },
-  });
+  // const {
+  //   loading: loading2,
+  //   error: error2,
+  //   data: data2,
+  // } = useQuery(GET_THEME, {
+  //   client: client,
+  //   variables: { id: selectedTheme },
+  // });
 
-  useEffect(() => {
-    if (!loading2) {
-      if (!error2) {
-        const _themes = [];
-        //  console.log(data2.theme.data.attributes.theme);
-        theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
-        theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
-        eventEmitter.dispatch("REFRESH", {});
-        //data2.themes.data.map((t) => {});
-        // setThemes(_themes);
-        // console.log(_themes);
-      }
-    }
-  }, [selectedTheme, loading2, error2, data2]);
+  /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
+  // useEffect(() => {
+  //   if (!loading2) {
+  //     if (!error2) {
+  //       const _themes = [];
+  //       //  console.log(data2.theme.data.attributes.theme);
+  //       theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
+  //       theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
+  //       eventEmitter.dispatch("REFRESH", {});
+  //       //data2.themes.data.map((t) => {});
+  //       // setThemes(_themes);
+  //       // console.log(_themes);
+  //     }
+  //   }
+  // }, [selectedTheme, loading2, error2, data2]);
 
   //const [attrib, setAttrib] = useState("primary");
   // useEffect(() => {
