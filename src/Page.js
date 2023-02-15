@@ -38,45 +38,50 @@ import PledgeForm from "./components/page/PledgeForm";
 // import { isNullableType } from "graphql";
 
 const Page = ({ _slug }) => {
+  const theme = useTheme();
   useEffect(() => {}, []);
   let { slug } = useParams();
   slug = slug ? slug : _slug;
   slug = slug.toLowerCase();
 
   const StyledHeader = styled("div")(({ theme }) => ({
-    fontSize: 32,
-    // margin: "auto",
-    width: "50%",
+    ...theme.typography.h3,
+    width: "calc(50% - 1px)",
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 150,
+    marginTop: 20,
     borderRadius: 5,
-    // border: "2px solid",
     borderColor: theme.palette.primary.main,
-    // backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[10],
-    // whiteSpace: "wrap",
-    // justifyContent: "center",
-
-    // color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down("xl")]: {
+      marginTop: 15,
+    },
     [theme.breakpoints.down("lg")]: {
-      // top: 0,
-      // marginTop: 120,
-      fontSize: 30,
       left: 50,
     },
     [theme.breakpoints.down("md")]: {
-      // width: 300,
-
       fontSize: 22,
       left: 8,
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: 150,
-      // width: 300,
-      // marginTop: 40,
-      // fontSize: 20,
-      // left: 8,
+      marginTop: 15,
+    },
+  }));
+
+  const StyledSiteName = styled("div")(({ theme }) => ({
+    ...theme.typography.h3,
+    marginTop: 60,
+    borderRadius: 5,
+    padding: 3,
+    boxShadow: theme.shadows[10],
+    [theme.breakpoints.down("lg")]: {
+      // left: 50,
+    },
+    [theme.breakpoints.down("md")]: {
+      ...theme.typography.h5,
+    },
+    [theme.breakpoints.down("sm")]: {
+      left: 20,
     },
   }));
 
@@ -94,6 +99,9 @@ const Page = ({ _slug }) => {
           description={attribs.metadata.metaDescription}
         >
           <StyledPage>
+            <StyledSiteName>
+              {theme.global.metadata.metaDescription}
+            </StyledSiteName>
             <StyledHeader>{attribs.metadata.metaTitle}</StyledHeader>
 
             <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>

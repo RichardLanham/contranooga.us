@@ -91,12 +91,12 @@ const Site = (props) => {
   }));
 
   const StyledSiteName = styled("div")(({ theme }) => ({
-    // ...theme.typography.h3,
-    fontSize: "3.5vw",
-    margin: "auto",
+    ...theme.typography.h3,
+    // fontSize: "3.5vw",
+    // margin: "auto",
     position: "absolute",
     top: 20,
-    left: "calc(28%)",
+    // left: "calc(28%)",
     width: "calc(90% -1px)",
     // paddingLeft: 10,
     // paddingRight: 10,
@@ -185,7 +185,7 @@ const Site = (props) => {
         {<meta name="theme-color" content={theme.palette.primary.main} />}
         <link rel="canonical" href="http://contranooga.us/" />
       </Helmet>
-      <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName>
+      {/* <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName> */}
       <StyledSiteDiv>
         {user && (
           <div

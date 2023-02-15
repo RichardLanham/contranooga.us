@@ -101,7 +101,7 @@ export const StyledPage = styled("div")(({ theme }) => ({
 
 export const StyledPageSection = styled("div")(({ theme }) => ({
   // backgroundColor: theme.palette.primary.light,
-  width: "calc(90% - 1px)",
+  width: "calc(95% - 1px)",
   marginRight: "auto",
   // marginTop: 20,
   // marginBottom: 20,
@@ -120,6 +120,7 @@ export const StyledPageSection = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     // width: "calc(95% - 1rem)",
+    marginRight: 0,
   },
 }));
 
@@ -250,7 +251,7 @@ export const StyledBody2 = styled("div")(({ theme }) => ({
   width: "90%",
   margin: "auto",
   marginBottom: 10,
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   borderRadius: 5,
   boxShadow: theme.shadows[4],

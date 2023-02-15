@@ -216,7 +216,7 @@ export const StyledBody = styled("div")(({ theme }) => ({
   padding: 3,
   width: "90%",
   margin: "auto",
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   borderRadius: 5,
   boxShadow: theme.shadows[4],

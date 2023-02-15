@@ -83,7 +83,7 @@ export const FlexGroup = ({ section }) => {
                 display: "flex",
                 gap: 2,
                 borderRadius: 5,
-                backgroundColor: theme.palette.grey[200],
+                // backgroundColor: theme.palette.grey[200],
               }}
             >
               <div>
@@ -130,7 +130,7 @@ export const FlexGroup = ({ section }) => {
                 return (
                   <div key={key} style={{}}>
                     {box.title && (
-                      <div style={{ ...theme.typography.h1 }}>{box.title}</div>
+                      <div style={{ ...theme.typography.h5 }}>{box.title}</div>
                     )}
                     {box.description && (
                       <div style={{ ...theme.typography.body1 }}>
@@ -203,7 +203,7 @@ export const FlexGroup = ({ section }) => {
 
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
   width: 300,
   top: 0,
   // backgroundColor: "yellow",
@@ -405,7 +405,7 @@ const StyledRichText = styled("div")(({ theme }) => ({
   padding: "10px 10px 20px 20px",
   borderRadius: 5,
   margin: 5,
-  background: theme.palette.background.default,
+  // background: theme.palette.background.default,
   [theme.breakpoints.down("lg")]: {
     // padding: 0,
   },
@@ -526,7 +526,7 @@ const StyledFeaturesRow = styled(Card)(({ theme }) => ({
   marginLeft: 10,
   textAlign: "center",
   border: `2px solid ${theme.palette.secondary.dark}`,
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   //opacity: 0.9,
   borderRadius: 5,
@@ -753,7 +753,7 @@ export const Hero = ({ section }) => {
       {thumb && (
         <Box
           style={{
-            backgroundColor: theme.palette.background.default,
+            // backgroundColor: theme.palette.background.default,
             padding: 4,
             // color: theme.palette.secondary.contrastText,
             maxWidth: "50%",
