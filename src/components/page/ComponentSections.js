@@ -64,7 +64,18 @@ const StyledFlexBox = styled("div")(({ theme }) => ({
 export const FlexGroup = ({ section }) => {
   const theme = useTheme();
   return (
-    <StyledPageSection>
+    <StyledPageSection
+      style={{
+        display: "flex",
+        flexFlow: "column-wrap",
+        gap: 30,
+        flexShring: 10,
+        flexGrow: 10,
+        //        flexWrap: "wrap",
+        // backgroundColor: "green",
+        alignContent: "flex-start",
+      }}
+    >
       <StyledSubHead>{section.title}</StyledSubHead>
 
       {section.group.map((group, key) => {
