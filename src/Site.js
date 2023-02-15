@@ -7,6 +7,7 @@ import { eventEmitter } from "./events";
 import { IconButton } from "@mui/material";
 import StrapiPages from "./components/StrapiPages";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import CssBaseline from "@mui/material/CssBaseline";
 import { StyledSideBar } from "./styles/ComponentStyles";
 // import { StyledTopBar } from "./styles/ComponentStyles";
 // import { Link } from "react-router-dom";
@@ -175,6 +176,7 @@ const Site = (props) => {
   // const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
   return (
     <HelmetProvider title={title}>
+      <CssBaseline />
       <Helmet prioritizeSeoTags>
         <meta charSet="utf-8" />
         {<title>{theme.global.metadata.metaDescription}</title>}

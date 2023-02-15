@@ -839,11 +839,13 @@ const Calendar = () => {
 
   return (
     <Site title="Events">
-      <StyledPage>
-        <SiteHeader metaTitle="Upcoming Events" />
-        <EventCalendar />
-        <EventList key="evenlist" />
-      </StyledPage>
+      <Zoom in={true}>
+        <StyledPage>
+          <SiteHeader metaTitle="Upcoming Events" />
+          <EventCalendar />
+          <EventList key="evenlist" />
+        </StyledPage>
+      </Zoom>
     </Site>
   );
 };

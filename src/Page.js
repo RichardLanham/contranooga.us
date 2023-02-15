@@ -59,46 +59,48 @@ function Page({ _slug }) {
           title={attribs.metadata.metaTitle}
           description={attribs.metadata.metaDescription}
         >
-          <StyledPage>
-            <SiteHeader metaTitle={metaTitle} />
+          <Zoom in={true}>
+            <StyledPage>
+              <SiteHeader metaTitle={metaTitle} />
 
-            <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
-            <SiteFeature slug={slug} />
-            {attribs.contentSections.map((section, key) => {
-              // ComponentSections
-              switch (section.__typename.replace("ComponentSections", "")) {
-                case "LeadForm":
-                  return <LeadForm key={key} section={section} />;
-                case "FlexGroup":
-                  return <FlexGroup key={key} section={section} />;
-                case "RichText":
-                  return <RichText key={key} section={section} />;
-                case "Hero":
-                  return <Hero key={key} section={section} />;
-                case "PageFeature":
-                  return <Feature key={key} section={section} />;
-                case "LargeVideo":
-                  return <LargeVideo key={key} section={section} />;
-                case "FeatureColumnsGroup":
-                  return <FeatureColumnsGroup key={key} section={section} />;
-                case "FeatureRowsGroup":
-                  return <FeatureRowsGroup key={key} section={section} />;
-                case "BottomActions":
-                  return <BottomActions key={key} section={section} />;
-                case "PledgeForm":
-                  return (
-                    <StyledPage key={key}>
-                      <StyledPageSection>
-                        <PledgeForm key={key} section={section} />
-                      </StyledPageSection>
-                    </StyledPage>
-                  );
-                default:
-                  return <div key={key}></div>;
-                  break;
-              }
-            })}
-          </StyledPage>
+              <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
+              <SiteFeature slug={slug} />
+              {attribs.contentSections.map((section, key) => {
+                // ComponentSections
+                switch (section.__typename.replace("ComponentSections", "")) {
+                  case "LeadForm":
+                    return <LeadForm key={key} section={section} />;
+                  case "FlexGroup":
+                    return <FlexGroup key={key} section={section} />;
+                  case "RichText":
+                    return <RichText key={key} section={section} />;
+                  case "Hero":
+                    return <Hero key={key} section={section} />;
+                  case "PageFeature":
+                    return <Feature key={key} section={section} />;
+                  case "LargeVideo":
+                    return <LargeVideo key={key} section={section} />;
+                  case "FeatureColumnsGroup":
+                    return <FeatureColumnsGroup key={key} section={section} />;
+                  case "FeatureRowsGroup":
+                    return <FeatureRowsGroup key={key} section={section} />;
+                  case "BottomActions":
+                    return <BottomActions key={key} section={section} />;
+                  case "PledgeForm":
+                    return (
+                      <StyledPage key={key}>
+                        <StyledPageSection>
+                          <PledgeForm key={key} section={section} />
+                        </StyledPageSection>
+                      </StyledPage>
+                    );
+                  default:
+                    return <div key={key}></div>;
+                    break;
+                }
+              })}
+            </StyledPage>
+          </Zoom>
         </Site>
       );
     }
