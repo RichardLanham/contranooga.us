@@ -53,11 +53,11 @@ const Page = ({ _slug }) => {
     borderRadius: 5,
     // border: "2px solid",
     borderColor: theme.palette.primary.main,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[10],
     // whiteSpace: "wrap",
     // justifyContent: "center",
-    backgroundColor: theme.palette.background.paper,
+
     // color: theme.palette.primary.contrastText,
     [theme.breakpoints.down("lg")]: {
       // top: 0,

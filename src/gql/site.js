@@ -85,7 +85,7 @@ export const GET_PAGE = gql`
             __typename
             ... on ComponentSectionsFlexGroup {
               id
-              title
+
               group {
                 id
                 groupTitle

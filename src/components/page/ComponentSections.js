@@ -44,6 +44,7 @@ const StyledLargeVideo = styled(Box)(({ theme }) => ({
 }));
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
+  display: "flex",
   border: "1px solid",
   borderColor: theme.palette.primary.main,
   backgroundColor: theme.palette.grey[300],
@@ -67,6 +68,7 @@ export const FlexGroup = ({ section }) => {
       <StyledSubHead>{section.title}</StyledSubHead>
 
       {section.group.map((group, key) => {
+        // GROUP START
         //GROUP
         const thumb = group.logo.data
           ? getThumb(group.logo.data.attributes)
@@ -99,7 +101,7 @@ export const FlexGroup = ({ section }) => {
                     src={process.env.REACT_APP_STRAPI + thumb.url}
                   />
                 )}
-                {group.richtext.richtext && (
+                {group.richtext && (
                   <span
                     dangerouslySetInnerHTML={createMarkup(
                       group.richtext.richtext
@@ -120,60 +122,75 @@ export const FlexGroup = ({ section }) => {
               }}
             >
               {group.box.map((box, key) => {
+                // BOX START /////////
                 // BOX
                 const boxThumb = box.poster.data
                   ? getThumb(box.poster.data.attributes)
                   : false;
                 return (
-                  <StyledFlexBox key={key}>
+                  <div key={key} style={{}}>
                     {box.title && (
-                      <div style={{ ...theme.typography.h4 }}>{box.title}</div>
+                      <div style={{ ...theme.typography.h1 }}>{box.title}</div>
                     )}
                     {box.description && (
                       <div style={{ ...theme.typography.body1 }}>
                         {box.description}
                       </div>
                     )}
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        flexDirection: "row",
-                        gap: 20,
-                        // backgroundColor: "green",
-                        maxWidth: 320,
-                        height: "100%",
-                        // verticalAlign: "middle",
-                      }}
-                    >
-                      <div>
-                        {boxThumb && (
-                          <img
-                            title="box image"
-                            style={{
-                              height: boxThumb.height,
-                              width: "auto",
-                              borderRadius: 5,
-                              margin: 3,
-                              float: "left",
-                            }}
-                            src={process.env.REACT_APP_STRAPI + boxThumb.url}
-                          />
+                    <StyledFlexBox key={key}>
+                      <div
+                        style={{
+                          // border: "1px solid red",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          flexDirection: "row",
+                          gap: 20,
+                          // backgroundColor: "green",
+                          maxWidth: 320,
+                          height: "100%",
+                          // verticalAlign: "middle",
+                        }}
+                      >
+                        {(box.richtext || boxThumb) && (
+                          <div>
+                            {boxThumb && (
+                              <img
+                                title="box image"
+                                style={{
+                                  height: boxThumb.height,
+                                  width: "auto",
+                                  borderRadius: 5,
+                                  margin: 3,
+                                  float: "left",
+                                }}
+                                src={
+                                  process.env.REACT_APP_STRAPI + boxThumb.url
+                                }
+                              />
+                            )}
+                            {box.richtext && (
+                              <span
+                                dangerouslySetInnerHTML={createMarkup(
+                                  box.richtext
+                                )}
+                              />
+                            )}
+                          </div>
                         )}
-                        {box.richtext && (
-                          <span
-                            dangerouslySetInnerHTML={createMarkup(box.richtext)}
-                          />
+
+                        {box.url && (
+                          <div style={{ width: 300, height: "auto" }}>
+                            <ReactPlayer
+                              width="100%"
+                              height="auto"
+                              url={box.url}
+                              controls
+                            />
+                          </div>
                         )}
                       </div>
-
-                      {box.url && (
-                        <div style={{ width: 300 }}>
-                          <ReactPlayer width="100%" url={box.url} controls />
-                        </div>
-                      )}
-                    </div>
-                  </StyledFlexBox>
+                    </StyledFlexBox>
+                  </div>
                 );
               })}
             </div>
