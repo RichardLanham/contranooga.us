@@ -134,7 +134,7 @@ export const FlexGroup = ({ section }) => {
                 display: "flex",
                 // flexWrap: "wrap",
                 // flexDirection: "row",
-                flexFlow: "row-reverse wrap",
+                flexFlow: "row wrap",
                 justifyContent: "space-between",
                 // backgroundColor: "yellow",
                 gap: 8,
