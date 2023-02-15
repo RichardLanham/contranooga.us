@@ -1,3 +1,6 @@
+Input {
+  background-color: "#ccc";
+}
 input:invalid {
   border: 2px dashed lightcoral;
 }

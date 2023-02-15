@@ -203,7 +203,8 @@ export const FlexGroup = ({ section }) => {
 
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",
-  // backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.info.main,
+  color: theme.palette.info.contrastText,
   width: 300,
   top: 0,
   // backgroundColor: "yellow",

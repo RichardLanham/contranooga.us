@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useTheme, styled } from "@mui/material/styles";
@@ -35,55 +35,16 @@ import {
 
 import PledgeForm from "./components/page/PledgeForm";
 
+import SiteHeader from "./components/page/SiteHeader";
+
 // import { isNullableType } from "graphql";
 
-const Page = ({ _slug }) => {
+function Page({ _slug }) {
   const theme = useTheme();
   useEffect(() => {}, []);
   let { slug } = useParams();
   slug = slug ? slug : _slug;
   slug = slug.toLowerCase();
-
-  const StyledHeader = styled("div")(({ theme }) => ({
-    ...theme.typography.h3,
-    width: "calc(50% - 1px)",
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 20,
-    borderRadius: 5,
-    borderColor: theme.palette.primary.main,
-    boxShadow: theme.shadows[10],
-    [theme.breakpoints.down("xl")]: {
-      marginTop: 15,
-    },
-    [theme.breakpoints.down("lg")]: {
-      left: 50,
-    },
-    [theme.breakpoints.down("md")]: {
-      fontSize: 22,
-      left: 8,
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginTop: 15,
-    },
-  }));
-
-  const StyledSiteName = styled("div")(({ theme }) => ({
-    ...theme.typography.h3,
-    marginTop: 60,
-    borderRadius: 5,
-    padding: 3,
-    boxShadow: theme.shadows[10],
-    [theme.breakpoints.down("lg")]: {
-      // left: 50,
-    },
-    [theme.breakpoints.down("md")]: {
-      ...theme.typography.h5,
-    },
-    [theme.breakpoints.down("sm")]: {
-      left: 20,
-    },
-  }));
 
   const { data, loading, error } = useQuery(GET_PAGE, {
     variables: { slug: slug, publicationState: "LIVE", locale: "en" },
@@ -92,17 +53,14 @@ const Page = ({ _slug }) => {
     if (!error) {
       const attribs = data.pages.data[0].attributes;
       const pageId = data.pages.data[0].id;
-
+      const metaTitle = attribs.metadata.metaTitle;
       return (
         <Site
           title={attribs.metadata.metaTitle}
           description={attribs.metadata.metaDescription}
         >
           <StyledPage>
-            <StyledSiteName>
-              {theme.global.metadata.metaDescription}
-            </StyledSiteName>
-            <StyledHeader>{attribs.metadata.metaTitle}</StyledHeader>
+            <SiteHeader metaTitle={metaTitle} />
 
             <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
             <SiteFeature slug={slug} />
@@ -151,6 +109,6 @@ const Page = ({ _slug }) => {
       <DownloadingIcon />
     </div>
   );
-};
+}
 
 export default Page;

@@ -39,6 +39,8 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+import SiteHeader from "../components/page/SiteHeader";
+
 const holydays = require("../assets/readings/dol-holy-days.json");
 const localizer = momentLocalizer(moment);
 
@@ -649,9 +651,9 @@ const Calendar = () => {
                 style={{
                   borderRadius: 3,
                   backgroundColor: future
-                    ? theme.palette.info.dark
+                    ? theme.palette.secondary.main
                     : theme.palette.grey[200],
-                  color: future ? theme.palette.info.contrastDark : "#000", // greyed
+                  color: future ? theme.palette.secondary.contrastDark : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -679,9 +681,9 @@ const Calendar = () => {
                   //overflow: "hidden",
                   borderRadius: 3,
                   backgroundColor: future
-                    ? theme.palette.info.dark
+                    ? theme.palette.secondary.main
                     : theme.palette.grey[200], //the past is
-                  color: future ? theme.palette.info.contrastDark : "#000", // greyed
+                  color: future ? theme.palette.secondary.contrastDark : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -712,9 +714,12 @@ const Calendar = () => {
                 {event.title === saturdayLabel ? (
                   <Link
                     style={{
+                      ...theme.typography.h5,
                       textDecoration: "none",
                       fontWeight: "bold",
                       color: "#000666",
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
                     }}
                     to="/page/newdancer"
                   >
@@ -723,8 +728,10 @@ const Calendar = () => {
                 ) : (
                   <a
                     style={{
-                      ...theme.typography.button,
-                      fontSize: "4vw",
+                      ...theme.typography.h5,
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+
                       textDecoration: "none",
                     }}
                     href={"#" + title.replaceAll(" ", "")}
@@ -778,7 +785,10 @@ const Calendar = () => {
                   >
                     <ArrowCircleLeftIcon
                       style={{
-                        fontSize: 35,
+                        ...theme.typography.h3,
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.secondary.contrastText,
+                        borderRadius: 50,
                       }}
                     />
                   </IconButton>
@@ -795,11 +805,22 @@ const Calendar = () => {
                   >
                     <ArrowCircleRightIcon
                       style={{
-                        fontSize: 35,
+                        ...theme.typography.h3,
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.secondary.contrastText,
+                        borderRadius: 50,
                       }}
                     />
                   </IconButton>
-                  <FormLabel style={{ backgroundColor: "", fontSize: "1.5em" }}>
+                  <FormLabel
+                    style={{
+                      ...theme.typography.h5,
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                      padding: 3,
+                      borderRadius: 10,
+                    }}
+                  >
                     {label
                       .replace(new Date().getFullYear(), "")
                       .replace("/ ", " ")}
@@ -818,14 +839,10 @@ const Calendar = () => {
 
   return (
     <Site title="Events">
-      <div style={{ height: 150, opacity: 0 }}>&nbsp;</div>
-      <StyledPage style={{ backgroundColor: theme.palette.background.default }}>
-        <StyledPageSection>
-          <Header />
-
-          <EventCalendar />
-          <EventList key="evenlist" />
-        </StyledPageSection>
+      <StyledPage>
+        <SiteHeader metaTitle="Upcoming Events" />
+        <EventCalendar />
+        <EventList key="evenlist" />
       </StyledPage>
     </Site>
   );
