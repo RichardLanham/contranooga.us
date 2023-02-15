@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FormLabel,
@@ -19,12 +19,12 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   StyledCalendar,
   StyledFormContainer,
-  StyledEventButton,
+  // StyledEventButton,
 } from "../styles/CalendarStyles";
 import {
   StyledPage,
-  StyledHeader,
-  StyledPageSection,
+  // StyledHeader,
+  // StyledPageSection,
 } from "../styles/PageStyles";
 import { StyledHeading } from "../styles/ComponentStyles";
 import Site from "../Site";
