@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url("./assets/bgimages/bigdance_lowopacity.png");
+  background-image: url("./assets/bgimages/bigdance_lowopacity_shaded.png");
 
   background-repeat: no-repeat;
   background-attachment: fixed;
