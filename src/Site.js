@@ -91,8 +91,8 @@ const Site = (props) => {
   }));
 
   const StyledSiteName = styled("div")(({ theme }) => ({
-    ...theme.typography.h3,
-    // fontSize: 42,
+    // ...theme.typography.h3,
+    fontSize: "3.5vw",
     margin: "auto",
     position: "absolute",
     top: 20,
@@ -122,7 +122,7 @@ const Site = (props) => {
       // left: 8,
     },
     [theme.breakpoints.down("sm")]: {
-      ...theme.typography.h5,
+      // ...theme.typography.h5,
       left: 20,
       // width: 300,
       // left: 8,

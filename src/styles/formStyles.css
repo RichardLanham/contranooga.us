@@ -1,0 +1,12 @@
+input:invalid {
+  border: 2px dashed lightcoral;
+}
+
+input:invalid:required {
+  border-bottom: 2px solid black;
+}
+
+input:valid {
+  /* border: 2px solid black; */
+  width: 300px;
+}

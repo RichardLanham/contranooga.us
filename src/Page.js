@@ -30,9 +30,11 @@ import {
   FeatureColumnsGroup,
   FeatureRowsGroup,
   BottomActions,
+  LeadForm,
 } from "./components/page/ComponentSections";
 
 import PledgeForm from "./components/page/PledgeForm";
+
 // import { isNullableType } from "graphql";
 
 const Page = ({ _slug }) => {
@@ -99,6 +101,8 @@ const Page = ({ _slug }) => {
             {attribs.contentSections.map((section, key) => {
               // ComponentSections
               switch (section.__typename.replace("ComponentSections", "")) {
+                case "LeadForm":
+                  return <LeadForm key={key} section={section} />;
                 case "FlexGroup":
                   return <FlexGroup key={key} section={section} />;
                 case "RichText":

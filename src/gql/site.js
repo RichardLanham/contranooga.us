@@ -255,15 +255,19 @@ export const GET_PAGE = gql`
             }
             ... on ComponentSectionsLeadForm {
               id
-              emailPlaceholder
+              title
+              emailPlaceHolder
               location
+              phonePlaceHolder
+              namePlaceHolder
+              blurb
               submitButton {
                 id
                 text
                 type
                 __typename
               }
-              title
+
               __typename
             }
           }

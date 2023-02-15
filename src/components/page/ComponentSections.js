@@ -1,11 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, Card, Button } from "@mui/material";
+import { Box, Card, Button, Input, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-// import renderHTML from "react-markdown";
-// import renderHTML from "react-render-html";
 import ReactPlayer from "react-player";
 import FaceBookPlayer from "../../apps/FaceBookPlayer";
+
 import {
   StyledSubHead,
   // StyledPage,
@@ -20,25 +19,18 @@ import {
 } from "../../styles/PageStyles";
 
 import { getThumb, getLarge } from "../../apps/functions";
-// import { PUT_THEME_SELECTED_COLOR_MODES } from "../../gql/theme";
 
-// import { typography } from "@mui/system";
+import { POST_LEAD } from "../../gql/leadForm";
+import { useMutation, useQuery } from "@apollo/client";
 
-// const Main = () => {
-//   return <div></div>;
-// };
+import CancelIcon from "@mui/icons-material/Cancel";
+
+require("../../styles/formStyles.css");
 
 const StyledLargeVideo = styled(Box)(({ theme }) => ({
-  // ...typography.caption,
-  // backgroundColor: theme.palette.info.main,
   color: theme.palette.info.contrastText,
-  //marginBottom: 30,
-  // marginTop: 40,
-  // textAlign: "center",
-  // width: "calc(90% - 1px)",
   width: 640,
   margin: "auto",
-  // height: "auto",
 
   [theme.breakpoints.down("lg")]: {
     width: 320,
@@ -192,6 +184,186 @@ export const FlexGroup = ({ section }) => {
   );
 };
 
+const StyledWrap = styled("div")(({ theme }) => ({
+  position: "relative",
+  backgroundColor: theme.palette.background.default,
+  width: 300,
+  top: 0,
+  // backgroundColor: "yellow",
+  padding: 10,
+  margin: 10,
+  // border: "4px solid black",
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.down("lg")]: {
+    // width: "calc(60% - 1rem)",
+    // width: "45%",
+  },
+  [theme.breakpoints.down("md")]: {
+    // width: "85%",
+  },
+}));
+
+const validateEmail = (mail) => {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
+  }
+  return false;
+};
+
+export const LeadForm = ({ section }) => {
+  const theme = useTheme();
+  const [name, setName] = useState(theme.leadFormName);
+  const [phone, setPhone] = useState(theme.leadFormPhone);
+  const [email, setEmail] = useState(theme.leadFormEmail);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState("none");
+  const [postLead] = useMutation(POST_LEAD);
+
+  const handleSubmit = async () => {
+    await postLead({
+      variables: {
+        // name: theme.leadFormName,
+        // email: theme.leadFormEmail,
+        // phone: theme.leadFormPhone,
+        name: name,
+        email: email,
+        phone: phone,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    setOpen("thanks");
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+  };
+
+  const handleCancel = () => {
+    setOpen("");
+    setName("");
+    setPhone("");
+    setEmail("");
+    setMessage("");
+  };
+
+  const handleConfirm = () => {
+    const isEmail = validateEmail(email);
+
+    if (isEmail) {
+      setOpen("confirm");
+    } else {
+      setMessage("bad email");
+      setOpen("form");
+    }
+  };
+
+  if (open === "thanks") {
+    return (
+      <StyledWrap>
+        <div style={{ ...theme.typography.h4 }}>Thank you!</div>
+
+        <Button onClick={() => setOpen("none")} variant="contained" style={{}}>
+          Close
+        </Button>
+      </StyledWrap>
+    );
+  }
+  if (open === "confirm") {
+    return (
+      <StyledWrap>
+        <div>Is this correct?</div>
+        <div>{name}</div>
+        <div>{email}</div>
+        <div>{phone}</div>
+        <Button onClick={() => handleSubmit()} variant="contained" style={{}}>
+          Yes!
+        </Button>
+        <Button onClick={() => setOpen("form")} variant="contained" style={{}}>
+          Change
+        </Button>
+      </StyledWrap>
+    );
+  }
+
+  if (open === "form") {
+    return (
+      <StyledWrap>
+        <form>
+          <div
+            style={{
+              backgroundColor: theme.palette.error.main,
+              color: theme.palette.error.contrastText,
+            }}
+          >
+            {message}
+          </div>
+          <Input
+            value={name}
+            name="name"
+            onChange={(e) => setName(e.target.value)}
+            placeholder={section.namePlaceHolder}
+            type="text"
+          ></Input>
+          <Input
+            requiired
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={section.emailPlaceHolder}
+          ></Input>
+          <Input
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder={section.phonePlaceHolder}
+            type="phone"
+          ></Input>
+
+          {section.blurb && (
+            <div
+              style={{
+                ...theme.typography.caption,
+                width: 300,
+              }}
+            >
+              {section.blurb}
+            </div>
+          )}
+          <Button onClick={() => handleConfirm()} variant="contained">
+            subscribe
+          </Button>
+          <IconButton
+            style={{ position: "absolute", top: 0, right: 0, float: "left" }}
+            variant="contained"
+            onClick={() => handleCancel()}
+          >
+            <CancelIcon />
+          </IconButton>
+        </form>
+      </StyledWrap>
+    );
+  }
+
+  return (
+    <div>
+      {section.submitButton ? (
+        <Button onClick={() => setOpen("form")} variant="contained" style={{}}>
+          {section.title}
+        </Button>
+      ) : (
+        <Button onClick={() => setOpen("form")} variant="contained" style={{}}>
+          {section.title}
+        </Button>
+      )}
+    </div>
+  );
+};
+
 export const LargeVideo = ({ section }) => {
   const theme = useTheme();
   return (
@@ -255,10 +427,6 @@ export const BottomActions = ({ section }) => {
           flexWrap: "wrap",
           flexDirection: "row ",
           gap: 10,
-          // backgroundColor: theme.palette.info.light,
-
-          // backgroundColor: theme.palette.info.light,
-          // color: theme.palette.info.contrastLight,
         }}
       >
         {section.buttons.map((button, key) => {

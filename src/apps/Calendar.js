@@ -721,14 +721,16 @@ const Calendar = () => {
                     {event.title}
                   </Link>
                 ) : (
-                  <StyledEventButton>
-                    <a
-                      style={{ textDecoration: "none" }}
-                      href={"#" + title.replaceAll(" ", "")}
-                    >
-                      {event.title}
-                    </a>
-                  </StyledEventButton>
+                  <a
+                    style={{
+                      ...theme.typography.button,
+                      fontSize: "4vw",
+                      textDecoration: "none",
+                    }}
+                    href={"#" + title.replaceAll(" ", "")}
+                  >
+                    {event.title}
+                  </a>
                 )}
               </div>
             );
