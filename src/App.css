@@ -20,6 +20,31 @@ li {
   margin: 0;
 }
 
+/* .container {
+  width: 1024px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 1em;
+  margin: 1em auto;
+}
+
+.container:after {
+  content: "";
+  flex: auto;
+}
+
+.container item {
+  height: 10em;
+  width: 25%;
+  padding: 0.5em;
+  box-sizing: border-box;
+}
+.container.item img {
+  width: 100%;
+} */
+
 .cdtsBoxLink {
   font-size: 1.5em;
   background-color: #090909;

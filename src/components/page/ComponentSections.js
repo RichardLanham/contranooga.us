@@ -67,11 +67,14 @@ export const FlexGroup = ({ section }) => {
     <StyledPageSection
       style={{
         display: "flex",
-        flexFlow: "column-wrap",
-        gap: 30,
-        flexShring: 10,
+        flexFlow: "row wrap",
+        flexDirection: "row-reverse",
+        justifyContent: "space-between",
+        // gap: 10,
+        flexShrink: 10,
         flexGrow: 10,
-        //        flexWrap: "wrap",
+        // justifyContent: "space-between",
+        // flexWrap: "wrap",
         // backgroundColor: "green",
         alignContent: "flex-start",
       }}
@@ -85,19 +88,23 @@ export const FlexGroup = ({ section }) => {
           ? getThumb(group.logo.data.attributes)
           : false;
         return (
-          <div key={key}>
+          <div style={{ marginRight: "auto" }} key={key}>
             {group.groupTitle && (
               <div style={{ ...theme.typography.h4 }}>{group.groupTitle}</div>
             )}
             <div
-              style={{
-                display: "flex",
-                gap: 2,
-                borderRadius: 5,
-                // backgroundColor: theme.palette.grey[200],
-              }}
+              style={
+                {
+                  // display: "flex",
+                  // gap: 2,
+                  // borderRadius: 5,
+                  // border: "2px solid black",
+                  // boxShadow: theme.shadows[2],
+                  // backgroundColor: theme.palette.grey[200],
+                }
+              }
             >
-              <div>
+              <div style={{ marginLeft: "auto" }}>
                 {thumb && (
                   <img
                     title="group image"
@@ -126,9 +133,9 @@ export const FlexGroup = ({ section }) => {
                 width: "100%",
                 display: "flex",
                 flexWrap: "wrap",
-                flexDirection: "row",
+                flexDirection: "row-reverse",
                 // backgroundColor: "yellow",
-                gap: 20,
+                gap: 8,
                 // width: 300,
               }}
             >
@@ -139,7 +146,7 @@ export const FlexGroup = ({ section }) => {
                   ? getThumb(box.poster.data.attributes)
                   : false;
                 return (
-                  <div key={key} style={{}}>
+                  <div style={{ marginRight: "auto" }} key={key} style={{}}>
                     {box.title && (
                       <div style={{ ...theme.typography.h5 }}>{box.title}</div>
                     )}

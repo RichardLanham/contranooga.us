@@ -35,7 +35,7 @@ const StrapiPages = (props) => {
   }));
 
   const topStyle = {
-    // width: 500,
+    maxWidth: 300,
     margin: "auto",
     justifyContent: "center",
     height: 45,

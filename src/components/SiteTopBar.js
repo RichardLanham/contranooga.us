@@ -92,12 +92,12 @@ const SiteTopBar = () => {
     left: 0,
     [theme.breakpoints.up("lg")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
-      width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
+      width: theme.menuPosition === "side" ? "6%" : "calc(15%)",
     },
     [theme.breakpoints.down("lg")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
-      width: "11%",
+      width: "12%",
     },
     [theme.breakpoints.down("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
