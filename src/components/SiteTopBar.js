@@ -79,8 +79,35 @@ const SiteTopBar = () => {
     justifyContent: "center",
     alignItems: "center",
     //marginTop: 10,
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.down("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
+    },
+  }));
+
+  const StyledLogo = styled("img")(({ theme }) => ({
+    //marginTop: 10,
+    width: "calc(15%)",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    [theme.breakpoints.up("lg")]: {
+      //   display: theme.menuPosition === "side" ? "none" : "block",
+      width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
+    },
+    [theme.breakpoints.down("lg")]: {
+      //   display: theme.menuPosition === "side" ? "none" : "block",
+      // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
+      width: "11%",
+    },
+    [theme.breakpoints.down("md")]: {
+      //   display: theme.menuPosition === "side" ? "none" : "block",
+      // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
+      width: "10%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      //   display: theme.menuPosition === "side" ? "none" : "block",
+      // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
+      width: "18%",
     },
   }));
 
@@ -103,18 +130,7 @@ const SiteTopBar = () => {
           <CornerBurger />
           <StyledToolbar>
             <Link to="/" style={{ zIndex: 3000 }}>
-              <img
-                style={{
-                  width: "calc(15%)",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                }}
-                // width={thumb.width}
-                // height={thumb.height}
-
-                src={process.env.REACT_APP_STRAPI + thumb.url}
-              />
+              <StyledLogo src={process.env.REACT_APP_STRAPI + thumb.url} />
             </Link>
             <StrapiPagesTop position="top" />
           </StyledToolbar>
