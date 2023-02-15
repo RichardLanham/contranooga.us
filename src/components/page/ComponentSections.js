@@ -134,6 +134,7 @@ export const FlexGroup = ({ section }) => {
                 display: "flex",
                 flexWrap: "wrap",
                 flexDirection: "row-reverse",
+                justifyContent: "space-between",
                 // backgroundColor: "yellow",
                 gap: 8,
                 // width: 300,
@@ -146,7 +147,7 @@ export const FlexGroup = ({ section }) => {
                   ? getThumb(box.poster.data.attributes)
                   : false;
                 return (
-                  <div style={{ marginRight: "auto" }} key={key} style={{}}>
+                  <div key={key} style={{}}>
                     {box.title && (
                       <div style={{ ...theme.typography.h5 }}>{box.title}</div>
                     )}
@@ -155,7 +156,7 @@ export const FlexGroup = ({ section }) => {
                         {box.description}
                       </div>
                     )}
-                    <StyledFlexBox key={key}>
+                    <StyledFlexBox style={{ marginRight: "auto" }} key={key}>
                       <div
                         style={{
                           // border: "1px solid red",
