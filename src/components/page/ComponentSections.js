@@ -67,8 +67,8 @@ export const FlexGroup = ({ section }) => {
     <StyledPageSection
       style={{
         display: "flex",
-        flexFlow: "row wrap",
-        flexDirection: "row-reverse",
+        flexFlow: "row-reverse wrap",
+        // flexDirection: "row-reverse",
         justifyContent: "space-between",
         // gap: 10,
         flexShrink: 10,
@@ -132,8 +132,9 @@ export const FlexGroup = ({ section }) => {
               style={{
                 width: "100%",
                 display: "flex",
-                flexWrap: "wrap",
-                flexDirection: "row-reverse",
+                // flexWrap: "wrap",
+                // flexDirection: "row",
+                flexFlow: "row-reverse wrap",
                 justifyContent: "space-between",
                 // backgroundColor: "yellow",
                 gap: 8,
