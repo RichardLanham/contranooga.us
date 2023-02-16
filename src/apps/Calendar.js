@@ -299,26 +299,9 @@ const Calendar = () => {
       }
     };
 
-    if (!user) {
-      return <span></span>;
-    }
     if (!show)
       return (
-        <IconButton
-          component="label"
-          style={
-            {
-              // position: "absolute",
-              // top: 0,
-              // left: 50,
-              // borderRadius: 5,
-              // zIndex: theme.zIndex.modal,
-              // backgroundColor: theme.palette.primary.dark,
-              // color: theme.palette.primary.contrastDark,
-            }
-          }
-          onClick={() => setShow(true)}
-        >
+        <IconButton component="label" onClick={() => setShow(true)}>
           <AddCircleIcon
             style={{
               fontSize: 35,
@@ -653,7 +636,7 @@ const Calendar = () => {
                   backgroundColor: future
                     ? theme.palette.secondary.main
                     : theme.palette.grey[200],
-                  color: future ? theme.palette.secondary.contrastDark : "#000", // greyed
+                  color: future ? theme.palette.secondary.contrastText : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -683,7 +666,7 @@ const Calendar = () => {
                   backgroundColor: future
                     ? theme.palette.secondary.main
                     : theme.palette.grey[200], //the past is
-                  color: future ? theme.palette.secondary.contrastDark : "#000", // greyed
+                  color: future ? theme.palette.secondary.contrastText : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -699,12 +682,12 @@ const Calendar = () => {
               <div
                 title={event.title}
                 style={{
-                  textAlign: "center",
+                  // textAlign: "center",
                   padding: 2,
                   margin: 0,
                   // borderRadius: 5,
                   // borderWidth: 2,
-                  borderBottom: `2px solid ${theme.palette.primary.main}`,
+                  // borderBottom: `2px solid ${theme.palette.primary.main}`,
                   borderColor: future
                     ? theme.palette.primary.main
                     : theme.palette.background.default, //the past is
@@ -742,28 +725,7 @@ const Calendar = () => {
               </div>
             );
           },
-          //  dateCellWrapper: (event) => {
-          // const day = new Date(event.value).getDay();
-          // if (day === 6) {
-          //   return (
-          //     <div>
-          //       <Link
-          //         style={{
-          //           zIndex: theme.zIndex.modal,
-          //           width: "100%",
 
-          //           background: theme.palette.primary.main,
-          //           color: theme.palette.primary.contrastText,
-          //         }}
-          //         to="/services"
-          //       >
-          //         services
-          //       </Link>
-          //     </div>
-          //   );
-          // }
-          //   return <span></span>;
-          // },
           toolbar: (props) => {
             const {
               localizer: { messages },
@@ -771,7 +733,14 @@ const Calendar = () => {
             } = props;
             // console.log(label);
             return (
-              <div style={{ position: "relative", margin: "auto" }}>
+              <div
+                style={{
+                  position: "relative",
+                  marginRight: "auto",
+                  marginTop: 20,
+                  marginBottom: 10,
+                }}
+              >
                 <div style={{ display: "flex", gap: 10, width: "100%" }}>
                   <EventForm />
 
@@ -833,9 +802,6 @@ const Calendar = () => {
         }}
       />
     );
-  };
-  const Header = () => {
-    return <StyledHeading>Upcoming Events</StyledHeading>;
   };
 
   return (

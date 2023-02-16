@@ -8,32 +8,23 @@ import {
   MenuItem,
   Typography,
   TextareaAutosize,
-  Zoom,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useMutation, useQuery } from "@apollo/client";
 import client from "../../apollo/client";
 import { eventEmitter } from "../../events.tsx";
 import { SundayTemplate } from "../../Model";
-
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Link } from "react-router-dom";
 
 import {
   StyledCard,
-  StyledCardGroup,
-  StyledImg,
-  StyledBody,
   StyledEventList,
   StyleEventButton,
 } from "../../styles/CalendarStyles";
 
-//import renderHTML from "react-markdown";
-// import renderHTML from "react-render-html";
 import ConfirmButtons from "../../components/ConfirmButtons";
 import { GET_EVENTS, DELETE_EVENT } from "../../gql/events";
-// import { typography } from "@mui/system";
-// import { ClosedCaption } from "@mui/icons-material";
-
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -70,7 +61,6 @@ const EventList = () => {
 
     setImages(JSON.parse(window.localStorage.getItem("strapiImages")));
   }, []);
-  // const [page, setPage] = useState("");
 
   const getImageThumb = (attribs) => {
     if (!attribs) {
@@ -349,11 +339,13 @@ const EventList = () => {
               <div
                 key={key}
                 style={{
-                  boxShadow: theme.shadows[2],
-                  border: "2px solid red",
+                  // backgroundColor: "yellow",
+                  // boxShadow: theme.shadows[2],
+                  // borderBottom: "1px solid",
+                  marginRight: 5,
                   borderColor: theme.palette.secondary.dark,
                   backgroundColor: theme.palette.secondary.light,
-                  borderRadius: 5,
+                  // borderRadius: 5,
                   padding: 2,
                 }}
               >
@@ -367,85 +359,49 @@ const EventList = () => {
         </div>
       );
     };
-    const Lessons = ({ lessons, psalms }) => {
-      // console.log(lessons);
-      return (
-        <div
-          style={{ ...theme.typography.h6, display: "flex", flexWrap: "wrap" }}
-        >
-          {lessons.morning ? (
-            <ul>
-              Morning Lessons
-              <li> {lessons.morning.first}</li>
-              <li> {lessons.morning.second}</li>
-            </ul>
-          ) : null}
-          {lessons.evening ? (
-            <ul>
-              Evening Lessons
-              <li> {lessons.evening.first}</li>
-              <li> {lessons.evening.second}</li>
-            </ul>
-          ) : null}
-          {psalms.morning ? (
-            <ul>
-              Morning Psalms
-              {psalms.morning.map((psalm, key) => (
-                <li key={key}>{psalm}</li>
-              ))}
-            </ul>
-          ) : null}
-          {psalms.evening ? (
-            <ul>
-              Evening Psalms
-              {psalms.evening.map((psalm, key) => (
-                <li key={key}>{psalm}</li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      );
-    };
+
+    //   // console.log(lessons);
+    //   return (
+    //     <div
+    //       style={{ ...theme.typography.h6, display: "flex", flexWrap: "wrap" }}
+    //     >
+    //       {lessons.morning ? (
+    //         <ul>
+    //           Morning Lessons
+    //           <li> {lessons.morning.first}</li>
+    //           <li> {lessons.morning.second}</li>
+    //         </ul>
+    //       ) : null}
+    //       {lessons.evening ? (
+    //         <ul>
+    //           Evening Lessons
+    //           <li> {lessons.evening.first}</li>
+    //           <li> {lessons.evening.second}</li>
+    //         </ul>
+    //       ) : null}
+    //       {psalms.morning ? (
+    //         <ul>
+    //           Morning Psalms
+    //           {psalms.morning.map((psalm, key) => (
+    //             <li key={key}>{psalm}</li>
+    //           ))}
+    //         </ul>
+    //       ) : null}
+    //       {psalms.evening ? (
+    //         <ul>
+    //           Evening Psalms
+    //           {psalms.evening.map((psalm, key) => (
+    //             <li key={key}>{psalm}</li>
+    //           ))}
+    //         </ul>
+    //       ) : null}
+    //     </div>
+    //   );
+    // };
     const thumb = imageAttribute
       ? imageAttribute.attributes.formats.thumbnail
       : false;
-    const Lectionary = ({ lectionary }) => {
-      if (!lectionary) {
-        return null;
-      }
 
-      if (!lectionary.services) {
-        return null;
-      }
-
-      return (
-        <Card>
-          {lectionary.services.map((service, key) => {
-            let ls = new Date(lectionary.prevSunday);
-            ls.setDate(ls.getDate() + 8);
-
-            return (
-              <div key={key}>
-                <div>
-                  <div>Liturgy for {ls.toDateString()}</div>
-                  <div>
-                    Year {lectionary.year}, Lectionary {lectionary.lectionary}
-                  </div>
-                  <div>{service.name}</div>
-                  {service.readings.map((reading, key) => {
-                    return (
-                      <ul key={key}>
-                        <li>{reading}</li>
-                      </ul>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </Card>
-      );
-    };
     if (!showEdit) {
       return (
         <StyledCard>
@@ -487,11 +443,11 @@ const EventList = () => {
             <Typography
               style={{
                 marginLeft: 20,
-                padding: 6,
-                borderRadius: 5,
-                boxShadow: theme.shadows[2],
-                color: theme.palette.primary.contrastLight,
-                backgroundColor: theme.palette.primary.light,
+                // padding: 6,
+                // borderRadius: 5,
+                // boxShadow: theme.shadows[2],
+                // color: theme.palette.primary.contrastLight,
+                // backgroundColor: theme.palette.primary.light,
               }}
               variant="h5"
             >
@@ -503,7 +459,7 @@ const EventList = () => {
                     .replace(dt.getFullYear(), "")}
             </Typography>
           </div>
-          <StyledCardGroup>
+          <div>
             <div>
               <div
                 style={{
@@ -533,16 +489,18 @@ const EventList = () => {
                   {attribs.body}
                 </p>
               </div>
-              <div>
-                {lessons ? <Lessons psalms={psalms} lessons={lessons} /> : null}
-              </div>
+
               <div>
                 {link && (
                   <div>
                     {link.url.startsWith("http") ? (
-                      <a target="_new" href={link.url}>
-                        <StyleEventButton>{link.text}</StyleEventButton>
-                      </a>
+                      <StyleEventButton
+                        href={link.url}
+                        target="_blank"
+                        startIcon={<OpenInNewIcon />}
+                      >
+                        {link.text}
+                      </StyleEventButton>
                     ) : (
                       <Link to={"/page" + link.url}>
                         <StyleEventButton>{link.text} </StyleEventButton>
@@ -562,15 +520,7 @@ const EventList = () => {
                 )}
               </div>
             </div>
-
-            <StyledBody
-              style={{
-                display: lessons ? "none" : "block",
-              }}
-            >
-              <Lectionary lectionary={lectionary} />
-            </StyledBody>
-          </StyledCardGroup>
+          </div>
         </StyledCard>
       );
     }

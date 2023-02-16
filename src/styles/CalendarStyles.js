@@ -41,16 +41,16 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
 }));
 
 export const StyledCard = styled(Card)(({ theme }) => ({
-  width: "calc(90% - 1px)",
+  // width: "calc(90% - 1px)",
   position: "relative",
-  background: `linear-gradient(45deg, ${theme.palette.grey[100]}, ${theme.palette.grey[300]}, ${theme.palette.grey[500]})`,
-  border: `5px solid ${theme.palette.primary.dark}`,
+  // background: `linear-gradient(45deg, ${theme.palette.grey[100]}, ${theme.palette.grey[300]}, ${theme.palette.grey[500]})`,
+  border: `1px solid ${theme.palette.primary.dark}`,
   borderRadius: 10,
-  boxShadow: theme.shadows[6],
+  // boxShadow: theme.shadows[6],
   padding: 5,
-  margin: "auto",
-  marginBottom: 40,
-  marginTop: 40,
+  // margin: "auto",
+  marginBottom: 20,
+  marginTop: 20,
   [theme.breakpoints.down("xl")]: {},
   [theme.breakpoints.down("lg")]: {
     // backgroundColor: "yellow",
@@ -59,24 +59,19 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-export const StyleEventButton = styled("button")(({ theme }) => ({
-  ...theme.typography.button,
+export const StyleEventButton = styled(Button)(({ theme }) => ({
   ...theme.typography.h6,
-  textTransform: "none",
+  textTransform: "unset",
+
+  // ...theme.typography.body1,
   backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+
   cursor: "pointer",
-  "&:hover": { backgroundColor: theme.palette.primary.dark },
-  [theme.breakpoints.down("xl")]: {},
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
-export const StyledCardGroup = styled("div")(({ theme }) => ({
-  float: "left",
-  // display: "flex",
-  // alignItems: "flex-start",
-  flexWrap: "wrap",
-  marginTop: 10,
+  "&:hover": {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.primary.contrastDark,
+  },
   [theme.breakpoints.down("xl")]: {},
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
@@ -92,17 +87,17 @@ export const StyledImg = styled("img")(({ theme }) => ({
 }));
 
 export const StyledBody = styled("div")(({ theme }) => ({
-  ...theme.typography.h5,
-  backgroundColor: theme.palette.background.default,
-  color: theme.palette.text.primary,
-  // padding: 3,
-  width: "calc(80% - 1rem)",
-  margin: "auto",
-  borderRadius: 5,
-  boxShadow: theme.shadows[4],
-  [theme.breakpoints.down("md")]: {
-    width: "calc(90% - 1px)",
-  },
+  // ...theme.typography.h5,
+  // backgroundColor: theme.palette.background.default,
+  // color: theme.palette.text.primary,
+  // // padding: 3,
+  // width: "calc(80% - 1rem)",
+  // margin: "auto",
+  // borderRadius: 5,
+  // boxShadow: theme.shadows[4],
+  // [theme.breakpoints.down("md")]: {
+  //   width: "calc(90% - 1px)",
+  // },
 }));
 
 export const StyledFormContainer = styled("div")(({ theme }) => ({

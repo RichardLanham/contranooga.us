@@ -26,6 +26,24 @@ const PageStyles = () => {
   return <div></div>;
 };
 
+export const StyledSiteName = styled("div")(({ theme }) => ({
+  ...theme.typography.h3,
+  opacity: ".8",
+  marginTop: 60,
+  borderRadius: 5,
+  padding: 3,
+  // boxShadow: theme.shadows[2],
+  [theme.breakpoints.down("lg")]: {
+    // left: 50,
+  },
+  [theme.breakpoints.down("md")]: {
+    ...theme.typography.h5,
+  },
+  [theme.breakpoints.down("sm")]: {
+    left: 20,
+  },
+}));
+
 export const StyledReactPlayerDiv = styled("div")(({ theme }) => ({
   // backgroundColor: theme.palette.background.default,
   // border: `2px solid ${theme.palette.primary.main}`,

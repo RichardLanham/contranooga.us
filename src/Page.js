@@ -37,6 +37,35 @@ import PledgeForm from "./components/page/PledgeForm";
 
 import SiteHeader from "./components/page/SiteHeader";
 
+import { StyledSiteName } from "./styles/PageStyles";
+
+const StyledHeader = styled("div")(({ theme }) => ({
+  ...theme.typography.h3,
+  // opacity: ".1",
+  width: "calc(50% - 1px)",
+  paddingLeft: 10,
+  paddingRight: 10,
+  marginTop: 20,
+  marginLeft: 10,
+  borderRadius: 5,
+  borderColor: theme.palette.primary.main,
+  boxShadow: theme.shadows[10],
+  [theme.breakpoints.down("xl")]: {
+    marginTop: 15,
+  },
+  [theme.breakpoints.down("lg")]: {
+    left: 50,
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: 22,
+    left: 8,
+    marginLeft: 0,
+  },
+  [theme.breakpoints.down("sm")]: {
+    marginTop: 15,
+  },
+}));
+
 // import { isNullableType } from "graphql";
 
 function Page({ _slug }) {
@@ -107,8 +136,10 @@ function Page({ _slug }) {
     return <div>error</div>;
   }
   return (
-    <div>
-      <DownloadingIcon />
+    <div style={{ width: "100%", height: "100%" }}>
+      <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
+      <StyledHeader>loading data...</StyledHeader>
+      <DownloadingIcon style={{ margin: "auto", width: 200, height: "auto" }} />
     </div>
   );
 }
