@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import FaceBookPlayer from "../../apps/FaceBookPlayer";
 
+import GoogleMap from "../../apps/GoogleMap";
+
 import {
   StyledSubHead,
   // StyledPage,
@@ -779,6 +781,16 @@ export const Hero = ({ section }) => {
           // maxWidth: "50%",
         }}
       >
+        {section.map && (
+          <div>
+            <GoogleMap
+              marker={section.map.marker}
+              lat={section.map.lat}
+              lng={section.map.lng}
+              style={section.map.style}
+            />
+          </div>
+        )}
         {thumb && (
           <>
             <img

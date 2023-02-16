@@ -137,9 +137,20 @@ function Page({ _slug }) {
   }
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
-      <StyledHeader>loading data...</StyledHeader>
-      <DownloadingIcon style={{ margin: "auto", width: 200, height: "auto" }} />
+      <Site title="CDTS" description="loading...">
+        <StyledPage>
+          <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
+          <StyledHeader>loading data...</StyledHeader>
+          <DownloadingIcon
+            style={{
+              margin: "auto",
+              width: "50%",
+              maxWidth: 150,
+              height: "auto",
+            }}
+          />
+        </StyledPage>
+      </Site>
     </div>
   );
 }

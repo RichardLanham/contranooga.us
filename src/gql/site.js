@@ -127,6 +127,13 @@ export const GET_PAGE = gql`
               title
               label
               richText
+              map {
+                id
+                marker
+                lat
+                lng
+                style
+              }
               buttons {
                 id
                 newTab
