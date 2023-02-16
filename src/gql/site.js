@@ -96,6 +96,12 @@ export const GET_PAGE = gql`
                 logo {
                   ...FileParts
                 }
+                googleMap {
+                  id
+                  lat
+                  lng
+                  marker
+                }
                 box {
                   id
                   title
@@ -106,6 +112,12 @@ export const GET_PAGE = gql`
                     ...FileParts
                   }
                   richtext
+                  googleMap {
+                    id
+                    lat
+                    lng
+                    marker
+                  }
                 }
               }
             }

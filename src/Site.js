@@ -46,10 +46,10 @@ const Site = (props) => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisible);
+    // window.addEventListener("scroll", toggleVisible);
 
     return () => {
-      window.removeEventListener("scroll", toggleVisible);
+      // window.removeEventListener("scroll", toggleVisible);
       // clearInterval(bgInterval);
     };
   }, []);

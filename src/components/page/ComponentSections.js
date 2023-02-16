@@ -173,6 +173,16 @@ export const FlexGroup = ({ section }) => {
                           // verticalAlign: "middle",
                         }}
                       >
+                        {group.googleMap && (
+                          <div>
+                            <GoogleMap
+                              marker={group.googleMap.marker}
+                              lat={group.googleMap.lat}
+                              lng={group.googleMap.lng}
+                              style={section.googleMap.style}
+                            />
+                          </div>
+                        )}
                         {(box.richtext || boxThumb) && (
                           <div>
                             {boxThumb && (
@@ -207,6 +217,16 @@ export const FlexGroup = ({ section }) => {
                               height="auto"
                               url={box.url}
                               controls
+                            />
+                          </div>
+                        )}
+                        {box.googleMap && (
+                          <div>
+                            <GoogleMap
+                              marker={box.googleMap.marker}
+                              lat={box.googleMap.lat}
+                              lng={box.googleMap.lng}
+                              style={box.googleMap.style}
                             />
                           </div>
                         )}
@@ -781,13 +801,13 @@ export const Hero = ({ section }) => {
           // maxWidth: "50%",
         }}
       >
-        {section.map && (
+        {section.googleMap && (
           <div>
             <GoogleMap
-              marker={section.map.marker}
-              lat={section.map.lat}
-              lng={section.map.lng}
-              style={section.map.style}
+              marker={section.googleMap.marker}
+              lat={section.googleMap.lat}
+              lng={section.googleMap.lng}
+              style={section.googleMap.style}
             />
           </div>
         )}
