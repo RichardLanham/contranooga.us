@@ -47,12 +47,13 @@ const StyledLargeVideo = styled(Box)(({ theme }) => ({
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
   display: "flex",
-  border: "1px solid",
+  // border: "10px solid orange",
   borderColor: theme.palette.primary.main,
   backgroundColor: theme.palette.grey[300],
   borderRadius: 5,
-  shadow: theme.shadows[9],
-  width: "30%",
+  // shadow: theme.shadows[9],
+
+  // width: "30%",
   marginTop: 20,
   [theme.breakpoints.down("lg")]: {
     // width: "calc(60% - 1rem)",
@@ -68,17 +69,19 @@ export const FlexGroup = ({ section }) => {
   return (
     <StyledPageSection
       style={{
+        // border: "4px solid " + theme.palette.primary.light,
         display: "flex",
         flexFlow: "row-reverse wrap",
+
         // flexDirection: "row-reverse",
-        justifyContent: "space-between",
-        // gap: 10,
+        justifyContent: "flex-start",
+        // gap: 0,
         flexShrink: 10,
         flexGrow: 10,
         // justifyContent: "space-between",
         // flexWrap: "wrap",
         // backgroundColor: "green",
-        alignContent: "flex-start",
+        // alignContent: "flex-start",
       }}
     >
       <StyledSubHead>{section.title}</StyledSubHead>
@@ -94,6 +97,15 @@ export const FlexGroup = ({ section }) => {
             {group.groupTitle && (
               <div style={{ ...theme.typography.h4 }}>{group.groupTitle}</div>
             )}
+            {group.googleMap && (
+              <div>
+                <GoogleMap
+                  marker={group.googleMap.marker}
+                  lat={group.googleMap.lat}
+                  lng={group.googleMap.lng}
+                />
+              </div>
+            )}
             <div
               style={
                 {
@@ -106,7 +118,7 @@ export const FlexGroup = ({ section }) => {
                 }
               }
             >
-              <div style={{ marginLeft: "auto" }}>
+              <div>
                 {thumb && (
                   <img
                     title="group image"
@@ -131,13 +143,17 @@ export const FlexGroup = ({ section }) => {
               </div>
             </div>
             <div
+              className="groupBox"
               style={{
+                // border: "2px solid",
                 width: "100%",
                 display: "flex",
+
+                // marginLeft: "auto",
                 // flexWrap: "wrap",
                 // flexDirection: "row",
                 flexFlow: "row wrap",
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
                 // backgroundColor: "yellow",
                 gap: 8,
                 // width: 300,
@@ -150,7 +166,7 @@ export const FlexGroup = ({ section }) => {
                   ? getThumb(box.poster.data.attributes)
                   : false;
                 return (
-                  <div key={key} style={{}}>
+                  <div style={{ marginRight: "auto" }} key={key}>
                     {box.title && (
                       <div style={{ ...theme.typography.h5 }}>{box.title}</div>
                     )}
@@ -159,30 +175,21 @@ export const FlexGroup = ({ section }) => {
                         {box.description}
                       </div>
                     )}
-                    <StyledFlexBox style={{ marginRight: "auto" }} key={key}>
+                    <StyledFlexBox key={key}>
                       <div
                         style={{
-                          // border: "1px solid red",
-                          display: "flex",
-                          flexWrap: "wrap",
-                          flexDirection: "row",
-                          gap: 20,
+                          // border: "2px solid green",
+
+                          // // display: "flex",
+                          // flexWrap: "wrap",
+                          // flexDirection: "row",
+                          // gap: 20,
                           // backgroundColor: "green",
                           maxWidth: 320,
                           height: "100%",
                           // verticalAlign: "middle",
                         }}
                       >
-                        {group.googleMap && (
-                          <div>
-                            <GoogleMap
-                              marker={group.googleMap.marker}
-                              lat={group.googleMap.lat}
-                              lng={group.googleMap.lng}
-                              style={section.googleMap.style}
-                            />
-                          </div>
-                        )}
                         {(box.richtext || boxThumb) && (
                           <div>
                             {boxThumb && (
@@ -209,17 +216,6 @@ export const FlexGroup = ({ section }) => {
                             )}
                           </div>
                         )}
-
-                        {box.url && (
-                          <div style={{ width: 300, height: "auto" }}>
-                            <ReactPlayer
-                              width="100%"
-                              height="auto"
-                              url={box.url}
-                              controls
-                            />
-                          </div>
-                        )}
                         {box.googleMap && (
                           <div>
                             <GoogleMap
@@ -227,6 +223,16 @@ export const FlexGroup = ({ section }) => {
                               lat={box.googleMap.lat}
                               lng={box.googleMap.lng}
                               style={box.googleMap.style}
+                            />
+                          </div>
+                        )}
+                        {box.url && (
+                          <div style={{ width: 300, height: "auto" }}>
+                            <ReactPlayer
+                              width="100%"
+                              height="auto"
+                              url={box.url}
+                              controls
                             />
                           </div>
                         )}
