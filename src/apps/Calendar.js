@@ -774,6 +774,20 @@ const Calendar = () => {
               <div style={{ position: "relative", margin: "auto" }}>
                 <div style={{ display: "flex", gap: 10, width: "100%" }}>
                   <EventForm />
+
+                  <FormLabel
+                    style={{
+                      ...theme.typography.h5,
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                      padding: 3,
+                      borderRadius: 10,
+                    }}
+                  >
+                    {label
+                      .replace(new Date().getFullYear(), "")
+                      .replace("/ ", " ")}
+                  </FormLabel>
                   <IconButton
                     component="label"
                     onClick={(e) => {
@@ -812,19 +826,6 @@ const Calendar = () => {
                       }}
                     />
                   </IconButton>
-                  <FormLabel
-                    style={{
-                      ...theme.typography.h5,
-                      backgroundColor: theme.palette.secondary.main,
-                      color: theme.palette.secondary.contrastText,
-                      padding: 3,
-                      borderRadius: 10,
-                    }}
-                  >
-                    {label
-                      .replace(new Date().getFullYear(), "")
-                      .replace("/ ", " ")}
-                  </FormLabel>
                 </div>
               </div>
             );

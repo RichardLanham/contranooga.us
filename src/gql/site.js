@@ -133,6 +133,9 @@ export const GET_PAGE = gql`
                 text
                 type
                 url
+                image {
+                  ...FileParts
+                }
                 __typename
               }
               title

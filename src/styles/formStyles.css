@@ -1,15 +1,16 @@
 Input {
-  background-color: "#ccc";
+  background-color: "#088888";
 }
-input:invalid {
-  border: 2px dashed lightcoral;
-}
+/* input:invalid {
+  border: 2px solid lightcoral;
+} */
 
-input:invalid:required {
+/* input:invalid:required {
   border-bottom: 2px solid black;
-}
+} */
 
 input:valid {
   /* border: 2px solid black; */
-  width: 300px;
+  width: 350px;
+  background-color: "#999999";
 }

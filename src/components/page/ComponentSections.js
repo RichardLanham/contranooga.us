@@ -25,7 +25,7 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 
-require("../../styles/formStyles.css");
+// require("../../styles/formStyles.css");
 
 const StyledLargeVideo = styled(Box)(({ theme }) => ({
   color: theme.palette.info.contrastText,
@@ -350,7 +350,7 @@ export const LeadForm = ({ section }) => {
             type="text"
           ></Input>
           <Input
-            requiired
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={section.emailPlaceHolder}
@@ -771,39 +771,58 @@ export const Hero = ({ section }) => {
     <StyledPageSection>
       <StyledHeading>{section.title}</StyledHeading>
 
-      {thumb && (
-        <Box
-          style={{
-            // backgroundColor: theme.palette.background.default,
-            padding: 4,
-            // color: theme.palette.secondary.contrastText,
-            maxWidth: "50%",
-          }}
-        >
-          <img
-            title={section.title}
-            style={{
-              float: "left",
-              width: thumb.width,
-              height: "auto",
-              margin: 3,
-            }}
-            src={process.env.REACT_APP_STRAPI + thumb.url}
-          />
-          <div dangerouslySetInnerHTML={createMarkup(section.richText)}></div>
-          {section.buttons.map((button, key) => {
-            return (
-              <Link
-                key={key}
-                style={{ textDecoration: "none" }}
-                to={button.url}
-              >
-                <Button variant="outlined">{button.text}</Button>
-              </Link>
-            );
-          })}
-        </Box>
-      )}
+      <Box
+        style={{
+          // backgroundColor: theme.palette.background.default,
+          padding: 4,
+          // color: theme.palette.secondary.contrastText,
+          // maxWidth: "50%",
+        }}
+      >
+        {thumb && (
+          <>
+            <img
+              title={section.title}
+              style={{
+                float: "left",
+                width: thumb.width,
+                height: "auto",
+                margin: 3,
+              }}
+              src={process.env.REACT_APP_STRAPI + thumb.url}
+            />
+            <div dangerouslySetInnerHTML={createMarkup(section.richText)}></div>
+          </>
+        )}
+
+        {section.buttons.map((button, key) => {
+          const buttonThumb = getThumb(button.image.data.attributes);
+          return (
+            <Link key={key} style={{ textDecoration: "none" }} to={button.url}>
+              {buttonThumb ? (
+                <>
+                  <Button
+                    style={{ float: "left" }}
+                    startIcon={
+                      <img
+                        src={process.env.REACT_APP_STRAPI + buttonThumb.url}
+                      />
+                    }
+                    variant="contained"
+                  >
+                    {button.text}
+                  </Button>
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(section.richText)}
+                  ></div>
+                </>
+              ) : (
+                <Button variant="contained">{button.text}</Button>
+              )}
+            </Link>
+          );
+        })}
+      </Box>
     </StyledPageSection>
   );
 };

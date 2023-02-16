@@ -32,7 +32,7 @@ export const StyledRoot = styled("div")(({ theme }) => ({
   // },
 }));
 
-export const StyledEventList = styled(Box)(({ theme }) => ({
+export const StyledEventList = styled("div")(({ theme }) => ({
   width: "100%",
 }));
 export const StyledCalendar = styled(Calendar)(({ theme }) => ({
