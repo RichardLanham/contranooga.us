@@ -301,7 +301,11 @@ const Calendar = () => {
 
     if (!show)
       return (
-        <IconButton component="label" onClick={() => setShow(true)}>
+        <IconButton
+          component="label"
+          onClick={() => setShow(true)}
+          style={{ display: user ? "block" : "none" }}
+        >
           <AddCircleIcon
             style={{
               fontSize: 35,
