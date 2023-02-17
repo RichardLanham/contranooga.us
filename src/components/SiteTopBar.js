@@ -39,7 +39,7 @@ const SiteTopBar = () => {
     display: "none",
     position: "absolute",
     right: 0,
-    top: 0,
+    bottom: 0,
     zIndex: theme.zIndex.tooltip,
     "&:hover": {
       // backgroundColor: theme.palette.info.dark,
@@ -54,7 +54,7 @@ const SiteTopBar = () => {
   }));
 
   const StyledAppBar = styled("div")(({ theme }) => ({
-    height: 60,
+    height: 180,
 
     marginBottom: 20,
     marginTop: 0,
