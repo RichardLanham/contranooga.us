@@ -87,6 +87,8 @@ const SiteTopBar = () => {
 
   const StyledLogo = styled("img")(({ theme }) => ({
     //marginTop: 10,
+    backgroundColor: theme.palette.primary.light,
+    borderRadius: 500,
     width: "calc(15%)",
     position: "absolute",
     top: 0,
