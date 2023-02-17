@@ -59,7 +59,9 @@ const Login = () => {
   const [user, setUser] = useState({ username: "" });
 
   const StyledLock = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.info.light,
+    color: theme.palette.info.contrastText,
+    borderRadius: 50,
     padding: 0,
     margin: 0,
     zIndex: theme.zIndex.speedDial,
@@ -98,8 +100,8 @@ const Login = () => {
         title="Click to logout"
         style={{
           zIndex: theme.zIndex.tooltip - 1,
-          backgroundColor: theme.palette.background.default,
-          color: "#000",
+          backgroundColor: theme.palette.info.dark,
+          color: theme.palette.info.contrastDark,
           position: "fixed",
           bottom: 2,
           right: 3,

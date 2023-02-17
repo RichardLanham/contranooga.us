@@ -91,10 +91,11 @@ export const StyledAppBar = styled(AppBar)(
 export const StyledPage = styled("div")(({ theme }) => ({
   // backgroundColor: theme.palette.background.default,
   // backgroundColor: "yellow",
+
   position: "relative",
   width: "calc(70% - 1px)",
   margin: "auto",
-  // marginTop: 45,
+  marginTop: 190,
   borderRadius: 10,
   // paddingTop: 1,
   zIndex: 0,

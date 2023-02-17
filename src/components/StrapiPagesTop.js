@@ -23,7 +23,8 @@ const StrapiPages = (props) => {
   const StyledList = styled(List)(({ theme }) => ({
     ...theme.typography.button,
     width: 500,
-    margin: "auto",
+    // margin: "auto",
+    marginTop: "auto",
     justifyContent: "center",
     height: 45,
     // padding: 10,

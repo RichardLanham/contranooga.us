@@ -133,9 +133,23 @@ function Page({ _slug }) {
         </Site>
       );
     }
-    return <div>error</div>;
+    return (
+      // ERRROR
+      <div style={{ width: "100%", height: "100%" }}>
+        <Site title="CDTS" description="loading...">
+          <StyledPage>
+            <StyledSiteName>
+              Chattanooga Traditional Dance Society
+            </StyledSiteName>
+            <StyledHeader>loading data...</StyledHeader>
+            An error occurred
+          </StyledPage>
+        </Site>
+      </div>
+    );
   }
   return (
+    // DOWNLOADING, waiting for graphql
     <div style={{ width: "100%", height: "100%" }}>
       <Site title="CDTS" description="loading...">
         <StyledPage>

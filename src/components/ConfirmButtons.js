@@ -86,7 +86,11 @@ const ConfirmButtons = ({ action, args, label, icon }) => {
       <div>
         <div style={classes.resetButtons}>
           <Zoom in={true}>
-            <Button style={classes.resetButton} onClick={toggleConfirm}>
+            <Button
+              variant="contained"
+              style={classes.resetButton}
+              onClick={toggleConfirm}
+            >
               {cancelText}
             </Button>
           </Zoom>

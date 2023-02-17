@@ -9,7 +9,7 @@ const slideDrawer = (props) => {
     drawerClasses = "side-drawer open";
   }
   const bgImage = require("../../assets/bgimages/collage1.png");
-  console.log(bgImage);
+  // console.log(bgImage);
   return (
     <div
       style={{

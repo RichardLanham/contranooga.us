@@ -69,9 +69,10 @@ const SiteTopBar = () => {
     },
   }));
 
-  const bgTop = require("../assets/bgimages/collage_wide1.png");
+  const bgTop = require("../assets/bgimages/collage_wide2.png");
+
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    maxHeight: 100,
+    height: 180,
     backgroundImage: `url(${bgTop})`,
     // whiteSpace: "nowrap",
     flexWrap: "wrap",
