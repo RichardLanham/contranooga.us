@@ -8,10 +8,21 @@ const slideDrawer = (props) => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-
+  const bgImage = require("../../assets/bgimages/collage1.png");
+  console.log(bgImage);
   return (
-    <div style={{ width: "50%", maxWidth: 300 }} className={drawerClasses}>
-      <div style={{ height: 30 }}></div>
+    <div
+      style={{
+        width: "50%",
+        maxWidth: 300,
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "repeat",
+        zIndex: 5000,
+      }}
+      className={drawerClasses}
+    >
       <StrapiPages position="drawer" />
     </div>
   );

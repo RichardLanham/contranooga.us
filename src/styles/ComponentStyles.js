@@ -38,7 +38,7 @@ export const StyledSideBar = styled("div")(({ theme }) => ({
   marginTop: 60,
   marginLeft: 20,
   // border: `3px solid ${theme.palette.primary.dark}`,
-  boxShadow: theme.shadows[8],
+  // boxShadow: theme.shadows[8],
   borderRadius: 15,
   // backgroundImage: `url(${sidebar_bg})`,
   // backgroundSize: "cover",

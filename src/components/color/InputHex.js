@@ -285,9 +285,9 @@ const InputHex = () => {
             value={menuPosition}
             onChange={(e) => handleMenuPositionChange(e)}
           >
-            <MenuItem value="side">Sidebar</MenuItem>
-            <MenuItem value="top">Top</MenuItem>
-            <MenuItem value="split">Split</MenuItem>
+            <MenuItem value="side">side</MenuItem>
+            <MenuItem value="top">top</MenuItem>
+            <MenuItem value="split">split</MenuItem>
           </Select>
         </div>
         <div>
