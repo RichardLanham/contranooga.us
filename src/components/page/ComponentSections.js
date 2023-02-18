@@ -433,68 +433,240 @@ export const LeadForm = ({ section }) => {
 export const LargeVideo = ({ section }) => {
   const theme = useTheme();
 
+  const [state, setState] = useState({
+    url: null,
+    pip: false,
+    playing: true,
+    controls: true,
+    light: false,
+    volume: 0.8,
+    muted: false,
+    played: 0,
+    loaded: 0,
+    duration: 0,
+    playbackRate: 1.0,
+    loop: false,
+  });
+
+  const load = (url) => {
+    setState({
+      url,
+      played: 0,
+      loaded: 0,
+      pip: false,
+    });
+  };
+
+  const renderLoadButton = (url, label) => {
+    return <button onClick={() => load(url)}>{label}</button>;
+  };
+
+  const handlePlayPause = () => {
+    setState({ playing: !state.playing });
+  };
+
+  const handleStop = () => {
+    setState({ url: null, playing: false });
+  };
+
+  const handleToggleControls = () => {
+    const url = state.url;
+    setState(
+      {
+        controls: !state.controls,
+        url: null,
+      },
+      () => load(url)
+    );
+  };
+
+  const handleToggleLight = () => {
+    setState({ light: !state.light });
+  };
+
+  const handleToggleLoop = () => {
+    setState({ loop: !state.loop });
+  };
+
+  const handleVolumeChange = (e) => {
+    setState({ volume: parseFloat(e.target.value) });
+  };
+
+  const handleToggleMuted = () => {
+    setState({ muted: !state.muted });
+  };
+
+  const handleSetPlaybackRate = (e) => {
+    setState({ playbackRate: parseFloat(e.target.value) });
+  };
+
+  const handleOnPlaybackRateChange = (speed) => {
+    setState({ playbackRate: parseFloat(speed) });
+  };
+
+  const handleTogglePIP = () => {
+    setState({ pip: !state.pip });
+  };
+
+  const handlePlay = () => {
+    console.log("onPlay");
+    setState({ playing: true });
+  };
+
+  const handleEnablePIP = () => {
+    console.log("onEnablePIP");
+    setState({ pip: true });
+  };
+
+  const handleDisablePIP = () => {
+    console.log("onDisablePIP");
+    setState({ pip: false });
+  };
+
+  const handlePause = () => {
+    console.log("onPause");
+    setState({ playing: false });
+  };
+
+  const handleSeekMouseDown = (e) => {
+    setState({ seeking: true });
+  };
+
+  const handleSeekChange = (e) => {
+    setState({ played: parseFloat(e.target.value) });
+  };
+
+  const handleSeekMouseUp = (e) => {
+    setState({ seeking: false });
+    // player.seekTo(parseFloat(e.target.value));
+  };
+
+  const handleProgress = (state) => {
+    console.log("onProgress", state);
+    // We only want to update time slider if we are not currently seeking
+    if (!state.seeking) {
+      setState(state);
+    }
+  };
+
+  const handleEnded = () => {
+    console.log("onEnded");
+    setState({ playing: state.loop });
+  };
+
+  const handleDuration = (duration) => {
+    console.log("onDuration", duration);
+    setState({ duration });
+  };
+
+  const handleClickFullscreen = () => {
+    // screenfull.request(findDOMNode(player));
+  };
+
   const pl = section.playlist ? section.playlist.playlistItem : [];
+  const playlist = pl.map((item) => item.url);
+
   const playerRef = useRef();
 
-  const playlist = pl.map((item) => item.url);
-  // console.log(pl);
   const [url, setUrl] = useState(playlist);
   const switchPlaylist = (url) => {
     console.log(url);
-
-    // playerRef.current.url = url;
-    const player = playerRef.current?.player?.player?.player;
-    // playerRef.current.load(url);
-    //playerRef.current?.player?.player?.player?.currentSrc;
-    // player.playVideo(url)
-    //player.loadPlaylist(playlist.reverse());
-
-    // player.loadVideoByUrl(playlist[0]);
+    // load(url);
     setUrl([url]);
-    //    player.nextVideo();
-    console.log(player);
+    // player.nextVideo();
   };
+
   return (
-    <StyledPageSection
+    <div
       style={{
-        display: "flex",
+        // display: "flex",
         flexDirection: "column",
+
+        // flexFlow: "reve wrap",
         // backgroundColor: theme.palette.primary.light,
       }}
     >
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-      <div style={{ marginRight: "auto" }}>
-        {pl.map((item, key) => {
-          return (
-            <div key={key}>
-              <div>
-                <Button
-                  onClick={() => switchPlaylist(item.url)}
-                  variant="outlined"
-                >
-                  {item.text}
-                </Button>
-              </div>
-            </div>
-          );
-        })}
-        <StyledLargeVideo style={{ position: "relative", width: "100%" }}>
-          <div style={{ position: "absolute", width: "100%", height: "50%" }}>
-            <ReactPlayer
+
+      <div
+        style={{
+          display: "flex",
+          position: "relative",
+          flexDirection: "row",
+          zIndex: 2000,
+        }}
+      >
+        <div style={{ zIndex: 5000 }}>
+          {pl.map((item, key) => {
+            return (
+              <Button
+                key={key}
+                onClick={() => switchPlaylist(item.url)}
+                variant="outlined"
+              >
+                {item.text}
+              </Button>
+            );
+          })}
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            bottom: 0,
+            zIndex: 0,
+            width: "100%",
+            marginBottom: "auto",
+            // backgroundColor: "green",
+            // marginLeft: "auto",
+          }}
+        >
+          <ReactPlayer
+            ref={playerRef}
+            className="react-player"
+            width="100%"
+            height="100%"
+            url={url}
+            pip={false}
+            playing={false} //{playing}
+            controls={state.controls}
+            light={state.light}
+            loop={state.loop}
+            playbackRate={state.playbackRate}
+            volume={state.volume}
+            muted={state.muted}
+            onReady={() => console.log("onReady")}
+            onStart={() => console.log("onStart")}
+            onPlay={handlePlay}
+            onEnablePIP={handleEnablePIP}
+            onDisablePIP={handleDisablePIP}
+            onPause={handlePause}
+            onBuffer={() => console.log("onBuffer")}
+            onPlaybackRateChange={handleOnPlaybackRateChange}
+            onSeek={(e) => console.log("onSeek", e)}
+            onEnded={handleEnded}
+            onError={(e) => console.log("onError", e)}
+            onProgress={handleProgress}
+            onDuration={handleDuration}
+          />
+
+          {/* <ReactPlayer
               width="100%"
               ref={playerRef}
               // url={section.url ? section.url : playlist[0].url}
               playsinline={true}
-              playing={false}
+              playing={true}
               muted={true}
               url={url}
+              // light={<div>Video</div>}
               controls
-            />
-          </div>
-          {section.description}
-        </StyledLargeVideo>
+            /> */}
+        </div>
       </div>
-    </StyledPageSection>
+      <div style={{ position: "relative", width: 320 }}>
+        {section.description}
+      </div>
+    </div>
   );
 };
 
