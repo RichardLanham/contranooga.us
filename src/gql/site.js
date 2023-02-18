@@ -244,6 +244,16 @@ export const GET_PAGE = gql`
               id
               description
               title
+              playlist {
+                playlistItem {
+                  id
+                  url
+                  newTab
+                  text
+                  description
+                  __typename
+                }
+              }
               poster {
                 ...FileParts
                 __typename

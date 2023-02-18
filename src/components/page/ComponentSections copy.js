@@ -478,16 +478,18 @@ export const LargeVideo = ({ section }) => {
             </div>
           );
         })}
-        <StyledLargeVideo style={{ position: "relative", width: "100%" }}>
-          <div style={{ position: "absolute", width: "100%", height: "50%" }}>
+        <StyledLargeVideo
+          style={{ width: "100%", height: "50vw", backgroundColor: "yellow" }}
+        >
+          <div style={{ width: "100%" }}>
             <ReactPlayer
-              width="100%"
               ref={playerRef}
+              width="100%"
               // url={section.url ? section.url : playlist[0].url}
               playsinline={true}
               playing={false}
               muted={true}
-              url={url}
+              url={playlist}
               controls
             />
           </div>
