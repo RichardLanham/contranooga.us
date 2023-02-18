@@ -151,6 +151,7 @@ const Site = (props) => {
     height: 1000,
 
     [theme.breakpoints.down("lg")]: {
+      width: "5vw",
       opacity: ".35",
     },
     [theme.breakpoints.down("md")]: {},

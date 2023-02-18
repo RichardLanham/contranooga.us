@@ -141,8 +141,12 @@ function Page({ _slug }) {
             <StyledSiteName>
               Chattanooga Traditional Dance Society
             </StyledSiteName>
-            <StyledHeader>loading data...</StyledHeader>
+            <StyledHeader>Sorry</StyledHeader>
             An error occurred
+            <br />
+            <a style={{ fontSize: 22, fontWeight: "bold" }} href="/">
+              Try Refreshing!
+            </a>
           </StyledPage>
         </Site>
       </div>

@@ -9,7 +9,6 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { eventEmitter } from "../events";
 
-const graceIco = require("../assets/grace2.ico");
 const pagePng = require("../assets/page.png");
 const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
   const anch = subMenusPages.text;

@@ -41,7 +41,6 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import SiteHeader from "../components/page/SiteHeader";
 
-const holydays = require("../assets/readings/dol-holy-days.json");
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {

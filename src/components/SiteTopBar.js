@@ -92,8 +92,9 @@ const SiteTopBar = () => {
     borderRadius: 500,
     width: "calc(15%)",
     position: "absolute",
-    top: 0,
+    bottom: 0,
     left: 0,
+
     [theme.breakpoints.up("lg")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       width: theme.menuPosition === "side" ? "6%" : "calc(15%)",

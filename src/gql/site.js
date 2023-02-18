@@ -112,6 +112,7 @@ export const GET_PAGE = gql`
                     ...FileParts
                   }
                   richtext
+                  urlType
                   googleMap {
                     id
                     lat
@@ -249,6 +250,14 @@ export const GET_PAGE = gql`
               }
               url
               facebook_bound
+              richtext
+              googleMap {
+                id
+                lat
+                lng
+                marker
+              }
+              urlType
               __typename
             }
             ... on ComponentSectionsRichText {
