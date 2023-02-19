@@ -126,7 +126,8 @@ const SiteTopBar = () => {
       </StyledMenuButton>
     );
   };
-  const thumb = getThumb(theme.global.metadata.shareImage.data.attributes);
+  const thumb = getThumb(theme?.global?.metadata?.shareImage?.data?.attributes);
+  console.log(thumb);
   return (
     <div>
       <SlideDrawer show={drawerOpen} />

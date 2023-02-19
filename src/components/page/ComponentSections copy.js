@@ -449,7 +449,7 @@ export const LargeVideo = ({ section }) => {
   });
 
   const load = (url) => {
-    console.log("LOADING");
+    // console.log("LOADING");
     setState({
       url,
       played: 0,
@@ -572,59 +572,103 @@ export const LargeVideo = ({ section }) => {
   const playlist = pl.map((item) => item.url);
 
   const playerRef = useRef();
-  // console.log(playlist[0]);
-  const [url, setUrl] = useState(playlist);
 
+  const [url, setUrl] = useState(playlist);
+  const switchPlaylist = (url) => {
+    console.log(url);
+    // load(url);
+    setUrl([url]);
+    // player.nextVideo();
+  };
+  // React.cloneElement
   return (
-    <div>
+    <div
+      style={{
+        // display: "flex",
+        flexDirection: "column",
+
+        // flexFlow: "reve wrap",
+        // backgroundColor: theme.palette.primary.light,
+      }}
+    >
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-      <div style={{ zIndex: 5000 }}>
-        {pl.map((item, key) => {
-          return renderLoadButton(item.url, item.text, key);
-        })}
-      </div>
-      <div style={{ width: 300 }}>
-        <ReactPlayer
-          style={{ padding: 0 }}
-          ref={playerRef}
-          className="react-player"
-          // width="100%"
-          // height="100%"
-          url={state.url}
-          pip={state.pip}
-          playing={state.playing} //{playing}
-          controls={state.controls}
-          light={state.light}
-          loop={state.loop}
-          playbackRate={state.playbackRate}
-          volume={state.volume}
-          muted={state.muted}
-          onReady={() => console.log("onReady")}
-          onStart={() => console.log("onStart")}
-          onPlay={handlePlay}
-          onEnablePIP={handleEnablePIP}
-          onDisablePIP={handleDisablePIP}
-          onPause={handlePause}
-          onBuffer={() => console.log("onBuffer")}
-          onPlaybackRateChange={handleOnPlaybackRateChange}
-          onSeek={(e) => console.log("onSeek", e)}
-          onEnded={handleEnded}
-          onError={(e) => console.log("onError", e)}
-          onProgress={handleProgress}
-          onDuration={handleDuration}
-          playIcon={<button>Play</button>}
-        />
-      </div>
+
       <div
         style={{
-          // display: "flex",
-          backgroundColor: "yellow",
-          opacity: 0.2,
+          display: "flex",
           position: "relative",
           flexDirection: "row",
           zIndex: 2000,
         }}
-      ></div>
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            bottom: 0,
+            zIndex: 0,
+            width: "100%",
+            marginBottom: "auto",
+            // backgroundColor: "green",
+            // marginLeft: "auto",
+          }}
+        >
+          <div>
+            <div style={{ zIndex: 5000, marginTop: 50 }}>
+              {pl.map((item, key) => {
+                return renderLoadButton(item.url, item.text, key);
+                //   <Button
+                //     key={key}
+                //     onClick={() => switchPlaylist(item.url)}
+                //     variant="outlined"
+                //   >
+                //     {item.text}
+                //   </Button>
+              })}
+            </div>
+            <ReactPlayer
+              ref={playerRef}
+              className="react-player"
+              width="50%"
+              height="50%"
+              url={state.url}
+              pip={state.pip}
+              playing={state.playing} //{playing}
+              controls={state.controls}
+              light={state.light}
+              loop={state.loop}
+              playbackRate={state.playbackRate}
+              volume={state.volume}
+              muted={state.muted}
+              onReady={() => console.log("onReady")}
+              onStart={() => console.log("onStart")}
+              onPlay={handlePlay}
+              onEnablePIP={handleEnablePIP}
+              onDisablePIP={handleDisablePIP}
+              onPause={handlePause}
+              onBuffer={() => console.log("onBuffer")}
+              onPlaybackRateChange={handleOnPlaybackRateChange}
+              onSeek={(e) => console.log("onSeek", e)}
+              onEnded={handleEnded}
+              onError={(e) => console.log("onError", e)}
+              onProgress={handleProgress}
+              onDuration={handleDuration}
+            />
+          </div>
+
+          {/* <ReactPlayer
+              width="100%"
+              ref={playerRef}
+              // url={section.url ? section.url : playlist[0].url}
+              playsinline={true}
+              playing={true}
+              muted={true}
+              url={url}
+              // light={<div>Video</div>}
+              controls
+            /> */}
+        </div>
+      </div>
       <div style={{ position: "relative", width: 320 }}>
         {section.description}
       </div>
