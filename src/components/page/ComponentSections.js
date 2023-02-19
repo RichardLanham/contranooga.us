@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { Box, Card, Button, Input, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -449,6 +449,7 @@ export const LargeVideo = ({ section }) => {
   });
 
   const load = (url) => {
+    console.log("LOADING");
     setState({
       url,
       played: 0,
@@ -457,8 +458,12 @@ export const LargeVideo = ({ section }) => {
     });
   };
 
-  const renderLoadButton = (url, label) => {
-    return <button onClick={() => load(url)}>{label}</button>;
+  const renderLoadButton = (url, label, key) => {
+    return (
+      <Button key={key} onClick={() => load(url)}>
+        {label}
+      </Button>
+    );
   };
 
   const handlePlayPause = () => {
@@ -510,7 +515,7 @@ export const LargeVideo = ({ section }) => {
 
   const handlePlay = () => {
     console.log("onPlay");
-    setState({ playing: true });
+    // setState({ playing: true });
   };
 
   const handleEnablePIP = () => {
@@ -545,7 +550,7 @@ export const LargeVideo = ({ section }) => {
     console.log("onProgress", state);
     // We only want to update time slider if we are not currently seeking
     if (!state.seeking) {
-      setState(state);
+      // setState(state);
     }
   };
 
@@ -556,7 +561,7 @@ export const LargeVideo = ({ section }) => {
 
   const handleDuration = (duration) => {
     console.log("onDuration", duration);
-    setState({ duration });
+    // setState({ duration });
   };
 
   const handleClickFullscreen = () => {
@@ -575,7 +580,7 @@ export const LargeVideo = ({ section }) => {
     setUrl([url]);
     // player.nextVideo();
   };
-
+  // React.cloneElement
   return (
     <div
       style={{
@@ -598,15 +603,14 @@ export const LargeVideo = ({ section }) => {
       >
         <div style={{ zIndex: 5000 }}>
           {pl.map((item, key) => {
-            return (
-              <Button
-                key={key}
-                onClick={() => switchPlaylist(item.url)}
-                variant="outlined"
-              >
-                {item.text}
-              </Button>
-            );
+            return renderLoadButton(item.url, item.text, key);
+            //   <Button
+            //     key={key}
+            //     onClick={() => switchPlaylist(item.url)}
+            //     variant="outlined"
+            //   >
+            //     {item.text}
+            //   </Button>
           })}
         </div>
         <div
@@ -626,9 +630,9 @@ export const LargeVideo = ({ section }) => {
             className="react-player"
             width="100%"
             height="100%"
-            url={url}
-            pip={false}
-            playing={false} //{playing}
+            url={state.url}
+            pip={state.pip}
+            playing={state.playing} //{playing}
             controls={state.controls}
             light={state.light}
             loop={state.loop}
