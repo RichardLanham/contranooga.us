@@ -578,17 +578,17 @@ export const LargeVideo = ({ section }) => {
   return (
     <div>
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-      <div style={{ zIndex: 5000 }}>
+      <div style={{ zIndex: 5000, width: 300, height: "auto" }}>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
       </div>
-      <div style={{ width: 300 }}>
+      <div>
         <ReactPlayer
           style={{ padding: 0 }}
           ref={playerRef}
-          className="react-player"
-          // width="100%"
+          // className="react-player"
+          width="200hw"
           // height="100%"
           url={state.url}
           pip={state.pip}
