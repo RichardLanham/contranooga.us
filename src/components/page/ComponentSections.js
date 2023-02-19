@@ -593,7 +593,7 @@ export const LargeVideo = ({ section }) => {
           url={state.url}
           pip={state.pip}
           playing={state.playing} //{playing}
-          controls={state.controls}
+          controls={true}
           light={state.light}
           loop={state.loop}
           playbackRate={state.playbackRate}
@@ -612,7 +612,7 @@ export const LargeVideo = ({ section }) => {
           onError={(e) => console.log("onError", e)}
           onProgress={handleProgress}
           onDuration={handleDuration}
-          playIcon={<button>Play</button>}
+          // playIcon={<button>Play</button>}
         />
       </div>
       <div
