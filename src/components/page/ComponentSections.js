@@ -3,7 +3,8 @@ import { useTheme, styled } from "@mui/material/styles";
 import { Box, Card, Button, Input, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import FaceBookPlayer from "../../apps/FaceBookPlayer";
+// import FaceBookPlayer from "../../apps/FaceBookPlayer";
+import SitePlayer from "./SitePlayer";
 
 import GoogleMap from "../../apps/GoogleMap";
 
@@ -460,7 +461,11 @@ export const LargeVideo = ({ section }) => {
 
   const renderLoadButton = (url, label, key) => {
     return (
-      <Button key={key} onClick={() => load(url)}>
+      <Button
+        key={key}
+        onClick={() => load(url)}
+        style={{ minWidth: 160, maxWidth: 200 }}
+      >
         {label}
       </Button>
     );
@@ -571,14 +576,22 @@ export const LargeVideo = ({ section }) => {
   const pl = section.playlist ? section.playlist.playlistItem : [];
   const playlist = pl.map((item) => item.url);
 
-  const playerRef = useRef();
+  // const playerRef = useRef();
   // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
 
   return (
     <div>
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-      <div style={{ zIndex: 5000, width: 300, height: "auto" }}>
+      <div
+        style={{
+          width: 600,
+          height: "auto",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 3,
+        }}
+      >
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
@@ -586,7 +599,7 @@ export const LargeVideo = ({ section }) => {
       <div>
         <ReactPlayer
           style={{ padding: 0 }}
-          ref={playerRef}
+          // ref={playerRef}
           // className="react-player"
           width="200hw"
           // height="100%"
@@ -604,10 +617,10 @@ export const LargeVideo = ({ section }) => {
           onPlay={handlePlay}
           onEnablePIP={handleEnablePIP}
           onDisablePIP={handleDisablePIP}
-          onPause={handlePause}
+          // onPause={handlePause}
           onBuffer={() => console.log("onBuffer")}
           onPlaybackRateChange={handleOnPlaybackRateChange}
-          onSeek={(e) => console.log("onSeek", e)}
+          // onSeek={(e) => console.log("onSeek", e)}
           onEnded={handleEnded}
           onError={(e) => console.log("onError", e)}
           onProgress={handleProgress}

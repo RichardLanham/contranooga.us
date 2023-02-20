@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
+import { Box, Card, Button, Input, IconButton } from "@mui/material";
 
-const SitePlayer = () => {
+const SitePlayer = ({ section }) => {
   const [state, setState] = useState({
     url: null,
     pip: false,
     playing: true,
-    controls: false,
+    controls: true,
     light: false,
     volume: 0.8,
     muted: false,
@@ -19,6 +20,7 @@ const SitePlayer = () => {
   });
 
   const load = (url) => {
+    console.log("LOADING");
     setState({
       url,
       played: 0,
@@ -27,8 +29,12 @@ const SitePlayer = () => {
     });
   };
 
-  const renderLoadButton = (url, label) => {
-    return <button onClick={() => load(url)}>{label}</button>;
+  const renderLoadButton = (url, label, key) => {
+    return (
+      <Button key={key} onClick={() => load(url)}>
+        {label}
+      </Button>
+    );
   };
 
   const handlePlayPause = () => {
@@ -80,7 +86,7 @@ const SitePlayer = () => {
 
   const handlePlay = () => {
     console.log("onPlay");
-    setState({ playing: true });
+    // setState({ playing: true });
   };
 
   const handleEnablePIP = () => {
@@ -115,7 +121,7 @@ const SitePlayer = () => {
     console.log("onProgress", state);
     // We only want to update time slider if we are not currently seeking
     if (!state.seeking) {
-      setState(state);
+      // setState(state);
     }
   };
 
@@ -126,16 +132,52 @@ const SitePlayer = () => {
 
   const handleDuration = (duration) => {
     console.log("onDuration", duration);
-    setState({ duration });
+    // setState({ duration });
   };
 
   const handleClickFullscreen = () => {
     // screenfull.request(findDOMNode(player));
   };
 
+  const pl = section.playlist ? section.playlist.playlistItem : [];
+  const playlist = pl.map((item) => item.url);
+
+  //   const playerRef = useRef();
+  // console.log(playlist[0]);
+  const [url, setUrl] = useState(playlist);
+
   return (
     <div>
-      <SitePlayer />
+      <ReactPlayer
+        style={{ padding: 0 }}
+        // ref={playerRef}
+        // className="react-player"
+        width="200hw"
+        // height="100%"
+        url={state.url}
+        pip={state.pip}
+        playing={state.playing} //{playing}
+        controls={true}
+        light={state.light}
+        loop={state.loop}
+        playbackRate={state.playbackRate}
+        volume={state.volume}
+        muted={state.muted}
+        onReady={() => console.log("onReady")}
+        onStart={() => console.log("onStart")}
+        onPlay={handlePlay}
+        onEnablePIP={handleEnablePIP}
+        onDisablePIP={handleDisablePIP}
+        onPause={handlePause}
+        onBuffer={() => console.log("onBuffer")}
+        onPlaybackRateChange={handleOnPlaybackRateChange}
+        onSeek={(e) => console.log("onSeek", e)}
+        onEnded={handleEnded}
+        onError={(e) => console.log("onError", e)}
+        onProgress={handleProgress}
+        onDuration={handleDuration}
+        // playIcon={<button>Play</button>}
+      />
     </div>
   );
 };

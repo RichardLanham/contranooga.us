@@ -3,7 +3,8 @@ import { useTheme, styled } from "@mui/material/styles";
 import { Box, Card, Button, Input, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import FaceBookPlayer from "../../apps/FaceBookPlayer";
+// import FaceBookPlayer from "../../apps/FaceBookPlayer";
+import SitePlayer from "./SitePlayer";
 
 import GoogleMap from "../../apps/GoogleMap";
 
@@ -449,7 +450,7 @@ export const LargeVideo = ({ section }) => {
   });
 
   const load = (url) => {
-    // console.log("LOADING");
+    console.log("LOADING");
     setState({
       url,
       played: 0,
@@ -460,7 +461,7 @@ export const LargeVideo = ({ section }) => {
 
   const renderLoadButton = (url, label, key) => {
     return (
-      <Button key={key} onClick={() => load(url)}>
+      <Button key={key} onClick={() => load(url)} style={{ height: 40 }}>
         {label}
       </Button>
     );
@@ -571,104 +572,60 @@ export const LargeVideo = ({ section }) => {
   const pl = section.playlist ? section.playlist.playlistItem : [];
   const playlist = pl.map((item) => item.url);
 
-  const playerRef = useRef();
-
+  // const playerRef = useRef();
+  // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
-  const switchPlaylist = (url) => {
-    console.log(url);
-    // load(url);
-    setUrl([url]);
-    // player.nextVideo();
-  };
-  // React.cloneElement
+
   return (
-    <div
-      style={{
-        // display: "flex",
-        flexDirection: "column",
-
-        // flexFlow: "reve wrap",
-        // backgroundColor: theme.palette.primary.light,
-      }}
-    >
+    <div>
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-
+      <div style={{ width: 600, height: "auto", display: "flex", gap: 3 }}>
+        {pl.map((item, key) => {
+          return renderLoadButton(item.url, item.text, key);
+        })}
+      </div>
+      <div>
+        <ReactPlayer
+          style={{ padding: 0 }}
+          // ref={playerRef}
+          // className="react-player"
+          width="200hw"
+          // height="100%"
+          url={state.url}
+          pip={state.pip}
+          playing={state.playing} //{playing}
+          controls={true}
+          light={state.light}
+          loop={state.loop}
+          playbackRate={state.playbackRate}
+          volume={state.volume}
+          muted={state.muted}
+          onReady={() => console.log("onReady")}
+          onStart={() => console.log("onStart")}
+          onPlay={handlePlay}
+          onEnablePIP={handleEnablePIP}
+          onDisablePIP={handleDisablePIP}
+          onPause={handlePause}
+          onBuffer={() => console.log("onBuffer")}
+          onPlaybackRateChange={handleOnPlaybackRateChange}
+          onSeek={(e) => console.log("onSeek", e)}
+          onEnded={handleEnded}
+          onError={(e) => console.log("onError", e)}
+          onProgress={handleProgress}
+          onDuration={handleDuration}
+          // playIcon={<button>Play</button>}
+        />
+      </div>
       <div
         style={{
-          display: "flex",
+          // display: "flex",
+          backgroundColor: "yellow",
+          opacity: 0.2,
           position: "relative",
           flexDirection: "row",
           zIndex: 2000,
         }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            bottom: 0,
-            zIndex: 0,
-            width: "100%",
-            marginBottom: "auto",
-            // backgroundColor: "green",
-            // marginLeft: "auto",
-          }}
-        >
-          <div>
-            <div style={{ zIndex: 5000, marginTop: 50 }}>
-              {pl.map((item, key) => {
-                return renderLoadButton(item.url, item.text, key);
-                //   <Button
-                //     key={key}
-                //     onClick={() => switchPlaylist(item.url)}
-                //     variant="outlined"
-                //   >
-                //     {item.text}
-                //   </Button>
-              })}
-            </div>
-            <ReactPlayer
-              ref={playerRef}
-              className="react-player"
-              width="50%"
-              height="50%"
-              url={state.url}
-              pip={state.pip}
-              playing={state.playing} //{playing}
-              controls={state.controls}
-              light={state.light}
-              loop={state.loop}
-              playbackRate={state.playbackRate}
-              volume={state.volume}
-              muted={state.muted}
-              onReady={() => console.log("onReady")}
-              onStart={() => console.log("onStart")}
-              onPlay={handlePlay}
-              onEnablePIP={handleEnablePIP}
-              onDisablePIP={handleDisablePIP}
-              onPause={handlePause}
-              onBuffer={() => console.log("onBuffer")}
-              onPlaybackRateChange={handleOnPlaybackRateChange}
-              onSeek={(e) => console.log("onSeek", e)}
-              onEnded={handleEnded}
-              onError={(e) => console.log("onError", e)}
-              onProgress={handleProgress}
-              onDuration={handleDuration}
-            />
-          </div>
-
-          {/* <ReactPlayer
-              width="100%"
-              ref={playerRef}
-              // url={section.url ? section.url : playlist[0].url}
-              playsinline={true}
-              playing={true}
-              muted={true}
-              url={url}
-              // light={<div>Video</div>}
-              controls
-            /> */}
-        </div>
-      </div>
+      ></div>
       <div style={{ position: "relative", width: 320 }}>
         {section.description}
       </div>
