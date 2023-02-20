@@ -464,7 +464,7 @@ export const LargeVideo = ({ section }) => {
       <Button
         key={key}
         onClick={() => load(url)}
-        style={{ minWidth: 160, maxWidth: 200 }}
+        style={{ minWidth: 100, maxWidth: 150, padding: 1, margin: 1 }}
       >
         {label}
       </Button>
@@ -576,6 +576,8 @@ export const LargeVideo = ({ section }) => {
   const pl = section.playlist ? section.playlist.playlistItem : [];
   const playlist = pl.map((item) => item.url);
 
+  const defaultVideo = playlist[0];
+
   // const playerRef = useRef();
   // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
@@ -583,19 +585,12 @@ export const LargeVideo = ({ section }) => {
   return (
     <div>
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
-      <div
-        style={{
-          width: 600,
-          height: "auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 3,
-        }}
-      >
+      <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
+      <StyledVideoButtonGroup>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
-      </div>
+      </StyledVideoButtonGroup>
       <div>
         <ReactPlayer
           style={{ padding: 0 }}
@@ -603,6 +598,7 @@ export const LargeVideo = ({ section }) => {
           // className="react-player"
           width="200hw"
           // height="100%"
+          // url={state.url || defaultVideo}
           url={state.url}
           pip={state.pip}
           playing={state.playing} //{playing}
@@ -625,7 +621,7 @@ export const LargeVideo = ({ section }) => {
           onError={(e) => console.log("onError", e)}
           onProgress={handleProgress}
           onDuration={handleDuration}
-          // playIcon={<button>Play</button>}
+          playIcon={<Button>Play</Button>}
         />
       </div>
       <div
@@ -656,6 +652,20 @@ const StyledRichText = styled("div")(({ theme }) => ({
     // padding: 0,
   },
   [theme.breakpoints.down("md")]: {},
+}));
+
+const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
+  width: 600,
+  height: "auto",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: 3,
+  [theme.breakpoints.down("lg")]: {
+    // padding: 0,
+  },
+  [theme.breakpoints.down("md")]: {
+    width: 300,
+  },
 }));
 
 const createMarkup = (html) => {
