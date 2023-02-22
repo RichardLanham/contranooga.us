@@ -169,10 +169,10 @@ const Site = (props) => {
           content={theme.global.metadata.metaDescription}
         />
         {<meta name="theme-color" content={theme.palette.primary.main} />}
-        <link rel="canonical" href="http://contranooga.us/" />
+        <link rel="canonical" href="https://contranooga.us/" />
       </Helmet>
       {/* <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName> */}
-      <StyledFloatImg>HELLO;</StyledFloatImg>
+
       <StyledSiteDiv>
         {user && (
           <div

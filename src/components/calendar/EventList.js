@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   FormLabel,
   TextField,
   Select,
@@ -43,7 +42,7 @@ function getDaysInMonth(year, month) {
 }
 
 const EventList = () => {
-  console.log("eventList");
+  // console.log("eventList");
   const [user, setUser] = useState(false);
   const [calDate, setCalDate] = useState(new Date());
   const delEvent = useMutation(DELETE_EVENT);
@@ -777,12 +776,16 @@ const EventList = () => {
 
   // prep for graphql query
   const t2 = new Date(calDate.toISOString().split("T")[0]);
-  t2.setDate(t2.getDate() - 1);
-  const iso = t2.toISOString().split(".")[0] + "Z";
-  const temp = new Date(iso);
-  temp.setDate(temp.getDate() + 31);
-  const isoTo = temp.toISOString().split(".")[0] + "Z";
 
+  //t2.setDate(t2.getDate() - 1);
+
+  const iso = t2.toISOString().split(".")[0] + "Z";
+  console.log(iso);
+
+  const temp = new Date(iso);
+  temp.setMonth(temp.getMonth() + 1);
+  const isoTo = temp.toISOString().split(".")[0] + "Z";
+  console.log(isoTo);
   // console.log(new Date(iso) + " " + new Date(isoTo));
   // let sundayLectionary = {};
   let today = {};

@@ -44,7 +44,7 @@ import SiteHeader from "../components/page/SiteHeader";
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
-  console.log("calendars");
+  // console.log("calendars");
   const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
 
@@ -62,9 +62,9 @@ const Calendar = () => {
   const [pages, setPages] = useState("");
 
   useEffect(() => {
-    const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
+    // const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
 
-    setPages(storedPages);
+    // setPages(storedPages);
     setUser(window.localStorage.getItem("strapi_user") ? true : false);
     eventEmitter.subscribe(
       "LOGIN",
@@ -90,16 +90,16 @@ const Calendar = () => {
   useEffect(async () => {
     // setLect(JSON.parse(window.localStorage.getItem("lect")));
 
-    axios
-      .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
-      .then((res) => {
-        setImages(res);
-        //setImage(res.data[0].name);
-        window.localStorage.setItem("strapiImages", JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
+    //   .then((res) => {
+    //     setImages(res);
+    //     //setImage(res.data[0].name);
+    //     window.localStorage.setItem("strapiImages", JSON.stringify(res));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     await getEvents();
 
@@ -150,7 +150,7 @@ const Calendar = () => {
       sats_.push({
         id: Math.random(),
         attributes: {
-          to: "/page/newdancer",
+          to: "/page/beginnersr",
           name: saturdayLabel,
           //    body: "Services @ 8:00 and 10:45 AM",]
           startTime: when,
@@ -168,14 +168,14 @@ const Calendar = () => {
       .get(process.env.REACT_APP_STRAPI_API + "/events")
       .then((res) => {
         setEvents(res);
-        window.localStorage.setItem("strapiEvents", JSON.stringify(res));
+        //window.localStorage.setItem("strapiEvents", JSON.stringify(res));
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const [imgUrl, setImgUrl] = useState(null);
+  // const [imgUrl, setImgUrl] = useState(null);
 
   const [show, setShow] = useState(false);
 
@@ -197,12 +197,12 @@ const Calendar = () => {
       setPage(e.target.value);
     };
 
-    useEffect(() => {
-      //setPages(JSON.parse(window.localStorage.getItem("strapiPages")));
-      setTimeout(() => {
-        setMessage("");
-      }, 2000);
-    }, [message]);
+    // useEffect(() => {
+    //   //setPages(JSON.parse(window.localStorage.getItem("strapiPages")));
+    //   setTimeout(() => {
+    //     setMessage("");
+    //   }, 2000);
+    // }, [message]);
 
     const submit = () => {
       const request = new XMLHttpRequest();
@@ -560,12 +560,14 @@ const Calendar = () => {
     //    console.log(holydays);
     const arrayEvents = [];
     const allEvents = [...suns, ...events.data.data];
+    console.log(events.data.data);
     if (user) {
       allEvents.map((ev) => {
         thisEvent = {};
         thisEvent.title = ev.attributes.name;
         thisEvent.start = new Date(ev.attributes.startTime);
         thisEvent.end = new Date(ev.attributes.endTime);
+
         arrayEvents.push(thisEvent);
       });
     } else {
@@ -576,6 +578,8 @@ const Calendar = () => {
           thisEvent.title = ev.attributes.name;
           thisEvent.start = new Date(ev.attributes.startTime);
           thisEvent.end = new Date(ev.attributes.endTime);
+          // console.log(thisEvent.start);
+          // console.log(thisEvent.end);
           arrayEvents.push(thisEvent);
         });
     }
@@ -708,7 +712,7 @@ const Calendar = () => {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    to="/page/newdancer"
+                    to="/page/beginners"
                   >
                     {event.title}
                   </Link>
