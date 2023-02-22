@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 

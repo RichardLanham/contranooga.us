@@ -43,6 +43,7 @@ function getDaysInMonth(year, month) {
 }
 
 const EventList = () => {
+  console.log("eventList");
   const [user, setUser] = useState(false);
   const [calDate, setCalDate] = useState(new Date());
   const delEvent = useMutation(DELETE_EVENT);

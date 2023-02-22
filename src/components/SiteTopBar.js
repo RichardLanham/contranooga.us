@@ -127,7 +127,7 @@ const SiteTopBar = () => {
     );
   };
   const thumb = getThumb(theme?.global?.metadata?.shareImage?.data?.attributes);
-  console.log(thumb);
+  // console.log(thumb);
   return (
     <div>
       <SlideDrawer show={drawerOpen} />

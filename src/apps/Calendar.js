@@ -44,6 +44,7 @@ import SiteHeader from "../components/page/SiteHeader";
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
+  console.log("calendars");
   const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
 
@@ -809,13 +810,12 @@ const Calendar = () => {
 
   return (
     <Site title="Events">
-      <Zoom in={true}>
-        <StyledPage>
-          <SiteHeader metaTitle="Upcoming Events" />
-          <EventCalendar />
-          <EventList key="evenlist" />
-        </StyledPage>
-      </Zoom>
+      <StyledPage>
+        <SiteHeader metaTitle="Upcoming Events" />
+
+        <EventCalendar />
+        <EventList key="evenlist" />
+      </StyledPage>
     </Site>
   );
 };

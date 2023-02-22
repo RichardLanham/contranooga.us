@@ -69,6 +69,7 @@ const StyledHeader = styled("div")(({ theme }) => ({
 // import { isNullableType } from "graphql";
 
 function Page({ _slug }) {
+  // console.log("page");
   const theme = useTheme();
   useEffect(() => {}, []);
   let { slug } = useParams();

@@ -334,11 +334,12 @@ export const LeadForm = ({ section }) => {
   if (open === "thanks") {
     return (
       <StyledWrap>
-        <div style={{ ...theme.typography.h4 }}>Thank you!</div>
-
-        <Button onClick={() => setOpen("none")} variant="contained" style={{}}>
-          Close
-        </Button>
+        <div
+          onMouseEnter={() => setOpen("none")}
+          style={{ ...theme.typography.h4 }}
+        >
+          Thank you!
+        </div>
       </StyledWrap>
     );
   }
@@ -450,7 +451,7 @@ export const LargeVideo = ({ section }) => {
   });
 
   const load = (url) => {
-    console.log("LOADING");
+    // console.log("LOADING");
     setState({
       url,
       played: 0,
@@ -462,9 +463,16 @@ export const LargeVideo = ({ section }) => {
   const renderLoadButton = (url, label, key) => {
     return (
       <Button
+        variant="contained"
         key={key}
         onClick={() => load(url)}
-        style={{ minWidth: 100, maxWidth: 150, padding: 1, margin: 1 }}
+        style={{
+          minWidth: 100,
+          maxWidth: 250,
+          maxHeight: 100,
+          padding: 1,
+          margin: 1,
+        }}
       >
         {label}
       </Button>
