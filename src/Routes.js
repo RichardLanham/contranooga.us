@@ -41,8 +41,8 @@ const AppRoutes = () => {
   //const [access_token] = useState("");
 
   useEffect(async () => {
-    window.localStorage.removeItem("strapi_jwt");
-    window.localStorage.removeItem("strapi_user");
+    // window.localStorage.removeItem("strapi_jwt");
+    // window.localStorage.removeItem("strapi_user");
 
     // await axios
     //   .get(
@@ -83,7 +83,7 @@ const AppRoutes = () => {
   theme.color_modes = storedTheme.color_modes;
 
   theme.bgCount = 0;
-
+  delete theme.pages;
   let counter = 1;
   const switchBg = () => {
     document.body.style.backgroundImage =

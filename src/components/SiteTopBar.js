@@ -69,11 +69,13 @@ const SiteTopBar = () => {
     },
   }));
 
-  const bgTop = require("../assets/bgimages/collage_wide2.png");
+  const bgTop = require("../assets/bgimages/oldbg.png");
 
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     height: 180,
     backgroundImage: `url(${bgTop})`,
+    backgroundSize: "100% auto",
+    backgroundRepeat: "no-repeat",
     // whiteSpace: "nowrap",
     flexWrap: "wrap",
     width: "100%",
@@ -83,6 +85,10 @@ const SiteTopBar = () => {
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
+    },
+    [theme.breakpoints.down("sm")]: {
+      //   display: theme.menuPosition === "side" ? "none" : "block",
+      backgroundSize: "100% 15vh",
     },
   }));
 

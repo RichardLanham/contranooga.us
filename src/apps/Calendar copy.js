@@ -44,7 +44,7 @@ import SiteHeader from "../components/page/SiteHeader";
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
-  console.log("calendars");
+  // console.log("calendars");
   const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
 
@@ -62,9 +62,9 @@ const Calendar = () => {
   const [pages, setPages] = useState("");
 
   useEffect(() => {
-    const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
+    // const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
 
-    setPages(storedPages);
+    // setPages(storedPages);
     setUser(window.localStorage.getItem("strapi_user") ? true : false);
     eventEmitter.subscribe(
       "LOGIN",
@@ -90,16 +90,16 @@ const Calendar = () => {
   useEffect(async () => {
     // setLect(JSON.parse(window.localStorage.getItem("lect")));
 
-    axios
-      .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
-      .then((res) => {
-        setImages(res);
-        //setImage(res.data[0].name);
-        window.localStorage.setItem("strapiImages", JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
+    //   .then((res) => {
+    //     setImages(res);
+    //     //setImage(res.data[0].name);
+    //     window.localStorage.setItem("strapiImages", JSON.stringify(res));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     await getEvents();
 
@@ -168,14 +168,14 @@ const Calendar = () => {
       .get(process.env.REACT_APP_STRAPI_API + "/events")
       .then((res) => {
         setEvents(res);
-        window.localStorage.setItem("strapiEvents", JSON.stringify(res));
+        //window.localStorage.setItem("strapiEvents", JSON.stringify(res));
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const [imgUrl, setImgUrl] = useState(null);
+  // const [imgUrl, setImgUrl] = useState(null);
 
   const [show, setShow] = useState(false);
 
@@ -197,12 +197,12 @@ const Calendar = () => {
       setPage(e.target.value);
     };
 
-    useEffect(() => {
-      //setPages(JSON.parse(window.localStorage.getItem("strapiPages")));
-      setTimeout(() => {
-        setMessage("");
-      }, 2000);
-    }, [message]);
+    // useEffect(() => {
+    //   //setPages(JSON.parse(window.localStorage.getItem("strapiPages")));
+    //   setTimeout(() => {
+    //     setMessage("");
+    //   }, 2000);
+    // }, [message]);
 
     const submit = () => {
       const request = new XMLHttpRequest();
@@ -457,20 +457,19 @@ const Calendar = () => {
                   >
                     <MenuItem value="none">Link</MenuItem>
                     <MenuItem value="external">external link</MenuItem>
-                    {pages &&
-                      pages.map((page, key) => {
-                        // const thumb = getImageThumb(image.formats);
+                    {pages.map((page, key) => {
+                      // const thumb = getImageThumb(image.formats);
 
-                        return (
-                          <MenuItem
-                            selected={key === 0}
-                            key={key}
-                            value={page.attributes.slug}
-                          >
-                            {page.attributes.slug}
-                          </MenuItem>
-                        );
-                      })}
+                      return (
+                        <MenuItem
+                          selected={key === 0}
+                          key={key}
+                          value={page.attributes.slug}
+                        >
+                          {page.attributes.slug}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                   <div
                     style={{

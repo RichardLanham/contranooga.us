@@ -14,7 +14,6 @@ const StrapiPages = (props) => {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    theme.pages && setPages([theme.global.navbar.links]);
     setUser(window.localStorage.getItem("strapi_user"));
   }, []);
 

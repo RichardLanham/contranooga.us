@@ -8,7 +8,7 @@ const slideDrawer = (props) => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-  const bgImage = require("../../assets/bgimages/collage1.png");
+  const bgImage = require("../../assets/bgimages/burgerbg.png");
   // console.log(bgImage);
   return (
     <div
@@ -16,8 +16,8 @@ const slideDrawer = (props) => {
         width: "50%",
         maxWidth: 300,
         backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundSize: "100% auto",
+        // backgroundPosition: "center",
         backgroundRepeat: "repeat",
         zIndex: 5000,
       }}

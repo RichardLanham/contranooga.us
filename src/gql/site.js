@@ -73,12 +73,6 @@ export const GET_PAGE = gql`
           metadata {
             metaTitle
             metaDescription
-            shareImage {
-              ...FileParts
-              __typename
-            }
-            twitterCardType
-            twitterUsername
             __typename
           }
           contentSections {
@@ -122,19 +116,7 @@ export const GET_PAGE = gql`
                 }
               }
             }
-            ... on ComponentSectionsBottomActions {
-              id
-              title
-              buttons {
-                id
-                newTab
-                text
-                type
-                url
-                __typename
-              }
-              __typename
-            }
+
             ... on ComponentSectionsHero {
               id
               title
@@ -165,79 +147,6 @@ export const GET_PAGE = gql`
                 ...FileParts
                 __typename
               }
-              __typename
-            }
-            ... on ComponentSectionsFeatureColumnsGroup {
-              id
-              features {
-                id
-                description
-                icon {
-                  ...FileParts
-                  __typename
-                }
-                title
-                __typename
-              }
-              __typename
-            }
-            ... on ComponentSectionsFeatureRowsGroup {
-              id
-              features {
-                id
-                description
-                link {
-                  id
-                  newTab
-                  text
-                  url
-                  __typename
-                }
-                media {
-                  ...FileParts
-                  __typename
-                }
-                title
-                __typename
-              }
-              __typename
-            }
-            ... on ComponentSectionsTestimonialsGroup {
-              id
-              description
-              link {
-                id
-                newTab
-                text
-                url
-                __typename
-              }
-              logos {
-                id
-                title
-                logo {
-                  ...FileParts
-                  __typename
-                }
-                __typename
-              }
-              testimonials {
-                id
-                logo {
-                  ...FileParts
-                  __typename
-                }
-                picture {
-                  ...FileParts
-                  __typename
-                }
-                text
-                authorName
-                authorTitle
-                link
-                __typename
-              }
-              title
               __typename
             }
             ... on ComponentSectionsLargeVideo {
@@ -273,25 +182,6 @@ export const GET_PAGE = gql`
             ... on ComponentSectionsRichText {
               id
               content
-              __typename
-            }
-            ... on ComponentSectionsPricing {
-              id
-              title
-              plans {
-                description
-                features {
-                  id
-                  name
-                  __typename
-                }
-                id
-                isRecommended
-                name
-                price
-                pricePeriod
-                __typename
-              }
               __typename
             }
             ... on ComponentSectionsLeadForm {
@@ -341,17 +231,6 @@ export const GET_PAGES_SHORT = gql`
             id
             metaTitle
             metaDescription
-            shareImage {
-              data {
-                id
-                attributes {
-                  name
-                  alternativeText
-                  caption
-                  formats
-                }
-              }
-            }
           }
           createdAt
           updatedAt
@@ -384,17 +263,6 @@ export const GET_PAGES = gql`
             id
             metaTitle
             metaDescription
-            shareImage {
-              data {
-                id
-                attributes {
-                  name
-                  alternativeText
-                  caption
-                  formats
-                }
-              }
-            }
           }
           createdAt
           updatedAt
@@ -404,16 +272,6 @@ export const GET_PAGES = gql`
           MenuAnchor
           route
           contentSections {
-            ... on ComponentSectionsPricing {
-              id
-              title
-              plans {
-                id
-                price
-                pricePeriod
-                isRecommended
-              }
-            }
             ... on ComponentSectionsLeadForm {
               id
               title
@@ -536,11 +394,6 @@ export const GLOBAL = gql`
           metadata {
             metaTitle
             metaDescription
-            shareImage {
-              ...FileParts
-            }
-            twitterCardType
-            twitterUsername
           }
           metaTitleSuffix
           notificationBanner {
