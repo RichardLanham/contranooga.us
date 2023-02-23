@@ -71,7 +71,9 @@ const StyledHeader = styled("div")(({ theme }) => ({
 function Page({ _slug }) {
   // console.log("page");
   const theme = useTheme();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   let { slug } = useParams();
   slug = slug ? slug : _slug;
   slug = slug.toLowerCase();

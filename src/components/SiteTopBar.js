@@ -35,7 +35,7 @@ const SiteTopBar = () => {
     //display: theme.menuPosition === "top" ? "flex" : "none",
     margin: 0,
     padding: 0,
-    paddingTop: 2,
+    // paddingTop: 2,
     display: "none",
     position: "absolute",
     right: 0,
@@ -50,7 +50,9 @@ const SiteTopBar = () => {
       display: "block",
       // right:0,
     },
-    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.down("sm")]: {
+      bottom: 30,
+    },
   }));
 
   const StyledAppBar = styled("div")(({ theme }) => ({
@@ -74,7 +76,7 @@ const SiteTopBar = () => {
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     height: 180,
     backgroundImage: `url(${bgTop})`,
-    backgroundSize: "100% auto",
+    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     // whiteSpace: "nowrap",
     flexWrap: "wrap",
@@ -84,11 +86,13 @@ const SiteTopBar = () => {
     alignItems: "center",
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
-      //   display: theme.menuPosition === "side" ? "none" : "block",
+      backgroundSize: "100% 18vh",
+      height: 120,
     },
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
-      backgroundSize: "100% 15vh",
+      backgroundSize: "100% 8vh",
+      // height: 120,
     },
   }));
 
@@ -96,29 +100,31 @@ const SiteTopBar = () => {
     //marginTop: 10,
     backgroundColor: theme.palette.primary.light,
     borderRadius: 500,
-    width: "calc(15%)",
+    width: "18vw",
     position: "absolute",
     bottom: 0,
     left: 0,
 
     [theme.breakpoints.up("lg")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
-      width: theme.menuPosition === "side" ? "6%" : "calc(15%)",
+      // width: theme.menuPosition === "side" ? "12vw" : "14vw",
+      width: "12vw",
     },
     [theme.breakpoints.down("lg")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
-      width: "12%",
+      // width: "12%",
     },
     [theme.breakpoints.down("md")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
-      width: "10%",
+      // width: "15%",
     },
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
-      width: "18%",
+      bottom: 20,
+      // width: "20vw",
     },
   }));
 
@@ -140,8 +146,8 @@ const SiteTopBar = () => {
       <SlideDrawer show={drawerOpen} />
       <HideOnScroll>
         <StyledAppBar>
-          <CornerBurger />
           <StyledToolbar>
+            <CornerBurger />
             <Link to="/" style={{ zIndex: 3000 }}>
               <StyledLogo src={process.env.REACT_APP_STRAPI + thumb.url} />
             </Link>
