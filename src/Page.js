@@ -31,6 +31,7 @@ import {
   FeatureRowsGroup,
   BottomActions,
   LeadForm,
+  GoogleMap,
 } from "./components/page/ComponentSections";
 
 import PledgeForm from "./components/page/PledgeForm";
@@ -83,9 +84,23 @@ function Page({ _slug }) {
   });
   if (!loading) {
     if (!error) {
-      const attribs = data.pages.data[0].attributes;
-      const pageId = data.pages.data[0].id;
-      const metaTitle = attribs.metadata.metaTitle;
+      const attribs = data?.pages?.data[0]?.attributes;
+      const pageId = data?.pages?.data[0]?.id;
+      const metaTitle = attribs?.metadata?.metaTitle;
+
+      if (!attribs) {
+        return (
+          <Site>
+            title="empty page"
+            <Zoom in={true}>
+              <StyledPage>
+                <SiteHeader metaTitle={metaTitle} />
+                <h4>Empty Page</h4>
+              </StyledPage>
+            </Zoom>
+          </Site>
+        );
+      }
       return (
         <Site
           title={attribs.metadata.metaTitle}
@@ -100,6 +115,8 @@ function Page({ _slug }) {
               {attribs.contentSections.map((section, key) => {
                 // ComponentSections
                 switch (section.__typename.replace("ComponentSections", "")) {
+                  case "GoogleMap":
+                    return <GoogleMap key={key} section={section} />;
                   case "LeadForm":
                     return <LeadForm key={key} section={section} />;
                   case "FlexGroup":

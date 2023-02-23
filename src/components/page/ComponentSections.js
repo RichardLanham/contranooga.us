@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 // import FaceBookPlayer from "../../apps/FaceBookPlayer";
 import SitePlayer from "./SitePlayer";
 
-import GoogleMap from "../../apps/GoogleMap";
+import GoogleMapApp from "../../apps/GoogleMapApp";
 
 import {
   StyledSubHead,
@@ -100,7 +100,7 @@ export const FlexGroup = ({ section }) => {
             )}
             {group.googleMap && (
               <div>
-                <GoogleMap
+                <GoogleMapApp
                   marker={group.googleMap.marker}
                   lat={group.googleMap.lat}
                   lng={group.googleMap.lng}
@@ -219,11 +219,12 @@ export const FlexGroup = ({ section }) => {
                         )}
                         {box.googleMap && (
                           <div>
-                            <GoogleMap
-                              marker={box.googleMap.marker}
+                            <GoogleMapApp
+                              markerText={box.googleMap.markerText}
+                              markerImage={box.googleMap.markerImage}
                               lat={box.googleMap.lat}
                               lng={box.googleMap.lng}
-                              style={box.googleMap.style}
+                              description={box.googleMap.description}
                             />
                           </div>
                         )}
@@ -278,6 +279,38 @@ const validateEmail = (mail) => {
   return false;
 };
 
+export const GoogleMap = ({ section }) => {
+  const theme = useTheme();
+
+  return (
+    <div>
+      {section.gmap.map((map, key) => {
+        return (
+          <div key={key}>
+            <GoogleMapApp
+              lat={map.lat}
+              lng={map.lng}
+              zoom={map.zoom}
+              markerText={map.markerText}
+              markerImage={map.markerImage}
+              description={map.description}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  // return (
+  //   <GoogleMapApp
+  //     lat={section.gmap.lat}
+  //     lng={section.gmap.lng}
+  //     markerText={section.gmap.markerText}
+  //     markerImage={section.gmap.markerImage}
+  //     description={section.gmap.description}
+  //   />
+  // );
+};
 export const LeadForm = ({ section }) => {
   const theme = useTheme();
   const [name, setName] = useState(theme.leadFormName);
@@ -1024,7 +1057,7 @@ export const Hero = ({ section }) => {
       >
         {section.googleMap && (
           <div>
-            <GoogleMap
+            <GoogleMapApp
               marker={section.googleMap.marker}
               lat={section.googleMap.lat}
               lng={section.googleMap.lng}

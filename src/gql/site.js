@@ -95,6 +95,10 @@ export const GET_PAGE = gql`
                   lat
                   lng
                   markerText
+                  markerImage {
+                    ...FileParts
+                  }
+                  description
                 }
                 box {
                   id
@@ -111,6 +115,10 @@ export const GET_PAGE = gql`
                     lat
                     lng
                     markerText
+                    markerImage {
+                      ...FileParts
+                    }
+                    description
                   }
                 }
               }
@@ -123,7 +131,7 @@ export const GET_PAGE = gql`
               richText
               map {
                 id
-                marker
+                markerText
                 lat
                 lng
               }
@@ -181,6 +189,24 @@ export const GET_PAGE = gql`
               content
               __typename
             }
+
+            ... on ComponentSectionsGoogleMap {
+              id
+              title
+              gmap {
+                id
+                name
+                lat
+                lng
+                zoom
+                markerText
+                markerImage {
+                  ...FileParts
+                }
+                description
+              }
+            }
+
             ... on ComponentSectionsLeadForm {
               id
               title
