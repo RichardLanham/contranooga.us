@@ -132,7 +132,8 @@ const SiteTopBar = () => {
       </StyledMenuButton>
     );
   };
-  const thumb = getThumb(theme?.global?.metadata?.shareImage?.data?.attributes);
+  const thumb = getThumb(theme?.global?.navbar?.logo?.data?.attributes);
+  // theme.global.navbar.logo.data.attributes
   // console.log(thumb);
   return (
     <div>

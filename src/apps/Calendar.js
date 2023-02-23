@@ -48,7 +48,7 @@ const Calendar = () => {
   const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
 
-  let saturdayLabel = "Contra Dance @ 7:30";
+  let saturdayLabel = "Local Dance";
 
   const [events, setEvents] = useState({
     data: {
@@ -706,10 +706,11 @@ const Calendar = () => {
                 {event.title === saturdayLabel ? (
                   <Link
                     style={{
-                      ...theme.typography.h5,
+                      ...theme.typography.body1,
                       textDecoration: "none",
-                      fontWeight: "bold",
-                      color: "#000666",
+                      // fontWeight: "bold",
+                      // color: "#000666",
+                      whiteSpace: "nowrap",
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
