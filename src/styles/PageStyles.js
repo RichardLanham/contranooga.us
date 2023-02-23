@@ -114,7 +114,7 @@ export const StyledPage = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     width: "calc(95% - 1rem)",
-    // marginTop: 85,
+    marginTop: 125,
   },
 }));
 
