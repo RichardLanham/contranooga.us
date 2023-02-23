@@ -104,6 +104,7 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
             return (
               <StyledButton
                 key={key}
+                title={page.description}
                 style={{
                   marginRight: "auto",
                   backgroundColor:

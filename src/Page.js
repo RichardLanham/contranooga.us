@@ -135,25 +135,26 @@ function Page({ _slug }) {
           </Zoom>
         </Site>
       );
+    } else {
+      return (
+        // ERRROR
+        <div style={{ width: "100%", height: "100%" }}>
+          <Site title="CDTS" description="loading...">
+            <StyledPage>
+              <StyledSiteName>
+                Chattanooga Traditional Dance Society
+              </StyledSiteName>
+              <StyledHeader>Sorry</StyledHeader>
+              An error occurred
+              <br />
+              <a style={{ fontSize: 22, fontWeight: "bold" }} href="/">
+                Try Refreshing!
+              </a>
+            </StyledPage>
+          </Site>
+        </div>
+      );
     }
-    return (
-      // ERRROR
-      <div style={{ width: "100%", height: "100%" }}>
-        <Site title="CDTS" description="loading...">
-          <StyledPage>
-            <StyledSiteName>
-              Chattanooga Traditional Dance Society
-            </StyledSiteName>
-            <StyledHeader>Sorry</StyledHeader>
-            An error occurred
-            <br />
-            <a style={{ fontSize: 22, fontWeight: "bold" }} href="/">
-              Try Refreshing!
-            </a>
-          </StyledPage>
-        </Site>
-      </div>
-    );
   }
   return (
     // DOWNLOADING, waiting for graphql

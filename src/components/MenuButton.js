@@ -10,6 +10,7 @@ const MenuButton = (props) => {
     <Button
       to={page.url}
       //key={props.key}
+      title={page.description}
       button="true"
       component={Link}
       style={{

@@ -94,7 +94,7 @@ export const GET_PAGE = gql`
                   id
                   lat
                   lng
-                  marker
+                  markerText
                 }
                 box {
                   id
@@ -110,7 +110,7 @@ export const GET_PAGE = gql`
                     id
                     lat
                     lng
-                    marker
+                    markerText
                   }
                 }
               }
@@ -171,7 +171,7 @@ export const GET_PAGE = gql`
                 id
                 lat
                 lng
-                marker
+                markerText
               }
               urlType
               __typename
@@ -404,6 +404,7 @@ export const GLOBAL = gql`
               id
               url
               newTab
+              description
               text
             }
             dropdown {
