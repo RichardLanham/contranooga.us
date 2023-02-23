@@ -483,7 +483,7 @@ const EventList = () => {
                   style={{
                     ...theme.typography.h6,
                     display: "inline",
-                    backgroundColor: theme.palette.background.default,
+                    // backgroundColor: theme.palette.background.default,
                   }}
                 >
                   {attribs.body}

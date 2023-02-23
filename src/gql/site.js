@@ -101,7 +101,6 @@ export const GET_PAGE = gql`
                   title
                   description
                   url
-                  facebook_bound
                   poster {
                     ...FileParts
                   }
@@ -168,7 +167,6 @@ export const GET_PAGE = gql`
                 __typename
               }
               url
-              facebook_bound
               richtext
               googleMap {
                 id
@@ -361,7 +359,6 @@ export const GET_PAGES = gql`
             ... on ComponentSectionsLargeVideo {
               title
               description
-              facebook_bound
             }
           }
         }

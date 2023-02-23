@@ -88,8 +88,6 @@ const Calendar = () => {
   }, []);
 
   useEffect(async () => {
-    // setLect(JSON.parse(window.localStorage.getItem("lect")));
-
     axios
       .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
       .then((res) => {
@@ -168,7 +166,7 @@ const Calendar = () => {
       .get(process.env.REACT_APP_STRAPI_API + "/events")
       .then((res) => {
         setEvents(res);
-        window.localStorage.setItem("strapiEvents", JSON.stringify(res));
+        // window.localStorage.setItem("strapiEvents", JSON.stringify(res));
       })
       .catch((err) => {
         console.log(err);
