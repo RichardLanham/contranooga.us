@@ -126,7 +126,6 @@ export const GET_PAGE = gql`
                 marker
                 lat
                 lng
-                style
               }
               buttons {
                 id
