@@ -55,20 +55,24 @@ const InputHex = () => {
 
   /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
   useEffect(() => {
-    console.log("USEEFFECT ONE");
     if (!loading2) {
       if (!error2) {
-        //const _themes = [];
-        // console.log(data2.theme.data.attributes.theme);
-        // theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
-        // theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
+        const _themes = [];
+        console.log(
+          JSON.parse(data2.theme.data.attributes.theme).palette.primary.main
+        );
+        theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
+        theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
         // eventEmitter.dispatch("REFRESH", {});
-        //setThemes(_themes);
+        console.log(theme.palette.primary.main);
+        //data2.themes.data.map((t) => {});
+        // setThemes(_themes);
+        // console.log(_themes);
       }
     }
   }, [selectedTheme, loading2, error2, data2]);
 
-  //const [attrib, setAttrib] = useState("primary");
+  // const [attrib, setAttrib] = useState("primary");
   // useEffect(() => {
   //   // useQuery(GET_THEME);
   //   if (!loading) {
@@ -92,17 +96,17 @@ const InputHex = () => {
   // }, [loading, error, data]);
 
   useEffect(() => {
-    console.log("USEEFFECT TWO");
+    // console.log(theme);
     setFont(theme.font);
-    setMenuPosition(menuPosition in theme ? theme.menuPosition : "side");
+    setMenuPosition(theme.menuPosition);
   }, [theme.font]);
-  // useEffect(() => {
-  //   console.log("USEEFFECT Three");
-  //   // setSelectedTheme(theme.themeId);
-  //   return () => {
-  //     window.localStorage.setItem("targ", "primary");
-  //   };
-  // }, []);
+  useEffect(() => {
+    setSelectedTheme(theme.themeId);
+    return () => {
+      // window.localStorage.setItem("targ", "primary");
+      theme.targ = "primary";
+    };
+  }, []);
 
   // useEffect(() => {
   //   setInputHex(theme.palette[attrib].main);

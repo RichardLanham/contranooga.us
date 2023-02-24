@@ -171,7 +171,7 @@ export const StyledColorSections = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.grey[400],
   // width: "calc(40% - 10px)",
   width: 580,
-  margin: "auto",
+  marginRight: "auto",
   marginBottom: 20,
   display: "flex",
   flexDirection: "row",

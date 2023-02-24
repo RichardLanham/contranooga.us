@@ -76,6 +76,7 @@ const AppRoutes = () => {
 
   let theme = createTheme({ ...lTheme });
   theme.global = global.attributes;
+  useStrapiDefaultThemeId();
   //theme.feature = feature.attributes;
   //theme.access_token = access_token;
   theme.themeId = themeId;

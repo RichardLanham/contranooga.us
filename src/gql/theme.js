@@ -41,6 +41,19 @@ export const GET_THEME_BY_NAME = gql`
   }
 `;
 
+export const GET_THEME_NAMES = gql`
+  query GetThemesNames {
+    themes {
+      data {
+        id
+        attributes {
+          name
+        }
+      }
+    }
+  }
+`;
+
 export const GET_THEME = gql`
   query GetTheme($id: ID!) {
     theme(id: $id) {

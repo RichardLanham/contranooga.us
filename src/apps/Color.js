@@ -46,6 +46,13 @@ import {
 } from "../gql/theme";
 import { WindowOutlined } from "@mui/icons-material";
 
+import {
+  StyledPage,
+  // StyledHeader,
+  // StyledPageSection,
+} from "../styles/PageStyles";
+import SiteHeader from "../components/page/SiteHeader";
+
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update the state to force render
@@ -768,19 +775,25 @@ const Color = (props) => {
   };
   return (
     <Site title="Color">
-      <div id="pushitdown" style={{ height: 170 }}>
-        &nbsp;
-      </div>
-      <InputHex />
-      <Controls transformThemeBranch={transformThemeBranch} />{" "}
-      <div style={{ position: "relative" }}>
-        <DndProvider backend={HTML5Backend}>
-          <DndProvider backend={TouchBackend}>{DragControls()}</DndProvider>
-        </DndProvider>
-        <Palette keepOpen={true} refreshReact={refreshReact} />
+      <StyledPage>
+        <SiteHeader metaTitle="Site Settings" />
+        <div
+          style={{
+            position: "relative",
+            // border: "2px solid",
+          }}
+        >
+          <InputHex />
+          <Controls transformThemeBranch={transformThemeBranch} />
 
-        <ThemeInspector />
-      </div>
+          <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={TouchBackend}>{DragControls()}</DndProvider>
+          </DndProvider>
+          <Palette keepOpen={true} refreshReact={refreshReact} />
+
+          <ThemeInspector />
+        </div>
+      </StyledPage>
     </Site>
   );
 };
