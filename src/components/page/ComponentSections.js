@@ -254,8 +254,8 @@ export const FlexGroup = ({ section }) => {
 
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.info.main,
-  color: theme.palette.info.contrastText,
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.primary.dark,
   width: 300,
   top: 0,
   // backgroundColor: "yellow",
@@ -400,8 +400,8 @@ export const LeadForm = ({ section }) => {
         <form>
           <div
             style={{
-              backgroundColor: theme.palette.error.main,
-              color: theme.palette.error.contrastText,
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.primary.dark,
             }}
           >
             {message}
@@ -454,11 +454,19 @@ export const LeadForm = ({ section }) => {
   return (
     <div>
       {section.submitButton ? (
-        <Button onClick={() => setOpen("form")} variant="contained" style={{}}>
+        <Button
+          onClick={() => setOpen("form")}
+          variant="outline"
+          style={{ ...theme.typography.h6 }}
+        >
           {section.title}
         </Button>
       ) : (
-        <Button onClick={() => setOpen("form")} variant="contained" style={{}}>
+        <Button
+          onClick={() => setOpen("form")}
+          variant="outline"
+          style={{ ...theme.typography.h5 }}
+        >
           {section.title}
         </Button>
       )}

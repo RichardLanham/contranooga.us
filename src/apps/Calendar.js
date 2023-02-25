@@ -641,9 +641,9 @@ const Calendar = () => {
                 style={{
                   borderRadius: 3,
                   backgroundColor: future
-                    ? theme.palette.secondary.main
+                    ? theme.palette.primary.main
                     : theme.palette.grey[200],
-                  color: future ? theme.palette.secondary.contrastText : "#000", // greyed
+                  color: future ? theme.palette.primary.contrastText : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -671,9 +671,9 @@ const Calendar = () => {
                   //overflow: "hidden",
                   borderRadius: 3,
                   backgroundColor: future
-                    ? theme.palette.secondary.main
+                    ? theme.palette.primary.main
                     : theme.palette.grey[200], //the past is
-                  color: future ? theme.palette.secondary.contrastText : "#000", // greyed
+                  color: future ? theme.palette.primary.contrastText : "#000", // greyed
                   padding: 2,
                 }}
               >
@@ -709,8 +709,8 @@ const Calendar = () => {
                       // fontWeight: "bold",
                       // color: "#000666",
                       whiteSpace: "nowrap",
-                      backgroundColor: theme.palette.secondary.main,
-                      color: theme.palette.secondary.contrastText,
+                      backgroundColor: theme.palette.primary.main,
+                      color: theme.palette.primary.contrastText,
                     }}
                     to="/page/beginners"
                   >
@@ -755,8 +755,8 @@ const Calendar = () => {
                   <FormLabel
                     style={{
                       ...theme.typography.h5,
-                      backgroundColor: theme.palette.secondary.main,
-                      color: theme.palette.secondary.contrastText,
+                      backgroundColor: theme.palette.primary.main,
+                      color: theme.palette.primary.contrastText,
                       padding: 3,
                       borderRadius: 10,
                     }}
