@@ -629,11 +629,11 @@ export const LargeVideo = ({ section }) => {
   const [url, setUrl] = useState(playlist);
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    width: 600,
-    height: "auto",
+    // width: 600,
+    // height: "auto",
     display: "flex",
     flexWrap: "wrap",
-    gap: 3,
+    // gap: 3,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
@@ -671,20 +671,31 @@ export const LargeVideo = ({ section }) => {
 
   return (
     <div>
-      <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
       <StyledPlayListSelect>
-        <Select
-          onChange={handleChangeTrack}
-          name="Play List"
-          // value={<MenuItem>{listVal}</MenuItem>}
-          value={listVal}
-          // onChange={(e) => handle(e)}
-        >
-          {pl.map((item, key) => {
-            return <MenuItem value={item.text}>{item.text}</MenuItem>;
-          })}
-        </Select>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <span
+            style={{
+              ...theme.typography.button,
+              fontSize: 18,
+              backgroundColor: theme.palette.info.light,
+              color: theme.palette.info.contrastLight,
+            }}
+          >
+            {section.title ? section.title : ""}
+          </span>
+          <Select
+            onChange={handleChangeTrack}
+            name="Play List"
+            // value={<MenuItem>{listVal}</MenuItem>}
+            value={listVal}
+            // onChange={(e) => handle(e)}
+          >
+            {pl.map((item, key) => {
+              return <MenuItem value={item.text}>{item.text}</MenuItem>;
+            })}
+          </Select>
+        </div>
 
         <Button
           style={{ display: "none" }}
@@ -707,6 +718,17 @@ export const LargeVideo = ({ section }) => {
       </StyledPlayListSelect>
 
       <StyledVideoButtonGroup>
+        <span
+          style={{
+            ...theme.typography.button,
+            fontSize: 22,
+            backgroundColor: theme.palette.info.light,
+            color: theme.palette.info.contrastLight,
+            margin: "auto",
+          }}
+        >
+          {section.title ? section.title : ""}
+        </span>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
@@ -775,7 +797,8 @@ const StyledRichText = styled("div")(({ theme }) => ({
 }));
 
 const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-  width: 600,
+  width: "1000vw",
+  border: "1px solid blue",
   height: "auto",
   display: "flex",
   flexWrap: "wrap",
