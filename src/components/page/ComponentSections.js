@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, Card, Button, Input, IconButton } from "@mui/material";
+import { Box, Card, Button, Input, IconButton, MenuItem } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 // import FaceBookPlayer from "../../apps/FaceBookPlayer";
@@ -493,6 +494,15 @@ export const LargeVideo = ({ section }) => {
     });
   };
 
+  const pl = section.playlist ? section.playlist.playlistItem : [];
+  const playlist = pl.map((item) => item.url);
+
+  const defaultVideo = playlist[0];
+
+  useEffect(() => {
+    pl.length > 0 && load(pl[0].url);
+  }, [pl]);
+
   const renderLoadButton = (url, label, key) => {
     return (
       <Button
@@ -614,19 +624,88 @@ export const LargeVideo = ({ section }) => {
     // screenfull.request(findDOMNode(player));
   };
 
-  const pl = section.playlist ? section.playlist.playlistItem : [];
-  const playlist = pl.map((item) => item.url);
-
-  const defaultVideo = playlist[0];
-
   // const playerRef = useRef();
   // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
+
+  const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
+    width: 600,
+    height: "auto",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 3,
+    [theme.breakpoints.down("lg")]: {
+      // padding: 0,
+    },
+    [theme.breakpoints.down("md")]: {
+      width: 300,
+      display: "none",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: 300,
+      // display: "none",
+    },
+  }));
+
+  const StyledPlayListSelect = styled("div")(({ theme }) => ({
+    display: "none",
+    [theme.breakpoints.down("lg")]: {
+      // padding: 0,
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "block",
+    },
+    [theme.breakpoints.down("sm")]: {
+      // display: "block",
+    },
+  }));
+
+  const [listVal, setListVal] = useState(pl[0]?.text ? pl[0].text : "");
+
+  const handleChangeTrack = (event) => {
+    setListVal(event.target.value);
+    const targ = pl.find((item) => item.text === event.target.value);
+    //console.log(targ);
+    load(targ.url);
+  };
 
   return (
     <div>
       <StyledSubHead>{section.title ? section.title : ""}</StyledSubHead>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
+      <StyledPlayListSelect>
+        <Select
+          onChange={handleChangeTrack}
+          name="Play List"
+          // value={<MenuItem>{listVal}</MenuItem>}
+          value={listVal}
+          // onChange={(e) => handle(e)}
+        >
+          {pl.map((item, key) => {
+            return <MenuItem value={item.text}>{item.text}</MenuItem>;
+          })}
+        </Select>
+
+        <Button
+          style={{ display: "none" }}
+          onClick={() => load(url)}
+          variant="contained"
+        >
+          Play {listVal}
+        </Button>
+
+        <Button
+          onClick={handleStop}
+          style={{
+            display: state.url === null ? "none" : "inline",
+            display: "none",
+          }}
+          variant="contained"
+        >
+          Stop {listVal}
+        </Button>
+      </StyledPlayListSelect>
+
       <StyledVideoButtonGroup>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
