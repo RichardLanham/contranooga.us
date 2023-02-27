@@ -41,6 +41,10 @@ const AppRoutes = () => {
   //const [access_token] = useState("");
 
   useEffect(async () => {
+    document.body.addEventListener("fooAction", function (e) {
+      // something that does nothing
+    });
+
     const jd = window.localStorage.getItem("jwt_date");
     // console.log(jd);
     // if (new Date() - jd)
