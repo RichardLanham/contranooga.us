@@ -51,7 +51,7 @@ import {
   // StyledHeader,
   // StyledPageSection,
 } from "../styles/PageStyles";
-import SiteHeader from "../components/page/SiteHeader";
+import PageHeader from "../components/page/PageHeader";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -776,7 +776,7 @@ const Color = (props) => {
   return (
     <Site title="Color">
       <StyledPage>
-        <SiteHeader metaTitle="Site Settings" />
+        <PageHeader metaTitle="Site Settings" />
         <div
           style={{
             position: "relative",

@@ -3,12 +3,15 @@ import { useTheme, styled } from "@mui/material/styles";
 
 import { StyledSiteName } from "../../styles/PageStyles";
 
-const SiteHeader = ({ metaTitle }) => {
+const PageHeader = ({ metaTitle }) => {
   const theme = useTheme();
 
   const StyledHeader = styled("div")(({ theme }) => ({
     ...theme.typography.h3,
+    // fontSize: "4vw",
     // opacity: ".1",
+    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.contrastDark,
     width: "calc(50% - 1px)",
     paddingLeft: 10,
     paddingRight: 10,
@@ -16,7 +19,7 @@ const SiteHeader = ({ metaTitle }) => {
     marginLeft: 10,
     borderRadius: 5,
     borderColor: theme.palette.primary.main,
-    boxShadow: theme.shadows[10],
+    boxShadow: theme.shadows[1],
     [theme.breakpoints.down("xl")]: {
       marginTop: 15,
     },
@@ -24,7 +27,7 @@ const SiteHeader = ({ metaTitle }) => {
       left: 50,
     },
     [theme.breakpoints.down("md")]: {
-      fontSize: 22,
+      ...theme.typography.h5,
       left: 8,
       marginLeft: 0,
     },
@@ -41,4 +44,4 @@ const SiteHeader = ({ metaTitle }) => {
   );
 };
 
-export default SiteHeader;
+export default PageHeader;

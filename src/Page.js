@@ -32,7 +32,7 @@ import {
 
 import PledgeForm from "./components/page/PledgeForm";
 
-import SiteHeader from "./components/page/SiteHeader";
+import PageHeader from "./components/page/PageHeader";
 
 import { StyledSiteName } from "./styles/PageStyles";
 
@@ -95,7 +95,7 @@ function Page({ _slug }) {
             title="empty page"
             <Zoom in={true}>
               <StyledPage>
-                <SiteHeader metaTitle={metaTitle} />
+                <PageHeader metaTitle={metaTitle} />
                 <h4>Empty Page</h4>
               </StyledPage>
             </Zoom>
@@ -109,7 +109,7 @@ function Page({ _slug }) {
         >
           <Zoom in={true}>
             <StyledPage>
-              <SiteHeader metaTitle={metaTitle} />
+              <PageHeader metaTitle={metaTitle} />
 
               <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
               <SiteFeature slug={slug} />

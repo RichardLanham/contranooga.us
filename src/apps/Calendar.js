@@ -39,7 +39,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import SiteHeader from "../components/page/SiteHeader";
+import PageHeader from "../components/page/PageHeader";
 
 const localizer = momentLocalizer(moment);
 
@@ -815,7 +815,7 @@ const Calendar = () => {
   return (
     <Site title="Events">
       <StyledPage>
-        <SiteHeader metaTitle="Upcoming Events" />
+        <PageHeader metaTitle="Upcoming Events" />
 
         <EventCalendar />
         <EventList key="evenlist" />

@@ -27,17 +27,19 @@ const PageStyles = () => {
 };
 
 export const StyledSiteName = styled("div")(({ theme }) => ({
-  ...theme.typography.h3,
+  ...theme.typography.h2,
   opacity: ".8",
   marginTop: 60,
   borderRadius: 5,
   padding: 3,
-  // boxShadow: theme.shadows[2],
+  backgroundColor: theme.palette.primary.dark,
+  color: theme.palette.primary.contrastDark,
+  // boxShadow: theme.shadows[1],
   [theme.breakpoints.down("lg")]: {
     // left: 50,
   },
   [theme.breakpoints.down("md")]: {
-    ...theme.typography.h5,
+    ...theme.typography.h4,
   },
   [theme.breakpoints.down("sm")]: {
     left: 20,
