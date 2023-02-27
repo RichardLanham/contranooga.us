@@ -47,6 +47,7 @@ const GoogleMap = ({
         <span dangerouslySetInnerHTML={createMarkup(description)}></span>
       )}
       <GoogleMapReact
+        //scrollwheel={false}
         bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
         defaultCenter={center}
         defaultZoom={zoom ? zoom : 16}
