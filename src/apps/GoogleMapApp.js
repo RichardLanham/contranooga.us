@@ -6,6 +6,8 @@ import { useTheme } from "@mui/material/styles";
 import { getThumb } from "./functions";
 const img = require("../assets/mapmarker.gif");
 
+require("../styles/googlemap.css");
+
 // <RoomIcon style={{ width: 60, height: "auto" }} lat={lat} lng={lng} />
 const GoogleMap = ({
   lat,
