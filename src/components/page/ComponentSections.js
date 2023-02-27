@@ -624,7 +624,7 @@ export const LargeVideo = ({ section }) => {
   };
 
   const handleProgress = (state) => {
-    console.log("onProgress", state);
+    // console.log("onProgress", state);
     // We only want to update time slider if we are not currently seeking
     if (!state.seeking) {
       // setState(state);
@@ -637,7 +637,7 @@ export const LargeVideo = ({ section }) => {
   };
 
   const handleDuration = (duration) => {
-    console.log("onDuration", duration);
+    // console.log("onDuration", duration);
     // setState({ duration });
   };
 
@@ -713,7 +713,11 @@ export const LargeVideo = ({ section }) => {
             // onChange={(e) => handle(e)}
           >
             {pl.map((item, key) => {
-              return <MenuItem value={item.text}>{item.text}</MenuItem>;
+              return (
+                <MenuItem key={key} value={item.text}>
+                  {item.text}
+                </MenuItem>
+              );
             })}
           </Select>
         </div>
@@ -771,8 +775,8 @@ export const LargeVideo = ({ section }) => {
           playbackRate={state.playbackRate}
           volume={state.volume}
           muted={state.muted}
-          onReady={() => console.log("onReady")}
-          onStart={() => console.log("onStart")}
+          // onReady={() => console.log("onReady")}
+          // onStart={() => console.log("onStart")}
           onPlay={handlePlay}
           onEnablePIP={handleEnablePIP}
           onDisablePIP={handleDisablePIP}
@@ -835,6 +839,7 @@ const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
 const createMarkup = (html) => {
   return { __html: html };
 };
+
 export const RichText = ({ section }) => {
   const theme = useTheme();
   return (
@@ -938,6 +943,7 @@ const StyledFeaturesRowGroup = styled(Box)(({ theme }) => ({
     // backgroundColor: "green",
   },
 }));
+
 const StyledFeaturesRow = styled(Card)(({ theme }) => ({
   ...theme.typography.caption,
   width: "calc(28%)",
@@ -1065,7 +1071,6 @@ export const FeatureRowsGroup = ({ section }) => {
 };
 
 export const FeatureColumnsGroup = ({ section }) => {
-  console.log(section);
   const theme = useTheme();
   const [slug, setSlug] = useState("");
   const [page, setPage] = useState([]);
@@ -1077,7 +1082,7 @@ export const FeatureColumnsGroup = ({ section }) => {
   useEffect(() => {
     if (!loading) {
       if (!error) {
-        console.log(data);
+        // console.log(data);
         setPage(data.pages.data);
       }
     }

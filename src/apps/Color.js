@@ -254,13 +254,13 @@ const Color = (props) => {
         setThemes(_themes);
         // setSelectedTheme(theme.themeId);
         theme.themes = _themes;
-        console.log(_themes);
+        // console.log(_themes);
       }
     }
   }, [loading, error, data]);
 
   useEffect(() => {
-    console.log("Color Effect");
+    // console.log("Color Effect");
 
     eventEmitter.subscribe("REFRESH", () => {
       console.log("REFRESH at Site");

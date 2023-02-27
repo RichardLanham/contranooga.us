@@ -780,12 +780,12 @@ const EventList = () => {
   //t2.setDate(t2.getDate() - 1);
 
   const iso = t2.toISOString().split(".")[0] + "Z";
-  console.log(iso);
+  // console.log(iso);
 
   const temp = new Date(iso);
   temp.setMonth(temp.getMonth() + 1);
   const isoTo = temp.toISOString().split(".")[0] + "Z";
-  console.log(isoTo);
+  // console.log(isoTo);
   // console.log(new Date(iso) + " " + new Date(isoTo));
   // let sundayLectionary = {};
   let today = {};

@@ -17,7 +17,7 @@ const GoogleMap = ({
 }) => {
   const theme = useTheme();
   const thumb = getThumb(markerImage?.data?.attributes);
-  console.log(thumb);
+  // console.log(thumb);
   const center = {
     lat: lat,
     lng: lng,

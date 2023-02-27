@@ -44,7 +44,7 @@ import SiteHeader from "../components/page/SiteHeader";
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
-  console.log("calendars");
+  // console.log("calendars");
   const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
 
@@ -559,7 +559,7 @@ const Calendar = () => {
     //    console.log(holydays);
     const arrayEvents = [];
     const allEvents = [...suns, ...events.data.data];
-    console.log(events.data.data);
+    // console.log(events.data.data);
     if (user) {
       allEvents.map((ev) => {
         thisEvent = {};

@@ -18,7 +18,7 @@ import {
 } from "../../gql/theme";
 
 const ResetAllButton = (props) => {
-  console.log("ResetAllButton");
+  // console.log("ResetAllButton");
   const [createTheme] = useMutation(CREATE_THEME);
   const [putTheme] = useMutation(PUT_THEME);
 
@@ -33,7 +33,7 @@ const ResetAllButton = (props) => {
           return t;
         })
       : [];
-    console.log(themes);
+    // console.log(themes);
     setThemeId(theme.themeId);
   }, []);
 
@@ -129,7 +129,7 @@ const ResetAllButton = (props) => {
       }
     }
 
-    console.log(ret);
+    // console.log(ret);
 
     setConfirmed(false);
     clearThemeFromStorage();

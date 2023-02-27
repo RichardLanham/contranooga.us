@@ -46,7 +46,7 @@ const DragHover = () => {
   const [contrast, setContrast] = useState("");
 
   useEffect(() => {
-    console.log("Showhover");
+    // console.log("Showhover");
     let chk = contrast;
     if (!bgHex) {
       return;

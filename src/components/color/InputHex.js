@@ -55,7 +55,7 @@ const InputHex = () => {
 
   /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
   useEffect(() => {
-    console.log("USEEFFECT ONE");
+    // console.log("USEEFFECT ONE");
     if (!loading2) {
       if (!error2) {
         //const _themes = [];
@@ -92,7 +92,7 @@ const InputHex = () => {
   // }, [loading, error, data]);
 
   useEffect(() => {
-    console.log("USEEFFECT TWO");
+    // console.log("USEEFFECT TWO");
     setFont(theme.font);
     setMenuPosition(menuPosition in theme ? theme.menuPosition : "side");
   }, [theme.font]);

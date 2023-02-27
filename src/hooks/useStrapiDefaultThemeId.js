@@ -14,7 +14,7 @@ const useStrapiDefaultThemeId = () => {
   const { data, loading, error } = useQuery(GET_THEMES, { client: client });
   if (!loading) {
     if (!error) {
-      console.log(data);
+      // console.log(data);
       const tids = data.themes.data;
 
       // const themeNames = data.themes.data.map(

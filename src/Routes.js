@@ -20,7 +20,7 @@ import useStrapiDefaultThemeId from "./hooks/useStrapiDefaultThemeId";
 import useStrapiGlobal from "./hooks/useStrapiGlobal";
 
 const AppRoutes = () => {
-  console.log("AppRoutes");
+  // console.log("AppRoutes");
 
   const t2 = new Date();
   const iso = t2.toISOString().split(".")[0] + "Z";
@@ -42,7 +42,7 @@ const AppRoutes = () => {
 
   useEffect(async () => {
     const jd = window.localStorage.getItem("jwt_date");
-    console.log(jd);
+    // console.log(jd);
     // if (new Date() - jd)
     if (!jd) {
       window.localStorage.removeItem("strapi_jwt");
