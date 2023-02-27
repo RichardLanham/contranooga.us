@@ -41,6 +41,8 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 
+import ReactDOMServer from "react-dom/server";
+
 // require("../../styles/formStyles.css");
 
 const StyledLargeVideo = styled(Box)(({ theme }) => ({
@@ -527,7 +529,7 @@ export const LargeVideo = ({ section }) => {
   const renderLoadButton = (url, label, key) => {
     return (
       <Button
-        variant="contained"
+        // variant="outline"
         key={key}
         onClick={() => load(url)}
         style={{
@@ -536,6 +538,8 @@ export const LargeVideo = ({ section }) => {
           maxHeight: 100,
           padding: 1,
           margin: 1,
+          color: theme.palette.primary.contrastText,
+          backgroundColor: theme.palette.primary.main,
         }}
       >
         {label}
@@ -742,18 +746,20 @@ export const LargeVideo = ({ section }) => {
         </Button>
       </StyledPlayListSelect>
 
+      <span
+        style={{
+          ...theme.typography.button,
+          fontSize: "larger",
+          color: theme.palette.primary.main,
+          backgroundColor: theme.palette.primary.contrastText,
+          marginRight: 10,
+          whiteSpace: "nowrap",
+          borderRadius: 5,
+        }}
+      >
+        {section.title ? section.title : ""}
+      </span>
       <StyledVideoButtonGroup>
-        <span
-          style={{
-            ...theme.typography.button,
-            fontSize: 22,
-            backgroundColor: theme.palette.info.light,
-            color: theme.palette.info.contrastLight,
-            margin: "auto",
-          }}
-        >
-          {section.title ? section.title : ""}
-        </span>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
@@ -822,17 +828,18 @@ const StyledRichText = styled("div")(({ theme }) => ({
 }));
 
 const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-  width: "1000vw",
-  border: "1px solid blue",
+  width: "100%",
+  border: "4px solid blue",
   height: "auto",
   display: "flex",
   flexWrap: "wrap",
+  // margin: "auto",
   gap: 3,
   [theme.breakpoints.down("lg")]: {
     // padding: 0,
   },
   [theme.breakpoints.down("md")]: {
-    width: 300,
+    // width: 300,
   },
 }));
 
@@ -1206,62 +1213,52 @@ export const FeatureColumnsGroup = ({ section }) => {
           {page.map((page, key) => {
             // render content of the clicked tab/page
             {
-              return (
-                <div key={key}>
-                  <Zoom in={true}>
-                    <div>
-                      {page?.attributes?.contentSections.map((section, key) => {
-                        // ComponentSections
-                        switch (
-                          section.__typename.replace("ComponentSections", "")
-                        ) {
-                          case "GoogleMap":
-                            return <GoogleMap key={key} section={section} />;
-                          case "LeadForm":
-                            return <LeadForm key={key} section={section} />;
-                          case "FlexGroup":
-                            return <FlexGroup key={key} section={section} />;
-                          case "RichText":
-                            return <RichText key={key} section={section} />;
+              const source = "/page/" + page.attributes.slug;
 
-                          case "Hero":
-                            return <Hero key={key} section={section} />;
-                          case "PageFeature":
-                            return <Feature key={key} section={section} />;
-                          case "LargeVideo":
-                            return <LargeVideo key={key} section={section} />;
-                          case "FeatureColumnsGroup":
-                            return (
-                              <FeatureColumnsGroup
-                                key={key}
-                                section={section}
-                              />
-                            );
-                          case "FeatureRowsGroup":
-                            return (
-                              <FeatureRowsGroup key={key} section={section} />
-                            );
-                          case "BottomActions":
-                            return (
-                              <BottomActions key={key} section={section} />
-                            );
-                          case "PledgeForm":
-                            return (
-                              <div key={key}>
-                                <StyledPageSection>
-                                  <PledgeForm key={key} section={section} />
-                                </StyledPageSection>
-                              </div>
-                            );
-                          default:
-                            return <div key={key}>EMPTY</div>;
-                            break;
-                        }
-                      })}
-                    </div>
-                  </Zoom>
-                </div>
+              const pageSrc = page?.attributes?.contentSections.map(
+                (section, key) => {
+                  // ComponentSections
+                  switch (section.__typename.replace("ComponentSections", "")) {
+                    case "GoogleMap":
+                      return <GoogleMap key={key} section={section} />;
+                    // case "LeadForm":
+                    //   return <LeadForm key={key} section={section} />;
+                    // case "FlexGroup":
+                    //   return <FlexGroup key={key} section={section} />;
+                    case "RichText":
+                      return <RichText key={key} section={section} />;
+
+                    case "Hero":
+                      return <Hero key={key} section={section} />;
+                    // case "PageFeature":
+                    //   return <Feature key={key} section={section} />;
+                    // case "LargeVideo":
+                    //   return <LargeVideo key={key} section={section} />;
+                    // case "FeatureColumnsGroup":
+                    //   return (
+                    //     <FeatureColumnsGroup key={key} section={section} />
+                    //   );
+                    // case "FeatureRowsGroup":
+                    //   return <FeatureRowsGroup key={key} section={section} />;
+                    // case "BottomActions":
+                    //   return <BottomActions key={key} section={section} />;
+                    case "PledgeForm":
+                      return (
+                        <div key={key}>
+                          <StyledPageSection>
+                            <PledgeForm key={key} section={section} />
+                          </StyledPageSection>
+                        </div>
+                      );
+                    default:
+                      return <></>;
+                      break;
+                  }
+                }
               );
+              // console.log(pagesrc[0]);
+              const NewSrc = ReactDOMServer.renderToString(pageSrc);
+              return <div key={key}>{pageSrc}</div>;
             }
           })}
         </div>
