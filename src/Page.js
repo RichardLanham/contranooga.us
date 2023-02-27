@@ -14,11 +14,7 @@ import DownloadingIcon from "@mui/icons-material/Downloading";
 import {
   StyledPageSection,
   StyledPage,
-  // StyledHeader,
   StyledHeading,
-  // StyledSubHead,
-  // StyledBody1,
-  // StyledImgGroup,
 } from "./styles/PageStyles";
 
 import {
@@ -71,10 +67,15 @@ const StyledHeader = styled("div")(({ theme }) => ({
 
 function Page({ _slug }) {
   // console.log("page");
+  // https://cms.contranooga.us/api/pages/5?populate[contentSections][populate]=*
   const theme = useTheme();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // useEffect(() => {
+
+  // }, []);
   let { slug } = useParams();
   slug = slug ? slug : _slug;
   slug = slug.toLowerCase();

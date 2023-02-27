@@ -77,18 +77,82 @@ export const GET_PAGE = gql`
           }
           contentSections {
             __typename
+            ... on ComponentSectionsFeatureColumnsGroup {
+              id
+              tabs {
+                id
+                title
+                description
+                homeTabType
+                icon {
+                  ...FileParts
+                  __typename
+                }
+                tab {
+                  id
+                  image {
+                    ...FileParts
+                    __typename
+                  }
+                  text
+                  type
+                  slug
+                  __typename
+                }
+                __typename
+              }
+              video {
+                id
+                title
+                description
+                poster {
+                  ...FileParts
+                }
+                url
+                urlType
+                richtext
+                playlist {
+                  id
+                  playlistItem {
+                    id
+                    url
+                    slug
+                    text
+                    description
+                    newTab
+                  }
+                }
+              }
+              richtext
+              googleMap {
+                id
+                name
+                markerText
+                markerImage {
+                  ...FileParts
+                  __typename
+                }
+                lat
+                lng
+                description
+                zoom
+                __typename
+              }
+              __typename
+            }
             ... on ComponentSectionsFlexGroup {
               id
-
               group {
                 id
                 groupTitle
                 richtext {
                   id
                   richtext
+                  __typename
                 }
                 logo {
                   ...FileParts
+                  __typename
                 }
                 googleMap {
                   id
@@ -97,8 +161,10 @@ export const GET_PAGE = gql`
                   markerText
                   markerImage {
                     ...FileParts
+                    __typename
                   }
                   description
+                  __typename
                 }
                 box {
                   id
@@ -107,23 +173,16 @@ export const GET_PAGE = gql`
                   url
                   poster {
                     ...FileParts
+                    __typename
                   }
                   richtext
                   urlType
-                  googleMap {
-                    id
-                    lat
-                    lng
-                    markerText
-                    markerImage {
-                      ...FileParts
-                    }
-                    description
-                  }
+                  __typename
                 }
+                __typename
               }
+              __typename
             }
-
             ... on ComponentSectionsHero {
               id
               title
@@ -132,8 +191,13 @@ export const GET_PAGE = gql`
               map {
                 id
                 markerText
+                markerImage {
+                  ...FileParts
+                  __typename
+                }
                 lat
                 lng
+                __typename
               }
               buttons {
                 id
@@ -143,6 +207,7 @@ export const GET_PAGE = gql`
                 url
                 image {
                   ...FileParts
+                  __typename
                 }
                 __typename
               }
@@ -168,6 +233,7 @@ export const GET_PAGE = gql`
                   description
                   __typename
                 }
+                __typename
               }
               poster {
                 ...FileParts
@@ -175,12 +241,6 @@ export const GET_PAGE = gql`
               }
               url
               richtext
-              googleMap {
-                id
-                lat
-                lng
-                markerText
-              }
               urlType
               __typename
             }
@@ -189,7 +249,6 @@ export const GET_PAGE = gql`
               content
               __typename
             }
-
             ... on ComponentSectionsGoogleMap {
               id
               title
@@ -202,11 +261,13 @@ export const GET_PAGE = gql`
                 markerText
                 markerImage {
                   ...FileParts
+                  __typename
                 }
                 description
+                __typename
               }
+              __typename
             }
-
             ... on ComponentSectionsLeadForm {
               id
               title
@@ -221,7 +282,6 @@ export const GET_PAGE = gql`
                 type
                 __typename
               }
-
               __typename
             }
           }

@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, Card, Button, Input, IconButton, MenuItem } from "@mui/material";
+import {
+  Box,
+  Card,
+  Button,
+  Input,
+  IconButton,
+  MenuItem,
+  Zoom,
+} from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
@@ -8,6 +16,8 @@ import ReactPlayer from "react-player";
 import SitePlayer from "./SitePlayer";
 
 import GoogleMapApp from "../../apps/GoogleMapApp";
+
+import { GET_PAGE } from "../../gql/site";
 
 import {
   StyledSubHead,
@@ -21,6 +31,8 @@ import {
   StyledImg,
   StyledImgCaption,
 } from "../../styles/PageStyles";
+
+import PledgeForm from "./PledgeForm";
 
 import { getThumb, getLarge } from "../../apps/functions";
 
@@ -68,6 +80,7 @@ const StyledFlexBox = styled("div")(({ theme }) => ({
 
 export const FlexGroup = ({ section }) => {
   const theme = useTheme();
+
   return (
     <StyledPageSection
       style={{
@@ -681,7 +694,7 @@ export const LargeVideo = ({ section }) => {
     <div>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
       <StyledPlayListSelect>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <div style={{ display: "block", flexWrap: "wrap" }}>
           <span
             style={{
               ...theme.typography.button,
@@ -1052,33 +1065,203 @@ export const FeatureRowsGroup = ({ section }) => {
 };
 
 export const FeatureColumnsGroup = ({ section }) => {
+  console.log(section);
   const theme = useTheme();
+  const [slug, setSlug] = useState("");
+  const [page, setPage] = useState([]);
+
+  const { data, loading, error } = useQuery(GET_PAGE, {
+    variables: { slug: slug, publicationState: "LIVE", locale: "en" },
+  });
+
+  useEffect(() => {
+    if (!loading) {
+      if (!error) {
+        console.log(data);
+        setPage(data.pages.data);
+      }
+    }
+  }, [data, loading, error]);
+
+  const showTab = (e, tab) => {
+    e.preventDefault();
+    setSlug(tab.slug);
+  };
+  const setpage = (e) => {
+    e.preventDefault();
+    setPage([]);
+  };
+  const tabs_Thumb = getThumb(section?.tabs?.icon?.data?.attributes);
   return (
-    <StyledBody1>
-      <StyledColumns>
-        {section.features.map((feature, key) => {
-          return (
-            <StyledColumn
-              key={key}
-              style={{
-                //border: `1px solid ${theme.palette.secondary.main}`,
-                width: 100 / section.features.length + "%",
-              }}
-            >
-              {feature.description}
-              {feature.picture && (
-                <img
-                  src={
-                    process.env.REACT_APP_STRAPI +
-                    feature.picture.attributes.formats.thumbnail.url
-                  }
-                />
-              )}
-            </StyledColumn>
-          );
-        })}
-      </StyledColumns>
-    </StyledBody1>
+    <div onClick={(e) => setpage(e)}>
+      {section.tabs.homeTabType === "link" && (
+        <a
+          name="HomeTabButton"
+          style={{
+            ...theme.typography.h5,
+            textDecoration: "none",
+            backgroundColor: theme.palette.background.default,
+            padding: 3,
+            borderRadius: 15,
+            borderBottom: 20,
+            border: "1px solid blue",
+          }}
+          href="#"
+        >
+          {section.tabs.title}
+        </a>
+      )}
+      {section.tabs.homeTabType === "button" && (
+        <Button variant="outline">{section.tabs.title}</Button>
+      )}
+      {section.tabs.homeTabType === "image" && (
+        <a href="#">
+          <img src={process.env.REACT_APP_STRAPI + tabs_Thumb.url} />
+        </a>
+      )}
+      <div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "100%",
+            marginTop: 20,
+            // border: "1px solid red",
+          }}
+        >
+          {section.tabs.tab.map((t, key) => {
+            const tabThumb = getThumb(t.image?.data?.attributes);
+            return (
+              <div
+                key={key}
+                style={{ marginBottom: 20, marginLeft: 10, marginRight: 10 }}
+              >
+                <div onClick={(e) => showTab(e, t)}>
+                  {t.type === "button" ? (
+                    <Button variant="outline">{t.text}</Button>
+                  ) : t.type === "image" ? (
+                    tabThumb && (
+                      <a href="#">
+                        <img
+                          src={process.env.REACT_APP_STRAPI + tabThumb.url}
+                        />
+                      </a>
+                    )
+                  ) : (
+                    <a
+                      style={{
+                        ...theme.typography.h5,
+                        textDecoration: "none",
+                        backgroundColor: theme.palette.background.default,
+                        padding: 3,
+                        borderRadius: 15,
+                      }}
+                      href="#"
+                    >
+                      {t.text}
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          {page.length === 0 && ( // render default content of section Tabs, no clicks
+            <Zoom in={true}>
+              <div>
+                <pre style={{ display: "none" }}>
+                  {JSON.stringify(section, null, 3)}
+                </pre>
+                {section.video && (
+                  <div>
+                    <LargeVideo section={section.video} />
+                  </div>
+                )}
+                {section.richtext && (
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(section.richtext)}
+                  ></div>
+                )}
+                {section.googleMap && (
+                  <div>
+                    <GoogleMapApp
+                      lat={section.googleMap.lat}
+                      lng={section.googleMap.lng}
+                      zoom={section.googleMap.zoom}
+                      markerText={section.googleMap.markerText}
+                      markerImage={section.googleMap.markerImage}
+                      description={section.googleMap.description}
+                    />
+                  </div>
+                )}
+              </div>
+            </Zoom>
+          )}
+          {page.map((page, key) => {
+            // render content of the clicked tab/page
+            {
+              return (
+                <div key={key}>
+                  <Zoom in={true}>
+                    <div>
+                      {page?.attributes?.contentSections.map((section, key) => {
+                        // ComponentSections
+                        switch (
+                          section.__typename.replace("ComponentSections", "")
+                        ) {
+                          case "GoogleMap":
+                            return <GoogleMap key={key} section={section} />;
+                          case "LeadForm":
+                            return <LeadForm key={key} section={section} />;
+                          case "FlexGroup":
+                            return <FlexGroup key={key} section={section} />;
+                          case "RichText":
+                            return <RichText key={key} section={section} />;
+
+                          case "Hero":
+                            return <Hero key={key} section={section} />;
+                          case "PageFeature":
+                            return <Feature key={key} section={section} />;
+                          case "LargeVideo":
+                            return <LargeVideo key={key} section={section} />;
+                          case "FeatureColumnsGroup":
+                            return (
+                              <FeatureColumnsGroup
+                                key={key}
+                                section={section}
+                              />
+                            );
+                          case "FeatureRowsGroup":
+                            return (
+                              <FeatureRowsGroup key={key} section={section} />
+                            );
+                          case "BottomActions":
+                            return (
+                              <BottomActions key={key} section={section} />
+                            );
+                          case "PledgeForm":
+                            return (
+                              <div key={key}>
+                                <StyledPageSection>
+                                  <PledgeForm key={key} section={section} />
+                                </StyledPageSection>
+                              </div>
+                            );
+                          default:
+                            return <div key={key}>EMPTY</div>;
+                            break;
+                        }
+                      })}
+                    </div>
+                  </Zoom>
+                </div>
+              );
+            }
+          })}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -1150,7 +1333,7 @@ export const Feature = ({ section }) => {
 export const Hero = ({ section }) => {
   //const img = section.data.attr;
   const thumb = getImageThumb(
-    section.picture.data ? section.picture.data.attributes : false
+    section?.picture?.data ? section.picture.data.attributes : false
   );
   const theme = useTheme();
   return (
@@ -1187,37 +1370,44 @@ export const Hero = ({ section }) => {
               }}
               src={process.env.REACT_APP_STRAPI + thumb.url}
             />
-            <div dangerouslySetInnerHTML={createMarkup(section.richText)}></div>
+            <div
+              dangerouslySetInnerHTML={createMarkup(section?.richText)}
+            ></div>
           </>
         )}
 
-        {section.buttons.map((button, key) => {
-          const buttonThumb = getThumb(button.image.data.attributes);
-          return (
-            <Link key={key} style={{ textDecoration: "none" }} to={button.url}>
-              {buttonThumb ? (
-                <>
-                  <Button
-                    style={{ float: "left" }}
-                    startIcon={
-                      <img
-                        src={process.env.REACT_APP_STRAPI + buttonThumb.url}
-                      />
-                    }
-                    variant="contained"
-                  >
-                    {button.text}
-                  </Button>
-                  <div
-                    dangerouslySetInnerHTML={createMarkup(section.richText)}
-                  ></div>
-                </>
-              ) : (
-                <Button variant="contained">{button.text}</Button>
-              )}
-            </Link>
-          );
-        })}
+        {section.buttons &&
+          section.buttons.map((button, key) => {
+            const buttonThumb = getThumb(button.image.data.attributes);
+            return (
+              <Link
+                key={key}
+                style={{ textDecoration: "none" }}
+                to={button.url}
+              >
+                {buttonThumb ? (
+                  <>
+                    <Button
+                      style={{ float: "left" }}
+                      startIcon={
+                        <img
+                          src={process.env.REACT_APP_STRAPI + buttonThumb.url}
+                        />
+                      }
+                      variant="contained"
+                    >
+                      {button.text}
+                    </Button>
+                    <div
+                      dangerouslySetInnerHTML={createMarkup(section.richText)}
+                    ></div>
+                  </>
+                ) : (
+                  <Button variant="contained">{button.text}</Button>
+                )}
+              </Link>
+            );
+          })}
       </Box>
     </StyledPageSection>
   );
