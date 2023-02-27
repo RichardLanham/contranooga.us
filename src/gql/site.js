@@ -470,6 +470,7 @@ export const GLOBAL = gql`
       data {
         id
         attributes {
+          eventFillStart
           favicon {
             ...FileParts
           }

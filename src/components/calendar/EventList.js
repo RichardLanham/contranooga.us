@@ -670,19 +670,20 @@ const EventList = () => {
               >
                 <MenuItem value="none">Link</MenuItem>
                 <MenuItem value="external">external link</MenuItem>
-                {pages.map((page, key) => {
-                  // const thumb = getImageThumb(image.formats);
+                {pages &&
+                  pages.map((page, key) => {
+                    // const thumb = getImageThumb(image.formats);
 
-                  return (
-                    <MenuItem
-                      selected={key === 0}
-                      key={key}
-                      value={page.attributes.slug}
-                    >
-                      {page.attributes.slug}
-                    </MenuItem>
-                  );
-                })}
+                    return (
+                      <MenuItem
+                        selected={key === 0}
+                        key={key}
+                        value={page.attributes.slug}
+                      >
+                        {page.attributes.slug}
+                      </MenuItem>
+                    );
+                  })}
               </Select>
               <div
                 style={{

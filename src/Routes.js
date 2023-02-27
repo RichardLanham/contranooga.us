@@ -49,7 +49,7 @@ const AppRoutes = () => {
       window.localStorage.removeItem("strapi_user");
     }
 
-    if (new Date().getDate() - new Date(jd).getDate() > 0) {
+    if (new Date().getHours() - new Date(jd).getHours() > 0) {
       window.localStorage.removeItem("strapi_jwt");
       window.localStorage.removeItem("strapi_user");
     }
@@ -88,6 +88,7 @@ const AppRoutes = () => {
 
   let theme = createTheme({ ...lTheme });
   theme.global = global.attributes;
+  console.log(theme.global);
   useStrapiDefaultThemeId();
   //theme.feature = feature.attributes;
   //theme.access_token = access_token;

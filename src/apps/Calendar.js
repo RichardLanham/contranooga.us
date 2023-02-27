@@ -39,14 +39,21 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import PageHeader from "../components/page/PageHeader";
+import SiteHeader from "../components/page/PageHeader";
 
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
   // console.log("calendars");
-  const [selDate, setSelDate] = useState(new Date());
   const theme = useTheme();
+  console.log(theme.global);
+  // const [fillStart, setFillStart] = useState(
+  //   new Date(theme.global.eventFillStart)
+  // );
+
+  const [selDate, setSelDate] = useState(
+    new Date(theme?.global?.eventFillStart)
+  );
 
   let saturdayLabel = "Local Dance";
 
@@ -60,8 +67,13 @@ const Calendar = () => {
 
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
-
   useEffect(() => {
+    // console.log(fillStart);
+    // setFillStart(theme.global.eventFillStart);
+    setSelDate(new Date(theme?.global?.eventFillStart));
+  }, [theme]);
+  useEffect(() => {
+    console.log(selDate);
     const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
 
     setPages(storedPages);
@@ -109,12 +121,14 @@ const Calendar = () => {
     // each day
     // each saturday,
     // get 2nd and 4th
-    const year = new Date().getFullYear();
+    const year = new Date(selDate).getFullYear();
+    const m = new Date(selDate).getMonth() - 1;
+    const d = selDate.getDate();
     const saturdays = [];
-    for (var month = 0; month < 12; month++) {
+    for (var month = m; month - m < 12; month++) {
       const daysinmonth = new Date(year, month, 0).getDate();
       let satCount = 0;
-      for (var day = 0; day < daysinmonth; day++) {
+      for (var day = d; day - d < daysinmonth; day++) {
         const theday = new Date(year, month, day, 19, 30); // note: the '19, 30' part sets time to 7:30 pm
         if (theday.getDay() === 6) {
           satCount++;
@@ -134,6 +148,7 @@ const Calendar = () => {
   const addSaturdays = () => {
     const year = selDate.getFullYear();
     const month = selDate.getMonth() + 1;
+
     const saturdays = saturdaysInFuture(365);
 
     const sats_ = [];
@@ -566,6 +581,7 @@ const Calendar = () => {
         thisEvent.title = ev.attributes.name;
         thisEvent.start = new Date(ev.attributes.startTime);
         thisEvent.end = new Date(ev.attributes.endTime);
+        thisEvent.body = ev.attributes.body;
 
         arrayEvents.push(thisEvent);
       });
@@ -577,6 +593,7 @@ const Calendar = () => {
           thisEvent.title = ev.attributes.name;
           thisEvent.start = new Date(ev.attributes.startTime);
           thisEvent.end = new Date(ev.attributes.endTime);
+          thisEvent.body = ev.attributes.body;
           // console.log(thisEvent.start);
           // console.log(thisEvent.end);
           arrayEvents.push(thisEvent);
@@ -704,6 +721,7 @@ const Calendar = () => {
                 {event.title === saturdayLabel ? (
                   <Link
                     style={{
+                      display: "none",
                       ...theme.typography.body1,
                       textDecoration: "none",
                       // fontWeight: "bold",
@@ -717,18 +735,30 @@ const Calendar = () => {
                     {event.title}
                   </Link>
                 ) : (
-                  <a
-                    style={{
-                      ...theme.typography.h5,
-                      backgroundColor: theme.palette.secondary.main,
-                      color: theme.palette.secondary.contrastText,
+                  <div>
+                    <a
+                      style={{
+                        ...theme.typography.h5,
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.secondary.contrastText,
 
-                      textDecoration: "none",
-                    }}
-                    href={"#" + title.replaceAll(" ", "")}
-                  >
-                    {event.title}
-                  </a>
+                        textDecoration: "none",
+                      }}
+                      href={"#" + title.replaceAll(" ", "")}
+                    >
+                      {event.title}
+                    </a>
+                    <font
+                      style={{
+                        ...theme.typography.body2,
+                        backgroundColor: theme.palette.primary.contrastText,
+                        marginLeft: 5,
+                        color: theme.palette.primary.main,
+                      }}
+                    >
+                      {event.body}
+                    </font>
+                  </div>
                 )}
               </div>
             );
@@ -815,7 +845,7 @@ const Calendar = () => {
   return (
     <Site title="Events">
       <StyledPage>
-        <PageHeader metaTitle="Upcoming Events" />
+        <SiteHeader metaTitle="Upcoming Events" />
 
         <EventCalendar />
         <EventList key="evenlist" />
