@@ -26,6 +26,7 @@ const Login = () => {
           "strapi_user",
           JSON.stringify(response.data.user)
         );
+        window.localStorage.setItem("jwt_date", new Date());
         setLoggedIn(true);
         theme.adminName = "";
         theme.adminPassword = "";

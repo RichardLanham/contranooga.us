@@ -41,6 +41,13 @@ const AppRoutes = () => {
   //const [access_token] = useState("");
 
   useEffect(async () => {
+    const jd = window.localStorage.getItem("jwt_date");
+    console.log(jd);
+    // if (new Date() - jd)
+    if (new Date().getDate() - new Date(jd).getDate() > 0) {
+      window.localStorage.removeItem("strapi_jwt");
+      window.localStorage.removeItem("strapi_user");
+    }
     // window.localStorage.removeItem("strapi_jwt");
     // window.localStorage.removeItem("strapi_user");
 
