@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=EB+Garamond:ital@1&family=Roboto&family=Roboto+Condensed&family=Roboto+Flex:opsz@8..144&family=Roboto+Mono&family=Roboto+Serif:opsz@8..144&family=Roboto+Slab&display=swap");
 
+* {
+  outline: 1px none red;
+}
 html {
   scroll-behavior: smooth;
   overflow-x: scroll; /* Must be 'scroll' not 'auto' */

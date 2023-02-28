@@ -12,6 +12,8 @@ import { StyledSideBar } from "./styles/ComponentStyles";
 import Banners from "./components/Banners";
 import Login from "./components/Login";
 
+import Footer from "./components/Footer";
+
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update the state to force render
@@ -201,6 +203,7 @@ const Site = (props) => {
 
           {props.children}
         </div>
+        <Footer />
       </StyledSiteDiv>
     </HelmetProvider>
   );

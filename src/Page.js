@@ -155,7 +155,7 @@ function Page({ _slug }) {
       );
     } else {
       return (
-        // ERRROR
+        // ERRROR (some errors fall thru here, not all, bad Auth does not)
         <div style={{ width: "100%", height: "100%" }}>
           <Site title="CDTS" description="loading...">
             <StyledPage>
@@ -175,7 +175,7 @@ function Page({ _slug }) {
     }
   }
   return (
-    // DOWNLOADING, waiting for graphql
+    // LOADING, waiting for graphql
     <div style={{ width: "100%", height: "100%" }}>
       <Site title="CDTS" description="loading...">
         <StyledPage>

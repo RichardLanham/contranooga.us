@@ -527,8 +527,12 @@ export const GLOBAL = gql`
               links {
                 id
                 url
-                newTab
+                button_label
                 text
+                type
+                image {
+                  ...FileParts
+                }
               }
             }
           }
