@@ -40,13 +40,25 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
   marginBottom: 25,
 }));
 
-export const StyledCard = styled(Card)(({ theme }) => ({
+export const StyledEventColumn = styled("div")(({ theme }) => ({
+  padding: 2,
+  margin: 0,
+  // borderRadius: 5,
+  // borderWidth: 2,
+  // borderBottom: `2px solid ${theme.palette.primary.main}`,
+  // borderColor: future
+  //   ? theme.palette.primary.main
+  //   : theme.palette.background.default, //the past is
+  // color: future ? theme.palette.info.contrastLight : "#000", // greyed
+}));
+
+export const StyledCard = styled("div")(({ theme }) => ({
   // width: "calc(90% - 1px)",
   position: "relative",
   // background: `linear-gradient(45deg, ${theme.palette.grey[100]}, ${theme.palette.grey[300]}, ${theme.palette.grey[500]})`,
-  border: `1px solid ${theme.palette.primary.dark}`,
+  border: `1px solid ${theme.palette.secondary.light}`,
   borderRadius: 10,
-  // boxShadow: theme.shadows[6],
+  boxShadow: theme.shadows[1],
   padding: 5,
   // margin: "auto",
   marginBottom: 20,

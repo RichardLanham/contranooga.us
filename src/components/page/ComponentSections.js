@@ -303,6 +303,13 @@ export const GoogleMap = ({ section }) => {
       {section.gmap.map((map, key) => {
         return (
           <div key={key}>
+            <div>
+              {map.description && (
+                <span
+                  dangerouslySetInnerHTML={createMarkup(map.description)}
+                ></span>
+              )}
+            </div>
             <GoogleMapApp
               lat={map.lat}
               lng={map.lng}

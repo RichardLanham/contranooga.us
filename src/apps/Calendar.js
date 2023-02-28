@@ -19,6 +19,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   StyledCalendar,
   StyledFormContainer,
+  StyledEventColumn,
   // StyledEventButton,
 } from "../styles/CalendarStyles";
 import {
@@ -703,15 +704,15 @@ const Calendar = () => {
             const future = new Date(event.end) >= new Date();
             let title = (" " + event.title).slice(1); // by val
             return (
-              <div
+              <StyledEventColumn
                 title={event.title}
                 style={{
                   // textAlign: "center",
-                  padding: 2,
-                  margin: 0,
-                  // borderRadius: 5,
-                  // borderWidth: 2,
-                  // borderBottom: `2px solid ${theme.palette.primary.main}`,
+                  // padding: 2,
+                  // margin: 0,
+                  // // borderRadius: 5,
+                  // // borderWidth: 2,
+                  // // borderBottom: `2px solid ${theme.palette.primary.main}`,
                   borderColor: future
                     ? theme.palette.primary.main
                     : theme.palette.background.default, //the past is
@@ -738,7 +739,7 @@ const Calendar = () => {
                   <div>
                     <a
                       style={{
-                        ...theme.typography.h5,
+                        ...theme.typography.h6,
                         backgroundColor: theme.palette.secondary.main,
                         color: theme.palette.secondary.contrastText,
 
@@ -760,7 +761,7 @@ const Calendar = () => {
                     </font>
                   </div>
                 )}
-              </div>
+              </StyledEventColumn>
             );
           },
 

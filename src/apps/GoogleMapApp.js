@@ -43,9 +43,6 @@ const GoogleMap = ({
 
   return (
     <div style={{ width: 320, height: 320 }}>
-      {description && (
-        <span dangerouslySetInnerHTML={createMarkup(description)}></span>
-      )}
       <GoogleMapReact
         //scrollwheel={false}
         bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
