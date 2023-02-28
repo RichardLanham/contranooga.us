@@ -708,15 +708,19 @@ export const LargeVideo = ({ section }) => {
         <div style={{ display: "block", flexWrap: "wrap" }}>
           <span
             style={{
-              ...theme.typography.button,
-              fontSize: 18,
-              backgroundColor: theme.palette.info.light,
-              color: theme.palette.info.contrastLight,
+              ...theme.typography.h5,
+              fontSize: "larger",
+              color: theme.palette.primary.main,
+              backgroundColor: theme.palette.primary.contrastText,
+              marginRight: 10,
+              whiteSpace: "nowrap",
+              borderRadius: 5,
             }}
           >
             {section.title ? section.title : ""}
           </span>
           <Select
+            style={{ ...theme.typography.h5 }}
             onChange={handleChangeTrack}
             name="Play List"
             // value={<MenuItem>{listVal}</MenuItem>}
@@ -753,20 +757,20 @@ export const LargeVideo = ({ section }) => {
         </Button>
       </StyledPlayListSelect>
 
-      <span
-        style={{
-          ...theme.typography.button,
-          fontSize: "larger",
-          color: theme.palette.primary.main,
-          backgroundColor: theme.palette.primary.contrastText,
-          marginRight: 10,
-          whiteSpace: "nowrap",
-          borderRadius: 5,
-        }}
-      >
-        {section.title ? section.title : ""}
-      </span>
       <StyledVideoButtonGroup>
+        <span
+          style={{
+            ...theme.typography.h5,
+            fontSize: "larger",
+            color: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.contrastText,
+            marginRight: 10,
+            whiteSpace: "nowrap",
+            borderRadius: 5,
+          }}
+        >
+          {section.title ? section.title : ""}
+        </span>
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
