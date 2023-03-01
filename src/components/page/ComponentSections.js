@@ -466,22 +466,48 @@ export const LeadForm = ({ section }) => {
       </StyledWrap>
     );
   }
-
+  const hand = require("../../assets/hand.png");
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+      <div
+        style={{
+          position: "absolute",
+          left: -10,
+          top: 0,
+          display: "inline",
+          zIndex: 10,
+        }}
+      >
+        <img
+          src={hand}
+          style={{
+            width: 35,
+            height: 35,
+            transform: "rotate(-0.25turn)",
+          }}
+        />
+      </div>
       {section.submitButton ? (
         <Button
           onClick={() => setOpen("form")}
-          variant="outline"
-          style={{ ...theme.typography.h6 }}
+          variant="outlined"
+          style={{
+            ...theme.typography.h6,
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText,
+          }}
         >
-          {section.title}
+          {section.submitButton.text}
         </Button>
       ) : (
         <Button
           onClick={() => setOpen("form")}
-          variant="outline"
-          style={{ ...theme.typography.h5 }}
+          variant="outlined"
+          style={{
+            ...theme.typography.h6,
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText,
+          }}
         >
           {section.title}
         </Button>
@@ -1517,8 +1543,8 @@ const HeroButton = ({ section }) => {
   // console.log(section);
   const buttonThumb = getThumb(section?.button?.image?.data?.attributes);
 
-  const url = section.button.url;
-  const slug = section.button.slug;
+  const url = section?.button?.url;
+  const slug = section?.button?.slug;
 
   let goTo = slug ? slug : url;
 
@@ -1635,7 +1661,7 @@ export const Hero = ({ section }) => {
       <div style={{ position: "relative" }}>
         <StyledHeading>{section.label}</StyledHeading>
 
-        <HeroButton section={section} />
+        {section.button && <HeroButton section={section} />}
       </div>
       <div
         style={{
