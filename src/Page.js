@@ -28,6 +28,7 @@ import {
   BottomActions,
   LeadForm,
   GoogleMap,
+  Tabs,
 } from "./components/page/ComponentSections";
 
 import PledgeForm from "./components/page/PledgeForm";
@@ -116,6 +117,8 @@ function Page({ _slug }) {
               {attribs.contentSections.map((section, key) => {
                 // ComponentSections
                 switch (section.__typename.replace("ComponentSections", "")) {
+                  case "Tabs":
+                    return <Tabs key={key} section={section} />;
                   case "GoogleMap":
                     return <GoogleMap key={key} section={section} />;
                   case "LeadForm":

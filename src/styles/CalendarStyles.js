@@ -56,7 +56,7 @@ export const StyledCard = styled("div")(({ theme }) => ({
   // width: "calc(90% - 1px)",
   position: "relative",
   // background: `linear-gradient(45deg, ${theme.palette.grey[100]}, ${theme.palette.grey[300]}, ${theme.palette.grey[500]})`,
-  border: `1px solid ${theme.palette.secondary.light}`,
+  // border: `1px solid ${theme.palette.secondary.light}`,
   borderRadius: 10,
   boxShadow: theme.shadows[1],
   padding: 5,

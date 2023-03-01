@@ -118,9 +118,9 @@ const Footer = () => {
   const thumb = getThumb(theme?.global?.navbar?.logo?.data?.attributes);
   // {theme?.global?.footer.smallText}
   const columns = theme?.global?.footer?.columns || [];
-  const logo = theme?.global?.footer?.logo?.data.attributes;
+  const logo = theme?.global?.footer?.logo?.data?.attributes;
   const logoThumb = getThumb(logo);
-  console.log(logoThumb);
+  //   console.log(logoThumb);
   return (
     <div
       style={{
@@ -143,7 +143,7 @@ const Footer = () => {
               name="FooterText"
               style={{ ...theme.typography.button, fontSize: "larger" }}
             >
-              {theme?.global?.footer.smallText}
+              {theme?.global?.footer?.smallText}
             </span>
             {columns.map((column, key) => {
               return (

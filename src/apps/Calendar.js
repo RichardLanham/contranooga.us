@@ -47,7 +47,7 @@ const localizer = momentLocalizer(moment);
 const Calendar = () => {
   // console.log("calendars");
   const theme = useTheme();
-  console.log(theme.global);
+  // console.log(theme.global);
   // const [fillStart, setFillStart] = useState(
   //   new Date(theme.global.eventFillStart)
   // );
@@ -74,7 +74,7 @@ const Calendar = () => {
     setSelDate(new Date(theme?.global?.eventFillStart));
   }, [theme]);
   useEffect(() => {
-    console.log(selDate);
+    // console.log(selDate);
     const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
 
     setPages(storedPages);

@@ -44,6 +44,43 @@ export const GET_PAGE = gql`
     __typename
   }
 
+  fragment InputParts on ComponentSectionsInputs {
+    id
+    title
+    description
+    poster {
+      ...FileParts
+    }
+    url
+    urlType
+    richtext
+    playlist {
+      id
+      playlistItem {
+        id
+        description
+        url
+        newTab
+        text
+        slug
+      }
+    }
+    googleMap {
+      ...GMapParts
+    }
+  }
+
+  fragment GMapParts on ComponentElementsGmap {
+    id
+    markerText
+    markerImage {
+      ...FileParts
+    }
+    lat
+    lng
+    zoom
+    name
+  }
   query GetPages(
     $slug: String!
     $publicationState: PublicationState!
@@ -77,8 +114,62 @@ export const GET_PAGE = gql`
           }
           contentSections {
             __typename
+            ... on ComponentSectionsTabs {
+              id
+              title
+              label
+              description
+              picture {
+                ...FileParts
+                __typename
+              }
+              inputs {
+                ...InputParts
+              }
+              tabs {
+                id
+                title
+                description
+                type
+                icon {
+                  ...FileParts
+                  __typename
+                }
+                tab {
+                  id
+                  text
+                  type
+                  image {
+                    ...FileParts
+                    __typename
+                  }
+                  inputs {
+                    ...InputParts
+                  }
+                  __typename
+                }
+                __typename
+              }
+              buttons {
+                id
+                image {
+                  ...FileParts
+                  __typename
+                }
+                url
+                newTab
+                text
+                type
+                __typename
+              }
+
+              __typename
+            }
             ... on ComponentSectionsFeatureColumnsGroup {
               id
+              inputs {
+                ...InputParts
+              }
               tabs {
                 id
                 title
@@ -90,52 +181,18 @@ export const GET_PAGE = gql`
                 }
                 tab {
                   id
+                  slug
                   image {
                     ...FileParts
                     __typename
                   }
                   text
-                  type
-                  slug
-                  __typename
-                }
-                __typename
-              }
-              video {
-                id
-                title
-                description
-                poster {
-                  ...FileParts
-                }
-                url
-                urlType
-                richtext
-                playlist {
-                  id
-                  playlistItem {
-                    id
-                    url
-                    slug
-                    text
-                    description
-                    newTab
+                  inputs {
+                    ...InputParts
                   }
-                }
-              }
-              richtext
-              googleMap {
-                id
-                name
-                markerText
-                markerImage {
-                  ...FileParts
+                  type
                   __typename
                 }
-                lat
-                lng
-                description
-                zoom
                 __typename
               }
               __typename
@@ -155,16 +212,7 @@ export const GET_PAGE = gql`
                   __typename
                 }
                 googleMap {
-                  id
-                  lat
-                  lng
-                  markerText
-                  markerImage {
-                    ...FileParts
-                    __typename
-                  }
-                  description
-                  __typename
+                  ...GMapParts
                 }
                 box {
                   id
@@ -253,17 +301,7 @@ export const GET_PAGE = gql`
               id
               title
               gmap {
-                id
-                name
-                lat
-                lng
-                zoom
-                markerText
-                markerImage {
-                  ...FileParts
-                  __typename
-                }
-                description
+                ...GMapParts
                 __typename
               }
               __typename

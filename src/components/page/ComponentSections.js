@@ -524,7 +524,8 @@ export const LargeVideo = ({ section }) => {
     });
   };
 
-  const pl = section.playlist ? section.playlist.playlistItem : [];
+  const pl = section.playlistItem || section.playlist.playlistItem || [];
+
   const playlist = pl.map((item) => item.url);
 
   const defaultVideo = playlist[0];
@@ -700,7 +701,7 @@ export const LargeVideo = ({ section }) => {
     //console.log(targ);
     load(targ.url);
   };
-
+  console.log("down here");
   return (
     <div>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
@@ -1088,36 +1089,27 @@ export const FeatureRowsGroup = ({ section }) => {
   );
 };
 
-export const FeatureColumnsGroup = ({ section }) => {
+export const Tabs = ({ section }) => {
+  // console.log(section);
+  const [show, setShow] = useState("none");
+
   const theme = useTheme();
   const [slug, setSlug] = useState("");
-  const [page, setPage] = useState([]);
-
-  const { data, loading, error } = useQuery(GET_PAGE, {
-    variables: { slug: slug, publicationState: "LIVE", locale: "en" },
-  });
-
-  useEffect(() => {
-    if (!loading) {
-      if (!error) {
-        // console.log(data);
-        setPage(data.pages.data);
-      }
-    }
-  }, [data, loading, error]);
 
   const showTab = (e, tab) => {
     e.preventDefault();
     setSlug(tab.slug);
   };
-  const setpage = (e) => {
-    e.preventDefault();
-    setPage([]);
-  };
-  const tabs_Thumb = getThumb(section?.tabs?.icon?.data?.attributes);
+  // const setpage = (e) => {
+  //   e.preventDefault();
+  //   setSl([]);
+  // };
+  const tabSectionThumb = getThumb(section?.picture?.data?.attributes);
+  // console.log(tabSectionThumb);
+
   return (
-    <div onClick={(e) => setpage(e)}>
-      {section.tabs.homeTabType === "link" && (
+    <div>
+      {section.tabs.type === "link" && (
         <a
           name="HomeTabButton"
           style={{
@@ -1134,11 +1126,163 @@ export const FeatureColumnsGroup = ({ section }) => {
           {section.tabs.title}
         </a>
       )}
-      {section.tabs.homeTabType === "button" && (
+      {section.tabs.type === "button" && (
         <Button variant="outline">{section.tabs.title}</Button>
       )}
-      {section.tabs.homeTabType === "image" && (
+      {section.tabs.type === "image" && (
         <a href="#">
+          <img src={process.env.REACT_APP_STRAPI + tabSectionThumb.url} />
+        </a>
+      )}
+      <div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "100%",
+            marginTop: 20,
+            // border: "1px solid red",
+          }}
+        >
+          {section.tabs.tab.map((t, key) => {
+            const tabThumb = getThumb(t.image?.data?.attributes);
+            return (
+              <div
+                key={key}
+                style={{ marginBottom: 20, marginLeft: 10, marginRight: 10 }}
+              >
+                <div onClick={(e) => showTab(e, t)}>
+                  {t.type === "button" ? (
+                    <Button variant="outline">{t.text}</Button>
+                  ) : t.type === "image" ? (
+                    tabThumb && (
+                      <a href="#">
+                        <img
+                          src={process.env.REACT_APP_STRAPI + tabThumb.url}
+                        />
+                      </a>
+                    )
+                  ) : (
+                    <a
+                      style={{
+                        ...theme.typography.h5,
+                        textDecoration: "none",
+                        backgroundColor: theme.palette.background.default,
+                        padding: 3,
+                        borderRadius: 15,
+                      }}
+                      href="#"
+                    >
+                      {t.text}
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          {true && ( // render default content of section Tabs, no clicks
+            <Zoom in={true}>
+              <div>
+                <pre style={{ display: "none" }}>
+                  {JSON.stringify(section, null, 3)}
+                </pre>
+                {section.video && (
+                  <div>
+                    <LargeVideo section={section.video} />
+                  </div>
+                )}
+                {section.richtext && (
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(section.richtext)}
+                  ></div>
+                )}
+                {section.googleMap && (
+                  <div>
+                    <GoogleMapApp
+                      lat={section.googleMap.lat}
+                      lng={section.googleMap.lng}
+                      zoom={section.googleMap.zoom}
+                      markerText={section.googleMap.markerText}
+                      markerImage={section.googleMap.markerImage}
+                      description={section.googleMap.description}
+                    />
+                  </div>
+                )}
+              </div>
+            </Zoom>
+          )}
+          {section.tabs.tab.map((page, key) => {
+            {
+              // HIDE TAB CONTENT HERE
+              return <div key={key}>{"TAB"}</div>;
+            }
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Below is seen as Page -> ContentSection -> "DeepTabs" in the Strapi UI
+export const FeatureColumnsGroup = ({ section }) => {
+  const theme = useTheme();
+  const [slug, setSlug] = useState("");
+  const [page, setPage] = useState([]);
+
+  const { data, loading, error } = useQuery(GET_PAGE, {
+    variables: { slug: slug, publicationState: "LIVE", locale: "en" },
+  });
+
+  useEffect(() => {
+    if (!loading) {
+      if (!error) {
+        // console.log(data);
+        setPage(data.pages.data);
+      }
+    }
+  }, [slug, data]);
+
+  const showTab = (e, tab) => {
+    console.log(slug);
+    e.preventDefault();
+    setSlug(tab.slug);
+  };
+  const setpage = (e) => {
+    e.preventDefault();
+    console.log(slug);
+    setSlug("");
+    setPage([]);
+  };
+  const tabs_Thumb = getThumb(section?.tabs?.icon?.data?.attributes);
+  return (
+    <div>
+      {section.tabs.homeTabType === "link" && (
+        <a
+          onClick={(e) => setpage(e)}
+          name="HomeTabButton"
+          style={{
+            ...theme.typography.h5,
+            textDecoration: "none",
+            backgroundColor: theme.palette.background.default,
+            padding: 3,
+            borderRadius: 15,
+            borderBottom: 20,
+            border: "1px solid blue",
+          }}
+          href="#"
+        >
+          {section.tabs.title}
+        </a>
+      )}
+      {section.tabs.homeTabType === "button" && (
+        <Button onClick={(e) => setpage(e)} variant="outline">
+          {section.tabs.title}
+        </Button>
+      )}
+      {section.tabs.homeTabType === "image" && (
+        <a onClick={(e) => setpage(e)} href="#">
           <img src={process.env.REACT_APP_STRAPI + tabs_Thumb.url} />
         </a>
       )}
@@ -1194,28 +1338,41 @@ export const FeatureColumnsGroup = ({ section }) => {
             <Zoom in={true}>
               <div>
                 <pre style={{ display: "none" }}>
-                  {JSON.stringify(section, null, 3)}
+                  {JSON.stringify(section.inputs, null, 3)}
                 </pre>
-                {section.video && (
+                {section.inputs && (
                   <div>
-                    <LargeVideo section={section.video} />
-                  </div>
-                )}
-                {section.richtext && (
-                  <div
-                    dangerouslySetInnerHTML={createMarkup(section.richtext)}
-                  ></div>
-                )}
-                {section.googleMap && (
-                  <div>
-                    <GoogleMapApp
-                      lat={section.googleMap.lat}
-                      lng={section.googleMap.lng}
-                      zoom={section.googleMap.zoom}
-                      markerText={section.googleMap.markerText}
-                      markerImage={section.googleMap.markerImage}
-                      description={section.googleMap.description}
-                    />
+                    {section.inputs.map((input, key) => {
+                      return (
+                        <div key={key}>
+                          {input.playlist && (
+                            <div>
+                              <LargeVideo section={input.playlist} />
+                            </div>
+                          )}
+
+                          {input.richtext && (
+                            <div
+                              dangerouslySetInnerHTML={createMarkup(
+                                input.richtext
+                              )}
+                            ></div>
+                          )}
+                          {input.googleMap && (
+                            <div>
+                              <GoogleMapApp
+                                lat={input.googleMap.lat}
+                                lng={input.googleMap.lng}
+                                zoom={input.googleMap.zoom}
+                                markerText={input.googleMap.markerText}
+                                markerImage={input.googleMap.markerImage}
+                                description={input.googleMap.description}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -1223,6 +1380,7 @@ export const FeatureColumnsGroup = ({ section }) => {
           )}
           {page.map((page, key) => {
             // render content of the clicked tab/page
+            console.log(page);
             {
               const source = "/page/" + page.attributes.slug;
 
