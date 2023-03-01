@@ -1434,8 +1434,8 @@ export const FeatureColumnsGroup = ({ section }) => {
                     case "RichText":
                       return <RichText key={key} section={section} />;
 
-                    case "Hero":
-                      return <Hero key={key} section={section} />;
+                    // case "Hero":
+                    //   return <Hero key={key} section={section} />;
                     // case "PageFeature":
                     //   return <Feature key={key} section={section} />;
                     // case "LargeVideo":
