@@ -58,11 +58,20 @@ const InputHex = () => {
     // console.log("USEEFFECT ONE");
     if (!loading2) {
       if (!error2) {
+        // console.log("color featch");
         //const _themes = [];
         // console.log(data2.theme.data.attributes.theme);
-        // theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
-        // theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
-        // eventEmitter.dispatch("REFRESH", {});
+
+        ///// HERE IS THE PROBLEM. Enabled, fetch stored theme works. Apply new hex seed, doesn't work. Vice versa.
+        // it shouldn't fire on the Apply button click.
+        // it's firing somehow
+        theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
+        theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
+
+        // console.log(theme.palette);
+        // console.log(JSON.parse(data2.theme.data.attributes.theme).palette);
+
+        eventEmitter.dispatch("REFRESH", {});
         //setThemes(_themes);
       }
     }

@@ -80,6 +80,7 @@ export const GET_PAGE = gql`
     lng
     zoom
     name
+    description
   }
   query GetPages(
     $slug: String!
@@ -235,33 +236,29 @@ export const GET_PAGE = gql`
               id
               title
               label
-              richText
-              map {
+              description
+              text {
                 id
-                markerText
-                markerImage {
-                  ...FileParts
-                  __typename
-                }
-                lat
-                lng
+                content
+              }
+              googleMap {
+                ...GMapParts
                 __typename
               }
-              buttons {
+              button {
                 id
                 newTab
+                slug
                 text
                 type
                 url
+                urlIsLocal
                 image {
                   ...FileParts
                   __typename
                 }
                 __typename
               }
-              title
-              description
-              label
               picture {
                 ...FileParts
                 __typename

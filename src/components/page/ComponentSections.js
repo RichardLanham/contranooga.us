@@ -42,6 +42,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import ReactDOMServer from "react-dom/server";
+import { doTypesOverlap } from "graphql";
 
 // require("../../styles/formStyles.css");
 
@@ -303,13 +304,6 @@ export const GoogleMap = ({ section }) => {
       {section.gmap.map((map, key) => {
         return (
           <div key={key}>
-            <div>
-              {map.description && (
-                <span
-                  dangerouslySetInnerHTML={createMarkup(map.description)}
-                ></span>
-              )}
-            </div>
             <GoogleMapApp
               lat={map.lat}
               lng={map.lng}
@@ -1188,35 +1182,52 @@ export const Tabs = ({ section }) => {
                 <pre style={{ display: "none" }}>
                   {JSON.stringify(section, null, 3)}
                 </pre>
-                {section.video && (
-                  <div>
-                    <LargeVideo section={section.video} />
-                  </div>
-                )}
-                {section.richtext && (
-                  <div
-                    dangerouslySetInnerHTML={createMarkup(section.richtext)}
-                  ></div>
-                )}
-                {section.googleMap && (
-                  <div>
-                    <GoogleMapApp
-                      lat={section.googleMap.lat}
-                      lng={section.googleMap.lng}
-                      zoom={section.googleMap.zoom}
-                      markerText={section.googleMap.markerText}
-                      markerImage={section.googleMap.markerImage}
-                      description={section.googleMap.description}
-                    />
-                  </div>
-                )}
+                {section.inputs.map((input, key) => {
+                  return (
+                    <div key={key}>
+                      <pre style={{ display: "none" }}>
+                        {JSON.stringify(input, null, 3)}
+                      </pre>
+                      {input.richtext && (
+                        <div
+                          dangerouslySetInnerHTML={createMarkup(input.richtext)}
+                        ></div>
+                      )}
+
+                      {input.playlist && (
+                        <div>
+                          <LargeVideo section={input.playlist} />
+                        </div>
+                      )}
+
+                      {input.googleMap && (
+                        <div>
+                          <GoogleMapApp
+                            lat={input.googleMap.lat}
+                            lng={input.googleMap.lng}
+                            zoom={input.googleMap.zoom}
+                            markerText={input.googleMap.markerText}
+                            markerImage={input.googleMap.markerImage}
+                            description={input.googleMap.description}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </Zoom>
           )}
           {section.tabs.tab.map((page, key) => {
             {
               // HIDE TAB CONTENT HERE
-              return <div key={key}>{"TAB"}</div>;
+              return (
+                <div key={key}>
+                  <pre style={{ display: "none" }}>
+                    {JSON.stringify(page, null, 3)}
+                  </pre>
+                </div>
+              );
             }
           })}
         </div>
@@ -1501,85 +1512,177 @@ export const Feature = ({ section }) => {
   );
 };
 
+const HeroButton = ({ section }) => {
+  const theme = useTheme();
+  // console.log(section);
+  const buttonThumb = getThumb(section?.button?.image?.data?.attributes);
+
+  const url = section.button.url;
+  const slug = section.button.slug;
+
+  let goTo = slug ? slug : url;
+
+  if (slug) {
+    goTo = "/page/" + goTo;
+  }
+
+  console.log(goTo);
+
+  let localLink = true;
+
+  if (goTo.startsWith("http")) {
+    localLink = false;
+  }
+
+  const [target, setTarget] = useState(localLink ? "_self" : "_new");
+
+  return (
+    <div>
+      {section?.button?.type === "button" && localLink && (
+        <Button
+          target={target}
+          style={{
+            maxWidth: 200,
+            maxHeight: 50,
+            backgroundColor: theme.palette.secondary.main,
+            position: "absolute",
+            top: 0,
+            right: 0,
+          }}
+          title={section.title}
+          variant="contained"
+          component={Link}
+          to={goTo}
+        >
+          {section?.button?.text}
+        </Button>
+      )}
+
+      {section?.button?.type === "link" && (
+        <Link
+          style={{ position: "absolute", top: 0, right: 0 }}
+          target={target}
+          title={section.title}
+          element="a"
+          to={goTo}
+        >
+          {section?.button?.text}
+        </Link>
+      )}
+
+      {section?.button?.type === "link" && section?.url && (
+        <Link
+          style={{ position: "absolute", top: 0, right: 0 }}
+          target={target}
+          title={section.title}
+          element="a"
+          href={goTo}
+        >
+          {section?.button?.text}
+        </Link>
+      )}
+
+      {!section?.button?.type && (
+        <Button
+          target={target}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            backgroundColor: theme.palette.secondary.main,
+            maxWidth: 200,
+            maxHeight: 50,
+          }}
+          variant="contained"
+          component={Link}
+          to={goTo}
+        >
+          {section?.button?.text || "button label text missing"}
+        </Button>
+      )}
+
+      {section?.button?.type === "image" && section?.button.image && (
+        <Link target={target} to={goTo}>
+          <Button
+            title={section.title}
+            style={{
+              float: "left",
+              backgroundColor: theme.palette.secondary.main,
+            }}
+            startIcon={
+              <img
+                style={{ width: buttonThumb.width, height: "auto" }}
+                src={process.env.REACT_APP_STRAPI + buttonThumb.url}
+              />
+            }
+            variant="contained"
+          >
+            {section?.button.text}
+          </Button>
+        </Link>
+      )}
+    </div>
+  );
+};
 export const Hero = ({ section }) => {
   //const img = section.data.attr;
-  const thumb = getImageThumb(
-    section?.picture?.data ? section.picture.data.attributes : false
-  );
+  const thumb = getThumb(section?.picture?.data?.attributes);
+  console.log(section.text);
+
   const theme = useTheme();
   return (
-    <StyledPageSection>
-      <StyledHeading>{section.title}</StyledHeading>
+    <StyledPageSection style={{ maxWidth: 500 }}>
+      <div style={{ position: "relative" }}>
+        <StyledHeading>{section.label}</StyledHeading>
 
-      <Box
+        <HeroButton section={section} />
+      </div>
+      <div
         style={{
-          // backgroundColor: theme.palette.background.default,
-          padding: 4,
-          // color: theme.palette.secondary.contrastText,
-          // maxWidth: "50%",
+          ...theme.flexRows,
+          // flexDirection: "row",
+          outline: "1px none red",
         }}
       >
-        {section.googleMap && (
-          <div>
-            <GoogleMapApp
-              marker={section.googleMap.marker}
-              lat={section.googleMap.lat}
-              lng={section.googleMap.lng}
-              style={section.googleMap.style}
-            />
-          </div>
-        )}
         {thumb && (
-          <>
-            <img
-              title={section.title}
-              style={{
-                float: "left",
-                width: thumb.width,
-                height: "auto",
-                margin: 3,
-              }}
-              src={process.env.REACT_APP_STRAPI + thumb.url}
-            />
-            <div
-              dangerouslySetInnerHTML={createMarkup(section?.richText)}
-            ></div>
-          </>
+          <img
+            style={{ width: thumb.width, height: thumb.height, float: "left" }}
+            src={process.env.REACT_APP_STRAPI + thumb.url}
+          />
         )}
+        <span
+          style={{
+            maxWidth: 300,
+            // marginBottom: "auto",
+            // marginLeft: "auto",
+            margin: "auto",
+            border: "1px none blue",
+          }}
+          dangerouslySetInnerHTML={createMarkup(section?.text?.content)}
+        ></span>
 
-        {section.buttons &&
-          section.buttons.map((button, key) => {
-            const buttonThumb = getThumb(button.image.data.attributes);
-            return (
-              <Link
-                key={key}
-                style={{ textDecoration: "none" }}
-                to={button.url}
-              >
-                {buttonThumb ? (
-                  <>
-                    <Button
-                      style={{ float: "left" }}
-                      startIcon={
-                        <img
-                          src={process.env.REACT_APP_STRAPI + buttonThumb.url}
-                        />
-                      }
-                      variant="contained"
-                    >
-                      {button.text}
-                    </Button>
-                    <div
-                      dangerouslySetInnerHTML={createMarkup(section.richText)}
-                    ></div>
-                  </>
-                ) : (
-                  <Button variant="contained">{button.text}</Button>
-                )}
-              </Link>
-            );
-          })}
-      </Box>
+        <div
+          style={{
+            // backgroundColor: theme.palette.background.default,
+            padding: 4,
+            // color: theme.palette.secondary.contrastText,
+            // maxWidth: "50%",
+          }}
+        >
+          {section.googleMap && (
+            <div>
+              <GoogleMapApp
+                markerText={section.googleMap.markerText}
+                lat={section.googleMap.lat}
+                lng={section.googleMap.lng}
+                zoom={section.googleMap.zoom}
+                markerImage={section.googleMap.markerImage}
+                description={section.googleMap.description}
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </StyledPageSection>
   );
 };
