@@ -1650,6 +1650,32 @@ const HeroButton = ({ section }) => {
     </div>
   );
 };
+const StyledHeroBox = styled("div")(({ theme }) => ({
+  // ...theme.flexRows,
+  // flexDirection: "row",
+  // outline: "1px solid red",
+  width: "100%",
+
+  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("md")]: {
+    //  width: "85%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    // width: 300,
+  },
+}));
+
+const StyledHeroText = styled("p")(({ theme }) => ({
+  // width: "30%",
+
+  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("md")]: {
+    // width: "100%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    // width: 300,
+  },
+}));
 export const Hero = ({ section }) => {
   //const img = section.data.attr;
   const thumb = getThumb(section?.picture?.data?.attributes);
@@ -1657,35 +1683,22 @@ export const Hero = ({ section }) => {
 
   const theme = useTheme();
   return (
-    <StyledPageSection style={{ maxWidth: 500 }}>
+    <StyledPageSection>
       <div style={{ position: "relative" }}>
         <StyledHeading>{section.label}</StyledHeading>
 
         {section.button && <HeroButton section={section} />}
       </div>
-      <div
-        style={{
-          ...theme.flexRows,
-          // flexDirection: "row",
-          outline: "1px none red",
-        }}
-      >
+      <StyledHeroBox>
         {thumb && (
           <img
             style={{ width: thumb.width, height: thumb.height, float: "left" }}
             src={process.env.REACT_APP_STRAPI + thumb.url}
           />
         )}
-        <span
-          style={{
-            maxWidth: 300,
-            // marginBottom: "auto",
-            // marginLeft: "auto",
-            margin: "auto",
-            border: "1px none blue",
-          }}
+        <StyledHeroText
           dangerouslySetInnerHTML={createMarkup(section?.text?.content)}
-        ></span>
+        ></StyledHeroText>
 
         <div
           style={{
@@ -1708,7 +1721,7 @@ export const Hero = ({ section }) => {
             </div>
           )}
         </div>
-      </div>
+      </StyledHeroBox>
     </StyledPageSection>
   );
 };
