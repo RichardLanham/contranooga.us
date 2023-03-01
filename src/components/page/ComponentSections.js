@@ -534,7 +534,14 @@ export const LargeVideo = ({ section }) => {
     loop: false,
   });
 
-  const load = (url) => {
+  const load = (url, label, loaded) => {
+    if (loaded) {
+      handleStop(stopLabel);
+      setStopLabel("");
+      return;
+    }
+    console.log("load");
+    setStopLabel(label);
     // console.log("LOADING");
     setState({
       url,
@@ -544,14 +551,45 @@ export const LargeVideo = ({ section }) => {
     });
   };
 
-  const pl = section?.playlistItem || section?.playlist?.playlistItem || [];
+  const pl_ = section?.playlistItem || section?.playlist?.playlistItem || [];
+
+  const pl = pl_.slice();
 
   const playlist = pl.map((item) => item.url);
 
+  // console.log(playlist);
+
+  // const addTopOption = [
+  //   {
+  //     id: "4110000",
+  //     description: "added",
+  //     url: "https://youtu.be/8_cfiw0V0FU",
+  //     newTab: false,
+  //     text: "Playlist",
+  //     slug: null,
+  //   },
+  // ];
+
+  // pl.unshift(addTopOption);
+
   const defaultVideo = playlist[0];
 
+  // const [listVal, setListVal] = useState(pl[0]?.text ? pl[0].text : "");
+  const [listVal, setListVal] = useState("Playlist...");
+
+  const [stopLabel, setStopLabel] = useState("");
+
+  const handleChangeTrack = (event) => {
+    console.log("handleChangeTrack");
+    event.stopPropagation();
+    setListVal(event.target.value);
+    const targ = pl.find((item) => item.text === event.target.value);
+    //console.log(targ);
+    load(targ.url);
+  };
+
   useEffect(() => {
-    pl.length > 0 && load(pl[0].url);
+    //pl.length > 0 && load(pl[0].url);
   }, [pl]);
 
   const renderLoadButton = (url, label, key) => {
@@ -559,15 +597,24 @@ export const LargeVideo = ({ section }) => {
       <Button
         // variant="outline"
         key={key}
-        onClick={() => load(url)}
+        onClick={() => load(url, label, label === stopLabel)}
         style={{
-          minWidth: 100,
-          maxWidth: 250,
-          maxHeight: 100,
+          // minWidth: 100,
+          // maxWidth: 250,
+          // maxHeight: 100,
+          whiteSpace: "nowrap",
           padding: 1,
           margin: 1,
-          color: theme.palette.primary.contrastText,
-          backgroundColor: theme.palette.primary.main,
+          // color: theme.palette.primary.contrastText,
+          // backgroundColor: theme.palette.secondary.main,
+          backgroundColor:
+            label === stopLabel
+              ? theme.palette.primary.main
+              : theme.palette.secondary.main,
+          color:
+            label === stopLabel
+              ? theme.palette.primary.contrastText
+              : theme.palette.secondary.contrastText,
         }}
       >
         {label}
@@ -682,21 +729,19 @@ export const LargeVideo = ({ section }) => {
   const [url, setUrl] = useState(playlist);
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    // width: 600,
-    // height: "auto",
-    display: "flex",
-    flexWrap: "wrap",
+    // ...theme.flexRows,
+    // flexWrap: "wrap",
     // gap: 3,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
     [theme.breakpoints.down("md")]: {
-      width: 300,
-      display: "none",
+      // width: 300,
+      // display: "none",
     },
     [theme.breakpoints.down("sm")]: {
       width: 300,
-      // display: "none",
+      display: "none",
     },
   }));
 
@@ -706,22 +751,14 @@ export const LargeVideo = ({ section }) => {
       // padding: 0,
     },
     [theme.breakpoints.down("md")]: {
-      display: "block",
+      // display: "block",
     },
     [theme.breakpoints.down("sm")]: {
-      // display: "block",
+      display: "block",
     },
   }));
 
-  const [listVal, setListVal] = useState(pl[0]?.text ? pl[0].text : "");
-
-  const handleChangeTrack = (event) => {
-    setListVal(event.target.value);
-    const targ = pl.find((item) => item.text === event.target.value);
-    //console.log(targ);
-    load(targ.url);
-  };
-  console.log("down here");
+  // console.log("down here");
   return (
     <div>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
@@ -748,7 +785,9 @@ export const LargeVideo = ({ section }) => {
             value={listVal}
             // onChange={(e) => handle(e)}
           >
+            <MenuItem value={"Playlist..."}>Playlist...</MenuItem>
             {pl.map((item, key) => {
+              console.log(item);
               return (
                 <MenuItem key={key} value={item.text}>
                   {item.text}
@@ -765,14 +804,17 @@ export const LargeVideo = ({ section }) => {
         >
           Play {listVal}
         </Button>
-
         <Button
           onClick={handleStop}
           style={{
             display: state.url === null ? "none" : "inline",
-            display: "none",
+            padding: 0,
+            maring: 0,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            // display: "inline",
           }}
-          variant="contained"
+          variant="outline"
         >
           Stop {listVal}
         </Button>
@@ -795,6 +837,21 @@ export const LargeVideo = ({ section }) => {
         {pl.map((item, key) => {
           return renderLoadButton(item.url, item.text, key);
         })}
+        <Button
+          onClick={handleStop}
+          style={{
+            display: state.url === null ? "none" : "inline",
+            display: "none", // hiding this now.
+            padding: 0,
+            maring: 0,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            // display: "inline",
+          }}
+          variant="outline"
+        >
+          Stop {listVal}
+        </Button>
       </StyledVideoButtonGroup>
       <div>
         <ReactPlayer
@@ -859,21 +916,18 @@ const StyledRichText = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {},
 }));
 
-const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-  width: "100%",
-  border: "4px solid blue",
-  height: "auto",
-  display: "flex",
-  flexWrap: "wrap",
-  // margin: "auto",
-  gap: 3,
-  [theme.breakpoints.down("lg")]: {
-    // padding: 0,
-  },
-  [theme.breakpoints.down("md")]: {
-    // width: 300,
-  },
-}));
+// const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
+//   border: "4px solid blue",
+//   height: 400,
+//   // margin: "auto",
+//   gap: 3,
+//   [theme.breakpoints.down("lg")]: {
+//     // padding: 0,
+//   },
+//   [theme.breakpoints.down("md")]: {
+//     // width: 300,
+//   },
+// }));
 
 const createMarkup = (html) => {
   return { __html: html };
@@ -1117,20 +1171,28 @@ export const Tabs = ({ section }) => {
   const [slug, setSlug] = useState("");
 
   const showTab = (e, tab) => {
+    console.log(tab);
     e.preventDefault();
     setSlug(tab.slug);
   };
-  // const setpage = (e) => {
-  //   e.preventDefault();
-  //   setSl([]);
-  // };
   const tabSectionThumb = getThumb(section?.picture?.data?.attributes);
-  // console.log(tabSectionThumb);
+  const TabHeader = () => {
+    // console.log(tabSectionThumb);
+    return (
+      <div>
+        <img src={process.env.REACT_APP_STRAPI + tabSectionThumb.url} />
+        <div>{section.label}</div>
+        <div>{section.description}</div>
+        <div>{section.title}</div>
+      </div>
+    );
+  };
 
-  return (
-    <div>
-      {section.tabs.type === "link" && (
+  const TabHomeTabButton = (section) => {
+    if (section?.section?.tabs?.type === "link") {
+      return (
         <a
+          onClick={(e) => e.preventDefault()}
           name="HomeTabButton"
           style={{
             ...theme.typography.h5,
@@ -1143,38 +1205,66 @@ export const Tabs = ({ section }) => {
           }}
           href="#"
         >
-          {section.tabs.title}
+          {section.section.tabs.title}
         </a>
-      )}
-      {section.tabs.type === "button" && (
-        <Button variant="outline">{section.tabs.title}</Button>
-      )}
-      {section.tabs.type === "image" && (
+      );
+    }
+
+    if (section?.section?.tabs?.type === "button") {
+      return <Button variant="outline">{section?.section?.tabs?.title}</Button>;
+    }
+    if (section?.section?.tabs?.type === "image") {
+      return (
         <a href="#">
-          <img src={process.env.REACT_APP_STRAPI + tabSectionThumb.url} />
+          <img
+            onClick={(e) => e.preventDefault()}
+            src={process.env.REACT_APP_STRAPI + tabSectionThumb.url}
+          />
         </a>
-      )}
+      );
+    }
+
+    return <div>nothing to make</div>;
+  };
+
+  const handleTabClick = (e) => {
+    console.log(e.currentTarget);
+  };
+
+  if (!section.tabs) {
+    return <TabHeader section={section} />;
+  }
+  return (
+    <div>
+      <TabHeader section={section} />
+      <TabHomeTabButton section={section} />
       <div>
         <div
           style={{
-            display: "flex",
-            flexWrap: "wrap",
+            // ...theme.flexRows,
             width: "100%",
             marginTop: 20,
             // border: "1px solid red",
           }}
         >
-          {section.tabs.tab.map((t, key) => {
-            const tabThumb = getThumb(t.image?.data?.attributes);
+          {section.tabs.tab.map((tab, key) => {
+            const tabThumb = getThumb(tab.image?.data?.attributes);
+            // console.log(tabThumb); // putting tab content below
             return (
               <div
                 key={key}
                 style={{ marginBottom: 20, marginLeft: 10, marginRight: 10 }}
               >
-                <div onClick={(e) => showTab(e, t)}>
-                  {t.type === "button" ? (
-                    <Button variant="outline">{t.text}</Button>
-                  ) : t.type === "image" ? (
+                <div name="tabButtonWrap" onClick={(e) => showTab(e, tab)}>
+                  {tab.type === "button" ? (
+                    <Button
+                      id={tab.slug}
+                      //onClick={(e) => handleTabClick()}
+                      variant="outline"
+                    >
+                      {tab.text}
+                    </Button>
+                  ) : tab.type === "image" ? (
                     tabThumb && (
                       <a href="#">
                         <img
@@ -1184,6 +1274,8 @@ export const Tabs = ({ section }) => {
                     )
                   ) : (
                     <a
+                      name={tab.slug}
+                      //onClick={(e) => handleTabClick(e)}
                       style={{
                         ...theme.typography.h5,
                         textDecoration: "none",
@@ -1193,9 +1285,51 @@ export const Tabs = ({ section }) => {
                       }}
                       href="#"
                     >
-                      {t.text}
+                      {tab.text}
                     </a>
                   )}
+                </div>
+
+                <div
+                  id={tab.slug}
+                  name="tabContentWrap"
+                  style={{ display: "none" }}
+                >
+                  {tab.inputs.map((input, key) => {
+                    return (
+                      <div key={key}>
+                        <pre style={{ display: "none" }}>
+                          {JSON.stringify(input, null, 3)}
+                        </pre>
+                        {input.richtext && (
+                          <div
+                            dangerouslySetInnerHTML={createMarkup(
+                              input.richtext
+                            )}
+                          ></div>
+                        )}
+
+                        {input.playlist && (
+                          <div>
+                            <LargeVideo section={input.playlist} />
+                          </div>
+                        )}
+
+                        {input.googleMap && (
+                          <div>
+                            <GoogleMapApp
+                              lat={input.googleMap.lat}
+                              lng={input.googleMap.lng}
+                              zoom={input.googleMap.zoom}
+                              markerText={input.googleMap.markerText}
+                              markerImage={input.googleMap.markerImage}
+                              description={input.googleMap.description}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );
@@ -1570,7 +1704,7 @@ const HeroButton = ({ section }) => {
           style={{
             maxWidth: 200,
             maxHeight: 50,
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.primary.main,
             position: "absolute",
             top: 0,
             right: 0,
