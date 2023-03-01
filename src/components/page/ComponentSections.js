@@ -524,7 +524,7 @@ export const LargeVideo = ({ section }) => {
     });
   };
 
-  const pl = section.playlistItem || section.playlist.playlistItem || [];
+  const pl = section?.playlistItem || section?.playlist?.playlistItem || [];
 
   const playlist = pl.map((item) => item.url);
 
