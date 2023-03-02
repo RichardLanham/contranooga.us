@@ -906,9 +906,9 @@ export const LargeVideo = ({ section }) => {
 const StyledRichText = styled("div")(({ theme }) => ({
   ...theme.typography.body1,
   textAlign: "left",
-  padding: "10px 10px 20px 20px",
-  borderRadius: 5,
-  margin: 5,
+  // padding: "10px 10px 20px 20px",
+  // borderRadius: 5,
+  // margin: 5,
   // background: theme.palette.background.default,
   [theme.breakpoints.down("lg")]: {
     // padding: 0,
