@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, MenuItem, Button, Typography } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+  Card,
+  ClickAwayListener,
+  FormLabel,
+} from "@mui/material";
 import {
   // getLuminance,
   rgbToHex,
@@ -53,21 +61,13 @@ import {
 } from "../styles/PageStyles";
 import PageHeader from "../components/page/PageHeader";
 
-import { GET_THEME } from "../gql/theme";
-import client from "../apollo/client";
-import EditIcon from "@mui/icons-material/Edit";
-import CloseIcon from "@mui/icons-material/Close";
-import {
-  // Typography,
-  Card,
-  Select,
-  ClickAwayListener,
-  FormLabel,
-} from "@mui/material";
-
 import CustomPicker from "../components/color/CustomPicker";
 import SliderOffset from "../components/color/SliderOffset";
 
+import EditIcon from "@mui/icons-material/Edit";
+import CloseIcon from "@mui/icons-material/Close";
+import { GET_THEME } from "../gql/theme";
+import client from "../apollo/client";
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update the state to force render
@@ -238,10 +238,10 @@ const Color = (props) => {
   };
 
   const [showReset, setShowReset] = useState(false);
-  // const refresh = useForceUpdate();
+  const refresh = useForceUpdate();
   const defaultColorModes = ColorModes;
   const refreshReact = () => {
-    // setShowReset(true);
+    setShowReset(true);
     // refresh();
   };
 
@@ -251,46 +251,6 @@ const Color = (props) => {
   const [attrib, setAttrib] = useState("primary");
 
   const [themes, setThemes] = useState([]);
-
-  const [selectedTheme, setSelectedTheme] = useState(theme.themeId);
-
-  const {
-    loading: loading2,
-    error: error2,
-    data: data2,
-  } = useQuery(GET_THEME, {
-    client: client,
-    variables: { id: selectedTheme },
-  });
-
-  /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
-  useEffect(() => {
-    console.log("InputHex");
-    console.log(selectedTheme);
-    if (!loading2) {
-      if (!error2) {
-        // console.log("color featch");
-        //const _themes = [];
-        // console.log(data2.theme.data.attributes.theme);
-
-        ///// HERE IS THE PROBLEM. Enabled, fetch stored theme works. Apply new hex seed, doesn't work. Vice versa.
-        // it shouldn't fire on the Apply button click.
-        // it's firing somehow
-
-        // commented out I can set new seed color and fetch from api and load color_modes
-        // uncommented, I can get saved Themes. I can save theme to default. I can save to new theme name
-
-        theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
-        theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
-
-        // console.log(theme.palette);
-        // console.log(JSON.parse(data2.theme.data.attributes.theme).palette);
-
-        eventEmitter.dispatch("REFRESH", {});
-        //setThemes(_themes);
-      }
-    }
-  }, [selectedTheme]);
 
   useEffect(() => {
     // useQuery(GET_THEME);
@@ -309,17 +269,17 @@ const Color = (props) => {
         setThemes(_themes);
         // setSelectedTheme(theme.themeId);
         theme.themes = _themes;
-        console.log(_themes);
+        // console.log(_themes);
       }
     }
   }, [loading, error, data]);
 
   useEffect(() => {
-    console.log("Color Effect");
+    // console.log("Color Effect");
 
     eventEmitter.subscribe("REFRESH", () => {
       console.log("REFRESH at Site");
-      //refresh();
+      refresh();
     });
     return () => {
       eventEmitter.unsubscribe("REFRESH");
@@ -349,8 +309,8 @@ const Color = (props) => {
     eventEmitter.subscribe(
       "TONALTOUCH",
       (val) => {
-        //refresh();
-        //setShowReset(true);
+        refresh();
+        setShowReset(true);
       },
       []
     );
@@ -900,12 +860,12 @@ const Color = (props) => {
         // dispatch({ type: "FIXTHIS", payload: "doit" });
         // // console.log("Primary_tonaal_ useEffect");
 
-        // if (window.localStorage.getItem("newColor")) {
-        //   // trick
-        //   // setNewColor(window.localStorage.getItem("newColor"));
-        // }
+        if (window.localStorage.getItem("newColor")) {
+          // trick
+          // setNewColor(window.localStorage.getItem("newColor"));
+        }
 
-        // LOST ONE by commenting this out setNewColor(theme.palette.primary.main);
+        setNewColor(theme.palette.primary.main);
 
         // eventEmitter.subscribe(
         //   "SETCONTROLS",
@@ -962,7 +922,7 @@ const Color = (props) => {
       const handlePickerChange = (c, v) => {
         // setColor(c);
         setNewColor(c);
-        //window.localStorage.setItem("newColor", c);
+        // window.localStorage.setItem("newColor", c);
         //setTonalOffset(0.2);
         // setTextHex(c);
         const contrastVal = 1;
@@ -1203,10 +1163,42 @@ const Color = (props) => {
     // const { data, loading, error } = useQuery(GET_THEMES);
 
     const theme = useTheme();
-    // const [selectedTheme, setSelectedTheme] = useState(theme.themeId);
+    const [selectedTheme, setSelectedTheme] = useState(theme.themeId);
     const [targ, setTarg] = useState("primary");
     const [inputHex, setInputHex] = useState(theme.palette[targ].main);
     const orgHex = theme.palette.primary.main;
+
+    const {
+      loading: loading2,
+      error: error2,
+      data: data2,
+    } = useQuery(GET_THEME, {
+      client: client,
+      variables: { id: selectedTheme },
+    });
+
+    /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
+    useEffect(() => {
+      console.log("WHY");
+      if (!loading2) {
+        if (!error2) {
+          // console.log("color featch");
+          //const _themes = [];
+          // console.log(data2.theme.data.attributes.theme);
+          ///// HERE IS THE PROBLEM. Enabled, fetch stored theme works. Apply new hex seed, doesn't work. Vice versa.
+          // it shouldn't fire on the Apply button click.
+          // it's firing somehow
+          theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
+          // theme.color_modes = JSON.parse(
+          //   data2.theme.data.attributes.color_modes
+          // );
+          // console.log(theme.palette);
+          // console.log(JSON.parse(data2.theme.data.attributes.theme).palette);
+          // eventEmitter.dispatch("REFRESH", {});
+          //setThemes(_themes);
+        }
+      }
+    }, [selectedTheme, loading2, error2, data2]);
 
     //const [attrib, setAttrib] = useState("primary");
     // useEffect(() => {
@@ -1494,7 +1486,6 @@ const Color = (props) => {
       </ClickAwayListener>
     );
   };
-
   return (
     <Site title="Color">
       <StyledPage>

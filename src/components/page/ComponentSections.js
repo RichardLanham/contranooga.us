@@ -760,7 +760,7 @@ export const LargeVideo = ({ section }) => {
 
   // console.log("down here");
   return (
-    <div>
+    <div style={{ zIndex: 3000 }}>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
       <StyledPlayListSelect>
         <div style={{ display: "block", flexWrap: "wrap" }}>

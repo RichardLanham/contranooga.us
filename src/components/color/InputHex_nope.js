@@ -55,7 +55,7 @@ const InputHex = () => {
 
   /// THIS WAS WORKING IN UTC version but source of a color mode bug, which is fixed by commenting out. can't remember why it is there. so....
   useEffect(() => {
-    console.log("InputHex");
+    // console.log("USEEFFECT ONE");
     if (!loading2) {
       if (!error2) {
         // console.log("color featch");
@@ -65,12 +65,8 @@ const InputHex = () => {
         ///// HERE IS THE PROBLEM. Enabled, fetch stored theme works. Apply new hex seed, doesn't work. Vice versa.
         // it shouldn't fire on the Apply button click.
         // it's firing somehow
-
-        // commented out I can set new seed color and fetch from api and load color_modes
-        // uncommented, I can get saved Themes. I can save theme to default. I can save to new theme name
-
-        // theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
-        // theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
+        theme.palette = JSON.parse(data2.theme.data.attributes.theme).palette;
+        theme.color_modes = JSON.parse(data2.theme.data.attributes.color_modes);
 
         // console.log(theme.palette);
         // console.log(JSON.parse(data2.theme.data.attributes.theme).palette);
