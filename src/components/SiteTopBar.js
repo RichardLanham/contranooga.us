@@ -78,12 +78,11 @@ const SiteTopBar = () => {
     backgroundImage: `url(${bgTop})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    // whiteSpace: "nowrap",
-    flexWrap: "wrap",
     width: "100%",
     margin: "auto",
-    justifyContent: "center",
-    alignItems: "center",
+
+    // justifyContent: "bottom",
+    // alignItems: "baseline",
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
       backgroundSize: "100% 18vh",
@@ -152,10 +151,12 @@ const SiteTopBar = () => {
         <StyledAppBar>
           <StyledToolbar>
             <CornerBurger />
-            <Link to="/" style={{ zIndex: 3000 }}>
-              <StyledLogo src={process.env.REACT_APP_STRAPI + thumb.url} />
-            </Link>
-            <StrapiPagesTop position="top" />
+            <div style={{ paddingLeft: "10vw" }}>
+              <Link to="/" style={{ zIndex: 3000 }}>
+                <StyledLogo src={process.env.REACT_APP_STRAPI + thumb.url} />
+              </Link>
+              <StrapiPagesTop position="top" />
+            </div>
           </StyledToolbar>
         </StyledAppBar>
       </HideOnScroll>
