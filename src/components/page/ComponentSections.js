@@ -468,7 +468,7 @@ export const LeadForm = ({ section }) => {
   }
   const hand = require("../../assets/hand.png");
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", marginTop: 20, marginBottom: 30 }}>
       <div
         style={{
           position: "absolute",
