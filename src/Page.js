@@ -108,7 +108,6 @@ function Page({ _slug }) {
             <StyledPage>
               <PageHeader metaTitle={metaTitle} />
 
-              <div style={{ height: 35, opacity: 0 }}>&nbsp;</div>
               <SiteFeature slug={slug} />
               {attribs.contentSections.map((section, key) => {
                 // ComponentSections

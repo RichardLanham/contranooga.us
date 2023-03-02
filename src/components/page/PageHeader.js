@@ -8,7 +8,7 @@ const PageHeader = ({ metaTitle }) => {
 
   const StyledHeader = styled("div")(({ theme }) => ({
     ...theme.typography.h4,
-    fontSize: "2vw",
+    fontSize: "2.6vw",
 
     // color: theme.palette.primary.main,
     // backgroundColor: theme.palette.primary.contrastDark,
@@ -23,18 +23,17 @@ const PageHeader = ({ metaTitle }) => {
     borderColor: theme.palette.primary.main,
     boxShadow: theme.shadows[1],
     [theme.breakpoints.down("xl")]: {
-      marginTop: 15,
+      fontSize: "3.1vw",
     },
     [theme.breakpoints.down("lg")]: {
-      left: 50,
+      fontSize: "3.3vw",
     },
     [theme.breakpoints.down("md")]: {
-      ...theme.typography.h5,
-      left: 8,
-      marginLeft: 0,
+      fontSize: "4.2vw",
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: 15,
+      left: 20,
+      fontSize: "6vw",
     },
   }));
 

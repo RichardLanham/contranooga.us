@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 // Three uses, has to stay here. shows on every page SITE NAME sitename Site Name
 export const StyledSiteName = styled("div")(({ theme }) => ({
   ...theme.typography.h4,
-  fontSize: "2vw",
+  fontSize: "2.5vw",
   width: "fit-content",
   blockSize: "fit-content",
   opacity: ".75",
@@ -14,9 +14,14 @@ export const StyledSiteName = styled("div")(({ theme }) => ({
   padding: 3,
   backgroundColor: theme.palette.primary.dark,
   color: theme.palette.primary.contrastDark,
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("xl")]: {
     fontSize: "3vw",
+  },
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "3.2vw",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "3.8vw",
   },
   [theme.breakpoints.down("sm")]: {
     left: 20,
@@ -31,7 +36,8 @@ export const StyledPage = styled("div")(({ theme }) => ({
   marginTop: 190,
   borderRadius: 10,
   zIndex: 0,
-  minHeight: 1200,
+  // minHeight: 1200,
+
   [theme.breakpoints.down("xl")]: {
     width: "calc(65% - 1px)",
   },

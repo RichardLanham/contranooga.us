@@ -858,7 +858,7 @@ export const LargeVideo = ({ section }) => {
           style={{ padding: 0 }}
           // ref={playerRef}
           // className="react-player"
-          width="200hw"
+          // width="200hw"
           // height="100%"
           // url={state.url || defaultVideo}
           url={state.url}
