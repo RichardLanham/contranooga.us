@@ -1,6 +1,9 @@
 body,
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  overflow-x: scroll; /* Must be 'scroll' not 'auto' */
+  -webkit-overflow-scrolling: touch;
 }
 body {
   margin: 0;

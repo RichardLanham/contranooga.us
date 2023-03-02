@@ -11,11 +11,7 @@ import Site from "./Site";
 
 import DownloadingIcon from "@mui/icons-material/Downloading";
 
-import {
-  StyledPageSection,
-  StyledPage,
-  StyledHeading,
-} from "./styles/PageStyles";
+import { StyledPageSection, StyledPage } from "./styles/PageStyles";
 
 import {
   Hero,

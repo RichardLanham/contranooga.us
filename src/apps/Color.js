@@ -238,11 +238,11 @@ const Color = (props) => {
   };
 
   const [showReset, setShowReset] = useState(false);
-  // const refresh = useForceUpdate();
+  const refresh = useForceUpdate();
   const defaultColorModes = ColorModes;
   const refreshReact = () => {
-    // setShowReset(true);
-    // refresh();
+    setShowReset(true);
+    refresh();
   };
 
   const [themeId, setThemeId] = useState(0);
@@ -319,7 +319,7 @@ const Color = (props) => {
 
     eventEmitter.subscribe("REFRESH", () => {
       console.log("REFRESH at Site");
-      //refresh();
+      refresh();
     });
     return () => {
       eventEmitter.unsubscribe("REFRESH");
@@ -349,8 +349,8 @@ const Color = (props) => {
     eventEmitter.subscribe(
       "TONALTOUCH",
       (val) => {
-        //refresh();
-        //setShowReset(true);
+        refresh();
+        setShowReset(true);
       },
       []
     );
@@ -386,7 +386,7 @@ const Color = (props) => {
   const transformThemeBranch = async (thisHex, palette) => {
     // // console.log("transformThemeBranch");
     setShowReset(true);
-    //refreshReact();
+    refreshReact();
     const cleanHex = thisHex.hex.replace("#", "");
     const rgb = hexToRgb(thisHex.hex);
 

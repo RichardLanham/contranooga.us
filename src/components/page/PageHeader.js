@@ -7,12 +7,14 @@ const PageHeader = ({ metaTitle }) => {
   const theme = useTheme();
 
   const StyledHeader = styled("div")(({ theme }) => ({
-    ...theme.typography.h3,
-    // fontSize: "4vw",
-    // opacity: ".1",
-    color: theme.palette.primary.dark,
-    backgroundColor: theme.palette.primary.contrastDark,
-    width: "calc(50% - 1px)",
+    ...theme.typography.h4,
+    fontSize: "2vw",
+
+    // color: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.contrastDark,
+
+    width: "fit-content",
+    blockSize: "fit-content",
     paddingLeft: 10,
     paddingRight: 10,
     marginTop: 20,

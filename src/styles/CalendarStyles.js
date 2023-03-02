@@ -7,31 +7,6 @@ import { styled } from "@mui/material/styles";
 
 import { useTheme } from "@mui/material/styles";
 
-const CalendarStyles = () => {
-  const theme = useTheme();
-  return <span></span>;
-};
-
-export const StyledRoot = styled("div")(({ theme }) => ({
-  width: "calc(60% - 1rem)",
-  margin: "auto",
-  // // position: "relative",
-  // top: 30,
-  // backgroundColor: theme.palette.background.default,
-  // opacity: 1.0,
-  // [theme.breakpoints.down("xl")]: {},
-  // [theme.breakpoints.down("lg")]: {
-  //   width: "calc(80% - 1rem)",
-  // },
-  // [theme.breakpoints.down("md")]: {
-  //   width: "90%",
-  //   // margin: 0,
-  // },
-  // [theme.breakpoints.down("sm")]: {
-  //   width: "100%",
-  // },
-}));
-
 export const StyledEventList = styled("div")(({ theme }) => ({
   width: "100%",
 }));
@@ -43,13 +18,6 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
 export const StyledEventColumn = styled("div")(({ theme }) => ({
   padding: 2,
   margin: 0,
-  // borderRadius: 5,
-  // borderWidth: 2,
-  // borderBottom: `2px solid ${theme.palette.primary.main}`,
-  // borderColor: future
-  //   ? theme.palette.primary.main
-  //   : theme.palette.background.default, //the past is
-  // color: future ? theme.palette.info.contrastLight : "#000", // greyed
 }));
 
 export const StyledCard = styled("div")(({ theme }) => ({
@@ -96,20 +64,6 @@ export const StyledImg = styled("img")(({ theme }) => ({
   borderRadius: 5,
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
-}));
-
-export const StyledBody = styled("div")(({ theme }) => ({
-  // ...theme.typography.h5,
-  // backgroundColor: theme.palette.background.default,
-  // color: theme.palette.text.primary,
-  // // padding: 3,
-  // width: "calc(80% - 1rem)",
-  // margin: "auto",
-  // borderRadius: 5,
-  // boxShadow: theme.shadows[4],
-  // [theme.breakpoints.down("md")]: {
-  //   width: "calc(90% - 1px)",
-  // },
 }));
 
 export const StyledFormContainer = styled("div")(({ theme }) => ({

@@ -15,12 +15,11 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 
 function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue((value) => value + 1); // update the state to force render
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
 }
 
 const Site = (props) => {
-  // console.log("SITE");
   const theme = useTheme();
   const title = props.title;
   const description = props.description;
@@ -57,7 +56,6 @@ const Site = (props) => {
   }, []);
 
   function useWidth() {
-    // design time usage only
     const theme = useTheme();
     const keys = [...theme.breakpoints.keys].reverse();
     return (
@@ -73,83 +71,18 @@ const Site = (props) => {
 
   if (!theme.global) return null;
 
-  const StyledSiteDiv = styled("div")(({ theme }) => ({
-    // backgroundColor: theme.palette.grey[200],
-    // [theme.breakpoints.down("xl")]: {},
-    // [theme.breakpoints.down("lg")]: {},
-    // [theme.breakpoints.down("md")]: {},
-    // [theme.breakpoints.down("sm")]: {},
-  }));
-
-  const StyledSiteName = styled("div")(({ theme }) => ({
-    ...theme.typography.h3,
-    // fontSize: "3.5vw",
-    // margin: "auto",
-    position: "absolute",
-    top: 20,
-    // left: "calc(28%)",
-    width: "calc(90% -1px)",
-    // paddingLeft: 10,
-    // paddingRight: 10,
-    marginTop: 40,
-    borderRadius: 5,
-    padding: 3,
-    // border: "2px solid",
-    // borderColor: theme.palette.primary.main,
-    boxShadow: theme.shadows[10],
-    // whiteSpace: "wrap",
-    // justifyContent: "center",
-    //  backgroundColor: theme.palette.background.paper,
-    // color: theme.palette.primary.contrastText,
-    [theme.breakpoints.down("lg")]: {
-      // left: "calc(15%)",
-      // top: 0,
-      // fontSize: 30,
-      // left: 50,
-    },
-    [theme.breakpoints.down("md")]: {
-      ...theme.typography.h5,
-      // width: 300,
-      // left: 8,
-    },
-    [theme.breakpoints.down("sm")]: {
-      // ...theme.typography.h5,
-      left: 20,
-      // width: 300,
-      // left: 8,
-    },
-  }));
-
-  const StyledHeading = styled("div")(({ theme }) => ({
-    ...theme.typography.h2,
-
-    top: 50,
-    width: "100%",
-    margin: "auto",
-    [theme.breakpoints.down("lg")]: {
-      ...theme.typography.h3,
-    },
-    [theme.breakpoints.down("md")]: {
-      ...theme.typography.h4,
-    },
-    [theme.breakpoints.down("sm")]: {
-      ...theme.typography.h5,
-    },
-  }));
+  const StyledSiteDiv = styled("div")(({ theme }) => ({}));
 
   const bgImage = require("./assets/bgimages/collage_float_left1.png");
   const StyledFloatImg = styled("div")(({ theme }) => ({
     backgroundImage: `url(${bgImage})`,
-    // backgroundSize: "cover",
     backgroundPosition: "center",
     zIndex: 0,
     position: "fixed",
     top: 0,
-    // bottom: 0,
     left: 0,
     width: "14vw",
     borderRadius: 15,
-    // width: 400,
     height: 1000,
 
     [theme.breakpoints.down("lg")]: {

@@ -1,14 +1,9 @@
-import React from "react";
 import GoogleMapReact from "google-map-react";
-// import RoomIcon from "@mui/icons-material/Room";
 import { useTheme } from "@mui/material/styles";
-
 import { getThumb } from "./functions";
+
 const img = require("../assets/mapmarker.gif");
 
-require("../styles/googlemap.css");
-
-// <RoomIcon style={{ width: 60, height: "auto" }} lat={lat} lng={lng} />
 const GoogleMap = ({
   lat,
   lng,
@@ -45,7 +40,6 @@ const GoogleMap = ({
     <div style={{ width: 320, height: 320 }}>
       <div dangerouslySetInnerHTML={createMarkup(description)}></div>
       <GoogleMapReact
-        //scrollwheel={false}
         bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
         defaultCenter={center}
         defaultZoom={zoom ? zoom : 16}
