@@ -50,13 +50,16 @@ export const StyledPage = styled("div")(({ theme }) => ({
   },
 }));
 export const StyledPageSection = styled("div")(({ theme }) => ({
-  width: "calc(95% - 1px)",
+  // width: "calc(95% - 1px)",
+  width: "fit-content",
+  blockSize: "fit-content",
   marginRight: "auto",
+
   borderRadius: 10,
   padding: 0,
   [theme.breakpoints.down("xl")]: {},
   [theme.breakpoints.down("lg")]: {
-    width: "100%",
+    // width: "100%",
   },
   [theme.breakpoints.down("md")]: {
     marginRight: 0,

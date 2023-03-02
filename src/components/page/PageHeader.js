@@ -9,16 +9,10 @@ const PageHeader = ({ metaTitle }) => {
   const StyledHeader = styled("div")(({ theme }) => ({
     ...theme.typography.h4,
     fontSize: "2.6vw",
-
-    // color: theme.palette.primary.main,
-    // backgroundColor: theme.palette.primary.contrastDark,
-
     width: "fit-content",
     blockSize: "fit-content",
-    paddingLeft: 10,
-    paddingRight: 10,
     marginTop: 20,
-    marginLeft: 10,
+    marginBottom: 15,
     borderRadius: 5,
     borderColor: theme.palette.primary.main,
     boxShadow: theme.shadows[1],
