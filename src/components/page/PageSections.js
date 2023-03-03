@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import {
   Box,
@@ -533,8 +533,9 @@ export const LargeVideo = ({ section }) => {
     playbackRate: 1.0,
     loop: false,
   });
-
+  // Load
   const load = (url, label, loaded) => {
+    // playerRef.current.width = "90vw";
     if (loaded) {
       handleStop(stopLabel);
       setStopLabel("");
@@ -575,6 +576,7 @@ export const LargeVideo = ({ section }) => {
 
   useEffect(() => {
     pl_.length > 0 && load(pl_[0].url);
+    setListVal(pl_[0].text);
   }, [pl_]);
 
   const renderLoadButton = (url, label, key) => {
@@ -709,7 +711,7 @@ export const LargeVideo = ({ section }) => {
     // screenfull.request(findDOMNode(player));
   };
 
-  // const playerRef = useRef();
+  const playerRef = useRef();
   // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
 
@@ -789,20 +791,6 @@ export const LargeVideo = ({ section }) => {
         >
           Play {listVal}
         </Button>
-        <Button
-          onClick={handleStop}
-          style={{
-            display: state.url === null ? "none" : "inline",
-            padding: 0,
-            maring: 0,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
-            // display: "inline",
-          }}
-          variant="outline"
-        >
-          Stop {listVal}
-        </Button>
       </StyledPlayListSelect>
 
       <StyledVideoButtonGroup>
@@ -838,12 +826,29 @@ export const LargeVideo = ({ section }) => {
           Stop {listVal}
         </Button>
       </StyledVideoButtonGroup>
-      <div>
+      <div
+        style={{
+          border: "1px none",
+          borderColor: theme.palette.info.light,
+          width: state.url === null ? 200 : 300,
+          height: state.url === null ? 100 : "min-content",
+        }}
+      >
+        <div
+          style={{
+            ...theme.typography.h6,
+            display: state.url === null ? "block" : "none",
+            height: "min-content",
+          }}
+        >
+          Select from the Playlist
+        </div>
         <ReactPlayer
-          style={{ padding: 0 }}
-          // ref={playerRef}
+          style={{ objectFit: "cover" }}
+          ref={playerRef}
           // className="react-player"
-          // width="200hw"
+          width="100%"
+          height="auto"
           // height="100%"
           // url={state.url || defaultVideo}
           url={state.url}
@@ -871,6 +876,23 @@ export const LargeVideo = ({ section }) => {
           playIcon={<Button>Play</Button>}
         />
       </div>
+      <Button
+        onClick={handleStop}
+        style={{
+          display:
+            state.url === null || listVal.toLocaleLowerCase() === "playlist..."
+              ? "none"
+              : "inline",
+          padding: 0,
+          maring: 0,
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          // display: "inline",
+        }}
+        variant="outline"
+      >
+        Stop {listVal}
+      </Button>
       <div
         style={{
           // display: "flex",
