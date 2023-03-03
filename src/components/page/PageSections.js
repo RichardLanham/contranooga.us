@@ -745,6 +745,27 @@ export const LargeVideo = ({ section }) => {
     },
   }));
 
+  const StyledPlayerWrap = styled("div")(({ theme }) => ({
+    // border: "1px none",
+    // borderColor: theme.palette.info.light,
+    width: state.url === null ? 100 : 400,
+    height: state.url === null ? 100 : 225,
+    // height: "auto !important",
+    // aspectRatio: "16/9",
+    // objectFit: "fill",
+    [theme.breakpoints.down("lg")]: {
+      // padding: 0,
+    },
+    [theme.breakpoints.down("md")]: {
+      // width: state.url === null ? 100 : 400,
+      // height: state.url === null ? 100 : "min-content",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: state.url === null ? 100 : 300,
+      height: state.url === null ? 100 : 170,
+    },
+  }));
+
   // console.log("down here");
   return (
     <div style={{ zIndex: 3000 }}>
@@ -823,17 +844,10 @@ export const LargeVideo = ({ section }) => {
           }}
           variant="outline"
         >
-          Stop {listVal}
+          close {listVal}
         </Button>
       </StyledVideoButtonGroup>
-      <div
-        style={{
-          border: "1px none",
-          borderColor: theme.palette.info.light,
-          width: state.url === null ? 200 : 300,
-          height: state.url === null ? 100 : "min-content",
-        }}
-      >
+      <StyledPlayerWrap>
         <div
           style={{
             ...theme.typography.h6,
@@ -844,11 +858,11 @@ export const LargeVideo = ({ section }) => {
           Select from the Playlist
         </div>
         <ReactPlayer
-          style={{ objectFit: "cover" }}
+          // style={{ objectFit: "cover" }}
           ref={playerRef}
           // className="react-player"
           width="100%"
-          height="auto"
+          height="100%"
           // height="100%"
           // url={state.url || defaultVideo}
           url={state.url}
@@ -875,7 +889,22 @@ export const LargeVideo = ({ section }) => {
           onDuration={handleDuration}
           playIcon={<Button>Play</Button>}
         />
-      </div>
+        <Button
+          onClick={handleStop}
+          style={{
+            display: state.url === null ? "none" : "inline",
+            display: "none", // hiding this now.
+            padding: 0,
+            maring: 0,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            // display: "inline",
+          }}
+          variant="outline"
+        >
+          close {listVal}
+        </Button>
+      </StyledPlayerWrap>
       <Button
         onClick={handleStop}
         style={{
@@ -891,7 +920,7 @@ export const LargeVideo = ({ section }) => {
         }}
         variant="outline"
       >
-        Stop {listVal}
+        close {listVal}
       </Button>
       <div
         style={{
