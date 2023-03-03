@@ -1461,7 +1461,7 @@ export const FeatureColumnsGroup = ({ section }) => {
               >
                 <div onClick={(e) => showTab(e, t)}>
                   {t.type === "button" ? (
-                    <Button variant="outline">{t.text}</Button>
+                    <Button variant="outline">{t.label}</Button>
                   ) : t.type === "image" ? (
                     tabThumb && (
                       <a href="#">
@@ -1481,7 +1481,7 @@ export const FeatureColumnsGroup = ({ section }) => {
                       }}
                       href="#"
                     >
-                      {t.text}
+                      {t.label}
                     </a>
                   )}
                 </div>
