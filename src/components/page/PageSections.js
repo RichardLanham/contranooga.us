@@ -614,6 +614,7 @@ export const LargeVideo = ({ section }) => {
   };
 
   const handleStop = () => {
+    setListVal("Playlist...");
     setState({ url: null, playing: false });
   };
 
