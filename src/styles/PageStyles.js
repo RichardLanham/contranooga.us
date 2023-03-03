@@ -42,11 +42,12 @@ export const StyledPage = styled("div")(({ theme }) => ({
     width: theme.menuPosition === "side" ? "calc(65% - 1px)" : "98vw",
   },
   [theme.breakpoints.down("lg")]: {
-    width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "98vw",
+    // width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "98vw",
+    width: "95vw",
     // width: "calc(85% - 1px)",
   },
   [theme.breakpoints.down("md")]: {
-    width: theme.menuPosition === "side" ? "calc(95% - 1px)" : "98vw",
+    width: "90vw",
     // width: "calc(95% - 1rem)",
     marginTop: 125,
   },

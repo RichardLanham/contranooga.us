@@ -72,12 +72,18 @@ const StyledFlexBox = styled("div")(({ theme }) => ({
 
   // width: "30%",
   marginTop: 20,
+  width: "20vw",
+  [theme.breakpoints.down("xl")]: {
+    width: "30vw",
+  },
   [theme.breakpoints.down("lg")]: {
-    // width: "calc(60% - 1rem)",
-    width: "45%",
+    width: "40vw",
   },
   [theme.breakpoints.down("md")]: {
-    width: "85%",
+    width: "60vw",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "90vw",
   },
 }));
 
@@ -536,6 +542,10 @@ export const LargeVideo = ({ section }) => {
   // Load
   const load = (url, label, loaded) => {
     // playerRef.current.width = "90vw";
+    if (label === "Playlist...") {
+      handleStop();
+      return;
+    }
     if (loaded) {
       handleStop(stopLabel);
       setStopLabel("");
@@ -571,7 +581,8 @@ export const LargeVideo = ({ section }) => {
     setListVal(event.target.value);
     const targ = pl.find((item) => item.text === event.target.value);
     //console.log(targ);
-    load(targ.url);
+    // onClick={() => load(url, label, label === stopLabel)}
+    load(targ.url, targ.text);
   };
 
   useEffect(() => {
@@ -804,6 +815,25 @@ export const LargeVideo = ({ section }) => {
               );
             })}
           </Select>
+          <Button
+            onClick={handleStop}
+            style={{
+              display:
+                state.url === null ||
+                listVal.toLocaleLowerCase() === "playlist..."
+                  ? "none"
+                  : "inline",
+
+              padding: 0,
+              maring: 0,
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              // display: "inline",
+            }}
+            variant="outline"
+          >
+            close
+          </Button>
         </div>
 
         <Button
@@ -906,23 +936,7 @@ export const LargeVideo = ({ section }) => {
           close {listVal}
         </Button>
       </StyledPlayerWrap>
-      <Button
-        onClick={handleStop}
-        style={{
-          display:
-            state.url === null || listVal.toLocaleLowerCase() === "playlist..."
-              ? "none"
-              : "inline",
-          padding: 0,
-          maring: 0,
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.primary.contrastText,
-          // display: "inline",
-        }}
-        variant="outline"
-      >
-        close {listVal}
-      </Button>
+
       <div
         style={{
           // display: "flex",
