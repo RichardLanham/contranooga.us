@@ -24,8 +24,9 @@ import {
   BottomActions,
   LeadForm,
   GoogleMap,
-  Tabs,
-} from "./components/page/ComponentSections";
+} from "./components/page/PageSections";
+
+import Tabs from "./components/page/sections/Tabs";
 
 import PledgeForm from "./components/page/PledgeForm";
 

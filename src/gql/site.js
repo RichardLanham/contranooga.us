@@ -138,8 +138,9 @@ export const GET_PAGE = gql`
                 }
                 tab {
                   id
-                  text
+                  label
                   type
+                  slug
                   image {
                     ...FileParts
                     __typename
@@ -187,7 +188,7 @@ export const GET_PAGE = gql`
                     ...FileParts
                     __typename
                   }
-                  text
+                  label
                   inputs {
                     ...InputParts
                   }

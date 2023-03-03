@@ -14,7 +14,6 @@ export const getThumb = (attribs) => {
     return formats.small;
   }
 };
-
 export const getLarge = (attribs) => {
   if (!attribs) {
     return false;
@@ -36,4 +35,8 @@ export const getLarge = (attribs) => {
   if (formats.thumbnails) {
     return formats.thumbnails;
   }
+};
+
+export const createMarkup = (html) => {
+  return { __html: html };
 };

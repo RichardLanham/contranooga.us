@@ -557,21 +557,6 @@ export const LargeVideo = ({ section }) => {
 
   const playlist = pl.map((item) => item.url);
 
-  // console.log(playlist);
-
-  // const addTopOption = [
-  //   {
-  //     id: "4110000",
-  //     description: "added",
-  //     url: "https://youtu.be/8_cfiw0V0FU",
-  //     newTab: false,
-  //     text: "Playlist",
-  //     slug: null,
-  //   },
-  // ];
-
-  // pl.unshift(addTopOption);
-
   const defaultVideo = playlist[0];
 
   // const [listVal, setListVal] = useState(pl[0]?.text ? pl[0].text : "");
@@ -589,8 +574,8 @@ export const LargeVideo = ({ section }) => {
   };
 
   useEffect(() => {
-    //pl.length > 0 && load(pl[0].url);
-  }, [pl]);
+    pl_.length > 0 && load(pl_[0].url);
+  }, [pl_]);
 
   const renderLoadButton = (url, label, key) => {
     return (
@@ -787,7 +772,7 @@ export const LargeVideo = ({ section }) => {
           >
             <MenuItem value={"Playlist..."}>Playlist...</MenuItem>
             {pl.map((item, key) => {
-              console.log(item);
+              // console.log(item);
               return (
                 <MenuItem key={key} value={item.text}>
                   {item.text}
