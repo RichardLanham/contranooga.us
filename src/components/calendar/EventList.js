@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   FormLabel,
@@ -8,7 +8,7 @@ import {
   Typography,
   TextareaAutosize,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled } from "@mui/material/styles";
 import { useMutation, useQuery } from "@apollo/client";
 import client from "../../apollo/client";
 import { eventEmitter } from "../../events.tsx";
@@ -27,6 +27,8 @@ import { GET_EVENTS, DELETE_EVENT } from "../../gql/events";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+
+import { getThumb, getLarge } from "../../apps/functions";
 
 const compFn = (a, b) => {
   if (a.attributes.startTime < b.attributes.startTime) {
@@ -403,6 +405,19 @@ const EventList = () => {
       : false;
 
     if (!showEdit) {
+      const cardImage = getLarge(attribs?.image?.data?.attributes);
+      const cardThumb = getThumb(attribs?.image?.data?.attributes);
+      const StyledCardImage = styled("img")(({ theme }) => ({
+        cursor: "ns-resize",
+        maxWidth: "30vw",
+        [theme.breakpoints.down("lg")]: {},
+        [theme.breakpoints.down("sm")]: {
+          maxWidth: "50vw",
+        },
+        [theme.breakpoints.down("sm")]: {
+          maxWidth: "90vw",
+        },
+      }));
       return (
         <StyledCard>
           <a
@@ -486,6 +501,19 @@ const EventList = () => {
                     // backgroundColor: theme.palette.background.default,
                   }}
                 >
+                  {attribs.image && (
+                    <StyledCardImage
+                      onClick={(e) =>
+                        (e.currentTarget.src =
+                          process.env.REACT_APP_STRAPI + cardImage.url)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.src =
+                          process.env.REACT_APP_STRAPI + cardThumb.url)
+                      }
+                      src={process.env.REACT_APP_STRAPI + cardThumb.url}
+                    />
+                  )}
                   {attribs.body}
                 </p>
               </div>
