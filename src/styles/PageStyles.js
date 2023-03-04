@@ -71,8 +71,9 @@ export const StyledPageSection = styled("div")(({ theme }) => ({
 // Used in page/CompnentSections
 export const StyledHeading = styled(Typography)(({ theme }) => ({
   ...theme.typography.h5,
+  width: "fit-content",
   marginBottom: 5,
-  margin: "auto",
+  marginRight: "auto",
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.secondary.main,
   color: theme.palette.secondary.contrastText,

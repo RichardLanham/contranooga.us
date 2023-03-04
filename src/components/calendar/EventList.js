@@ -144,6 +144,9 @@ const EventList = () => {
       : false;
 
     const psalms = event_.attributes.psalms ? event_.attributes.psalms : false;
+    // const imageAttribute = event_.attributes.image.data
+    //   ? event_.attributes.image.data
+    //   : false;
 
     const attribs = event_.attributes;
 
@@ -397,6 +400,9 @@ const EventList = () => {
     //     </div>
     //   );
     // };
+    // const thumb = imageAttribute
+    //   ? imageAttribute.attributes.formats.thumbnail
+    //   : false;
 
     if (!showEdit) {
       const cardImage = getLarge(attribs?.image?.data?.attributes);
@@ -658,8 +664,12 @@ const EventList = () => {
                       >
                         <img
                           className="fade-in-image"
-                          style={{ width: width, height: "auto" }}
-                          src={process.env.REACT_APP_STRAPI + thumb.url}
+                          style={{
+                            display: "none",
+                            width: width,
+                            height: "auto",
+                          }}
+                          src=""
                         />
                       </MenuItem>
                     );

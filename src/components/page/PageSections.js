@@ -1522,9 +1522,9 @@ const HeroButton = ({ section }) => {
             maxWidth: 200,
             maxHeight: 50,
             backgroundColor: theme.palette.primary.main,
-            position: "absolute",
-            top: 0,
-            right: 0,
+            // position: "absolute",
+            // top: 0,
+            // right: 0,
           }}
           title={section.title}
           variant="contained"
@@ -1537,7 +1537,7 @@ const HeroButton = ({ section }) => {
 
       {section?.button?.type === "link" && (
         <Link
-          style={{ position: "absolute", top: 0, right: 0 }}
+          //  style={{ position: "absolute", top: 0, right: 0 }}{}
           target={target}
           title={section.title}
           element="a"
@@ -1549,7 +1549,7 @@ const HeroButton = ({ section }) => {
 
       {section?.button?.type === "link" && section?.url && (
         <Link
-          style={{ position: "absolute", top: 0, right: 0 }}
+          //style={{ position: "absolute", top: 0, right: 0 }}
           target={target}
           title={section.title}
           element="a"
@@ -1627,10 +1627,23 @@ const StyledHeroText = styled("p")(({ theme }) => ({
     // width: 300,
   },
 }));
+
+const StyledCardImage = styled("img")(({ theme }) => ({
+  float: "left",
+  cursor: "ns-resize",
+  maxWidth: "30vw",
+  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "50vw",
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "90vw",
+  },
+}));
 export const Hero = ({ section }) => {
   //const img = section.data.attr;
   const thumb = getThumb(section?.picture?.data?.attributes);
-  console.log(section.text);
+  const large = getLarge(section?.picture?.data?.attributes);
 
   const theme = useTheme();
   return (
@@ -1642,8 +1655,13 @@ export const Hero = ({ section }) => {
       </div>
       <StyledHeroBox>
         {thumb && (
-          <img
-            style={{ width: thumb.width, height: thumb.height, float: "left" }}
+          <StyledCardImage
+            onClick={(e) =>
+              (e.currentTarget.src = process.env.REACT_APP_STRAPI + large.url)
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.src = process.env.REACT_APP_STRAPI + thumb.url)
+            }
             src={process.env.REACT_APP_STRAPI + thumb.url}
           />
         )}
