@@ -144,9 +144,6 @@ const EventList = () => {
       : false;
 
     const psalms = event_.attributes.psalms ? event_.attributes.psalms : false;
-    const imageAttribute = event_.attributes.image.data
-      ? event_.attributes.image.data
-      : false;
 
     const attribs = event_.attributes;
 
@@ -249,7 +246,7 @@ const EventList = () => {
     useEffect(() => {
       setFromDateTime(attribs.startTime);
       setToDateTime(attribs.endTime);
-      setImage(attribs.image.data ? attribs.image.data.id : "none");
+      // setImage(attribs.image.data ? attribs.image.data.id : "none");
       seteLink(attribs.link);
       setPage(
         attribs.link
@@ -400,9 +397,6 @@ const EventList = () => {
     //     </div>
     //   );
     // };
-    const thumb = imageAttribute
-      ? imageAttribute.attributes.formats.thumbnail
-      : false;
 
     if (!showEdit) {
       const cardImage = getLarge(attribs?.image?.data?.attributes);
@@ -501,7 +495,7 @@ const EventList = () => {
                     // backgroundColor: theme.palette.background.default,
                   }}
                 >
-                  {attribs.image && (
+                  {attribs?.image?.data && (
                     <StyledCardImage
                       onClick={(e) =>
                         (e.currentTarget.src =
