@@ -6,6 +6,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import axios from "axios";
 
 import Home from "./pages/Home";
+
+// import Events from "./pages/Events";
 import Color from "./apps/Color";
 import About from "./pages/About";
 import FourOhFour from "./pages/404";
@@ -129,6 +131,10 @@ const AppRoutes = () => {
 
             <Route path="/about" element={<About client={client} />} />
             <Route path="/cal" element={<Calendar client={client} />} />
+            <Route
+              path="/page/ctdscalendar"
+              element={<Calendar client={client} />}
+            />
 
             <Route path="/404" element={<FourOhFour client={client} />} />
           </Routes>
