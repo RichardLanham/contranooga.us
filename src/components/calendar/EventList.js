@@ -346,8 +346,9 @@ const EventList = () => {
                   // borderBottom: "1px solid",
                   marginRight: 5,
                   borderColor: theme.palette.secondary.dark,
-                  backgroundColor: theme.palette.secondary.light,
-                  // borderRadius: 5,
+                  backgroundColor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.contrastText,
+                  borderRadius: 10,
                   padding: 2,
                 }}
               >

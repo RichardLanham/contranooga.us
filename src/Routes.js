@@ -126,15 +126,14 @@ const AppRoutes = () => {
         <BrowserRouter basename="/">
           <Routes>
             <Route path="/" exact element={<Home />} />
-            <Route path="/page/:slug" element={<Page _slug="" />} />
-            <Route path="/color" element={<Color />} />
-
-            <Route path="/about" element={<About client={client} />} />
-            <Route path="/cal" element={<Calendar client={client} />} />
             <Route
               path="/page/ctdscalendar"
               element={<Calendar client={client} />}
             />
+            <Route path="/page/:slug" element={<Page _slug="" />} />
+            <Route path="/color" element={<Color />} />
+
+            <Route path="/about" element={<About client={client} />} />
 
             <Route path="/404" element={<FourOhFour client={client} />} />
           </Routes>
