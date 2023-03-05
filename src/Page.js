@@ -14,10 +14,8 @@ import DownloadingIcon from "@mui/icons-material/Downloading";
 import { StyledPageSection, StyledPage } from "./styles/PageStyles";
 
 import {
-  Hero,
   RichText,
   FlexGroup,
-  LargeVideo,
   Feature,
   FeatureColumnsGroup,
   FeatureRowsGroup,
@@ -27,6 +25,8 @@ import {
 } from "./components/page/PageSections";
 
 import Tabs from "./components/page/sections/Tabs";
+import Hero from "./components/page/sections/Hero";
+import LargeVideo from "./components/page/sections/LargeVideo";
 
 import PledgeForm from "./components/page/PledgeForm";
 

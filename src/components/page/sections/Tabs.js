@@ -3,8 +3,8 @@ import { useTheme, styled } from "@mui/material/styles";
 import { getThumb, createMarkup } from "../../../apps/functions";
 import { Button, Zoom } from "@mui/material";
 
-import { LargeVideo, GoogleMap } from "../PageSections";
 import GoogleMapApp from "../../../apps/GoogleMapApp";
+import LargeVideo from "./LargeVideo";
 
 const Tabs = ({ section }) => {
   const [show, setShow] = useState("none");

@@ -50,6 +50,7 @@ export const GET_PAGE = gql`
     description
     poster {
       ...FileParts
+      __typename
     }
     url
     urlType
@@ -63,11 +64,15 @@ export const GET_PAGE = gql`
         newTab
         text
         slug
+        __typename
       }
+      __typename
     }
     googleMap {
       ...GMapParts
+      __typename
     }
+    __typename
   }
 
   fragment GMapParts on ComponentElementsGmap {
@@ -75,13 +80,16 @@ export const GET_PAGE = gql`
     markerText
     markerImage {
       ...FileParts
+      __typename
     }
     lat
     lng
     zoom
     name
     description
+    __typename
   }
+
   query GetPages(
     $slug: String!
     $publicationState: PublicationState!
@@ -115,6 +123,41 @@ export const GET_PAGE = gql`
           }
           contentSections {
             __typename
+            ... on ComponentSectionsInputs {
+              id
+              title
+              description
+              url
+              poster {
+                ...FileParts
+              }
+              richtext
+              hero {
+                id
+                title
+                label
+                description
+                text {
+                  id
+                  content
+                }
+                picture {
+                  ...FileParts
+                }
+                button {
+                  id
+                  text
+                  type
+                  newTab
+                  slug
+                  url
+                  urlIsLocal
+                  image {
+                    ...FileParts
+                  }
+                }
+              }
+            }
             ... on ComponentSectionsTabs {
               id
               title
@@ -126,6 +169,7 @@ export const GET_PAGE = gql`
               }
               inputs {
                 ...InputParts
+                __typename
               }
               tabs {
                 id
@@ -147,6 +191,7 @@ export const GET_PAGE = gql`
                   }
                   inputs {
                     ...InputParts
+                    __typename
                   }
                   __typename
                 }
@@ -164,13 +209,13 @@ export const GET_PAGE = gql`
                 type
                 __typename
               }
-
               __typename
             }
             ... on ComponentSectionsFeatureColumnsGroup {
               id
               inputs {
                 ...InputParts
+                __typename
               }
               tabs {
                 id
@@ -191,6 +236,7 @@ export const GET_PAGE = gql`
                   label
                   inputs {
                     ...InputParts
+                    __typename
                   }
                   type
                   __typename
@@ -215,6 +261,7 @@ export const GET_PAGE = gql`
                 }
                 googleMap {
                   ...GMapParts
+                  __typename
                 }
                 box {
                   id
@@ -241,6 +288,7 @@ export const GET_PAGE = gql`
               text {
                 id
                 content
+                __typename
               }
               googleMap {
                 ...GMapParts
@@ -327,7 +375,7 @@ export const GET_PAGE = gql`
       }
       __typename
     }
-  }
+  } # Write your query or mutation here
 `;
 
 export const GET_PAGES_SHORT = gql`
