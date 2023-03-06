@@ -1,46 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const GET_BANNER_EVENTS = gql`
-  query GetBannerEvents($dt: DateTime!, $display: String, $display2: String) {
-    events(
-      pagination: { start: 0, limit: 100 }
-      filters: {
-        or: [{ display: { eq: $display } }, { display: { eq: $display2 } }]
-        startTime: { lte: $dt }
-        endTime: { gte: $dt }
-      }
-    ) {
-      data {
-        id
-        attributes {
-          createdAt
-          name
-          startTime
-          endTime
-          body
-          display
-          link {
-            url
-            newTab
-            text
-            description
-          }
-          image {
-            data {
-              id
-              attributes {
-                createdAt
-                name
-                formats
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const GET_EVENTS = gql`
   query GetEvents($to: DateTime!, $dt: DateTime!) {
     events(
@@ -55,7 +14,17 @@ export const GET_EVENTS = gql`
           startTime
           endTime
           body
-          display
+          note
+          email
+          lat
+          lng
+          street
+          city
+          state
+          zip
+          image_url
+          web_url
+          approved
           link {
             url
             newTab
@@ -102,7 +71,11 @@ export const GET_EVENT = gql`
           name
           startTime
           body
-          display
+          note
+          email
+          web_url
+          image_url
+          approved
           link {
             url
             newTab

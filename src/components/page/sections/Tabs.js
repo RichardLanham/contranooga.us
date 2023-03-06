@@ -181,7 +181,7 @@ const Tabs = ({ section }) => {
   };
 
   const TabButton = ({ tab }) => {
-    console.log(tab);
+    // console.log(tab);
     const tabThumb = getThumb(tab.limage?.data?.attributes);
     return (
       <div name="tabButtonWrap">

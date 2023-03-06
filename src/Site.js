@@ -98,6 +98,13 @@ const Site = (props) => {
       <CssBaseline />
       <Helmet prioritizeSeoTags>
         <title>{theme.global.metadata.metaTitle}</title>
+        <link
+          rel="icon"
+          href={
+            process.env.REACT_APP_STRAPI +
+            theme.global.favicon.data.attributes.formats.thumbnail.url
+          }
+        />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="theme-color" content={theme.palette.primary.main} />
         <meta

@@ -127,8 +127,9 @@ const Footer = () => {
     <div
       name="Footer"
       style={{
-        borderTop: "2px solid",
-        borderColor: theme.palette.primary.dark,
+        borderTop: "8px solid",
+        borderColor: theme.palette.grey[400],
+        padding: 10,
         marginTop: 30,
         marginBottom: 50,
         display: "flex",

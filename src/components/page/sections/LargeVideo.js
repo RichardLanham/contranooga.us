@@ -72,7 +72,7 @@ const LargeVideo = ({ section }) => {
       setStopLabel("");
       return;
     }
-    console.log("load");
+    // console.log("load");
     setStopLabel(label);
     // console.log("LOADING");
     setState({

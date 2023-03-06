@@ -144,7 +144,7 @@ const SiteTopBar = () => {
   };
   const thumb = getThumb(theme?.global?.navbar?.logo?.data?.attributes);
   // theme.global.navbar.logo.data.attributes
-  console.log(theme?.global?.navbar?.logo?.data);
+  // console.log(theme?.global?.navbar?.logo?.data);
   return (
     <div>
       <SlideDrawer show={drawerOpen} />
