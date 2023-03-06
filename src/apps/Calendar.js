@@ -72,7 +72,7 @@ const Calendar = () => {
     eventEmitter.subscribe(
       "EVENTUPDATE",
       () => {
-        // getEvents();
+        getEvents();
       },
       []
     );
@@ -82,6 +82,17 @@ const Calendar = () => {
     };
   }, []);
 
+  const getEvents = () => {
+    axios
+      .get(process.env.REACT_APP_STRAPI_API + "/events")
+      .then((res) => {
+        setEvents(res);
+        // window.localStorage.setItem("strapiEvents", JSON.stringify(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(async () => {
     axios
       .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
@@ -94,7 +105,7 @@ const Calendar = () => {
         console.log(err);
       });
 
-    // await getEvents();
+    await getEvents();
 
     addSaturdays();
   }, []);
