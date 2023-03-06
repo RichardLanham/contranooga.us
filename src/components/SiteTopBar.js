@@ -104,6 +104,7 @@ const SiteTopBar = () => {
     position: "absolute",
     bottom: 0,
     left: 0,
+
     [theme.breakpoints.down("xl")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "12vw" : "14vw",
@@ -143,7 +144,7 @@ const SiteTopBar = () => {
   };
   const thumb = getThumb(theme?.global?.navbar?.logo?.data?.attributes);
   // theme.global.navbar.logo.data.attributes
-  // console.log(thumb);
+  console.log(theme?.global?.navbar?.logo?.data);
   return (
     <div>
       <SlideDrawer show={drawerOpen} />

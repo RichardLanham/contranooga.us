@@ -79,6 +79,7 @@ const Footer = () => {
   const StyledLogo = styled("div")(({ theme }) => ({
     maxWidth: "10vw",
     border: "1px none red",
+
     //marginTop: 10,
     // backgroundColor: theme.palette.primary.light,
     // borderRadius: 500,
@@ -107,6 +108,7 @@ const Footer = () => {
       // width: "19vw",
     },
     [theme.breakpoints.down("sm")]: {
+      maxWidth: "40vw",
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
       //   width: "20vw",
@@ -123,120 +125,125 @@ const Footer = () => {
   //   console.log(logoThumb);
   return (
     <div
+      name="Footer"
       style={{
+        borderTop: "2px solid",
+        borderColor: theme.palette.primary.dark,
+        marginTop: 30,
+        marginBottom: 50,
         display: "flex",
-        flexWrap: "wrap",
-        // outline: "1px solid blue",
-        // border: "1px solid red",
+        gap: 8,
       }}
     >
       <StyledLogo>
         <img
-          style={{ width: "100%", height: "auto" }}
+          style={{ width: "100%", height: "auto", borderRadius: 500 }}
           src={process.env.REACT_APP_STRAPI + logoThumb.url}
         />
       </StyledLogo>
-      <StyledPage style={{ marginTop: 0 }}>
-        <StyledFooter>
-          <div>
-            <span
-              name="FooterText"
-              style={{ ...theme.typography.button, fontSize: "larger" }}
-            >
-              {theme?.global?.footer?.smallText}
-            </span>
-            {columns.map((column, key) => {
-              return (
-                <div
-                  key={key}
-                  name="FooterColumns"
-                  style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
-                >
-                  <div>{column.title}</div>
-                  {column.links.map((link, key) => {
-                    const linkThumb = getThumb(link?.image?.data?.attributes);
-                    return (
-                      <div key={key}>
-                        <div style={{ maxWidth: 280 }}>{link.text}</div>
-                        {link.type === "link" && (
-                          <a
-                            href={link.url}
-                            target="_new"
-                            name="FooterButton"
-                            style={{
-                              ...theme.typography.h5,
-                              textDecoration: "none",
-                              backgroundColor: theme.palette.background.default,
-                              padding: 3,
-                              borderRadius: 15,
-                              borderBottom: 20,
-                              //   border: "1px solid blue",
-                            }}
-                          >
-                            {link.button_label}
-                          </a>
-                        )}
-                        {link.type === "button" && (
-                          <div>
-                            {link.image.data ? (
-                              <Button
-                                startIcon={
-                                  <img
-                                    title={link.button_label}
-                                    style={{
-                                      float: "left",
-                                      width: linkThumb.width,
-                                      height: "auto",
-                                      maxWidth: 50,
-                                      maxHeight: 100,
-                                    }}
-                                    src={
-                                      process.env.REACT_APP_STRAPI +
-                                      linkThumb.url
-                                    }
-                                  />
-                                }
-                                href={link.url}
-                                target="_new"
-                                variant="contained"
-                              >
-                                {link.image ? "" : link.button_label}
-                              </Button>
-                            ) : (
-                              <Button
-                                href={link.url}
-                                target="_new"
-                                variant="contained"
-                              >
-                                {link.button_label}
-                              </Button>
-                            )}
-                          </div>
-                        )}
-                        {link.type === "image" && (
-                          <a target="_new" href={link.url}>
-                            <img
-                              title={link.button_label}
-                              style={{
-                                float: "left",
-                                width: linkThumb.width,
-                                height: "auto",
-                                maxWidth: 100,
-                                maxHeight: 100,
-                              }}
-                              src={process.env.REACT_APP_STRAPI + linkThumb.url}
-                            />
-                          </a>
-                        )}
+
+      <div>
+        <div>
+          <span
+            name="FooterText"
+            style={{ ...theme.typography.button, fontSize: "larger" }}
+          >
+            {theme?.global?.footer?.smallText}
+          </span>
+          {columns.map((column, key) => {
+            return (
+              <div
+                key={key}
+                name="FooterColumns"
+                style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
+              >
+                <div>{column.title}</div>
+                {column.links.map((link, key) => {
+                  const linkThumb = getThumb(link?.image?.data?.attributes);
+                  return (
+                    <div key={key}>
+                      <div
+                        style={{ maxWidth: 280, boxShadow: theme.shadows[1] }}
+                      >
+                        {link.text}
                       </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </StyledFooter>
-      </StyledPage>
+                      {link.type === "link" && (
+                        <a
+                          href={link.url}
+                          target="_new"
+                          name="FooterButton"
+                          style={{
+                            ...theme.typography.h5,
+                            textDecoration: "none",
+                            backgroundColor: theme.palette.background.default,
+                            padding: 3,
+                            borderRadius: 15,
+                            borderBottom: 20,
+                            //   border: "1px solid blue",
+                          }}
+                        >
+                          {link.button_label}
+                        </a>
+                      )}
+                      {link.type === "button" && (
+                        <div>
+                          {link.image.data ? (
+                            <Button
+                              startIcon={
+                                <img
+                                  title={link.button_label}
+                                  style={{
+                                    float: "left",
+                                    width: linkThumb.width,
+                                    height: "auto",
+                                    maxWidth: 50,
+                                    maxHeight: 100,
+                                  }}
+                                  src={
+                                    process.env.REACT_APP_STRAPI + linkThumb.url
+                                  }
+                                />
+                              }
+                              href={link.url}
+                              target="_new"
+                              variant="contained"
+                            >
+                              {link.image ? "" : link.button_label}
+                            </Button>
+                          ) : (
+                            <Button
+                              href={link.url}
+                              target="_new"
+                              variant="contained"
+                            >
+                              {link.button_label}
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                      {link.type === "image" && (
+                        <a target="_new" href={link.url}>
+                          <img
+                            title={link.button_label}
+                            style={{
+                              float: "left",
+                              width: linkThumb.width,
+                              height: "auto",
+                              maxWidth: 100,
+                              maxHeight: 100,
+                            }}
+                            src={process.env.REACT_APP_STRAPI + linkThumb.url}
+                          />
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

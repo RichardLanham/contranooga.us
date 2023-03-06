@@ -318,7 +318,7 @@ const Calendar = () => {
         <IconButton
           component="label"
           onClick={() => setShow(true)}
-          style={{ display: user ? "block" : "none" }}
+          //style={{ display: user ? "block" : "none" }}
         >
           <AddCircleIcon
             style={{
@@ -351,6 +351,7 @@ const Calendar = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <div
                     style={{
+                      zIndex: theme.zIndex.modal,
                       backgroundColor: theme.palette.background.default,
                     }}
                   >
@@ -407,46 +408,6 @@ const Calendar = () => {
                     </div>
                   </div>
                   <div>
-                    <FormLabel>Display in </FormLabel>
-                    <Select name="display" defaultValue={"Calendar"}>
-                      <MenuItem value="Calendar">Calendar</MenuItem>
-                      <MenuItem value="Banner">Banner</MenuItem>
-                      <MenuItem value="Both">Both</MenuItem>
-                    </Select>
-
-                    <Select
-                      style={{
-                        width: 220,
-                      }}
-                      name="image"
-                      value={image}
-                      onChange={handleImageChange}
-                    >
-                      <MenuItem value="none">images</MenuItem>
-                      {images.data.map((image, key) => {
-                        const thumb = getImageThumb(image.formats);
-                        const width = isNaN(thumb.width)
-                          ? 0
-                          : thumb.width * 0.5;
-                        return (
-                          <MenuItem
-                            style={{
-                              width: width,
-                              height: "auto",
-                            }}
-                            key={key}
-                            value={image.id}
-                          >
-                            <img
-                              className="fade-in-image"
-                              style={{ width: width, height: "auto" }}
-                              src={process.env.REACT_APP_STRAPI + thumb.url}
-                            />
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-
                     <a
                       style={{ display: image === "none" ? "none" : "inline" }}
                       onClick={() => setImage("none")}
