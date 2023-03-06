@@ -101,10 +101,7 @@ function Page({ _slug }) {
         );
       }
       return (
-        <Site
-          title={attribs.metadata.metaTitle}
-          description={attribs.metadata.metaDescription}
-        >
+        <Site title={metaTitle} description={attribs.metadata.metaDescription}>
           <Zoom in={true}>
             <StyledPage>
               <PageHeader metaTitle={metaTitle} />

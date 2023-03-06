@@ -97,17 +97,15 @@ const Site = (props) => {
     <HelmetProvider title={title}>
       <CssBaseline />
       <Helmet prioritizeSeoTags>
-        <meta charSet="utf-8" />
-        {<title>{theme.global.metadata.metaDescription}</title>}
+        <title>{theme.global.metadata.metaTitle}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="theme-color" content={theme.palette.primary.main} />
         <meta
           name="description"
           content={theme.global.metadata.metaDescription}
         />
-        {<meta name="theme-color" content={theme.palette.primary.main} />}
         <link rel="canonical" href="https://contranooga.us/" />
       </Helmet>
-      {/* <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName> */}
-
       <StyledSiteDiv>
         {user && (
           <div

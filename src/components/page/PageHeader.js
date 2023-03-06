@@ -33,7 +33,7 @@ const PageHeader = ({ metaTitle }) => {
 
   return (
     <div>
-      <StyledSiteName>{theme.global.metadata.metaDescription}</StyledSiteName>
+      <StyledSiteName>{theme.global.metadata.metaTitle}</StyledSiteName>
       <StyledHeader>{metaTitle}</StyledHeader>
     </div>
   );

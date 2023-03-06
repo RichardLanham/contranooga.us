@@ -2,12 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-import axios from "axios";
-
 import Home from "./pages/Home";
-
-// import Events from "./pages/Events";
 import Color from "./apps/Color";
 import About from "./pages/About";
 import FourOhFour from "./pages/404";
@@ -22,8 +17,6 @@ import useStrapiDefaultThemeId from "./hooks/useStrapiDefaultThemeId";
 import useStrapiGlobal from "./hooks/useStrapiGlobal";
 
 const AppRoutes = () => {
-  // console.log("AppRoutes");
-
   const t2 = new Date();
   const iso = t2.toISOString().split(".")[0] + "Z";
 
@@ -38,10 +31,6 @@ const AppRoutes = () => {
 
   const lTheme = storedTheme.theme;
 
-  //  const [strapiTheme] = useState({});
-
-  //const [access_token] = useState("");
-
   useEffect(async () => {
     const jd = window.localStorage.getItem("jwt_date");
     if (!jd) {
@@ -53,36 +42,7 @@ const AppRoutes = () => {
       window.localStorage.removeItem("strapi_jwt");
       window.localStorage.removeItem("strapi_user");
     }
-    // window.localStorage.removeItem("strapi_jwt");
-    // window.localStorage.removeItem("strapi_user");
 
-    // await axios
-    //   .get(
-    //     "https://graph.facebook.com/oauth/access_token?redirect_uri=/&client_id=1090456631543887&client_secret=e9acc052e7518bf762ffd0573598733b&grant_type=client_credentials"
-    //   )
-    //   .then((resp) => {
-    //     console.log(resp.data.access_token);
-    //     // setAccess_token(resp.data.access_token);
-    //     setAccess_token(
-    //       "EAAPfw7gqiE8BABfm8ZClked38glbRCq4rHJKIdnO6M6FhcMHxx9xR5xTyYTcJuojnoeklS3tE5sQc64PDxzSXf4ErQUmz9rIMxWYSPwUdoG50mNTajgI2H1GFiZAXeToMuwUMaT35YFKO8jUHWFIvOLhWFzowVDPTz0QZBoGq0DeuJC7axGkh16pIRP38wZD"
-    //     );
-    //   })
-    //   .catch((err) => {});
-    // window.FB.getLoginStatus(function (response) {
-    //   //if (response.status === "connected") {
-    //   // var accessToken = response.authResponse.accessToken;
-    //   //console.log(accessToken);
-    //   //theme.accessToken = accessToken;
-    //   // }
-    // });
-
-    // const sj = window.localStorage.getItem("strapi_jwt");
-    // const su = window.localStorage.getItem("strapi_user");
-    // localStorage.clear();
-    // if (sj !== null) {
-    //   window.localStorage.setItem("strapi_jwt", sj);
-    //   window.localStorage.setItem("strapi_user", su);
-    // }
     return () => {};
   }, []);
 
