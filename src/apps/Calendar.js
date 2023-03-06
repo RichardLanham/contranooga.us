@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  FormLabel,
-  Button,
-  IconButton,
-  TextField,
-  Input,
-  Select,
-  MenuItem,
-  Typography,
-  TextareaAutosize,
-  Zoom,
-} from "@mui/material";
+import { FormLabel, Button, IconButton, Typography } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
@@ -29,6 +18,12 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import SiteHeader from "../components/page/PageHeader";
 
 import EventForm from "./EventForm";
+
+import client from "../apollo/client";
+import { GET_EVENTS } from "../gql/events";
+
+import { useQuery } from "@apollo/client";
+
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
@@ -40,16 +35,51 @@ const Calendar = () => {
 
   let saturdayLabel = "Local Dance";
 
-  const [events, setEvents] = useState({
-    data: {
-      data: [],
-    },
-  });
+  const [events, setEvents] = useState([]);
   const [suns, setSuns] = useState([]);
   const [user, setUser] = useState(null);
 
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
+
+  const [calDate, setCalDate] = useState(new Date());
+
+  const dt = new Date(calDate);
+
+  const t2 = new Date(calDate.toISOString().split("T")[0]);
+
+  //t2.setDate(t2.getDate() - 1);
+
+  const iso = t2.toISOString().split(".")[0] + "Z";
+  // console.log(iso);
+
+  const temp = new Date(iso);
+  temp.setMonth(temp.getMonth() + 1);
+  const isoTo = temp.toISOString().split(".")[0] + "Z";
+
+  const {
+    data: data,
+    loading: loading,
+    error: error,
+  } = useQuery(GET_EVENTS, {
+    variables: { dt: iso, to: isoTo },
+    // fetchPolicy: "no-cache",
+    // nextFetchPolicy: "network-first",
+  });
+
+  useEffect(() => {
+    client.refetchQueries({
+      include: [GET_EVENTS],
+    });
+
+    if (!loading) {
+      if (!error) {
+        console.log(data);
+        setEvents(data?.events?.data);
+      }
+    }
+  });
+
   useEffect(() => {
     // console.log(fillStart);
     // setFillStart(theme.global.eventFillStart);
@@ -72,7 +102,7 @@ const Calendar = () => {
     eventEmitter.subscribe(
       "EVENTUPDATE",
       () => {
-        getEvents();
+        // getEvents();
       },
       []
     );
@@ -82,17 +112,6 @@ const Calendar = () => {
     };
   }, []);
 
-  const getEvents = () => {
-    axios
-      .get(process.env.REACT_APP_STRAPI_API + "/events")
-      .then((res) => {
-        setEvents(res);
-        // window.localStorage.setItem("strapiEvents", JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   useEffect(async () => {
     axios
       .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
@@ -104,8 +123,6 @@ const Calendar = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    await getEvents();
 
     addSaturdays();
   }, []);
@@ -175,7 +192,7 @@ const Calendar = () => {
     let thisEvent = {};
     //    console.log(holydays);
     const arrayEvents = [];
-    const allEvents = [...suns, ...events.data.data];
+    const allEvents = [...suns, ...events];
     // console.log(events.data.data);
     if (user) {
       allEvents.map((ev) => {
@@ -201,17 +218,6 @@ const Calendar = () => {
           arrayEvents.push(thisEvent);
         });
     }
-
-    // holydays.map((day) => {
-    //   thisEvent = {};
-    //   const year = new Date().getFullYear();
-    //   thisEvent.title = day.title;
-    //   thisEvent.start = new Date(day.day + " " + year);
-    //   thisEvent.end = new Date(day.day + " " + year);
-    //   thisEvent.lessons = day.lessons;
-    //   thisEvent.psalms = day.psalms;
-    //   arrayEvents.push(thisEvent);
-    // });
 
     let navigate = {
       PREVIOUS: "PREV",
@@ -449,7 +455,7 @@ const Calendar = () => {
         <SiteHeader metaTitle="Upcoming Events" />
 
         <EventCalendar />
-        <EventList key="evenlist" />
+        <EventList events={events} key="evenlist" />
       </StyledPage>
     </Site>
   );
