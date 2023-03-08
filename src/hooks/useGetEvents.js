@@ -7,7 +7,7 @@ const useGetEvents = (props) => {
   console.log(props);
   const { data, loading, error } = useQuery(GET_EVENTS, {
     client: client,
-    //variables: { dt: iso, to: isoTo },
+    variables: { dt: iso, to: isoTo },
   });
 
   let ret = {};

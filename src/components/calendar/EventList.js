@@ -9,7 +9,8 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import client from "../../apollo/client";
 import { eventEmitter } from "../../events.tsx";
 import { SundayTemplate } from "../../Model";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -22,8 +23,7 @@ import {
 } from "../../styles/CalendarStyles";
 
 import ConfirmButtons from "../../components/ConfirmButtons";
-
-import { DELETE_EVENT } from "../../gql/events";
+import { GET_EVENTS, DELETE_EVENT } from "../../gql/events";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -43,8 +43,7 @@ function getDaysInMonth(year, month) {
   return new Date(year, month, 0).getDate();
 }
 
-const EventList = ({ events }) => {
-  // console.log(events);
+const EventList = () => {
   // console.log("eventList");
   const [user, setUser] = useState(false);
   const [calDate, setCalDate] = useState(new Date());
@@ -55,9 +54,9 @@ const EventList = ({ events }) => {
 
   const [message, setMessage] = useState("");
   useEffect(() => {
-    // client.refetchQueries({
-    //   include: [GET_EVENTS],
-    // });
+    client.refetchQueries({
+      include: [GET_EVENTS],
+    });
     const storedPages = theme.pages; //JSON.parse(window.localStorage.getItem("strapiPages"));
 
     setPages(storedPages);
@@ -238,6 +237,13 @@ const EventList = ({ events }) => {
       );
 
       request.send(formData);
+      setTimeout(() => {
+        client.refetchQueries({
+          include: [GET_EVENTS],
+        });
+        // getEvents();
+        eventEmitter.dispatch("EVENTUPDATE", true);
+      }, 1000);
     };
 
     useEffect(() => {
@@ -357,6 +363,48 @@ const EventList = ({ events }) => {
       );
     };
 
+    //   // console.log(lessons);
+    //   return (
+    //     <div
+    //       style={{ ...theme.typography.h6, display: "flex", flexWrap: "wrap" }}
+    //     >
+    //       {lessons.morning ? (
+    //         <ul>
+    //           Morning Lessons
+    //           <li> {lessons.morning.first}</li>
+    //           <li> {lessons.morning.second}</li>
+    //         </ul>
+    //       ) : null}
+    //       {lessons.evening ? (
+    //         <ul>
+    //           Evening Lessons
+    //           <li> {lessons.evening.first}</li>
+    //           <li> {lessons.evening.second}</li>
+    //         </ul>
+    //       ) : null}
+    //       {psalms.morning ? (
+    //         <ul>
+    //           Morning Psalms
+    //           {psalms.morning.map((psalm, key) => (
+    //             <li key={key}>{psalm}</li>
+    //           ))}
+    //         </ul>
+    //       ) : null}
+    //       {psalms.evening ? (
+    //         <ul>
+    //           Evening Psalms
+    //           {psalms.evening.map((psalm, key) => (
+    //             <li key={key}>{psalm}</li>
+    //           ))}
+    //         </ul>
+    //       ) : null}
+    //     </div>
+    //   );
+    // };
+    // const thumb = imageAttribute
+    //   ? imageAttribute.attributes.formats.thumbnail
+    //   : false;
+
     if (!showEdit) {
       const cardImage = getLarge(attribs?.image?.data?.attributes);
       const cardThumb = getThumb(attribs?.image?.data?.attributes);
@@ -436,6 +484,17 @@ const EventList = ({ events }) => {
                   gap: 5,
                 }}
               >
+                {/* {thumb && (
+                  <StyledImg
+                    height={thumb.height}
+                    width={thumb.width}
+                    src={
+                      sundays
+                        ? "https://stage.uglytree.cafe/grace_image.png"
+                        : process.env.REACT_APP_STRAPI + thumb.url
+                    }
+                  ></StyledImg>
+                )} */}
                 <p
                   style={{
                     ...theme.typography.h6,
@@ -760,18 +819,61 @@ const EventList = ({ events }) => {
   const temp = new Date(iso);
   temp.setMonth(temp.getMonth() + 1);
   const isoTo = temp.toISOString().split(".")[0] + "Z";
-
+  // console.log(isoTo);
+  // console.log(new Date(iso) + " " + new Date(isoTo));
+  // let sundayLectionary = {};
   let today = {};
+  // const { data, loading, error } = useQuery(GET_LECTIONARY, {
+  //   client: client,
+  //   variables: { dt: iso.split("T")[0] },
+  // });
+  // if (!loading) {
+  //   if (!error) {
+  //     if (data.lectionaries.data.length > 0) {
+  //       // console.log(data);
+  //       // console.log(data.lectionaries.data[0].attributes);
+  //       // setLectSunday(JSON.parse(data.lectionaries.data[0].attributes.sunday));
+  //       // setLectToday(JSON.parse(data.lectionaries.data[0].attributes.today));
+  //       // setLectSunday(JSON.parse(data.lectionaries.data[0].attributes.sunday));
+  //       today = JSON.parse(data.lectionaries.data[0].attributes.today);
+  //       sundayLectionary = JSON.parse(
+  //         data.lectionaries.data[0].attributes.sunday
+  //       );
+  //     }
+  //   }
+  // }
 
-  SundayTemplate.id = events.length + 1;
+  const {
+    data: data2,
+    loading: loading2,
+    error: error2,
+  } = useQuery(GET_EVENTS, {
+    variables: { dt: iso, to: isoTo },
+    // fetchPolicy: "no-cache",
+    // nextFetchPolicy: "network-first",
+  });
+  // console.log(JSON.stringify({ dt: iso, to: isoTo }, null, 3));
+
+  //if (loading) return <div>loading</div>;
+  if (loading2 && !data2) return <div>Loading...</div>;
+  if (error2) return <pre>{JSON.stringify(error2, null, 3)}</pre>;
+
+  const ret = data2.events.data;
+
+  SundayTemplate.id = ret.length + 1;
   SundayTemplate.sundays = sundays;
+  // SundayTemplate.lectionary = sundayLectionary;
 
   const newDt = new Date(sundays[0]);
+  // console.log(newDt);
   SundayTemplate.attributes.startTime = newDt.toISOString();
+  // console.log(ret);
+  // console.log(holydays);
   const yr = new Date().getFullYear();
 
+  // console.log(holy2);
   const lst = [
-    ...events
+    ...ret
       .filter((h) => h.attributes.startTime >= iso)
       .filter((h) => h.attributes.endTime <= isoTo),
     SundayTemplate,
@@ -780,6 +882,9 @@ const EventList = ({ events }) => {
   const list = user
     ? lst
     : lst.filter((r) => r.attributes.display !== "Banner");
+  // console.log(list);
+  //const list = [...ret, SundayTemplate].sort(compFn);
+  // const list = [...ret].sort(compFn);
 
   return (
     <StyledEventList>

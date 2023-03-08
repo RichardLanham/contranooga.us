@@ -26,6 +26,8 @@ export const GET_EVENTS = gql`
           web_url
           approved
           link {
+            id
+            slug
             url
             newTab
             text
@@ -77,6 +79,8 @@ export const GET_EVENT = gql`
           image_url
           approved
           link {
+            id
+            slug
             url
             newTab
             text

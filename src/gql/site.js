@@ -535,6 +535,40 @@ export const GET_PAGES = gql`
     }
   }
 `;
+
+export const GET_UPLOADS_LIST = gql`
+  query GetUploadsList {
+    uploadFiles(pagination: { start: 0, limit: 100 }) {
+      __typename
+      data {
+        id
+        attributes {
+          name
+          caption
+          alternativeText
+          width
+          height
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PAGE_SLUGS = gql`
+  query GetPageSlugs {
+    pages(pagination: { start: 0, limit: 100 }) {
+      __typename
+      data {
+        id
+        attributes {
+          shortName
+          slug
+        }
+      }
+    }
+  }
+`;
+
 export const GLOBAL = gql`
   fragment FileParts on UploadFileEntityResponse {
     data {
