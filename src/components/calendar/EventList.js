@@ -499,7 +499,7 @@ const EventList = () => {
                     }
                   ></StyledImg>
                 )} */}
-                <p
+                <span
                   style={{
                     ...theme.typography.h6,
                     display: "inline",
@@ -525,7 +525,7 @@ const EventList = () => {
                       dangerouslySetInnerHTML={createMarkup(attribs.body)}
                     ></span>
                   </div>
-                </p>
+                </span>
               </div>
 
               <div>

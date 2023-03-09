@@ -17,8 +17,8 @@ import useStrapiDefaultThemeId from "./hooks/useStrapiDefaultThemeId";
 import useStrapiGlobal from "./hooks/useStrapiGlobal";
 
 const AppRoutes = () => {
-  const t2 = new Date();
-  const iso = t2.toISOString().split(".")[0] + "Z";
+  // const t2 = new Date();
+  // const iso = t2.toISOString().split(".")[0] + "Z";
 
   const global = useStrapiGlobal();
 

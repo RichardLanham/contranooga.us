@@ -6,7 +6,7 @@ import client from "../apollo/client";
 // FOR REFERENCE, a pattern, not is use; it was folded into useStrapiTheme.
 const useGetUploads = () => {
   let ret = [];
-  console.log("GETUPOADs");
+  // console.log("GETUPOADs");
   //   const [data, setData] = useState(null);
   //   const [loading, setLoading] = useState(true);
   //   const [error, setError] = useState(false);

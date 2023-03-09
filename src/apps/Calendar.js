@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  FormLabel,
-  Button,
-  IconButton,
-  TextField,
-  Input,
-  Select,
-  MenuItem,
-  Typography,
-  TextareaAutosize,
-  Zoom,
-} from "@mui/material";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { FormLabel, Button, IconButton, Typography } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
@@ -27,18 +16,21 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 import SiteHeader from "../components/page/PageHeader";
-
 import EventForm from "../components/calendar/EventForm";
 
-import { getThumb, getLarge, createMarkup } from "../apps/functions";
+import { createMarkup } from "../apps/functions";
 
 require("./calendar.css");
 
 const localizer = momentLocalizer(moment);
 
-const Calendar = () => {
+// console.log(localizer);
+const Calendar = (props) => {
   // console.log("calendars");
   const theme = useTheme();
+
+  const history = useNavigate();
+
   const [selDate, setSelDate] = useState(
     new Date(theme?.global?.eventFillStart)
   );
@@ -60,11 +52,16 @@ const Calendar = () => {
     // setFillStart(theme.global.eventFillStart);
     setSelDate(new Date(theme?.global?.eventFillStart));
   }, [theme]);
+
   useEffect(() => {
-    // console.log(selDate);
     const storedPages = theme.pages; // JSON.parse(window.localStorage.getItem("strapiPages"));
 
     setPages(storedPages);
+  }, [theme.pages]);
+
+  useEffect(() => {
+    // console.log(selDate);
+
     setUser(window.localStorage.getItem("strapi_user") ? true : false);
     eventEmitter.subscribe(
       "LOGIN",
@@ -180,6 +177,11 @@ const Calendar = () => {
   };
 
   const EventCalendar = () => {
+    const [searchParams] = useSearchParams();
+    const start = searchParams.get("start");
+
+    // window.history.replaceState(null, null, "/page/ctdscalendar");
+
     let thisEvent = {};
     //    console.log(holydays);
     const arrayEvents = [];
@@ -209,39 +211,17 @@ const Calendar = () => {
           arrayEvents.push(thisEvent);
         });
     }
-
-    // holydays.map((day) => {
-    //   thisEvent = {};
-    //   const year = new Date().getFullYear();
-    //   thisEvent.title = day.title;
-    //   thisEvent.start = new Date(day.day + " " + year);
-    //   thisEvent.end = new Date(day.day + " " + year);
-    //   thisEvent.lessons = day.lessons;
-    //   thisEvent.psalms = day.psalms;
-    //   arrayEvents.push(thisEvent);
-    // });
-
     let navigate = {
       PREVIOUS: "PREV",
       NEXT: "NEXT",
       TODAY: "TODAY",
       DATE: "DATE",
     };
-    let selectedDate = new Date();
-
-    const StyledCalButton = styled(Button)(({ theme }) => ({
-      ...theme.typography.body1,
-      maxWidth: 50,
-      backgroundColor: theme.palette.secondary.light,
-      color: theme.palette.secondary.contrastLight,
-      "&:hover": {
-        backgroundColor: theme.palette.info.light,
-        color: theme.palette.info.contrastLight,
-      },
-    }));
 
     return (
       <StyledCalendar
+        // date={start === "" ? null : start}
+
         defaultView="agenda"
         localizer={localizer}
         events={arrayEvents}
@@ -254,6 +234,15 @@ const Calendar = () => {
           //console.log(selectedDate);
           //selectedDate = event;
           //setSelDate(event.date);
+          // props.history.push("/page/lessons");
+          // window.history.replaceState(
+          //   null,
+          //   null,
+          //   "/page/ctdscalendar?start=" + event.toISOString().substring(0, 10)
+          // );
+          // history.add(
+          //   "/page/ctdscalendar?start=" + event.toISOString().substring(0, 10)
+          // );
           eventEmitter.dispatch("NEWDATE", event);
         }}
         onChange={(event) => {

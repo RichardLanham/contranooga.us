@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { useTheme, styled } from "@mui/material/styles";
 
@@ -66,9 +66,18 @@ const StyledHeader = styled("div")(({ theme }) => ({
 function Page({ _slug }) {
   // console.log("page");
   // https://cms.contranooga.us/api/pages/5?populate[contentSections][populate]=*
+
+  const [searchParams] = useSearchParams();
+  const logout = searchParams.get("lo");
+
   const theme = useTheme();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (logout) {
+      window.localStorage.removeItem("strapi_jwt");
+      window.localStorage.removeItem("strapi_user");
+      window.localStorage.removeItem("jwt_date");
+    }
+    window.document.body.scrollTo(0, 0);
   }, []);
 
   // useEffect(() => {
@@ -103,7 +112,7 @@ function Page({ _slug }) {
       return (
         <Site title={metaTitle} description={attribs.metadata.metaDescription}>
           <Zoom in={true}>
-            <StyledPage>
+            <StyledPage id="sitePage">
               <PageHeader metaTitle={metaTitle} />
 
               <SiteFeature slug={slug} />
@@ -161,7 +170,7 @@ function Page({ _slug }) {
               <StyledHeader>Sorry</StyledHeader>
               An error occurred
               <br />
-              <a style={{ fontSize: 22, fontWeight: "bold" }} href="/">
+              <a style={{ fontSize: 22, fontWeight: "bold" }} href="/?lo=true">
                 Try Refreshing!
               </a>
             </StyledPage>

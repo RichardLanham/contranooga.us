@@ -66,7 +66,7 @@ const EventForm = ({ events }) => {
     state: "",
     zip: "",
     link: "",
-    image: "",
+    image: 0,
     link_label: "",
     link_description: "",
     geocode: "",
