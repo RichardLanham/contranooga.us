@@ -68,7 +68,7 @@ export const StyledImg = styled("img")(({ theme }) => ({
 
 export const StyledFormContainer = styled("div")(({ theme }) => ({
   position: "absolute",
-  width: 400,
+  width: "80vw",
   //minHeight: 300,
   border: `4px solid ${theme.palette.primary.dark}`,
   padding: 5,
@@ -80,6 +80,9 @@ export const StyledFormContainer = styled("div")(({ theme }) => ({
   zIndex: theme.zIndex.modal,
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
+  [theme.breakpoints.down("md")]: {
+    width: "95vw",
+  },
 }));
 
 export const StyledEventTypography = styled(Typography)(

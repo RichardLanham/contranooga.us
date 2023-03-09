@@ -24,6 +24,8 @@ export const GET_EVENTS = gql`
           zip
           image_url
           web_url
+          link_label
+          link_description
           approved
           link {
             id
@@ -76,6 +78,8 @@ export const GET_EVENT = gql`
           note
           email
           web_url
+          link_label
+          link_description
           image_url
           approved
           link {

@@ -28,7 +28,12 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 import SiteHeader from "../components/page/PageHeader";
 
-import EventForm from "./EventForm";
+import EventForm from "../components/calendar/EventForm";
+
+import { getThumb, getLarge, createMarkup } from "../apps/functions";
+
+require("./calendar.css");
+
 const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
@@ -84,7 +89,10 @@ const Calendar = () => {
 
   const getEvents = () => {
     axios
-      .get(process.env.REACT_APP_STRAPI_API + "/events")
+      .get(
+        process.env.REACT_APP_STRAPI_API +
+          "/events?fields[0]=name&fields[1]=startTime&fields[2]=endTime&fields[3]=body&fields[4]=note&fields[5]=email&fields[6]=image_url&fields[7]=web_url&fields[9]=approved&fields[9]=lat&fields[1]=lng&fields[11]=street&fields[12]=city&fields[13]=state&fields[14]=zip"
+      )
       .then((res) => {
         setEvents(res);
         // window.localStorage.setItem("strapiEvents", JSON.stringify(res));
@@ -358,7 +366,10 @@ const Calendar = () => {
                         color: theme.palette.primary.main,
                       }}
                     >
-                      {event.body}
+                      <span
+                        className="dangerMarkup"
+                        dangerouslySetInnerHTML={createMarkup(event.body)}
+                      ></span>
                     </font>
                   </div>
                 )}
@@ -382,7 +393,7 @@ const Calendar = () => {
                 }}
               >
                 <div style={{ display: "flex", gap: 10, width: "100%" }}>
-                  <EventForm />
+                  <EventForm events={events.data.data} />
 
                   <FormLabel
                     style={{

@@ -28,7 +28,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
-import { getThumb, getLarge } from "../../apps/functions";
+import { getThumb, getLarge, createMarkup } from "../../apps/functions";
+
+// import EventForm from "./EventForm";
+
+require("./eventList.css");
 
 const compFn = (a, b) => {
   if (a.attributes.startTime < b.attributes.startTime) {
@@ -515,7 +519,12 @@ const EventList = () => {
                       src={process.env.REACT_APP_STRAPI + cardThumb.url}
                     />
                   )}
-                  {attribs.body}
+                  <div>
+                    <span
+                      className="dangerMarkup"
+                      dangerouslySetInnerHTML={createMarkup(attribs.body)}
+                    ></span>
+                  </div>
                 </p>
               </div>
 
@@ -586,7 +595,6 @@ const EventList = () => {
                     placeholder="Event Name"
                     defaultValue={attribs.name}
                     name="name"
-                    style={{ width: "100%", marginTop: 10 }}
                   />
                 </div>
 

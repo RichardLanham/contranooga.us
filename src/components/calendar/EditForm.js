@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import {
   FormLabel,
-  InputLabel,
   Button,
   IconButton,
+  TextField,
   Input,
   Select,
   MenuItem,
@@ -20,12 +20,11 @@ import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import useGetPages from "../../hooks/useGetPages";
-import useGetUploads from "../../hooks/useGetUploads";
+// import useGetPages from "../../hooks/useGetPages";
+// import useGetUploads from "../../hooks/useGetUploads";
 
-require("./eventForm.css");
-
-const EventForm = ({ events }) => {
+const EventForm = ({ events, _pages, uploads }) => {
+  console.log(_pages);
   const theme = useTheme();
 
   const [imgUrl, setImgUrl] = useState(null);
@@ -58,8 +57,10 @@ const EventForm = ({ events }) => {
     email: "",
     image_url: "",
     web_url: "",
-    lat: "",
-    lng: "",
+    image: "0",
+    approved: "",
+    lat: 0,
+    lng: 0,
     approved: false,
     street: "",
     city: "",
@@ -67,8 +68,6 @@ const EventForm = ({ events }) => {
     zip: "",
     link: "",
     image: "",
-    link_label: "",
-    link_description: "",
     geocode: "",
   });
 
@@ -76,10 +75,6 @@ const EventForm = ({ events }) => {
   // const _pages = useGetPages();
   // const uploads = useGetUploads();
   // console.log(_pages);
-
-  const _pages = useGetPages();
-  const uploads = useGetUploads();
-
   useEffect(() => {
     setPages(_pages);
     setImages(uploads);
@@ -150,13 +145,6 @@ const EventForm = ({ events }) => {
   const handleDateField = (e, which) => {
     const form = Object.assign({}, formdata);
     form[which] = e;
-
-    if (which === "startTime") {
-      if (new Date(e) > new Date(form.endTime)) {
-        form.endTime = e;
-      }
-    }
-
     setFormdata(form);
   };
 
@@ -207,29 +195,6 @@ const EventForm = ({ events }) => {
             JSON.parse(request.response).data.attributes.name +
             " added"
         );
-
-        setFormdata({
-          name: "",
-          body: "",
-          note: "",
-          startTime: new Date().toDateString(),
-          endTime: new Date().toDateString(),
-          email: "",
-          image_url: "",
-          web_url: "",
-          lat: "",
-          lng: "",
-          approved: false,
-          street: "",
-          city: "",
-          state: "",
-          zip: "",
-          link: "",
-          image: "",
-          link_label: "",
-          link_description: "",
-          geocode: "",
-        });
       }
     };
 
@@ -281,7 +246,7 @@ const EventForm = ({ events }) => {
     console.log(data);
 
     if (data.name === "") {
-      setMessage("event name missing");
+      setMessage("Event Name missing");
       return;
     }
 
@@ -324,54 +289,62 @@ const EventForm = ({ events }) => {
       <div>
         <Zoom in={true}>
           <StyledFormContainer>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} style={{ position: "relative" }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Select
-                  style={{
-                    width: 220,
-                    zIndex: theme.zIndex.modal,
-                    display: user ? "block" : "none",
-                  }}
-                  //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
-                  name="EventSelect"
-                  value={eventSelection}
-                  onChange={handleEventSelection}
-                >
-                  <MenuItem value="events...">events...</MenuItem>
-                  {events.map((event, key) => {
-                    // return <div key={key}>{event.attributes.name}</div>;
-
-                    return (
-                      <MenuItem selected={key === 0} key={key} value={event.id}>
-                        {event.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <div className="eventFormFields" style={{ ...theme.flexRows }}>
+                <div>
                   <div>
-                    <Input
+                    <pre style={{ display: "none" }}></pre>
+                    <Select
+                      style={{
+                        width: 220,
+                        zIndex: theme.zIndex.modal,
+                      }}
+                      //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
+                      name="EventSelect"
+                      value={eventSelection}
+                      onChange={handleEventSelection}
+                    >
+                      <MenuItem value="events...">events...</MenuItem>
+                      {events.map((event, key) => {
+                        // return <div key={key}>{event.attributes.name}</div>;
+
+                        return (
+                          <MenuItem
+                            selected={key === 0}
+                            key={key}
+                            value={event.id}
+                          >
+                            {event.attributes.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <TextField
                       value={formdata["name"]}
                       onChange={handleFormField}
                       size="small"
-                      placeholder="event name"
+                      placeholder="Event Name"
                       name="name"
-                      required="true"
-                      style={{ width: 200 }}
+                      style={{ width: "100%", marginTop: 10 }}
                     />
+                  </div>
+
+                  <div>
                     <MobileDateTimePicker
                       disablePast
                       value={formdata["startTime"]}
                       // name="startTime"
                       onChange={(e) => handleDateField(e, "startTime")}
                       renderInput={(params) => (
-                        <Input
+                        <TextField
                           name="startTime"
                           // value={formdata["startTime"]}
                           // name="startTime"
                           // onChange={handleFormField}
                           {...params}
-                          style={{ width: 160 }}
+                          style={{ width: "50%" }}
                           helperText="Start"
                         />
                       )}
@@ -381,12 +354,12 @@ const EventForm = ({ events }) => {
                       value={formdata["endTime"]}
                       onChange={(e) => handleDateField(e, "endTime")}
                       renderInput={(params) => (
-                        <Input
+                        <TextField
                           name="endTime"
                           // value={formdata["endTime"]}
                           // onChange={handleFormField}
                           {...params}
-                          style={{ width: 160 }}
+                          style={{ width: "50%" }}
                           helperText="End"
                         />
                       )}
@@ -397,7 +370,7 @@ const EventForm = ({ events }) => {
                       name="body"
                       value={formdata["body"]}
                       onChange={handleFormField}
-                      placeholder="blurb"
+                      placeholder="Body (plain) text"
                       style={{ width: "100%", minHeight: 40 }}
                     />
                   </div>
@@ -406,22 +379,22 @@ const EventForm = ({ events }) => {
                       name="note"
                       value={formdata["note"]}
                       onChange={handleFormField}
-                      placeholder="note"
+                      placeholder="Note"
                       style={{ width: "100%", minHeight: 20 }}
                     />
                   </div>
                   <div>
                     <Input
                       size="small"
-                      placeholder="your email"
+                      placeholder="Your Email"
                       name="email"
                       value={formdata["email"]}
                       onChange={handleFormField}
                       style={{
                         width: "100%",
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
                   </div>
@@ -429,44 +402,70 @@ const EventForm = ({ events }) => {
                     <Input
                       // onChange={(e) => setImageUrl(e.currentTarget.value)}
                       size="small"
-                      placeholder="image url"
+                      placeholder="Image URL"
                       name="image_url"
                       value={formdata["image_url"]}
                       onChange={handleFormField}
                       style={{
-                        width: 120,
-                        // width: "100%",
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        width: "100%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
                     <img
                       style={{
-                        maxWidth: 25,
+                        maxWidth: 100,
                         height: "auto",
                         display:
-                          formdata["image_url"] === "" ? "none" : "inline",
+                          formdata["imageUrl"] === "" ? "none" : "inline",
                       }}
                       src={formdata["image_url"]}
                     ></img>
                   </div>
-                  <div></div>
-
-                  <div style={{ ...theme.flexRows, gap: 4 }}>
+                  <div>
+                    <Input
+                      size="small"
+                      placeholder="Web URL"
+                      name="web_url"
+                      value={formdata["web_url"]}
+                      onChange={handleFormField}
+                      style={{
+                        width: "100%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
+                      }}
+                    />
+                  </div>
+                  <div>
                     <Input
                       size="small"
                       placeholder="street"
                       name="street"
                       value={formdata["street"]}
                       onChange={handleFormField}
+                      style={{
+                        width: "100%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
+                      }}
                     />
+                  </div>
+                  <div style={{ ...theme.flexRows, gap: 4 }}>
                     <Input
                       size="small"
                       placeholder="city"
                       name="city"
                       value={formdata["city"]}
                       onChange={handleFormField}
+                      style={{
+                        width: "40%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
+                      }}
                     />
                     <Input
                       size="small"
@@ -475,10 +474,10 @@ const EventForm = ({ events }) => {
                       value={formdata["state"]}
                       onChange={handleFormField}
                       style={{
-                        width: 40,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        width: "20%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
                     <Input
@@ -488,12 +487,14 @@ const EventForm = ({ events }) => {
                       value={formdata["zip"]}
                       onChange={handleFormField}
                       style={{
-                        width: 80,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        width: "30%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
+                  </div>
+                  <div style={{ ...theme.flexRows, gap: 10 }}>
                     <Input
                       size="small"
                       placeholder="lat"
@@ -501,10 +502,10 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       name="lat"
                       style={{
-                        width: 100,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        width: "30%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
                     <Input
@@ -514,179 +515,161 @@ const EventForm = ({ events }) => {
                       value={formdata["lng"]}
                       onChange={handleFormField}
                       style={{
-                        width: 100,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
+                        width: "30%",
+                        marginTop: 5,
+                        marginBottom: 5,
+                        border: "1px solid black",
                       }}
                     />
-                    <Button
-                      onClick={handleGeoCode}
-                      style={{ maxWidth: 90 }}
-                      variant="outlined"
-                    >
+                    <Button onClick={handleGeoCode} style={{ width: "30%" }}>
                       geocode
                     </Button>
                   </div>
                 </div>
-                <div style={{ ...theme.flexRows }}>
-                  <div
-                    name="ImageSelection"
+                <div
+                  name="ImageSelection"
+                  style={{ display: user ? "block" : "none" }}
+                >
+                  <pre style={{ display: "none" }}>
+                    {JSON.stringify(images, null, 3)}
+                  </pre>
+                  <Select
                     style={{
-                      display: user ? "block" : "none",
+                      width: 220,
+                      zIndex: theme.zIndex.modal,
                     }}
+                    //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
+                    name="image"
+                    value={imageSelection}
+                    onChange={handleImageSelection}
                   >
-                    <Select
-                      style={{
-                        width: 220,
-                        zIndex: theme.zIndex.modal,
-                      }}
-                      //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
-                      name="image"
-                      value={imageSelection}
-                      onChange={handleImageSelection}
-                    >
-                      <MenuItem value="none">images</MenuItem>
+                    <MenuItem value="none">images</MenuItem>
 
-                      {images?.uploadFiles?.data?.map((image, key) => {
-                        // const thumb = getImageThumb(image.formats);
-                        // const width = isNaN(thumb.width) ? 0 : thumb.width * 0.5;
-                        return (
-                          <MenuItem
-                            style={{
-                              // width: width,
-                              height: "auto",
-                              width: "fit-content",
-                            }}
-                            key={key}
-                            value={image.id}
-                          >
-                            {image.attributes.name}
-                            {/* <img
+                    {images?.uploadFiles.data?.map((image, key) => {
+                      // const thumb = getImageThumb(image.formats);
+                      // const width = isNaN(thumb.width) ? 0 : thumb.width * 0.5;
+                      return (
+                        <MenuItem
+                          style={{
+                            // width: width,
+                            height: "auto",
+                          }}
+                          key={key}
+                          value={image.id}
+                        >
+                          {image.attributes.name}
+                          {/* <img
                               className="fade-in-image"
                               style={{ width: width, height: "auto" }}
                               src={process.env.REACT_APP_STRAPI + thumb.url}
                             /> */}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
 
-                    <a
-                      style={{ display: image === "none" ? "none" : "inline" }}
-                      onClick={() => setImage("none")}
-                    >
-                      <FormLabel
-                        style={{
-                          ...theme.typography.button,
-                          backgroundColor: theme.palette.primary.main,
-                          color: theme.palette.primary.contrastText,
-                          cursor: "pointer",
-                          display: user ? "block" : "none",
-                        }}
-                      >
-                        Remove Image
-                      </FormLabel>
-                    </a>
-                  </div>
-                  <div
-                    name="FileSelection"
-                    style={{
-                      display: user ? "block" : "none",
-                    }}
+                  <a
+                    style={{ display: image === "none" ? "none" : "inline" }}
+                    onClick={() => setImage("none")}
                   >
-                    <pre style={{ display: "none" }}>
-                      {JSON.stringify(formdata, null, 3)}
-                    </pre>
-                    <Select
-                      name="url"
-                      value={page}
-                      onChange={handlePageChange}
-                      style={{ display: "block", width: "fit-content" }}
+                    <FormLabel
+                      style={{
+                        ...theme.typography.button,
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.primary.contrastText,
+                        cursor: "pointer",
+                      }}
                     >
-                      <MenuItem value="none">page</MenuItem>
-                      <MenuItem value="external">external link</MenuItem>
-                      {pages?.pages?.data.map((page, key) => {
-                        // const thumb = getImageThumb(image.formats);
-                        console.log("stop");
-                        return (
-                          <MenuItem
-                            selected={key === 0}
-                            key={key}
-                            value={page.attributes.slug}
-                          >
-                            {page.attributes.slug}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </div>
-                  <div
-                    style={{
-                      //display: page === "none" ? "none" : "flex",
-                      flexDirection: "column",
-                      flexWrap: "wrap",
-                      alignItems: "flex-start",
-                      gap: 10,
-                    }}
+                      Remove Image
+                    </FormLabel>
+                  </a>
+                </div>
+                <div
+                  name="FileSelection"
+                  style={{ display: user ? "block" : "none" }}
+                >
+                  <pre style={{ display: "none" }}>
+                    {JSON.stringify(pages, null, 3)}
+                  </pre>
+                  <Select
+                    name="url"
+                    value={page}
+                    onChange={handlePageChange}
+                    style={{ display: "block" }}
                   >
-                    <a onClick={() => setPage("none")}>
-                      <FormLabel
-                        style={{
-                          ...theme.typography.button,
-                          backgroundColor: theme.palette.primary.main,
-                          color: theme.palette.primary.contrastText,
-                          cursor: "pointer",
-                          display: user ? "block" : "none",
-                          display: "none",
-                        }}
-                      >
-                        Remove Link
-                      </FormLabel>
-                    </a>
-                    <Input
-                      value={formdata.link && formdata.link[0]?.description}
-                      name="linkExternal"
-                      placeholder="http://..."
+                    <MenuItem value="none">Link</MenuItem>
+                    <MenuItem value="external">external link</MenuItem>
+                    {pages?.pages?.data.map((page, key) => {
+                      // const thumb = getImageThumb(image.formats);
+                      console.log("stop");
+                      return (
+                        <MenuItem
+                          selected={key === 0}
+                          key={key}
+                          value={page.attributes.slug}
+                        >
+                          {page.attributes.slug}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </div>
+                <div
+                  style={{
+                    display: page === "none" ? "none" : "flex",
+                    flexDirection: "column",
+                    flexWrap: "wrap",
+                    alignItems: "flex-start",
+                    gap: 10,
+                  }}
+                >
+                  <a onClick={() => setPage("none")}>
+                    <FormLabel
                       style={{
-                        backgroundColor: theme.palette.background.default,
-                        display: page === "external" ? "inline" : "none",
+                        ...theme.typography.button,
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.primary.contrastText,
+                        cursor: "pointer",
                       }}
-                    />
-                    <Input
-                      size="small"
-                      placeholder="link url"
-                      name="web_url"
-                      value={formdata["web_url"]}
-                      onChange={handleFormField}
-                      style={
-                        {
-                          // marginTop: 5,
-                          // marginBottom: 5,
-                          // border: "1px solid black",
-                        }
-                      }
-                    />
-                    <Input
-                      name="link_label"
-                      placeholder="link label"
-                      style={{
-                        backgroundColor: theme.palette.background.default,
-                      }}
-                    />
-                    <Input
-                      onChange={handleDeepField}
-                      name="link_description"
-                      placeholder="link description"
-                      style={{
-                        backgroundColor: theme.palette.background.default,
-                      }}
-                    />
-                  </div>
+                    >
+                      Remove Link
+                    </FormLabel>
+                  </a>
+                  <TextField
+                    value={formdata.link && formdata.link[0]?.description}
+                    name="linkExternal"
+                    placeholder="http://..."
+                    style={{
+                      backgroundColor: theme.palette.background.default,
+                      display: page === "external" ? "inline" : "none",
+                    }}
+                  ></TextField>
+                  <TextField
+                    name="text"
+                    placeholder="link label"
+                    style={{
+                      backgroundColor: theme.palette.background.default,
+                    }}
+                  ></TextField>
+                  <TextField
+                    onChange={handleDeepField}
+                    name="link.description"
+                    placeholder="link description"
+                    style={{
+                      backgroundColor: theme.palette.background.default,
+                    }}
+                  ></TextField>
                 </div>
               </LocalizationProvider>
             </form>
-
+            <div
+              style={{
+                backgroundColor: theme.palette.info.main,
+                color: theme.palette.info.contrastText,
+              }}
+            >
+              {message}
+            </div>
             <Button
               onClick={() => submit()}
               style={{
@@ -710,29 +693,6 @@ const EventForm = ({ events }) => {
             >
               Close
             </Button>
-            <div
-              style={{
-                display: message === "" ? "none" : "inline",
-                backgroundColor: theme.palette.info.main,
-                color: theme.palette.info.contrastText,
-                width: "fit-content",
-              }}
-            >
-              <Button
-                variant="contained"
-                style={{
-                  ...theme.typography.caption,
-                  width: "fit-content",
-                  // padding: 2,
-                  // margin: 2,
-                  backgroundColor: theme.palette.info.main,
-                  color: theme.palette.info.contrastText,
-                }}
-                onClick={() => setMessage("")}
-              >
-                {message}
-              </Button>
-            </div>
           </StyledFormContainer>
         </Zoom>
       </div>

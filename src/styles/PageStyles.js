@@ -31,7 +31,7 @@ export const StyledSiteName = styled("div")(({ theme }) => ({
 // on /Page.js
 export const StyledPage = styled("div")(({ theme }) => ({
   position: "relative",
-  width: theme.menuPosition === "side" ? "calc(70% - 1px)" : "98vw",
+  width: theme.menuPosition === "side" ? "calc(70% - 1px)" : "95vw",
   margin: "auto",
   marginTop: 190,
   borderRadius: 10,
@@ -39,15 +39,15 @@ export const StyledPage = styled("div")(({ theme }) => ({
   // minHeight: 1200,
 
   [theme.breakpoints.down("xl")]: {
-    width: theme.menuPosition === "side" ? "calc(65% - 1px)" : "98vw",
+    width: theme.menuPosition === "side" ? "calc(65% - 1px)" : "95vw",
   },
   [theme.breakpoints.down("lg")]: {
-    // width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "98vw",
+    width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "98vw",
     width: "95vw",
     // width: "calc(85% - 1px)",
   },
   [theme.breakpoints.down("md")]: {
-    width: "90vw",
+    // width: "90vw",
     // width: "calc(95% - 1rem)",
     marginTop: 125,
   },

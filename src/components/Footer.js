@@ -38,17 +38,11 @@ const Footer = () => {
     },
   }));
 
-  const StyledFooter = styled("div")(({ theme }) => ({
-    // width: "100%",
-    // margin: "auto",
-    // marginBottom: 150,
-    // height: 180,
-    // backgroundColor: "green",
-    // overFlow: "hidden",
-    // // width: "100%",
-    // [theme.breakpoints.down("md")]: {
-    //   //backgroundColor: "yellow",
-    // },
+  const StyledFooterBox = styled("div")(({ theme }) => ({
+    width: "40%",
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+    },
   }));
 
   const bgTop = require("../assets/bgimages/oldbg.png");
@@ -127,6 +121,7 @@ const Footer = () => {
     <div
       name="Footer"
       style={{
+        // width: "100%",
         borderTop: "8px solid",
         borderColor: theme.palette.grey[400],
         padding: 10,
@@ -156,16 +151,20 @@ const Footer = () => {
               <div
                 key={key}
                 name="FooterColumns"
-                style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 40,
+                  border: "1px none",
+                  borderColor: theme.palette.secondary.dark,
+                  width: "90vw",
+                }}
               >
-                <div>{column.title}</div>
                 {column.links.map((link, key) => {
                   const linkThumb = getThumb(link?.image?.data?.attributes);
                   return (
-                    <div key={key}>
-                      <div
-                        style={{ maxWidth: 280, boxShadow: theme.shadows[1] }}
-                      >
+                    <StyledFooterBox key={key}>
+                      <div style={{ boxShadow: theme.shadows[1] }}>
                         {link.text}
                       </div>
                       {link.type === "link" && (
@@ -237,7 +236,7 @@ const Footer = () => {
                           />
                         </a>
                       )}
-                    </div>
+                    </StyledFooterBox>
                   );
                 })}
               </div>
