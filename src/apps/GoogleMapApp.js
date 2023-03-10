@@ -5,7 +5,8 @@ import { getThumb } from "./functions";
 const img = require("../assets/mapmarker.gif");
 
 const StyledRichText = styled("div")(({ theme }) => ({
-  maxWidth: "50vw",
+  width: 300,
+  boxShadow: theme.shadows[1],
   [theme.breakpoints.down("lg")]: {
     // padding: 0,
   },
