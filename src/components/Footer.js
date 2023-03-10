@@ -56,8 +56,8 @@ const Footer = () => {
     flexWrap: "wrap",
     width: "100%",
     margin: "auto",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "top",
+    alignItems: "top",
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
       backgroundSize: "100% 18vh",
@@ -73,7 +73,7 @@ const Footer = () => {
   const StyledLogo = styled("div")(({ theme }) => ({
     maxWidth: "10vw",
     border: "1px none red",
-
+    marginTop: 10,
     //marginTop: 10,
     // backgroundColor: theme.palette.primary.light,
     // borderRadius: 500,
@@ -102,7 +102,7 @@ const Footer = () => {
       // width: "19vw",
     },
     [theme.breakpoints.down("sm")]: {
-      maxWidth: "40vw",
+      // maxWidth: "40vw",
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
       //   width: "20vw",
@@ -122,22 +122,15 @@ const Footer = () => {
       name="Footer"
       style={{
         // width: "100%",
+        ...theme.flexRows,
         borderTop: "8px solid",
         borderColor: theme.palette.grey[400],
         padding: 10,
-        marginTop: 30,
-        marginBottom: 50,
-        display: "flex",
+        marginTop: 0,
+        marginBottom: 0,
         gap: 8,
       }}
     >
-      <StyledLogo>
-        <img
-          style={{ width: "100%", height: "auto", borderRadius: 500 }}
-          src={process.env.REACT_APP_STRAPI + logoThumb.url}
-        />
-      </StyledLogo>
-
       <div>
         <div>
           <span
@@ -193,7 +186,7 @@ const Footer = () => {
                                 <img
                                   title={link.button_label}
                                   style={{
-                                    float: "left",
+                                    //float: "left",
                                     width: linkThumb.width,
                                     height: "auto",
                                     maxWidth: 50,
@@ -226,7 +219,7 @@ const Footer = () => {
                           <img
                             title={link.button_label}
                             style={{
-                              float: "left",
+                              //float: "left",
                               width: linkThumb.width,
                               height: "auto",
                               maxWidth: 100,
@@ -242,6 +235,12 @@ const Footer = () => {
               </div>
             );
           })}
+          <StyledLogo>
+            <img
+              style={{ width: "100%", height: "auto", borderRadius: 500 }}
+              src={process.env.REACT_APP_STRAPI + logoThumb.url}
+            />
+          </StyledLogo>
         </div>
       </div>
     </div>

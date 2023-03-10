@@ -132,7 +132,7 @@ export const FlexGroup = ({ section }) => {
                 }
               }
             >
-              <div>
+              <div style={{ ...theme.flexRows, border: "1px none red" }}>
                 {thumb && (
                   <img
                     title="group image"
@@ -140,7 +140,7 @@ export const FlexGroup = ({ section }) => {
                       height: thumb.height,
                       width: "auto",
                       verticalAlign: "middle",
-                      float: "left",
+                      // float: "left",
                       borderRadius: 5,
                       margin: 3,
                     }}
@@ -315,7 +315,7 @@ export const GoogleMap = ({ section }) => {
     <div>
       {section.gmap.map((map, key) => {
         return (
-          <div key={key}>
+          <div key={key} style={{ height: 320 }}>
             <GoogleMapApp
               lat={map.lat}
               lng={map.lng}
@@ -468,7 +468,7 @@ export const LeadForm = ({ section }) => {
             subscribe
           </Button>
           <IconButton
-            style={{ position: "absolute", top: 0, right: 0, float: "left" }}
+            style={{ position: "absolute", top: 0, right: 0 }}
             variant="contained"
             onClick={() => handleCancel()}
           >
@@ -1056,9 +1056,11 @@ export const Feature = ({ section }) => {
         {thumb && (
           <StyledImg
             title={thumb.url}
-            style={{
-              float: "left",
-            }}
+            style={
+              {
+                //float: "left",
+              }
+            }
             src={process.env.REACT_APP_STRAPI + thumb.url}
           />
         )}

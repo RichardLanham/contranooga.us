@@ -161,7 +161,6 @@ export const Hero = ({ section }) => {
           <Button
             title={section.title}
             style={{
-              float: "left",
               backgroundColor: theme.palette.secondary.main,
             }}
             startIcon={
@@ -182,7 +181,12 @@ export const Hero = ({ section }) => {
   };
 
   return (
-    <StyledPageSection>
+    <StyledPageSection
+      style={{
+        border: "1px none red",
+        minHeight: thumb.height ? thumb.height + 50 : 200,
+      }}
+    >
       <div style={{ position: "relative" }}>
         <StyledHeading>{section.label}</StyledHeading>
 
