@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import GoogleMapApp from "../../../apps/GoogleMapApp";
 import { StyledPageSection, StyledHeading } from "../../../styles/PageStyles";
 import { getThumb, getLarge } from "../../../apps/functions";
 import { createMarkup } from "../../../apps/functions";
-
+import Editor from "../Editor";
 const StyledHeroBox = styled("div")(({ theme }) => ({
   // ...theme.flexRows,
   // flexDirection: "row",
@@ -16,18 +16,6 @@ const StyledHeroBox = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {
     //  width: "85%",
-  },
-  [theme.breakpoints.down("sm")]: {
-    // width: 300,
-  },
-}));
-
-const StyledHeroText = styled("p")(({ theme }) => ({
-  // width: "30%",
-
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {
-    // width: "100%",
   },
   [theme.breakpoints.down("sm")]: {
     // width: 300,
@@ -53,6 +41,12 @@ export const Hero = ({ section }) => {
   const thumb = getThumb(section?.picture?.data?.attributes);
   const large = getLarge(section?.picture?.data?.attributes);
   const theme = useTheme();
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(window.localStorage.getItem("strapi_user") ? true : false);
+  }, []);
+  // {user ? <Editor content={section.content} /> : null}
 
   const HeroButton = ({ section }) => {
     const buttonThumb = getThumb(section?.button?.image?.data?.attributes);
@@ -206,9 +200,12 @@ export const Hero = ({ section }) => {
             src={process.env.REACT_APP_STRAPI + thumb.url}
           />
         )}
-        <StyledHeroText
+        {user ? (
+          <Editor container={section} content={section?.text?.content} />
+        ) : null}
+        <div
           dangerouslySetInnerHTML={createMarkup(section?.text?.content)}
-        ></StyledHeroText>
+        ></div>
 
         <div
           style={{

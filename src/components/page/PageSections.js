@@ -43,6 +43,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import ReactDOMServer from "react-dom/server";
+import { theme } from "../../assets/theme";
+
+import Editor from "./Editor";
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
   display: "flex",
@@ -71,6 +74,11 @@ const StyledFlexBox = styled("div")(({ theme }) => ({
 
 export const FlexGroup = ({ section }) => {
   const theme = useTheme();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(window.localStorage.getItem("strapi_user") ? true : false);
+  }, []);
+  // {user ? <Editor content={section.content} /> : null}
 
   return (
     <StyledPageSection
@@ -140,11 +148,19 @@ export const FlexGroup = ({ section }) => {
                   />
                 )}
                 {group.richtext && (
-                  <span
-                    dangerouslySetInnerHTML={createMarkup(
-                      group.richtext.richtext
-                    )}
-                  ></span>
+                  <span>
+                    {user ? (
+                      <Editor
+                        container={group}
+                        content={group.richtext.richtext}
+                      />
+                    ) : null}
+                    <span
+                      dangerouslySetInnerHTML={createMarkup(
+                        group.richtext.richtext
+                      )}
+                    ></span>
+                  </span>
                 )}
               </div>
             </div>
@@ -214,11 +230,19 @@ export const FlexGroup = ({ section }) => {
                               />
                             )}
                             {box.richtext && (
-                              <span
-                                dangerouslySetInnerHTML={createMarkup(
-                                  box.richtext
-                                )}
-                              />
+                              <span>
+                                {user ? (
+                                  <Editor
+                                    container={box}
+                                    content={box.richtext}
+                                  />
+                                ) : null}
+                                <span
+                                  dangerouslySetInnerHTML={createMarkup(
+                                    box.richtext
+                                  )}
+                                />
+                              </span>
                             )}
                           </div>
                         )}
@@ -532,8 +556,14 @@ const StyledRichText = styled("div")(({ theme }) => ({
 
 export const RichText = ({ section }) => {
   const theme = useTheme();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(window.localStorage.getItem("strapi_user") ? true : false);
+  }, []);
+  // {user ? <Editor content={section.content} /> : null}
   return (
     <StyledPageSection>
+      {user ? <Editor container={section} content={section.content} /> : null}
       <StyledRichText>
         <div dangerouslySetInnerHTML={createMarkup(section.content)}></div>
       </StyledRichText>
@@ -793,34 +823,6 @@ export const FeatureColumnsGroup = ({ section }) => {
   const tabs_Thumb = getThumb(section?.tabs?.icon?.data?.attributes);
   return (
     <div>
-      {section.tabs.homeTabType === "link" && (
-        <a
-          onClick={(e) => setpage(e)}
-          name="HomeTabButton"
-          style={{
-            ...theme.typography.h5,
-            textDecoration: "none",
-            backgroundColor: theme.palette.background.default,
-            padding: 3,
-            borderRadius: 15,
-            borderBottom: 20,
-            border: "1px solid blue",
-          }}
-          href="#"
-        >
-          {section.tabs.title}
-        </a>
-      )}
-      {section.tabs.homeTabType === "button" && (
-        <Button onClick={(e) => setpage(e)} variant="outline">
-          {section.tabs.title}
-        </Button>
-      )}
-      {section.tabs.homeTabType === "image" && (
-        <a onClick={(e) => setpage(e)} href="#">
-          <img src={process.env.REACT_APP_STRAPI + tabs_Thumb.url} />
-        </a>
-      )}
       <div>
         <div
           style={{
@@ -831,6 +833,36 @@ export const FeatureColumnsGroup = ({ section }) => {
             // border: "1px solid red",
           }}
         >
+          <div>
+            {section?.tabs?.homeTabType === "link" && (
+              <a
+                onClick={(e) => setpage(e)}
+                name="HomeTabButton"
+                style={{
+                  ...theme.typography.h5,
+                  textDecoration: "none",
+                  backgroundColor: theme.palette.background.default,
+                  padding: 3,
+                  borderRadius: 15,
+                  borderBottom: 20,
+                  border: "1px solid blue",
+                }}
+                href="#"
+              >
+                {section.tabs.title}
+              </a>
+            )}
+            {section?.tabs?.homeTabType === "button" && (
+              <Button onClick={(e) => setpage(e)} variant="outline">
+                {section?.tabs?.title}
+              </Button>
+            )}
+            {section.tabs.homeTabType === "image" && (
+              <a onClick={(e) => setpage(e)} href="#">
+                <img src={process.env.REACT_APP_STRAPI + tabs_Thumb.url} />
+              </a>
+            )}
+          </div>
           {section.tabs.tab.map((t, key) => {
             const tabThumb = getThumb(t.image?.data?.attributes);
             return (

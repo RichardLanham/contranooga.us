@@ -1499,12 +1499,7 @@ const Color = (props) => {
     <Site title="Color">
       <StyledPage>
         <PageHeader metaTitle="Site Settings" />
-        <div
-          style={{
-            position: "relative",
-            // border: "2px solid",
-          }}
-        >
+        <div style={{ ...theme.flexRows }}>
           <InputHex />
           <Controls transformThemeBranch={transformThemeBranch} />
 

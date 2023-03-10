@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { getThumb, createMarkup } from "../../../apps/functions";
 import { Button, Zoom } from "@mui/material";
 
 import GoogleMapApp from "../../../apps/GoogleMapApp";
 import LargeVideo from "./LargeVideo";
+
+import Editor from "../Editor";
 
 const Tabs = ({ section }) => {
   const [show, setShow] = useState("none");
@@ -144,11 +146,19 @@ const Tabs = ({ section }) => {
   };
 
   const TabContent = ({ slug, inputs }) => {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+      setUser(window.localStorage.getItem("strapi_user") ? true : false);
+    }, []);
+    // {user ? <Editor content={section.content} /> : null}
     return (
       <div style={{ display: _tab === slug ? "block" : "none" }}>
         {inputs.map((input, key) => {
           return (
             <div key={key}>
+              {user ? (
+                <Editor container={input} content={input.richtext} />
+              ) : null}
               {input.richtext && (
                 <div
                   dangerouslySetInnerHTML={createMarkup(input.richtext)}

@@ -350,9 +350,9 @@ const Calendar = (props) => {
                     <font
                       style={{
                         ...theme.typography.body2,
-                        backgroundColor: theme.palette.primary.contrastText,
+                        color: theme.palette.common.black,
                         marginLeft: 5,
-                        color: theme.palette.primary.main,
+                        // backgroundColor: theme.palette.primary.main,
                       }}
                     >
                       <span
