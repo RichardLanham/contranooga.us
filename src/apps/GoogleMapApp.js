@@ -1,9 +1,18 @@
 import GoogleMapReact from "google-map-react";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled } from "@mui/material/styles";
 import { getThumb } from "./functions";
 
 const img = require("../assets/mapmarker.gif");
 
+const StyledRichText = styled("div")(({ theme }) => ({
+  maxWidth: "50vw",
+  [theme.breakpoints.down("lg")]: {
+    // padding: 0,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+}));
 const GoogleMap = ({
   lat,
   lng,
@@ -37,15 +46,19 @@ const GoogleMap = ({
   };
 
   return (
-    <div style={{ width: 320, height: 320 }}>
-      <div dangerouslySetInnerHTML={createMarkup(description)}></div>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
-        defaultCenter={center}
-        defaultZoom={zoom ? zoom : 16}
-      >
-        <MapMarker lat={lat} lng={lng} text={markerText} />
-      </GoogleMapReact>
+    <div style={{ ...theme.flexRows, gap: 10 }}>
+      <div style={{ width: 320, height: 320 }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
+          defaultCenter={center}
+          defaultZoom={zoom ? zoom : 16}
+        >
+          <MapMarker lat={lat} lng={lng} text={markerText} />
+        </GoogleMapReact>
+      </div>
+      <StyledRichText
+        dangerouslySetInnerHTML={createMarkup(description)}
+      ></StyledRichText>
     </div>
   );
 };

@@ -315,7 +315,7 @@ export const GoogleMap = ({ section }) => {
     <div>
       {section.gmap.map((map, key) => {
         return (
-          <div key={key} style={{ height: 320 }}>
+          <div key={key} style={{ minHeight: 320 }}>
             <GoogleMapApp
               lat={map.lat}
               lng={map.lng}
