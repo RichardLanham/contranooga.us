@@ -184,7 +184,7 @@ export const Hero = ({ section }) => {
     <StyledPageSection
       style={{
         border: "1px none red",
-        minHeight: thumb.height ? thumb.height + 50 : 200,
+        minHeight: thumb.height ? thumb.height + 5 : 100,
       }}
     >
       <div style={{ position: "relative" }}>
