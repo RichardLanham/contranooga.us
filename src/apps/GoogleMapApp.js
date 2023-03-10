@@ -24,7 +24,7 @@ const GoogleMap = ({
     <div>
       {thumb && (
         <img
-          style={{ width: 60, height: "auto", float: "left" }}
+          style={{ width: 40, height: "auto", borderRadius: 500 }}
           src={process.env.REACT_APP_STRAPI + thumb.url}
         />
       )}
