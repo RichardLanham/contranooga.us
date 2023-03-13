@@ -205,7 +205,14 @@ export const Hero = ({ section }) => {
           />
         )}
         {user ? (
-          <Editor container={section} content={section?.text?.content} />
+          <Editor
+            container={{
+              content: section.text,
+              field: "text",
+              id: section.id,
+              typename: section.__typename,
+            }}
+          />
         ) : null}
         <div
           dangerouslySetInnerHTML={createMarkup(section?.text?.content)}

@@ -114,7 +114,9 @@ export const FlexGroup = ({ section }) => {
             {group.googleMap && (
               <div>
                 <GoogleMapApp
-                  marker={group.googleMap.marker}
+                  markerText={group.googleMap.markerText}
+                  markerImage={group.googleMap.markerImage}
+                  description={group.googleMap.richtext}
                   lat={group.googleMap.lat}
                   lng={group.googleMap.lng}
                 />
@@ -149,10 +151,22 @@ export const FlexGroup = ({ section }) => {
                 )}
                 {group.richtext && (
                   <span>
+                    {/* <Editor
+                                    container={{
+                                      field: "richtext",
+                                      id: box.id,
+                                      typename: box.__typename,
+                                    }}
+                                    content={box.richtext}
+                                  /> */}
                     {user ? (
                       <Editor
-                        container={group}
-                        content={group.richtext.richtext}
+                        container={{
+                          content: group.richtext.richtext,
+                          field: "richtext",
+                          id: group.richtext.richtext.id,
+                          typename: group.richtext.richtext.__typename,
+                        }}
                       />
                     ) : null}
                     <span
@@ -233,8 +247,12 @@ export const FlexGroup = ({ section }) => {
                               <span>
                                 {user ? (
                                   <Editor
-                                    container={box}
-                                    content={box.richtext}
+                                    container={{
+                                      content: box.richtext,
+                                      field: "richtext",
+                                      id: box.id,
+                                      typename: box.__typename,
+                                    }}
                                   />
                                 ) : null}
                                 <span
@@ -251,9 +269,9 @@ export const FlexGroup = ({ section }) => {
                             <GoogleMapApp
                               markerText={box.googleMap.markerText}
                               markerImage={box.googleMap.markerImage}
+                              description={box.googleMap.richtext}
                               lat={box.googleMap.lat}
                               lng={box.googleMap.lng}
-                              description={box.googleMap.description}
                             />
                           </div>
                         )}
@@ -322,7 +340,7 @@ export const GoogleMap = ({ section }) => {
               zoom={map.zoom}
               markerText={map.markerText}
               markerImage={map.markerImage}
-              description={map.description}
+              description={map.richtext}
             />
           </div>
         );
@@ -563,7 +581,16 @@ export const RichText = ({ section }) => {
   // {user ? <Editor content={section.content} /> : null}
   return (
     <StyledPageSection>
-      {user ? <Editor container={section} content={section.content} /> : null}
+      {user ? (
+        <Editor
+          container={{
+            content: section.content,
+            field: "content",
+            id: section.id,
+            typename: section.__typename,
+          }}
+        />
+      ) : null}
       <StyledRichText>
         <div dangerouslySetInnerHTML={createMarkup(section.content)}></div>
       </StyledRichText>
@@ -933,7 +960,7 @@ export const FeatureColumnsGroup = ({ section }) => {
                                 zoom={input.googleMap.zoom}
                                 markerText={input.googleMap.markerText}
                                 markerImage={input.googleMap.markerImage}
-                                description={input.googleMap.description}
+                                description={input.googleMap.richtext}
                               />
                             </div>
                           )}

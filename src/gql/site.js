@@ -86,7 +86,7 @@ export const GET_PAGE = gql`
     lng
     zoom
     name
-    description
+    richtext
     __typename
   }
 

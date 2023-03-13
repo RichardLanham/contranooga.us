@@ -128,12 +128,12 @@ const EventForm = () => {
           url: data.url === "external" ? data.linkExternal : "/" + data.url,
           newTab: !data.url.startsWith("http") ? true : false,
           text: data.text,
-          description: data.description,
+          description: data.richtext,
         },
       ];
       delete data.url;
       delete data.text;
-      delete data.description;
+      delete data.richtext;
       delete data.linkExternal;
     }
 

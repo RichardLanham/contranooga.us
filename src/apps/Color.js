@@ -1208,45 +1208,11 @@ const Color = (props) => {
     const [inputHex, setInputHex] = useState(theme.palette[targ].main);
     const orgHex = theme.palette.primary.main;
 
-    //const [attrib, setAttrib] = useState("primary");
-    // useEffect(() => {
-    //   // useQuery(GET_THEME);
-    //   if (!loading) {
-    //     if (!error) {
-    //       const _themes = [];
-    //       data.themes.data.map((t) => {
-    //         const _theme = {};
-    //         _theme.id = t.id;
-    //         _theme.name = t.attributes.name;
-    //         _themes.push(_theme);
-    //         if (_theme.name === "default") {
-    //           setSelectedTheme(t.id);
-    //         }
-    //       });
-    //       setThemes(_themes);
-    //       setSelectedTheme(theme.themeId);
-    //       theme.themes = _themes;
-    //       // console.log(_themes);
-    //     }
-    //   }
-    // }, [loading, error, data]);
-
     useEffect(() => {
       // console.log("USEEFFECT TWO");
       setFont(theme.font);
       setMenuPosition(menuPosition in theme ? theme.menuPosition : "side");
     }, [theme.font]);
-    // useEffect(() => {
-    //   console.log("USEEFFECT Three");
-    //   // setSelectedTheme(theme.themeId);
-    //   return () => {
-    //     window.localStorage.setItem("targ", "primary");
-    //   };
-    // }, []);
-
-    // useEffect(() => {
-    //   setInputHex(theme.palette[attrib].main);
-    // }, [attrib]);
 
     const applyText = (hex) => {
       const fixed = "#" + hex.replace("#", "");
@@ -1328,7 +1294,7 @@ const Color = (props) => {
     };
     if (!show) {
       return (
-        <StyledColorSections style={{ marginTop: 40, cursor: "pointer" }}>
+        <StyledColorSections style={{ cursor: "pointer", width: 400 }}>
           <EditIcon
             onClick={() => setShow(true)}
             style={{
@@ -1339,107 +1305,109 @@ const Color = (props) => {
               cursor: "pointer",
             }}
           />
-          <div>
-            <FormLabel>Colors</FormLabel>
-            <Select value={selected} onChange={(e) => handleSelect(e)}>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.primary.contrastText,
-                }}
-                value="primary"
+          <div style={{ ...theme.flexRows, border: "2px none red" }}>
+            <div>
+              <FormLabel>Colors</FormLabel>
+              <Select value={selected} onChange={(e) => handleSelect(e)}>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
+                  }}
+                  value="primary"
+                >
+                  primary
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                  value="secondary"
+                >
+                  secondary
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.error.main,
+                    color: theme.palette.error.contrastText,
+                  }}
+                  value="error"
+                >
+                  error
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.warning.main,
+                    color: theme.palette.warning.contrastText,
+                  }}
+                  value="warning"
+                >
+                  warning
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.info.main,
+                    color: theme.palette.info.contrastText,
+                  }}
+                  value="info"
+                >
+                  info
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    backgroundColor: theme.palette.success.main,
+                    color: theme.palette.success.contrastText,
+                  }}
+                  value="success"
+                >
+                  success
+                </MenuItem>
+              </Select>
+            </div>
+            <div>
+              <FormLabel>Fonts</FormLabel>
+              <Select value={font} onChange={(e) => handleFontChange(e)}>
+                <MenuItem value="Roboto">Roboto</MenuItem>
+                <MenuItem value="'Roboto Serif', serif">Roboto Serif</MenuItem>
+                <MenuItem value="'Roboto Flex', 'Helvetica','Arial', sans-serif">
+                  Roboto Flex
+                </MenuItem>
+                <MenuItem value="'Roboto Slab', serif">Roboto Slab</MenuItem>
+                <MenuItem value="'Roboto Condensed', 'Helvetica','Arial', sans-serif">
+                  Roboto Condensed
+                </MenuItem>
+                <MenuItem value="'Roboto Mono', 'Helvetica','Arial', sans-serif">
+                  Roboto Mono
+                </MenuItem>
+                <MenuItem value="'EB Garamond', serif">EB Garamond</MenuItem>
+                <MenuItem value="'Cormorant Garamond', serif">
+                  Cormorant Garamond
+                </MenuItem>
+              </Select>
+            </div>
+            <div>
+              <FormLabel>Menu</FormLabel>
+              <Select
+                value={menuPosition}
+                onChange={(e) => handleMenuPositionChange(e)}
               >
-                primary
-              </MenuItem>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-                value="secondary"
-              >
-                secondary
-              </MenuItem>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.error.main,
-                  color: theme.palette.error.contrastText,
-                }}
-                value="error"
-              >
-                error
-              </MenuItem>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.warning.main,
-                  color: theme.palette.warning.contrastText,
-                }}
-                value="warning"
-              >
-                warning
-              </MenuItem>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.info.main,
-                  color: theme.palette.info.contrastText,
-                }}
-                value="info"
-              >
-                info
-              </MenuItem>
-              <MenuItem
-                style={{
-                  backgroundColor: theme.palette.success.main,
-                  color: theme.palette.success.contrastText,
-                }}
-                value="success"
-              >
-                success
-              </MenuItem>
-            </Select>
-          </div>
-          <div>
-            <FormLabel>Fonts</FormLabel>
-            <Select value={font} onChange={(e) => handleFontChange(e)}>
-              <MenuItem value="Roboto">Roboto</MenuItem>
-              <MenuItem value="'Roboto Serif', serif">Roboto Serif</MenuItem>
-              <MenuItem value="'Roboto Flex', 'Helvetica','Arial', sans-serif">
-                Roboto Flex
-              </MenuItem>
-              <MenuItem value="'Roboto Slab', serif">Roboto Slab</MenuItem>
-              <MenuItem value="'Roboto Condensed', 'Helvetica','Arial', sans-serif">
-                Roboto Condensed
-              </MenuItem>
-              <MenuItem value="'Roboto Mono', 'Helvetica','Arial', sans-serif">
-                Roboto Mono
-              </MenuItem>
-              <MenuItem value="'EB Garamond', serif">EB Garamond</MenuItem>
-              <MenuItem value="'Cormorant Garamond', serif">
-                Cormorant Garamond
-              </MenuItem>
-            </Select>
-          </div>
-          <div>
-            <FormLabel>Menu</FormLabel>
-            <Select
-              value={menuPosition}
-              onChange={(e) => handleMenuPositionChange(e)}
-            >
-              <MenuItem value="side">side</MenuItem>
-              <MenuItem value="top">top</MenuItem>
-              <MenuItem value="split">split</MenuItem>
-            </Select>
-          </div>
-          <div>
-            <FormLabel>Themes</FormLabel>
-            <Select value={selectedTheme} onChange={handleTheme}>
-              {theme.themes &&
-                theme.themes.map((t, k) => (
-                  <MenuItem key={k} value={t.id}>
-                    {t.name}
-                  </MenuItem>
-                ))}
-            </Select>
+                <MenuItem value="side">side</MenuItem>
+                <MenuItem value="top">top</MenuItem>
+                <MenuItem value="split">split</MenuItem>
+              </Select>
+            </div>
+            <div>
+              <FormLabel>Themes</FormLabel>
+              <Select value={selectedTheme} onChange={handleTheme}>
+                {theme.themes &&
+                  theme.themes.map((t, k) => (
+                    <MenuItem key={k} value={t.id}>
+                      {t.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </div>
           </div>
         </StyledColorSections>
       );
@@ -1486,6 +1454,8 @@ const Color = (props) => {
               padding: 3,
               backgroundColor: theme.palette[selected].main,
               color: theme.palette[selected].contrastText,
+              // height: 100,
+              // border: "1px solid green",
             }}
           >
             {selected}

@@ -157,7 +157,14 @@ const Tabs = ({ section }) => {
           return (
             <div key={key}>
               {user ? (
-                <Editor container={input} content={input.richtext} />
+                <Editor
+                  container={{
+                    content: input.richtext,
+                    field: "richtext",
+                    id: input.id,
+                    typename: input.__typename,
+                  }}
+                />
               ) : null}
               {input.richtext && (
                 <div
@@ -179,7 +186,7 @@ const Tabs = ({ section }) => {
                     zoom={input.googleMap.zoom}
                     markerText={input.googleMap.markerText}
                     markerImage={input.googleMap.markerImage}
-                    description={input.googleMap.description}
+                    description={input.googleMap.richtext}
                   />
                 </div>
               )}
