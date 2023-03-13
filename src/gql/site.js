@@ -90,6 +90,12 @@ export const GET_PAGE = gql`
     __typename
   }
 
+  # query GetPagex() {
+
+  # } data {
+  #   id
+  # }
+
   query GetPages(
     $slug: String!
     $publicationState: PublicationState!

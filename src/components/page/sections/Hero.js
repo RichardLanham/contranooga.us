@@ -37,6 +37,7 @@ const StyledCardImage = styled("img")(({ theme }) => ({
 
 export const Hero = ({ section }) => {
   //const img = section.data.attr;
+  // log
 
   const thumb = getThumb(section?.picture?.data?.attributes);
   const large = getLarge(section?.picture?.data?.attributes);

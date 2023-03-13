@@ -80,6 +80,7 @@ const Tabs = ({ section }) => {
 
   const TabHomeTabButton = (section) => {
     // console.log(section?.section?.tabs?.type);
+    console.log("");
     if (section?.section?.tabs?.type === "link") {
       return (
         <a

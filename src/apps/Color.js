@@ -900,24 +900,6 @@ const Color = (props) => {
         // dispatch({ type: "FIXTHIS", payload: "doit" });
         // // console.log("Primary_tonaal_ useEffect");
 
-        // if (window.localStorage.getItem("newColor")) {
-        //   // trick
-        //   // setNewColor(window.localStorage.getItem("newColor"));
-        // }
-
-        // LOST ONE by commenting this out setNewColor(theme.palette.primary.main);
-
-        // eventEmitter.subscribe(
-        //   "SETCONTROLS",
-        //   (settings) => {
-        //     // console.log("INPUTHEX at PTRC: " + hex);
-        //     setTarg(settings.targ);
-        //     // setNewColor("#" + hex);
-        //     console.log("SETCONTROLS_Controls");
-        //   },
-        //   []
-        // );
-
         eventEmitter.subscribe(
           "INPUTHEX",
           (payload) => {

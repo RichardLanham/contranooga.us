@@ -189,7 +189,7 @@ const EventForm = ({ events }) => {
     //   formdata.geocode = JSON.stringify(response);
     // });
 
-    console.log(geoUrl);
+    // console.log(geoUrl);
   };
 
   const submit = () => {

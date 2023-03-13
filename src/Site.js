@@ -36,12 +36,12 @@ const Site = (props) => {
       setUpvisible(false);
     }
   };
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);

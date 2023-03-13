@@ -68,7 +68,8 @@ const Editor = ({ container }) => {
   };
 
   const handleUpdate = async () => {
-    console.log(JSON.stringify(put));
+    // console.log(JSON.stringify(put));
+    // log
 
     const _put = Object.assign({}, put);
 
@@ -111,7 +112,12 @@ const Editor = ({ container }) => {
     >
       <Button onClick={() => setShow((prev) => !prev)}>Close</Button>
       <Button onClick={() => handleUpdate()}>Update</Button>
-      <pre>{JSON.stringify(container, null, 3)}</pre>
+      <pre style={{ display: "none" }}>
+        {JSON.stringify(container, null, 3)}
+      </pre>
+      <span style={{ ...theme.typography.caption }}>
+        {container.typename},{container.id},{container.field}
+      </span>
       <CKEditor
         editor={ClassicEditor}
         data={content}
