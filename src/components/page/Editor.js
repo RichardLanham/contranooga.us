@@ -28,11 +28,11 @@ const Editor = ({ container }) => {
     console.log(typename);
     switch (typename) {
       case "ComponentSectionsRichText": {
-        setUrl((prev) => prev + "richtext");
+        setUrl(process.env.REACT_APP_SIDECAR_API + "richtext");
         break;
       }
       case "ComponentSectionsInputs": {
-        setUrl((prev) => prev + "richtextInputs");
+        setUrl(process.env.REACT_APP_SIDECAR_API + "richtextInputs");
         break;
       }
       default: {
