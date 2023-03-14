@@ -6,7 +6,7 @@ import { Button, Zoom } from "@mui/material";
 import GoogleMapApp from "../../../apps/GoogleMapApp";
 import LargeVideo from "./LargeVideo";
 
-import Editor from "../Editor";
+import RichEditor from "../Editor";
 
 const Tabs = ({ section }) => {
   const [show, setShow] = useState("none");
@@ -158,7 +158,7 @@ const Tabs = ({ section }) => {
           return (
             <div key={key}>
               {user ? (
-                <Editor
+                <RichEditor
                   container={{
                     content: input.richtext,
                     field: "richtext",

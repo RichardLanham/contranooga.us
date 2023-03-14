@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const Editor = ({ container }) => {
+import Editor from "ckeditor5-custom-build/build/ckeditor";
+
+const RichEditor = ({ container }) => {
   // console.log(container);
   const field = container.fields;
   const Id = container.id;
@@ -102,6 +104,20 @@ const Editor = ({ container }) => {
     });
   };
 
+  const fontFamilyConfig = {
+    options: [
+      "default",
+      "Arial, Helvetica, sans-serif",
+      "Courier New, Courier, monospace",
+      "Georgia, serif",
+      "Lucida Sans Unicode, Lucida Grande, sans-serif",
+      "Tahoma, Geneva, sans-serif",
+      "Times New Roman, Times, serif",
+      "Trebuchet MS, Helvetica, sans-serif",
+      "Verdana, Geneva, sans-serif",
+    ],
+  };
+
   return (
     <div
       style={{
@@ -119,8 +135,81 @@ const Editor = ({ container }) => {
         {container.typename},{container.id},{container.field}
       </span>
       <CKEditor
-        editor={ClassicEditor}
+        editor={Editor}
         data={content}
+        // config={{
+        //   // plugins: [Paragraph],
+        //   toolbar: [
+        //     "sourceEditing",
+        //     "heading",
+        //     "|",
+        //     "bold",
+        //     "italic",
+        //     "underline",
+        //     "strikethrough",
+        //     "link",
+        //     "bulletedList",
+        //     "numberedList",
+        //     "blockQuote",
+        //     "fontFamily",
+        //     "fontSize",
+        //   ],
+        //   fontFamily: {
+        //     options: [
+        //       "default",
+        //       "Ubuntu, Arial, sans-serif",
+        //       "Ubuntu Mono, Courier New, Courier, monospace",
+        //     ],
+        //   },
+        //   fontSize: {
+        //     options: [9, 11, 13, "default", 17, 19, 21],
+        //   },
+        //   heading: {
+        //     options: [
+        //       {
+        //         model: "paragraph",
+        //         title: "Paragraph",
+        //         class: "ck-heading_paragraph",
+        //       },
+        //       {
+        //         model: "heading1",
+        //         view: "h1",
+        //         title: "Heading 1",
+        //         class: "ck-heading_heading1",
+        //       },
+        //       {
+        //         model: "heading2",
+        //         view: "h2",
+        //         title: "Heading 2",
+        //         class: "ck-heading_heading2",
+        //       },
+        //       {
+        //         model: "heading3",
+        //         view: "h3",
+        //         title: "Heading 3",
+        //         class: "ck-heading_heading3",
+        //       },
+        //       {
+        //         model: "heading4",
+        //         view: "h4",
+        //         title: "Heading 4",
+        //         class: "ck-heading_heading4",
+        //       },
+        //       {
+        //         model: "heading5",
+        //         view: "h5",
+        //         title: "Heading 5",
+        //         class: "ck-heading_heading5",
+        //       },
+        //       {
+        //         model: "heading6",
+        //         view: "h6",
+        //         title: "Heading 6",
+        //         class: "ck-heading_heading6",
+        //       },
+        //     ],
+        //   },
+        // }}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
           console.log("Editor is ready to use!", editor);
@@ -141,4 +230,4 @@ const Editor = ({ container }) => {
   );
 };
 
-export default Editor;
+export default RichEditor;

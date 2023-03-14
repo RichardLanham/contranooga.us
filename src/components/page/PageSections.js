@@ -45,7 +45,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import ReactDOMServer from "react-dom/server";
 import { theme } from "../../assets/theme";
 
-import Editor from "./Editor";
+import RichEditor from "./Editor";
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
   display: "flex",
@@ -160,7 +160,7 @@ export const FlexGroup = ({ section }) => {
                                     content={box.richtext}
                                   /> */}
                     {user ? (
-                      <Editor
+                      <RichEditor
                         container={{
                           content: group.richtext.richtext,
                           field: "richtext",
@@ -246,7 +246,7 @@ export const FlexGroup = ({ section }) => {
                             {box.richtext && (
                               <span>
                                 {user ? (
-                                  <Editor
+                                  <RichEditor
                                     container={{
                                       content: box.richtext,
                                       field: "richtext",
@@ -582,7 +582,7 @@ export const RichText = ({ section }) => {
   return (
     <StyledPageSection>
       {user ? (
-        <Editor
+        <RichEditor
           container={{
             content: section.content,
             field: "content",

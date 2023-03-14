@@ -1,0 +1,37 @@
+<!DOCTYPE html><!--
+	Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
+	This file is licensed under the terms of the MIT License (see LICENSE.md).
+-->
+
+<html lang="en" dir="ltr">
+	<body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
+		<main>
+			<div class="centered">
+				<div class="row row-editor">
+					<div class="editor-container">
+						<div class="editor">
+							<h1>Test</h1>
+						</div>
+					</div>
+				</div></div>
+			</div>
+		</main>
+	
+		<script src="../build/ckeditor.js"></script>
+		<script>ClassicEditor
+				.create( document.querySelector( '.editor' ), {
+					licenseKey: '',
+				} )
+				.then( editor => {
+					window.editor = editor;
+			
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+					console.warn( 'Build id: a9kwme610pph-b43dblqzq2uk' );
+					console.error( error );
+				} );
+		</script>
+	</body>
+</html>

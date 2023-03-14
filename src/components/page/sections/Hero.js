@@ -6,7 +6,7 @@ import GoogleMapApp from "../../../apps/GoogleMapApp";
 import { StyledPageSection, StyledHeading } from "../../../styles/PageStyles";
 import { getThumb, getLarge } from "../../../apps/functions";
 import { createMarkup } from "../../../apps/functions";
-import Editor from "../Editor";
+import RichEditor from "../Editor";
 const StyledHeroBox = styled("div")(({ theme }) => ({
   // ...theme.flexRows,
   // flexDirection: "row",
@@ -206,7 +206,7 @@ export const Hero = ({ section }) => {
           />
         )}
         {user ? (
-          <Editor
+          <RichEditor
             container={{
               content: section.text,
               field: "text",
