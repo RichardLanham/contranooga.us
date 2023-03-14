@@ -164,8 +164,8 @@ export const FlexGroup = ({ section }) => {
                         container={{
                           content: group.richtext.richtext,
                           field: "richtext",
-                          id: group.richtext.richtext.id,
-                          typename: group.richtext.richtext.__typename,
+                          id: group.richtext.id,
+                          typename: group.richtext.__typename,
                         }}
                       />
                     ) : null}

@@ -6,12 +6,17 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 
+import { eventEmitter } from "../../events.tsx";
+
 const RichEditor = ({ container }) => {
   // console.log(container);
-  const field = container.fields;
+  const field = container.field;
   const Id = container.id;
+  // console.log(Id);
+  // console.log(field);
   const content = container.content;
   const typename = container.typename;
+  // console.log(typename);
   // console.log(typename);
   const [data, setData] = useState("");
   const [url, setUrl] = useState(process.env.REACT_APP_SIDECAR_API);
@@ -30,13 +35,39 @@ const RichEditor = ({ container }) => {
     console.log(typename);
     switch (typename) {
       case "ComponentSectionsRichText": {
-        setUrl(process.env.REACT_APP_SIDECAR_API + "richtext");
+        setUrl(
+          process.env.REACT_APP_SIDECAR_API + "components_sections_rich_texts"
+        );
         break;
       }
       case "ComponentSectionsInputs": {
-        setUrl(process.env.REACT_APP_SIDECAR_API + "richtextInputs");
+        setUrl(process.env.REACT_APP_SIDECAR_API + "components_slices_inputs");
         break;
       }
+
+      // components_slices_large_videos richtext
+      // components_elements_gmaps richtext
+      // components_elements_ckeditors richtext
+
+      case "ComponentSectionsLargeVideo": {
+        setUrl(
+          process.env.REACT_APP_SIDECAR_API + "components_slices_large_videos"
+        );
+        break;
+      }
+
+      case "ComponentSectionsInputs": {
+        setUrl(process.env.REACT_APP_SIDECAR_API + "components_elements_gmaps");
+        break;
+      }
+
+      case "ComponentElementsCkeditor": {
+        setUrl(
+          process.env.REACT_APP_SIDECAR_API + "components_elements_ckeditors"
+        );
+        break;
+      }
+
       default: {
       }
     }
@@ -53,10 +84,16 @@ const RichEditor = ({ container }) => {
       <div
         style={{
           position: "absolute",
-          backgroundColor: theme.palette.background.default,
+          // height: "fit-content",
         }}
       >
-        <Button onClick={() => setShow((prev) => !prev)}>Edit</Button>
+        <Button
+          variant="outlined"
+          style={{ position: "relative", top: -30, left: -20 }}
+          onClick={() => setShow((prev) => !prev)}
+        >
+          Edit {field}
+        </Button>
       </div>
     );
   }
@@ -65,7 +102,7 @@ const RichEditor = ({ container }) => {
     const _put = Object.assign({}, put);
     _put.richtext.content = data;
     _put.richtext.richtext = data;
-    console.log(_put);
+    // console.log(_put);
     setPut(_put);
   };
 
@@ -101,20 +138,29 @@ const RichEditor = ({ container }) => {
       // redirect: "follow", // manual, *follow, error
       // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(_put), // body data type must match "Content-Type" header
+    }).then((res) => {
+      if (res.ok) {
+        // eventEmitter.dispatch("REQUERY", {});
+      }
     });
   };
 
+  // "Georgia, serif",
+  //     "Lucida Sans Unicode, Lucida Grande, sans-serif",
+  //     "Tahoma, Geneva, sans-serif",
+  //     "Times New Roman, Times, serif",
+  //     "Trebuchet MS, Helvetica, sans-serif",
+  //     "Verdana, Geneva, sans-serif",
   const fontFamilyConfig = {
     options: [
       "default",
+      "Roboto Mono",
+      "Roboto Condensed",
+      "Roboto Flex",
+      "Roboto Slab",
+      "Roboto Serif",
       "Arial, Helvetica, sans-serif",
       "Courier New, Courier, monospace",
-      "Georgia, serif",
-      "Lucida Sans Unicode, Lucida Grande, sans-serif",
-      "Tahoma, Geneva, sans-serif",
-      "Times New Roman, Times, serif",
-      "Trebuchet MS, Helvetica, sans-serif",
-      "Verdana, Geneva, sans-serif",
     ],
   };
 
@@ -137,6 +183,9 @@ const RichEditor = ({ container }) => {
       <CKEditor
         editor={Editor}
         data={content}
+        config={{
+          fontFamily: fontFamilyConfig,
+        }}
         // config={{
         //   // plugins: [Paragraph],
         //   toolbar: [
@@ -216,7 +265,7 @@ const RichEditor = ({ container }) => {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          // console.log({ event, editor, data });
           handleChange(data);
         }}
         onBlur={(event, editor) => {

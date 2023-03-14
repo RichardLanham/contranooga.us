@@ -294,6 +294,7 @@ export const GET_PAGE = gql`
               text {
                 id
                 content
+                richtext
                 __typename
               }
               googleMap {

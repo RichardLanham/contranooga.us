@@ -194,6 +194,9 @@ export const Hero = ({ section }) => {
         {section.button && <HeroButton section={section} />}
       </div>
       <StyledHeroBox>
+        <pre style={{ display: "none" }}>
+          {JSON.stringify(section, null, 3)}
+        </pre>
         {thumb && (
           <StyledCardImage
             onClick={(e) =>
@@ -208,10 +211,10 @@ export const Hero = ({ section }) => {
         {user ? (
           <RichEditor
             container={{
-              content: section.text,
-              field: "text",
-              id: section.id,
-              typename: section.__typename,
+              content: section.text?.content,
+              field: "richtext",
+              id: section.text?.id,
+              typename: section.text?.__typename,
             }}
           />
         ) : null}
