@@ -1351,6 +1351,7 @@ const Color = (props) => {
               <FormLabel>Fonts</FormLabel>
               <Select value={font} onChange={(e) => handleFontChange(e)}>
                 <MenuItem value="Roboto">Roboto</MenuItem>
+                <MenuItem value="Anton">Anton</MenuItem>
                 <MenuItem value="'Roboto Serif', serif">Roboto Serif</MenuItem>
                 <MenuItem value="'Roboto Flex', 'Helvetica','Arial', sans-serif">
                   Roboto Flex

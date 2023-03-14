@@ -159,6 +159,7 @@ const RichEditor = ({ container }) => {
       "Roboto Flex",
       "Roboto Slab",
       "Roboto Serif",
+      "Anton",
       "Arial, Helvetica, sans-serif",
       "Courier New, Courier, monospace",
     ],
