@@ -71,7 +71,7 @@ const SiteTopBar = () => {
     },
   }));
 
-  const bgTop = require("../assets/bgimages/oldbg.png");
+  const bgTop = require("../assets/bgimages/oldbg.webp");
 
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     height: 180,

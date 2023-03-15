@@ -73,26 +73,6 @@ const Site = (props) => {
 
   const StyledSiteDiv = styled("div")(({ theme }) => ({}));
 
-  const bgImage = require("./assets/bgimages/collage_float_left1.png");
-  const StyledFloatImg = styled("div")(({ theme }) => ({
-    backgroundImage: `url(${bgImage})`,
-    backgroundPosition: "center",
-    zIndex: 0,
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "14vw",
-    borderRadius: 15,
-    height: 1000,
-
-    [theme.breakpoints.down("lg")]: {
-      width: "5vw",
-      opacity: ".35",
-    },
-    [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {},
-  }));
-
   return (
     <HelmetProvider title={title}>
       <CssBaseline />

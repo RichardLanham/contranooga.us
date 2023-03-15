@@ -45,30 +45,7 @@ const Footer = () => {
     },
   }));
 
-  const bgTop = require("../assets/bgimages/oldbg.png");
-
-  const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    height: 180,
-    backgroundImage: `url(${bgTop})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    // whiteSpace: "nowrap",
-    flexWrap: "wrap",
-    width: "100%",
-    margin: "auto",
-    justifyContent: "top",
-    alignItems: "top",
-    //marginTop: 10,
-    [theme.breakpoints.down("md")]: {
-      backgroundSize: "100% 18vh",
-      height: 120,
-    },
-    [theme.breakpoints.down("sm")]: {
-      //   display: theme.menuPosition === "side" ? "none" : "block",
-      backgroundSize: "100% 8vh",
-      // height: 120,
-    },
-  }));
+  // const bgTop = require("../assets/bgimages/oldbg.png");
 
   const StyledLogo = styled("div")(({ theme }) => ({
     maxWidth: "10vw",

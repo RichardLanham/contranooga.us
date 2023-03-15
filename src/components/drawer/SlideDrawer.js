@@ -8,7 +8,7 @@ const slideDrawer = (props) => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-  const bgImage = require("../../assets/bgimages/burgerbg.png");
+  const bgImage = require("../../assets/bgimages/burgerbg.webp");
   // console.log(bgImage);
   return (
     <div
