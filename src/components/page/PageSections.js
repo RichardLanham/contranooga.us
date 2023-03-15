@@ -1,18 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import {
-  Box,
-  Card,
-  Button,
-  Input,
-  IconButton,
-  MenuItem,
-  Zoom,
-} from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Box, Card, Button, Input, IconButton, Zoom } from "@mui/material";
+
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-// import FaceBookPlayer from "../../apps/FaceBookPlayer";
 
 import GoogleMapApp from "../../apps/GoogleMapApp";
 
@@ -20,12 +11,9 @@ import { GET_PAGE } from "../../gql/site";
 
 import {
   StyledSubHead,
-  // StyledPage,
   StyledPageSection,
   StyledHeading,
   StyledBody1,
-  // StyledColumns,
-  // StyledColumn,
   StyledImgGroup,
   StyledImg,
   StyledImgCaption,
@@ -46,6 +34,8 @@ import ReactDOMServer from "react-dom/server";
 import { theme } from "../../assets/theme";
 
 import RichEditor from "./Editor";
+
+import PanToolAltTwoToneIcon from "@mui/icons-material/PanToolAltTwoTone";
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
   display: "flex",
@@ -496,27 +486,42 @@ export const LeadForm = ({ section }) => {
       </StyledWrap>
     );
   }
-  const hand = require("../../assets/hand.png");
+  // const hand = require("../../assets/hand.png");
   return (
-    <div style={{ position: "relative", marginTop: 20, marginBottom: 30 }}>
-      <div
+    <div
+      style={{
+        position: "relative",
+        marginTop: 20,
+        marginBottom: 30,
+        width: 300,
+      }}
+    >
+      <IconButton
         style={{
           position: "absolute",
-          left: -10,
-          top: 0,
-          display: "inline",
-          zIndex: 10,
+          left: -18,
+          top: -15,
+          // display: "inline",
+          zIndex: theme.zIndex.fab,
+          // width: 35,
+          // height: 35,
+          backgroundColor: theme.palette.info.main,
+          color: theme.palette.info.contrastText,
+          transform: "rotate(-0.70turn)",
         }}
       >
-        <img
+        <PanToolAltTwoToneIcon />
+      </IconButton>
+
+      {/* <img
           src={hand}
           style={{
             width: 35,
             height: 35,
             transform: "rotate(-0.25turn)",
           }}
-        />
-      </div>
+        /> */}
+
       {section.submitButton ? (
         <Button
           onClick={() => setOpen("form")}
