@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import Editor from "ckeditor5-custom-build/build/ckeditor";
@@ -87,13 +88,13 @@ const RichEditor = ({ container }) => {
           // height: "fit-content",
         }}
       >
-        <Button
-          variant="outlined"
+        <IconButton
+          variant="contained"
           style={{ position: "relative", top: -30, left: -20 }}
           onClick={() => setShow((prev) => !prev)}
         >
-          Edit {field}
-        </Button>
+          <EditOutlinedIcon />
+        </IconButton>
       </div>
     );
   }
@@ -159,6 +160,8 @@ const RichEditor = ({ container }) => {
       "Roboto Flex",
       "Roboto Slab",
       "Roboto Serif",
+      "Rampart One",
+      "Titan One",
       "Anton",
       "Arial, Helvetica, sans-serif",
       "Courier New, Courier, monospace",

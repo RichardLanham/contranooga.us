@@ -101,8 +101,32 @@ const ThemeInspector = () => {
     document.execCommand("copy");
   };
 
+  const [showraw, setShowraw] = useState("none");
+
+  const ThemeRaw = () => {
+    return (
+      <div
+        style={{
+          display: showraw,
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <div>
+          <textarea
+            rows="50"
+            style={{ width: "100%", height: "100%" }}
+            value={JSON.stringify(theme, null, 3)}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <StyledColorSections>
+    <StyledColorSections style={{ position: "relative" }}>
+      <ThemeRaw />
       <button
         style={{
           position: "absolute",
@@ -119,6 +143,7 @@ const ThemeInspector = () => {
         <div style={{ position: "relative" }}>
           <Button onClick={copyPre}>copyPalette</Button>
           <Button onClick={copyColorModeCopy}>copyColor</Button>
+          <Button onClick={() => setShowraw("block")}>Edit Raw</Button>
           <textarea
             readOnly={true}
             style={{

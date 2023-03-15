@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=EB+Garamond:ital@1&family=Roboto&family=Roboto+Condensed&family=Roboto+Flex:opsz@8..144&family=Roboto+Mono&family=Roboto+Serif:opsz@8..144&family=Roboto+Slab&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@100&family=Rampart+One&family=Source+Sans+Pro&family=Titan+One&display=swap");
 
 ListItemButton {
   box-shadow: inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5),

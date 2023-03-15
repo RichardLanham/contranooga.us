@@ -1363,6 +1363,9 @@ const Color = (props) => {
                 <MenuItem value="'Roboto Mono', 'Helvetica','Arial', sans-serif">
                   Roboto Mono
                 </MenuItem>
+                <MenuItem value="'Source Sans Pro variant0', Tofu">
+                  Source Sans Pro
+                </MenuItem>
                 <MenuItem value="'EB Garamond', serif">EB Garamond</MenuItem>
                 <MenuItem value="'Cormorant Garamond', serif">
                   Cormorant Garamond
