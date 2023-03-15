@@ -4,23 +4,16 @@ import { getThumb, createMarkup } from "../../../apps/functions";
 import { Button } from "@mui/material";
 import GoogleMapApp from "../../../apps/GoogleMapApp";
 import LargeVideo from "./LargeVideo";
+
 import RichEditor from "../Editor";
 
-import { useSearchParams } from "react-router-dom";
-
 const Tabs = ({ section }) => {
-  const [searchParams] = useSearchParams();
-
-  // const [tab] = useState(searchParams.get("tab"));
-
-  //console.log(tab);
-
   const [show, setShow] = useState("none");
 
   const theme = useTheme();
   const [slug, setSlug] = useState("");
 
-  const [_tab, setTab] = useState(useState(searchParams.get("tab")) || "home");
+  const [_tab, setTab] = useState("home");
 
   const showTab = (event) => {
     console.log(event.currentTarget.name);
@@ -155,13 +148,6 @@ const Tabs = ({ section }) => {
   const TabContent = ({ slug, inputs }) => {
     const [user, setUser] = useState(null);
     useEffect(() => {
-      //  setTab(tab); // figure this out someday...
-      // window.history.replaceState(
-      //   {},
-      //   "",
-      //   window.location.origin + window.location.pathname
-      // );
-      // window.location.replace(window.location.href);
       setUser(window.localStorage.getItem("strapi_user") ? true : false);
     }, []);
     // {user ? <Editor content={section.content} /> : null}
