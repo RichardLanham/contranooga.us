@@ -7,7 +7,9 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 
-import { eventEmitter } from "../../events.tsx";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 
 const RichEditor = ({ container }) => {
   // console.log(container);
@@ -19,7 +21,8 @@ const RichEditor = ({ container }) => {
   const typename = container.typename;
   // console.log(typename);
   // console.log(typename);
-  const [data, setData] = useState("");
+  // const [data, setData] = useState("");
+  const [dirty, setDirty] = useState(false);
   const [url, setUrl] = useState(process.env.REACT_APP_SIDECAR_API);
   const [put, setPut] = useState({
     richtext: {
@@ -88,13 +91,19 @@ const RichEditor = ({ container }) => {
           // height: "fit-content",
         }}
       >
-        <IconButton
-          variant="contained"
-          style={{ position: "relative", top: -30, left: -20 }}
+        <Fab
+          // variant="contained"
+          style={{
+            position: "relative",
+            top: -25,
+            left: -20,
+            width: 40,
+            height: "auto",
+          }}
           onClick={() => setShow((prev) => !prev)}
         >
-          <EditOutlinedIcon />
-        </IconButton>
+          <EditIcon />
+        </Fab>
       </div>
     );
   }
@@ -104,10 +113,27 @@ const RichEditor = ({ container }) => {
     _put.richtext.content = data;
     _put.richtext.richtext = data;
     // console.log(_put);
+    setDirty(true);
     setPut(_put);
   };
 
+  const handleKeys = (e) => {
+    // console.log(e.keyCode);
+  };
+
+  function KeyPress(e) {
+    // console.log(e.ctrlKey);
+    if (e.keyCode === 83 && e.ctrlKey) {
+      console.log("Ctrl+z");
+      handleUpdate();
+    }
+  }
+
   const handleUpdate = async () => {
+    if (!dirty) {
+      return;
+    }
+
     // console.log(JSON.stringify(put));
     // log
 
@@ -170,6 +196,8 @@ const RichEditor = ({ container }) => {
 
   return (
     <div
+      onKeyDown={handleKeys}
+      onKeyUp={KeyPress}
       style={{
         position: "absolute",
         backgroundColor: theme.palette.background.default,
