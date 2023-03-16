@@ -68,17 +68,6 @@ const AppRoutes = () => {
       counter = 1;
     }
   };
-  useEffect(() => {
-    // document.body.style.backgroundImage =
-    //   "url('/images/bgimages/bg" +
-    //   Math.round(Math.random() * (14 - 1) + 1) +
-    //   ".png')";
-    // document.body.style.transition = "all 2s";
-    // const bgInterval = setInterval(switchBg, 10000);
-    // return () => {
-    //   clearInterval(bgInterval);
-    // };
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -88,6 +77,10 @@ const AppRoutes = () => {
             <Route path="/" exact element={<Home />} />
             <Route
               path="/page/ctdscalendar"
+              element={<Calendar client={client} />}
+            />
+            <Route
+              path="/ctdscalendar"
               element={<Calendar client={client} />}
             />
             <Route path="/page/:slug" element={<Page _slug="" />} />
