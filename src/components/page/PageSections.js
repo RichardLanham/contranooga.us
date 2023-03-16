@@ -36,6 +36,7 @@ import { theme } from "../../assets/theme";
 import RichEditor from "./Editor";
 
 import PanToolAltTwoToneIcon from "@mui/icons-material/PanToolAltTwoTone";
+import Fab from "@mui/material/Fab";
 
 const StyledFlexBox = styled("div")(({ theme }) => ({
   display: "flex",
@@ -496,22 +497,24 @@ export const LeadForm = ({ section }) => {
         width: 300,
       }}
     >
-      <IconButton
-        style={{
-          position: "absolute",
-          left: -18,
-          top: -15,
-          // display: "inline",
-          zIndex: theme.zIndex.fab,
-          // width: 35,
-          // height: 35,
-          backgroundColor: theme.palette.info.main,
-          color: theme.palette.info.contrastText,
-          transform: "rotate(-0.70turn)",
-        }}
-      >
-        <PanToolAltTwoToneIcon />
-      </IconButton>
+      <Zoom in={true}>
+        <Fab
+          style={{
+            position: "absolute",
+            left: -18,
+            top: -15,
+            // display: "inline",
+            zIndex: theme.zIndex.fab,
+            width: 35,
+            height: 35,
+            backgroundColor: theme.palette.info.main,
+            color: theme.palette.info.contrastText,
+            transform: "rotate(-0.70turn)",
+          }}
+        >
+          <PanToolAltTwoToneIcon />
+        </Fab>
+      </Zoom>
 
       {/* <img
           src={hand}

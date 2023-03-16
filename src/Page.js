@@ -185,12 +185,12 @@ function Page({ _slug }) {
       <Site title="CDTS" description="loading...">
         <StyledPage>
           <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
-          <StyledHeader>loading data...</StyledHeader>
+          <StyledHeader>loading</StyledHeader>
           <DownloadingIcon
             style={{
               margin: "auto",
-              width: "50%",
-              maxWidth: 150,
+              width: "20%",
+              maxWidth: 40,
               height: "auto",
             }}
           />

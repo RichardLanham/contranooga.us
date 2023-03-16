@@ -99,6 +99,8 @@ const RichEditor = ({ container }) => {
             left: -20,
             width: 40,
             height: "auto",
+            backgroundColor: theme.palette.info.main,
+            color: theme.palette.info.contrastText,
           }}
           onClick={() => setShow((prev) => !prev)}
         >
