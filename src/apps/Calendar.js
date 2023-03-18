@@ -227,6 +227,7 @@ const Calendar = (props) => {
         events={arrayEvents}
         startAccessor="start"
         endAccessor="end"
+        length={365}
         // value={calDate}
         //date={calDate}
         onNavigate={(event) => {
