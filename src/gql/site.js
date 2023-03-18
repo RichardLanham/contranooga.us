@@ -32,6 +32,9 @@ export const GET_PAGE = gql`
     title
     description
     label
+    text {
+      content
+    }
     picture {
       ...FileParts
     }
