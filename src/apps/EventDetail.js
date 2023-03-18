@@ -9,18 +9,23 @@ import {
   // MenuItem,
   // TextareaAutosize,
   // Zoom,
+  ClickAwayListener,
 } from "@mui/material";
 
 import { useTheme, styled } from "@mui/material/styles";
 
-const EventDetail = (props) => {
+import { createMarkup } from "../apps/functions";
+
+const EventDetail = ({ currentEvent }) => {
   //   console.log(props);
   const theme = useTheme();
-  const [current] = useState(props.currentEvent);
+  const [current] = useState(currentEvent);
   const [showDetails, setShowDetails] = useState(false);
+
   const toggleDetails = () => {
     setShowDetails((prev) => !prev);
   };
+
   const handleClick = () => {
     console.log(current);
     setShowDetails((prev) => !prev);
@@ -32,10 +37,10 @@ const EventDetail = (props) => {
         style={{
           position: "absolute",
           display: showDetails ? "none" : "inline",
+          marginLeft: 10,
         }}
       >
         <Button
-          variant="outlined"
           style={{
             ...theme.typography.body2,
             textTransform: "none",
@@ -44,17 +49,33 @@ const EventDetail = (props) => {
           }}
           onClick={handleClick}
         >
-          details ...
+          <span
+            className="dangerMarkup"
+            dangerouslySetInnerHTML={createMarkup(current.body)}
+          ></span>
+          <span
+            style={{
+              ...theme.typography.caption,
+              backgroundColor: theme.palette.info.main,
+              color: theme.palette.info.contrastText,
+              marginLeft: 5,
+              borderRadius: 5,
+            }}
+          >
+            &nbsp;more...
+          </span>
         </Button>
       </div>
     );
   }
 
   return (
-    <div style={{ postion: "absolute", display: "inline" }}>
-      <Button onClick={handleClick}>close</Button>
-      <pre>{JSON.stringify(current, null, 3)}</pre>
-    </div>
+    <ClickAwayListener onClickAway={() => setShowDetails(false)}>
+      <div style={{ postion: "absolute", display: "inline" }}>
+        <Button onClick={handleClick}>close</Button>
+        <pre>{JSON.stringify(current, null, 3)}</pre>
+      </div>
+    </ClickAwayListener>
   );
 };
 

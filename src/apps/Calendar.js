@@ -328,19 +328,6 @@ const Calendar = (props) => {
                         {event.title}
                       </font>
 
-                      <font
-                        style={{
-                          ...theme.typography.body2,
-                          color: theme.palette.common.black,
-                          marginLeft: 5,
-                          // backgroundColor: theme.palette.primary.main,
-                        }}
-                      >
-                        <span
-                          className="dangerMarkup"
-                          dangerouslySetInnerHTML={createMarkup(event.body)}
-                        ></span>
-                      </font>
                       <EventDetail currentEvent={event} />
                     </div>
                   )}
