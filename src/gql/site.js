@@ -27,6 +27,32 @@ export const GET_FILES = gql`
   }
 `;
 export const GET_PAGE = gql`
+  fragment HeroParts on ComponentSectionsHero {
+    id
+    title
+    description
+    label
+    picture {
+      ...FileParts
+    }
+    googleMap {
+      ...GMapParts
+    }
+    button {
+      id
+      slug
+      urlIsLocal
+      type
+      text
+      type
+      newTab
+      image {
+        ...FileParts
+      }
+    }
+    __typename
+  }
+
   fragment FileParts on UploadFileEntityResponse {
     data {
       id
@@ -90,12 +116,6 @@ export const GET_PAGE = gql`
     __typename
   }
 
-  # query GetPagex() {
-
-  # } data {
-  #   id
-  # }
-
   query GetPages(
     $slug: String!
     $publicationState: PublicationState!
@@ -136,33 +156,13 @@ export const GET_PAGE = gql`
               url
               poster {
                 ...FileParts
+                __typename
               }
               richtext
               hero {
-                id
-                title
-                label
-                description
-                text {
-                  id
-                  content
-                }
-                picture {
-                  ...FileParts
-                }
-                button {
-                  id
-                  text
-                  type
-                  newTab
-                  slug
-                  url
-                  urlIsLocal
-                  image {
-                    ...FileParts
-                  }
-                }
+                ...HeroParts
               }
+              __typename
             }
             ... on ComponentSectionsTabs {
               id
@@ -256,17 +256,9 @@ export const GET_PAGE = gql`
               group {
                 id
                 groupTitle
-                richtext {
-                  id
-                  richtext
-                  __typename
-                }
+
                 logo {
                   ...FileParts
-                  __typename
-                }
-                googleMap {
-                  ...GMapParts
                   __typename
                 }
                 box {
@@ -279,6 +271,9 @@ export const GET_PAGE = gql`
                     __typename
                   }
                   richtext
+                  hero {
+                    ...HeroParts
+                  }
                   urlType
                   __typename
                 }
@@ -287,39 +282,7 @@ export const GET_PAGE = gql`
               __typename
             }
             ... on ComponentSectionsHero {
-              id
-              title
-              label
-              description
-              text {
-                id
-                content
-                richtext
-                __typename
-              }
-              googleMap {
-                ...GMapParts
-                __typename
-              }
-              button {
-                id
-                newTab
-                slug
-                text
-                type
-                url
-                urlIsLocal
-                image {
-                  ...FileParts
-                  __typename
-                }
-                __typename
-              }
-              picture {
-                ...FileParts
-                __typename
-              }
-              __typename
+              ...HeroParts
             }
             ... on ComponentSectionsLargeVideo {
               id
@@ -382,7 +345,7 @@ export const GET_PAGE = gql`
       }
       __typename
     }
-  } # Write your query or mutation here
+  }
 `;
 
 export const GET_PAGES_SHORT = gql`
@@ -459,6 +422,7 @@ export const GET_PAGES = gql`
             ... on ComponentSectionsRichText {
               id
               content
+              __typename
             }
             ... on ComponentSectionsFeatureColumnsGroup {
               id

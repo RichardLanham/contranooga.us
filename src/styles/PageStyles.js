@@ -12,8 +12,8 @@ export const StyledSiteName = styled("div")(({ theme }) => ({
   marginTop: 60,
   borderRadius: 5,
   padding: 3,
-  backgroundColor: theme.palette.primary.dark,
-  color: theme.palette.primary.contrastDark,
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
   [theme.breakpoints.down("xl")]: {
     fontSize: "3vw",
   },

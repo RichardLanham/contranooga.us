@@ -196,6 +196,11 @@ const RichEditor = ({ container }) => {
     ],
   };
 
+  const config = {
+    fontFamily: fontFamilyConfig,
+    allowedContent: true,
+  };
+
   return (
     <div
       onKeyDown={handleKeys}
@@ -217,9 +222,11 @@ const RichEditor = ({ container }) => {
       <CKEditor
         editor={Editor}
         data={content}
-        config={{
-          fontFamily: fontFamilyConfig,
-        }}
+        allowedContent={true}
+        // editorConfig={(config) => {
+        //   config.allowedContent = true;
+        // }}
+        config={config}
         // config={{
         //   // plugins: [Paragraph],
         //   toolbar: [
@@ -295,7 +302,8 @@ const RichEditor = ({ container }) => {
         // }}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
-          console.log("Editor is ready to use!", editor);
+          // console.log("Editor is ready to use!", editor);
+          // console.log(editor.filter.allowedContent);
         }}
         onChange={(event, editor) => {
           const data = editor.getData();

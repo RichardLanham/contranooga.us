@@ -449,7 +449,6 @@ const Calendar = (props) => {
         <SiteHeader metaTitle="Upcoming Events" />
 
         <EventCalendar />
-        <EventList key="evenlist" />
       </StyledPage>
     </Site>
   );
