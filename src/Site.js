@@ -82,14 +82,14 @@ const Site = (props) => {
           rel="icon"
           href={
             process.env.REACT_APP_STRAPI +
-            theme.global.favicon.data.attributes.formats.thumbnail.url
+            theme?.global?.favicon?.data?.attributes?.formats?.thumbnail.url
           }
         />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="theme-color" content={theme.palette.primary.main} />
         <meta
           name="description"
-          content={theme.global.metadata.metaDescription}
+          content={theme?.global?.metadata?.metaDescription}
         />
         <link rel="canonical" href="https://contranooga.us/" />
       </Helmet>
