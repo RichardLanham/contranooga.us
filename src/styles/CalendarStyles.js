@@ -67,7 +67,7 @@ export const StyledImg = styled("img")(({ theme }) => ({
 }));
 
 export const StyledFormContainer = styled("div")(({ theme }) => ({
-  position: "absolute",
+  position: "relative",
   width: "80vw",
   //minHeight: 300,
   border: `4px solid ${theme.palette.primary.dark}`,

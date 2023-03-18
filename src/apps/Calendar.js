@@ -377,8 +377,6 @@ const Calendar = (props) => {
                         .replace(new Date().getFullYear(), "")
                         .replace("/ ", " ")}
                     </FormLabel>
-
-                    <EventForm events={events.data.data} />
                   </div>
                 </div>
               );
@@ -395,6 +393,7 @@ const Calendar = (props) => {
         <SiteHeader metaTitle="Upcoming Events" />
 
         <EventCalendar />
+        <EventForm events={events.data.data} />
       </StyledPage>
     </Site>
   );
