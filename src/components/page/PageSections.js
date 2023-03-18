@@ -40,8 +40,6 @@ import Fab from "@mui/material/Fab";
 
 import FlexGroup from "./FlexGroup";
 
-<FlexGroup />;
-
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",
   backgroundColor: theme.palette.background.default,
