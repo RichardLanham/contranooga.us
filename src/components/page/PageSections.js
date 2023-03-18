@@ -40,7 +40,7 @@ import Fab from "@mui/material/Fab";
 
 import FlexGroup from "./FlexGroup";
 
-<flexGroup />;
+<FlexGroup />;
 
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",
