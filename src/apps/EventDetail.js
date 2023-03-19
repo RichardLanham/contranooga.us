@@ -38,6 +38,8 @@ const EventDetail = ({ currentEvent }) => {
           position: "absolute",
           display: showDetails ? "none" : "inline",
           marginLeft: 10,
+          //height: 50,
+          //   whiteSpace: "nowrap",
         }}
       >
         <Button
@@ -49,21 +51,7 @@ const EventDetail = ({ currentEvent }) => {
           }}
           onClick={handleClick}
         >
-          <span
-            className="dangerMarkup"
-            dangerouslySetInnerHTML={createMarkup(current.body)}
-          ></span>
-          <span
-            style={{
-              ...theme.typography.caption,
-              backgroundColor: theme.palette.info.main,
-              color: theme.palette.info.contrastText,
-              marginLeft: 5,
-              borderRadius: 5,
-            }}
-          >
-            &nbsp;more...
-          </span>
+          {current.title}
         </Button>
       </div>
     );

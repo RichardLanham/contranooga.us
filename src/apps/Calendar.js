@@ -21,6 +21,8 @@ import EventDetail from "./EventDetail";
 
 import { createMarkup } from "../apps/functions";
 
+// import agenda from "./customAgendaView";
+
 require("./calendar.css");
 
 const localizer = momentLocalizer(moment);
@@ -177,6 +179,18 @@ const Calendar = (props) => {
     setSuns(sats_);
   };
 
+  const StyledCalendarCell = styled("div")(({ theme }) => ({
+    // width: "35%",
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {
+      ...theme.typography.body1,
+      width: "80%",
+      minHeight: 100,
+      height: "fit-content",
+    },
+    [theme.breakpoints.down("sm")]: { maxWidth: 150 },
+  }));
+
   const EventCalendar = () => {
     const [searchParams] = useSearchParams();
     const start = searchParams.get("start");
@@ -227,6 +241,14 @@ const Calendar = (props) => {
           // date={start === "" ? null : start}
 
           defaultView="agenda"
+          // views={
+          //   {
+          //     // week: true,
+          //     // month: true,
+          //     // day: true,
+          //     // agenda: <div>test</div>,
+          //   }
+          // }
           localizer={localizer}
           events={arrayEvents}
           startAccessor="start"
@@ -242,15 +264,17 @@ const Calendar = (props) => {
               return (
                 <div
                   style={{
+                    border: "2px solid purple",
                     borderRadius: 3,
                     backgroundColor: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200],
                     color: future ? theme.palette.primary.contrastText : "#000", // greyed
-                    padding: 2,
+                    padding: 0,
+                    margin: 0,
                   }}
                 >
-                  <Typography>{label}</Typography>
+                  <div>{label}</div>
                 </div>
               );
             },
@@ -270,69 +294,27 @@ const Calendar = (props) => {
               return (
                 <div
                   style={{
-                    //`maxWidth: "60%",
+                    maxWidth: 70,
                     //overflow: "hidden",
+                    // border: "1px solid yellow",
                     borderRadius: 3,
                     backgroundColor: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200], //the past is
                     color: future ? theme.palette.primary.contrastText : "#000", // greyed
-                    padding: 2,
+                    padding: 0,
+                    margin: 0,
                   }}
                 >
-                  <Typography>{from_}</Typography>
-                  <Typography>{to_}</Typography>
+                  <div>{from_}</div>
+                  <div style={{ display: "none" }}>{to_}</div>
                 </div>
               );
             },
             event: ({ event }) => {
               const future = new Date(event.end) >= new Date();
               let title = (" " + event.title).slice(1); // by val
-              return (
-                <StyledEventColumn
-                  title={event.title}
-                  style={{
-                    borderColor: future
-                      ? theme.palette.primary.main
-                      : theme.palette.background.default, //the past is
-                    color: future ? theme.palette.info.contrastLight : "#000", // greyed
-                  }}
-                >
-                  {event.title === saturdayLabel ? (
-                    <Link
-                      style={{
-                        display: "none",
-                        ...theme.typography.body1,
-                        textDecoration: "none",
-                        // fontWeight: "bold",
-                        // color: "#000666",
-                        whiteSpace: "nowrap",
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.primary.contrastText,
-                      }}
-                      to="/page/beginners"
-                    >
-                      {event.title}
-                    </Link>
-                  ) : (
-                    <div style={{ position: "relative" }}>
-                      <font
-                        style={{
-                          ...theme.typography.h6,
-                          backgroundColor: theme.palette.secondary.main,
-                          color: theme.palette.secondary.contrastText,
-
-                          textDecoration: "none",
-                        }}
-                      >
-                        {event.title}
-                      </font>
-
-                      <EventDetail currentEvent={event} />
-                    </div>
-                  )}
-                </StyledEventColumn>
-              );
+              return <EventDetail currentEvent={event} />;
             },
 
             toolbar: (props) => {
@@ -349,23 +331,7 @@ const Calendar = (props) => {
                     marginTop: 20,
                     marginBottom: 10,
                   }}
-                >
-                  <div style={{ display: "flex", gap: 10, width: "100%" }}>
-                    <FormLabel
-                      style={{
-                        ...theme.typography.h5,
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.primary.contrastText,
-                        padding: 3,
-                        borderRadius: 10,
-                      }}
-                    >
-                      {label
-                        .replace(new Date().getFullYear(), "")
-                        .replace("/ ", " ")}
-                    </FormLabel>
-                  </div>
-                </div>
+                ></div>
               );
             },
           }}

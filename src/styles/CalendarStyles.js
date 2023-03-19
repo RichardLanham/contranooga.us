@@ -10,14 +10,21 @@ import { useTheme } from "@mui/material/styles";
 export const StyledEventList = styled("div")(({ theme }) => ({
   width: "100%",
 }));
+
 export const StyledCalendar = styled(Calendar)(({ theme }) => ({
+  ...theme.flexRows,
+  position: "relative",
+  gap: 0,
   width: "100%",
   marginBottom: 25,
+  // ...theme.flexRows,
+  border: "2px solid green",
 }));
 
 export const StyledEventColumn = styled("div")(({ theme }) => ({
   padding: 2,
   margin: 0,
+  border: "3px dotted red",
 }));
 
 export const StyledCard = styled("div")(({ theme }) => ({
