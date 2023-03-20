@@ -112,23 +112,17 @@ export const StyledEventTypography = styled(Typography)(
     },
   })
 );
-export const StyledEventButton = styled("a")(({ theme }) => ({
-  ...theme.typography.h6,
-  color: theme.palette.info.contrastText,
-  backgroundColor: theme.palette.info.main,
-
+export const StyledEventButton = styled(Button)(({ theme }) => ({
+  cursor: "pointer",
+  minHeight: 40,
+  marginBottom: 25,
+  textTransform: "none",
+  backgroundColor: theme.palette.primary.contrastText,
+  boxShadow: theme.shadows[3],
   textTransform: "none",
   "&:hover": {
-    backgroundColor: theme.palette.info.dark,
-    color: theme.palette.info.contrastLight,
+    border: "1px solid",
+    borderColor: theme.palette.primary.dark,
+    boxShadow: theme.shadows[8],
   },
-  "&:visited": {
-    color: "theme.palette.info.contrastText",
-    backgroundColor: theme.palette.info.main,
-  },
-  "&:active": {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.contrastLight,
-  },
-  [theme.breakpoints.down("md")]: {},
 }));

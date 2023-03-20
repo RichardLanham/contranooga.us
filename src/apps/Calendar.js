@@ -6,7 +6,11 @@ import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { StyledCalendar } from "../styles/CalendarStyles";
+import {
+  StyledCalendar,
+  StyledEventButton,
+  StyleEventButton,
+} from "../styles/CalendarStyles";
 import { StyledPage } from "../styles/PageStyles";
 import Site from "../Site";
 import { eventEmitter } from "../events.tsx";
@@ -238,25 +242,18 @@ const Calendar = (props) => {
               console.log(current.id);
               return (
                 <div>
-                  <Button
-                    variant="text"
+                  <StyledEventButton
                     title="click for details"
                     onClick={() => handleClick({ event })}
                     style={{
-                      cursor: "pointer",
-                      minHeight: 40,
-                      marginBottom: 25,
-                      textTransform: "none",
-                      backgroundColor: theme.palette.primary.contrastText,
-                      // color: theme.palette.primary.main,
                       backgroundColor:
                         current.id == event.id
                           ? theme.palette.primary.main
-                          : theme.palette.primary.contrastText,
+                          : "unset",
                       color:
                         current.id == event.id
                           ? theme.palette.primary.contrastText
-                          : theme.palette.primary.main,
+                          : "unset",
                     }}
                   >
                     {event.title}
@@ -268,7 +265,7 @@ const Calendar = (props) => {
                     >
                       &nbsp;info...
                     </span>
-                  </Button>
+                  </StyledEventButton>
                 </div>
               );
             },
