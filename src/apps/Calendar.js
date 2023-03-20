@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { FormLabel, Button, IconButton, Typography } from "@mui/material";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { Button, Zoom } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
@@ -10,16 +10,18 @@ import { StyledCalendar, StyledEventColumn } from "../styles/CalendarStyles";
 import { StyledPage } from "../styles/PageStyles";
 import Site from "../Site";
 import { eventEmitter } from "../events.tsx";
-import EventList from "../components/calendar/EventList";
+// import EventList from "../components/calendar/EventList";
 
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+// import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+// import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 import SiteHeader from "../components/page/PageHeader";
 import EventForm from "../components/calendar/EventForm";
-import EventDetail from "./EventDetail";
+// import EventDetail from "./EventDetail";
 
-import { createMarkup } from "../apps/functions";
+// import CustomAgenda from "./CustomAgenda";
+
+// import { createMarkup } from "../apps/functions";
 
 // import agenda from "./customAgendaView";
 
@@ -179,17 +181,17 @@ const Calendar = (props) => {
     setSuns(sats_);
   };
 
-  const StyledCalendarCell = styled("div")(({ theme }) => ({
-    // width: "35%",
-    [theme.breakpoints.down("lg")]: {},
-    [theme.breakpoints.down("md")]: {
-      ...theme.typography.body1,
-      width: "80%",
-      minHeight: 100,
-      height: "fit-content",
-    },
-    [theme.breakpoints.down("sm")]: { maxWidth: 150 },
-  }));
+  // const StyledCalendarCell = styled("div")(({ theme }) => ({
+  //   // width: "35%",
+  //   [theme.breakpoints.down("lg")]: {},
+  //   [theme.breakpoints.down("md")]: {
+  //     ...theme.typography.body1,
+  //     width: "80%",
+  //     minHeight: 100,
+  //     height: "fit-content",
+  //   },
+  //   [theme.breakpoints.down("sm")]: { maxWidth: 150 },
+  // }));
 
   const EventCalendar = () => {
     const [searchParams] = useSearchParams();
@@ -235,36 +237,78 @@ const Calendar = (props) => {
       DATE: "DATE",
     };
 
+    const [current, setCurrent] = useState({ empty: true });
+
+    const [showDetail, setShowDetail] = useState(false);
+
+    // const toggleDetails = () => {
+    //   setShowDetails((prev) => !prev);
+    // };
+
+    const handleClick = (c) => {
+      console.log(c);
+      const cur = Object.assign({}, current);
+      cur.Test = "test";
+      setCurrent(c);
+      setShowDetail((prev) => !prev);
+    };
+
+    const StyledCard = styled("div")(({ theme }) => ({
+      zIndex: theme.zIndex.tooltip,
+      position: "fixed",
+      left: 50,
+      width: 600,
+      // top: 0,
+      // border: "1px solid red",
+      // left: -100,
+      zIndex: 5000,
+      backgroundColor: theme.palette.background.default,
+      // display: "inline",
+      [theme.breakpoints.down("xl")]: {},
+      [theme.breakpoints.down("lg")]: {},
+      [theme.breakpoints.down("md")]: {},
+      [theme.breakpoints.down("sm")]: {
+        width: 340,
+        left: 5,
+      },
+      [theme.breakpoints.down("sm")]: {
+        top: 170,
+        width: "90vw",
+        left: 3,
+      },
+    }));
+    const EventDetail = () => {
+      return (
+        <Zoom in={true}>
+          <StyledCard
+            style={{ display: current?.empty === true ? "none" : "block" }}
+          >
+            <Button onClick={() => setCurrent({ empty: true })}>close</Button>
+            <pre>{JSON.stringify(current, null, 3)}</pre>
+          </StyledCard>
+        </Zoom>
+      );
+    };
     return (
       <div>
+        <EventDetail />
         <StyledCalendar
-          // date={start === "" ? null : start}
-
           defaultView="agenda"
-          // views={
-          //   {
-          //     // week: true,
-          //     // month: true,
-          //     // day: true,
-          //     // agenda: <div>test</div>,
-          //   }
-          // }
           localizer={localizer}
           events={arrayEvents}
           startAccessor="start"
           endAccessor="end"
           length={365}
-          onNavigate={(event) => {
-            eventEmitter.dispatch("NEWDATE", event);
-          }}
-          onChange={(event) => {}}
+          // onNavigate={(event) => {
+          //   eventEmitter.dispatch("NEWDATE", event);
+          // }}
+          // onChange={(event) => {}}
           components={{
             date: ({ label, day }) => {
               const future = new Date(day) > new Date();
               return (
                 <div
                   style={{
-                    border: "2px solid purple",
                     borderRadius: 3,
                     backgroundColor: future
                       ? theme.palette.primary.main
@@ -312,9 +356,16 @@ const Calendar = (props) => {
               );
             },
             event: ({ event }) => {
-              const future = new Date(event.end) >= new Date();
-              let title = (" " + event.title).slice(1); // by val
-              return <EventDetail currentEvent={event} />;
+              return (
+                <div
+                  title="click for details"
+                  onClick={() => handleClick({ event })}
+                  style={{ cursor: "pointer", minHeight: 40 }}
+                >
+                  {event.title}{" "}
+                  <span style={{ ...theme.typography.caption }}>...</span>
+                </div>
+              );
             },
 
             toolbar: (props) => {
@@ -324,14 +375,39 @@ const Calendar = (props) => {
               } = props;
               // console.log(label);
               return (
-                <div
-                  style={{
-                    position: "relative",
-                    marginRight: "auto",
-                    marginTop: 20,
-                    marginBottom: 10,
-                  }}
-                ></div>
+                <div>
+                  <div
+                    style={{
+                      position: "relative",
+                      marginRight: "auto",
+                      // marginTop: 20,
+                      // marginBottom: 10,
+                    }}
+                  >
+                    <div
+                      style={{
+                        border: "1px none blue",
+                        paddingLeft: 10,
+                        ...theme.typography.body1,
+                        backgroundColor: theme.palette.info.main,
+                        color: theme.palette.info.contrastText,
+                        width: "fit-content",
+                        borderRadius: 5,
+                      }}
+                    >
+                      {label}
+                      <span
+                        style={{
+                          ...theme.typography.caption,
+                          fontFamily: "monospace",
+                          paddingLeft: 10,
+                        }}
+                      >
+                        click the event name to see details
+                      </span>
+                    </div>
+                  </div>
+                </div>
               );
             },
           }}

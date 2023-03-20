@@ -12,13 +12,13 @@ export const StyledEventList = styled("div")(({ theme }) => ({
 }));
 
 export const StyledCalendar = styled(Calendar)(({ theme }) => ({
-  ...theme.flexRows,
-  position: "relative",
-  gap: 0,
+  // ...theme.flexRows,
+  // position: "relative",
+  // gap: 0,
   width: "100%",
   marginBottom: 25,
   // ...theme.flexRows,
-  border: "2px solid green",
+  // border: "2px solid green",
 }));
 
 export const StyledEventColumn = styled("div")(({ theme }) => ({

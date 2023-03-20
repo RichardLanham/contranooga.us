@@ -204,13 +204,13 @@ const Footer = () => {
                               {link.image ? "" : link.button_label}
                             </Button>
                           ) : (
-                            <Button
+                            <a
+                              style={{ ...theme.button }}
                               href={link.url}
                               target="_new"
-                              variant="contained"
                             >
                               {link.button_label}
-                            </Button>
+                            </a>
                           )}
                         </div>
                       )}

@@ -48,6 +48,17 @@ const AppRoutes = () => {
 
   let theme = createTheme({ ...lTheme });
   theme.global = global.attributes;
+  theme.button = {
+    ...theme.typography.button,
+    // textTransform: "uppercase",
+    textDecoration: "none",
+    boxShadow: theme.shadows[2],
+    borderRadius: 2,
+    padding: 3,
+    // margin: 5,
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+  };
   // console.log(theme.global);
   useStrapiDefaultThemeId();
   //theme.feature = feature.attributes;
