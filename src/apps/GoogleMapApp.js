@@ -47,19 +47,14 @@ const GoogleMap = ({
   };
 
   return (
-    <div style={{ ...theme.flexRows, gap: 10 }}>
-      <div style={{ width: 320, height: 320 }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
-          defaultCenter={center}
-          defaultZoom={zoom ? zoom : 16}
-        >
-          <MapMarker lat={lat} lng={lng} text={markerText} />
-        </GoogleMapReact>
-      </div>
-      <StyledRichText
-        dangerouslySetInnerHTML={createMarkup(description)}
-      ></StyledRichText>
+    <div style={{ width: 320, height: 320 }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_KEY }}
+        defaultCenter={center}
+        defaultZoom={zoom ? zoom : 16}
+      >
+        <MapMarker lat={lat} lng={lng} text={markerText} />
+      </GoogleMapReact>
     </div>
   );
 };
