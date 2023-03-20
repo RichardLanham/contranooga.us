@@ -14,8 +14,8 @@ const StyledCard = styled("div")(({ theme }) => ({
   zIndex: theme.zIndex.tooltip,
   position: "fixed",
   left: "25%",
-  width: "fit-content",
-  maxWidth: 600,
+  //   width: "fit-content",
+  //   maxWidth: 600,
   height: "fit-content",
   maxHeight: 400,
   overflowY: "scroll",
@@ -65,7 +65,10 @@ const EventDetail = ({ showDetail, current, setCurrent }) => {
     }
     if (data) {
       setLoader(false);
-      setCurrent(data?.event?.data?.attributes);
+      let cur = Object.assign({}, data?.event?.data?.attributes);
+      cur.id = data?.event?.data?.id;
+      console.log(data);
+      setCurrent(cur);
     }
   }, [loading, data, error]);
 
@@ -82,84 +85,87 @@ const EventDetail = ({ showDetail, current, setCurrent }) => {
           <div style={{ display: loader ? "none" : "block" }}>Loading</div>
           <Button onClick={() => setCurrent({ empty: true })}>close</Button>
           <div>
-            <div style={{ ...theme.typography.h4 }}>{current?.name}</div>
+            <div style={{ ...theme.typography.h5 }}>{current?.name}</div>
             <div
               style={{ ...theme.typography.body1 }}
               dangerouslySetInnerHTML={createMarkup(current?.body)}
             ></div>
+            <div style={{ ...theme.flexRows, gap: 10 }}>
+              {current?.link && (
+                <div>
+                  {current.link[0]?.url.indexOf("http") === 0 ? (
+                    <a target="_new" href={current.link[0]?.url}>
+                      {current.link[0].description || current.link[0].url}
+                    </a>
+                  ) : (
+                    <Link to={"/page/" + current.link[0]?.slug}>
+                      {current.link[0]?.description || current.link[0]?.slug}
+                    </Link>
+                  )}
+                </div>
+              )}
 
-            {current?.link && (
-              <div>
-                {current.link[0]?.url.indexOf("http") === 0 ? (
-                  <a target="_new" href={current.link[0]?.url}>
-                    {current.link[0].description || current.link[0].url}
+              {current?.web_url && (
+                <div>
+                  <a target="_new" href={current.web_url}>
+                    {current?.link_label || current?.link_description}
                   </a>
-                ) : (
-                  <Link to={"/page/" + current.link[0]?.slug}>
-                    {current.link[0]?.description || current.link[0]?.slug}
-                  </Link>
+                </div>
+              )}
+              {current?.image_url && (
+                <div>
+                  <img
+                    style={{ maxWidth: 180, height: "auto" }}
+                    src={current?.image_url}
+                  />
+                </div>
+              )}
+              {thumb && (
+                <div>
+                  <img
+                    className="fade-in-image"
+                    style={{ maxWidth: large.width, height: "auto" }}
+                    onClick={(e) =>
+                      (e.currentTarget.src =
+                        process.env.REACT_APP_STRAPI + large.url)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.src =
+                        process.env.REACT_APP_STRAPI + thumb.url)
+                    }
+                    src={process.env.REACT_APP_STRAPI + thumb.url}
+                  />
+                </div>
+              )}
+
+              <div>
+                {current.street && (
+                  <div>
+                    <div style={{ ...theme.typography.h6 }}>location</div>
+                    <div style={{ ...theme.flexRows, gap: 5 }}>
+                      {current.street && <div>{current.street}</div>}
+                      {current.city && <div>{current.city}</div>}
+                      {current.state && <div>{current.state}</div>}
+                      {current.zip && <div>{current.zip}</div>}
+                    </div>
+                  </div>
+                )}
+                {current?.lat && current?.lng && (
+                  <div>
+                    <GoogleMapApp
+                      markerText={current.name}
+                      markerImage={<img />}
+                      description={""}
+                      lat={current.lat}
+                      lng={current.lng}
+                      zoom={14}
+                    />
+                  </div>
                 )}
               </div>
-            )}
-
-            {current?.web_url && (
-              <div>
-                <a target="_new" href={current.web_url}>
-                  {current?.link_label || current?.link_description}
-                </a>
-              </div>
-            )}
-            {current?.image_url && (
-              <div>
-                <img
-                  style={{ maxWidth: 180, height: "auto" }}
-                  src={current?.image_url}
-                />
-              </div>
-            )}
-            {thumb && (
-              <div>
-                <img
-                  className="fade-in-image"
-                  style={{ maxWidth: large.width, height: "auto" }}
-                  onClick={(e) =>
-                    (e.currentTarget.src =
-                      process.env.REACT_APP_STRAPI + large.url)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.src =
-                      process.env.REACT_APP_STRAPI + thumb.url)
-                  }
-                  src={process.env.REACT_APP_STRAPI + thumb.url}
-                />
-              </div>
-            )}
-
-            {current.street && (
-              <div>
-                <div style={{ ...theme.typography.h6 }}>location</div>
-                <div style={{ ...theme.flexRows, gap: 5 }}>
-                  {current.street && <div>{current.street}</div>}
-                  {current.city && <div>{current.city}</div>}
-                  {current.state && <div>{current.state}</div>}
-                  {current.zip && <div>{current.zip}</div>}
-                </div>
-              </div>
-            )}
-            {current?.lat && current?.lng && (
-              <div>
-                <GoogleMapApp
-                  markerText={current.name}
-                  markerImage={<img />}
-                  description={""}
-                  lat={current.lat}
-                  lng={current.lng}
-                  zoom={14}
-                />
-              </div>
-            )}
+            </div>
           </div>
-          <pre style={{ display: "none" }}>
+          <pre style={{ display: "block" }}>
             {JSON.stringify(current, null, 3)}
           </pre>
         </StyledCard>

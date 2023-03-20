@@ -234,30 +234,42 @@ const Calendar = (props) => {
               );
             },
             event: ({ event }) => {
+              console.log(event.id);
+              console.log(current.id);
               return (
-                <Button
-                  variant="text"
-                  title="click for details"
-                  onClick={() => handleClick({ event })}
-                  style={{
-                    cursor: "pointer",
-                    minHeight: 40,
-                    marginBottom: 25,
-                    textTransform: "none",
-                    backgroundColor: theme.palette.primary.contrastText,
-                    color: theme.palette.primary.main,
-                  }}
-                >
-                  {event.title}
-                  <span
+                <div>
+                  <Button
+                    variant="text"
+                    title="click for details"
+                    onClick={() => handleClick({ event })}
                     style={{
-                      ...theme.typography.subtitle2,
-                      fontFamily: "Roboto",
+                      cursor: "pointer",
+                      minHeight: 40,
+                      marginBottom: 25,
+                      textTransform: "none",
+                      backgroundColor: theme.palette.primary.contrastText,
+                      // color: theme.palette.primary.main,
+                      backgroundColor:
+                        current.id == event.id
+                          ? theme.palette.primary.main
+                          : theme.palette.primary.contrastText,
+                      color:
+                        current.id == event.id
+                          ? theme.palette.primary.contrastText
+                          : theme.palette.primary.main,
                     }}
                   >
-                    &nbsp;info...
-                  </span>
-                </Button>
+                    {event.title}
+                    <span
+                      style={{
+                        ...theme.typography.subtitle2,
+                        fontFamily: "Roboto",
+                      }}
+                    >
+                      &nbsp;info...
+                    </span>
+                  </Button>
+                </div>
               );
             },
 
