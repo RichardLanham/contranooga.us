@@ -16,12 +16,16 @@ const StyledCard = styled("div")(({ theme }) => ({
   left: "25%",
   //   width: "fit-content",
   //   maxWidth: 600,
-  height: "fit-content",
-  maxHeight: 400,
+  //   height: "fit-content",
+  minHeight: 200,
+  minWidth: 500,
   overflowY: "scroll",
   overflowX: "clip",
   zIndex: 5000,
   backgroundColor: theme.palette.background.default,
+  boxShadow: theme.shadows[9],
+  borderRadius: 15,
+  padding: 5,
   // display: "inline",
   [theme.breakpoints.down("xl")]: {
     left: "35%",
@@ -29,19 +33,24 @@ const StyledCard = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {
     left: "50%",
     maxWidth: "40hw",
+    minWidth: 300,
   },
   [theme.breakpoints.down("md")]: {
     // left: "40%",
-    maxWidth: 300,
+    // maxWidth: 300,
   },
   [theme.breakpoints.down("sm")]: {
     width: 340,
     left: 5,
   },
   [theme.breakpoints.down("sm")]: {
+    // position: "sticky",
     top: 170,
-    width: "100hw",
-    left: 0,
+    left: 3,
+    // bottom: 0,
+    width: "95vw",
+    // margin: "auto",
+    // border: "1px solid red",
   },
 }));
 
