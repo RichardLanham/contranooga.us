@@ -214,7 +214,7 @@ const Calendar = (props) => {
               return (
                 <div
                   style={{
-                    maxWidth: 60,
+                    // maxWidth: 60,
                     //overflow: "hidden",
                     // border: "1px solid yellow",
                     borderRadius: 3,

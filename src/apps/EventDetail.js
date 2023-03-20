@@ -16,14 +16,14 @@ import CloseIcon from "@mui/icons-material/Close";
 const StyledCard = styled("div")(({ theme }) => ({
   zIndex: theme.zIndex.tooltip,
   position: "fixed",
-  left: "25%",
+  left: "35%",
   //   width: "fit-content",
   //   maxWidth: 600,
   //   height: "fit-content",
   minHeight: 200,
   minWidth: 500,
-  //   overflowY: "scroll",
-  //   overflowX: "clip",
+  overflowY: "scroll",
+  overflowX: "clip",
   zIndex: 5000,
   backgroundColor: theme.palette.background.default,
   boxShadow: theme.shadows[9],
@@ -39,15 +39,8 @@ const StyledCard = styled("div")(({ theme }) => ({
     maxWidth: "40hw",
     minWidth: 300,
   },
+
   [theme.breakpoints.down("md")]: {
-    // left: "40%",
-    // maxWidth: 300,
-  },
-  [theme.breakpoints.down("sm")]: {
-    width: 340,
-    left: 5,
-  },
-  [theme.breakpoints.down("sm")]: {
     // position: "sticky",
     top: 170,
     left: 3,

@@ -24,10 +24,10 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
     width: "40%",
   },
   [theme.breakpoints.down("md")]: {
-    width: "50%",
+    width: "100%",
   },
   [theme.breakpoints.down("sm")]: {
-    width: "100%",
+    // width: "100%",
   },
 }));
 
