@@ -165,7 +165,7 @@ const EventDetail = ({ showDetail, current, setCurrent }) => {
               </div>
             </div>
           </div>
-          <pre style={{ display: "block" }}>
+          <pre style={{ display: "none" }}>
             {JSON.stringify(current, null, 3)}
           </pre>
         </StyledCard>
