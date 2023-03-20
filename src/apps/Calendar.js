@@ -1,53 +1,39 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { Button, Zoom } from "@mui/material";
+import { Button, IconButton, Zoom } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { StyledCalendar, StyledEventColumn } from "../styles/CalendarStyles";
+import { StyledCalendar } from "../styles/CalendarStyles";
 import { StyledPage } from "../styles/PageStyles";
 import Site from "../Site";
 import { eventEmitter } from "../events.tsx";
-// import EventList from "../components/calendar/EventList";
-
-// import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-// import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import SiteHeader from "../components/page/PageHeader";
 import EventForm from "../components/calendar/EventForm";
-// import EventDetail from "./EventDetail";
-
-// import CustomAgenda from "./CustomAgenda";
-
+import EventDetail from "./EventDetail";
 // import { createMarkup } from "../apps/functions";
-
-// import agenda from "./customAgendaView";
-
 require("./calendar.css");
 
 const localizer = momentLocalizer(moment);
-
-// console.log(localizer);
 const Calendar = (props) => {
   // console.log("calendars");
   const theme = useTheme();
-
-  const history = useNavigate();
-
   const [selDate, setSelDate] = useState(
     new Date(theme?.global?.eventFillStart)
   );
 
-  let saturdayLabel = "Local Dance";
+  //  let saturdayLabel = "Local Dance";
 
   const [events, setEvents] = useState({
     data: {
       data: [],
     },
   });
-  const [suns, setSuns] = useState([]);
+  // const [suns, setSuns] = useState([]);
   const [user, setUser] = useState(null);
 
   const [images, setImages] = useState({ data: [] });
@@ -116,82 +102,7 @@ const Calendar = (props) => {
       });
 
     await getEvents();
-
-    addSaturdays();
   }, []);
-
-  function saturdaysInFuture(numDays) {
-    // each month
-    // each day
-    // each saturday,
-    // get 2nd and 4th
-    const year = new Date(selDate).getFullYear();
-    const m = new Date(selDate).getMonth() - 1;
-    const d = selDate.getDate();
-    const saturdays = [];
-    for (var month = m; month - m < 12; month++) {
-      const daysinmonth = new Date(year, month, 0).getDate();
-      let satCount = 0;
-      for (var day = d; day - d < daysinmonth; day++) {
-        const theday = new Date(year, month, day, 19, 30); // note: the '19, 30' part sets time to 7:30 pm
-        if (theday.getDay() === 6) {
-          satCount++;
-        }
-        if (theday.getDay() === 6 && (satCount === 2 || satCount === 4)) {
-          saturdays.push({
-            dayOfMonth: theday.getDate(),
-            iso: theday.toISOString(),
-          });
-        }
-      }
-    }
-    // console.log(saturdays);
-    return saturdays;
-  }
-
-  const addSaturdays = () => {
-    const year = selDate.getFullYear();
-    const month = selDate.getMonth() + 1;
-
-    const saturdays = saturdaysInFuture(365);
-
-    const sats_ = [];
-    // const events_ = { ...events };
-
-    for (var key in saturdays) {
-      const when = saturdays[key].iso;
-      const end = new Date(when);
-
-      end.setHours(end.getHours() + 4);
-      end.setMinutes(0);
-      sats_.push({
-        id: Math.random(),
-        attributes: {
-          to: "/page/beginnersr",
-          name: saturdayLabel,
-          //    body: "Services @ 8:00 and 10:45 AM",]
-          startTime: when,
-          endTime: end,
-        },
-      });
-      // console.log(new Date(end).getHours());
-      // }
-    }
-
-    setSuns(sats_);
-  };
-
-  // const StyledCalendarCell = styled("div")(({ theme }) => ({
-  //   // width: "35%",
-  //   [theme.breakpoints.down("lg")]: {},
-  //   [theme.breakpoints.down("md")]: {
-  //     ...theme.typography.body1,
-  //     width: "80%",
-  //     minHeight: 100,
-  //     height: "fit-content",
-  //   },
-  //   [theme.breakpoints.down("sm")]: { maxWidth: 150 },
-  // }));
 
   const EventCalendar = () => {
     const [searchParams] = useSearchParams();
@@ -202,7 +113,7 @@ const Calendar = (props) => {
     let thisEvent = {};
     //    console.log(holydays);
     const arrayEvents = [];
-    const allEvents = [...suns, ...events.data.data];
+    const allEvents = [...events.data.data];
 
     if (user) {
       allEvents.map((ev) => {
@@ -212,7 +123,6 @@ const Calendar = (props) => {
         thisEvent.end = new Date(ev.attributes.endTime);
         thisEvent.body = ev.attributes.body;
         thisEvent.id = ev.id;
-
         arrayEvents.push(thisEvent);
       });
     } else {
@@ -225,8 +135,6 @@ const Calendar = (props) => {
           thisEvent.end = new Date(ev.attributes.endTime);
           thisEvent.body = ev.attributes.body;
           thisEvent.id = ev.id;
-          // console.log(thisEvent.start);
-          // console.log(thisEvent.end);
           arrayEvents.push(thisEvent);
         });
     }
@@ -241,57 +149,23 @@ const Calendar = (props) => {
 
     const [showDetail, setShowDetail] = useState(false);
 
-    // const toggleDetails = () => {
-    //   setShowDetails((prev) => !prev);
-    // };
-
     const handleClick = (c) => {
-      console.log(c);
+      //    console.log(c);
       const cur = Object.assign({}, current);
       cur.Test = "test";
       setCurrent(c);
       setShowDetail((prev) => !prev);
     };
-
-    const StyledCard = styled("div")(({ theme }) => ({
-      zIndex: theme.zIndex.tooltip,
-      position: "fixed",
-      left: 50,
-      width: 600,
-      // top: 0,
-      // border: "1px solid red",
-      // left: -100,
-      zIndex: 5000,
-      backgroundColor: theme.palette.background.default,
-      // display: "inline",
-      [theme.breakpoints.down("xl")]: {},
-      [theme.breakpoints.down("lg")]: {},
-      [theme.breakpoints.down("md")]: {},
-      [theme.breakpoints.down("sm")]: {
-        width: 340,
-        left: 5,
-      },
-      [theme.breakpoints.down("sm")]: {
-        top: 170,
-        width: "90vw",
-        left: 3,
-      },
-    }));
-    const EventDetail = () => {
-      return (
-        <Zoom in={true}>
-          <StyledCard
-            style={{ display: current?.empty === true ? "none" : "block" }}
-          >
-            <Button onClick={() => setCurrent({ empty: true })}>close</Button>
-            <pre>{JSON.stringify(current, null, 3)}</pre>
-          </StyledCard>
-        </Zoom>
-      );
-    };
+    // console.log(current?.event?.id);
     return (
       <div>
-        <EventDetail />
+        {!current?.empty && (
+          <EventDetail
+            showDetail={showDetail}
+            current={current}
+            setCurrent={setCurrent}
+          />
+        )}
         <StyledCalendar
           defaultView="agenda"
           localizer={localizer}
@@ -310,10 +184,12 @@ const Calendar = (props) => {
                 <div
                   style={{
                     borderRadius: 3,
-                    backgroundColor: future
+                    color: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200],
-                    color: future ? theme.palette.primary.contrastText : "#000", // greyed
+                    backgroundColor: future
+                      ? theme.palette.primary.contrastText
+                      : "#000", // greyed
                     padding: 0,
                     margin: 0,
                   }}
@@ -338,14 +214,16 @@ const Calendar = (props) => {
               return (
                 <div
                   style={{
-                    maxWidth: 70,
+                    maxWidth: 60,
                     //overflow: "hidden",
                     // border: "1px solid yellow",
                     borderRadius: 3,
-                    backgroundColor: future
+                    color: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200], //the past is
-                    color: future ? theme.palette.primary.contrastText : "#000", // greyed
+                    backgroundColor: future
+                      ? theme.palette.primary.contrastText
+                      : "#000", // greyed
                     padding: 0,
                     margin: 0,
                   }}
@@ -357,14 +235,29 @@ const Calendar = (props) => {
             },
             event: ({ event }) => {
               return (
-                <div
+                <Button
+                  variant="text"
                   title="click for details"
                   onClick={() => handleClick({ event })}
-                  style={{ cursor: "pointer", minHeight: 40 }}
+                  style={{
+                    cursor: "pointer",
+                    minHeight: 40,
+                    marginBottom: 25,
+                    textTransform: "none",
+                    backgroundColor: theme.palette.primary.contrastText,
+                    color: theme.palette.primary.main,
+                  }}
                 >
-                  {event.title}{" "}
-                  <span style={{ ...theme.typography.caption }}>...</span>
-                </div>
+                  {event.title}
+                  <span
+                    style={{
+                      ...theme.typography.subtitle2,
+                      fontFamily: "Roboto",
+                    }}
+                  >
+                    &nbsp;info...
+                  </span>
+                </Button>
               );
             },
 
@@ -378,6 +271,7 @@ const Calendar = (props) => {
                 <div>
                   <div
                     style={{
+                      // display: "none",
                       position: "relative",
                       marginRight: "auto",
                       // marginTop: 20,
@@ -396,14 +290,54 @@ const Calendar = (props) => {
                       }}
                     >
                       {label}
+
+                      <IconButton
+                        component="label"
+                        onClick={(e) => {
+                          props.onNavigate(
+                            props.date,
+                            props.localizer.add(props.date, -1, "year")
+                          );
+                        }}
+                      >
+                        <ArrowCircleLeftIcon
+                          style={{
+                            // ...theme.typography.h3,
+                            backgroundColor: theme.palette.secondary.main,
+                            color: theme.palette.secondary.contrastText,
+                            borderRadius: 50,
+                          }}
+                        />
+                      </IconButton>
+                      <IconButton
+                        component="label"
+                        onClick={(e) => {
+                          props.onNavigate(
+                            props.date,
+                            props.localizer.add(props.date, 1, "year")
+                          );
+                          window.localStorage.setItem("calDate", props.date);
+                        }}
+                      >
+                        <ArrowCircleRightIcon
+                          style={{
+                            // ...theme.typography.h3,
+                            backgroundColor: theme.palette.secondary.main,
+                            color: theme.palette.secondary.contrastText,
+                            borderRadius: 50,
+                          }}
+                        />
+                      </IconButton>
                       <span
                         style={{
                           ...theme.typography.caption,
+                          ...theme.label,
                           fontFamily: "monospace",
-                          paddingLeft: 10,
+                          // paddingLeft: 10,
+                          display: "none", // make them look like buttons..
                         }}
                       >
-                        click the event name to see details
+                        click name for details
                       </span>
                     </div>
                   </div>
@@ -420,7 +354,6 @@ const Calendar = (props) => {
     <Site title="Events">
       <StyledPage>
         <SiteHeader metaTitle="Upcoming Events" />
-
         <EventCalendar />
         <EventForm events={events.data.data} />
       </StyledPage>

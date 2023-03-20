@@ -1,92 +1,170 @@
-import React, { useState } from "react";
-import {
-  // FormLabel,
-  // InputLabel,
-  Button,
-  // IconButton,
-  // Input,
-  // Select,
-  // MenuItem,
-  // TextareaAutosize,
-  // Zoom,
-  ClickAwayListener,
-} from "@mui/material";
-
+import { useEffect, useState } from "react";
+import { Button, Zoom } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useTheme, styled } from "@mui/material/styles";
 
-// import { createMarkup } from "../apps/functions";
+import { createMarkup, getThumb, getLarge } from "../apps/functions";
 
-const EventDetail = ({ currentEvent }) => {
-  //   const future = new Date(currentEvent.end) >= new Date();
-  //let title = (" " + currentEvent.title).slice(1); // by val
+import { useQuery } from "@apollo/client";
+import { GET_EVENT } from "../gql/events";
 
-  //   console.log(props);
+import GoogleMapApp from "./GoogleMapApp";
+
+const StyledCard = styled("div")(({ theme }) => ({
+  zIndex: theme.zIndex.tooltip,
+  position: "fixed",
+  left: "25%",
+  width: "fit-content",
+  maxWidth: 600,
+  height: "fit-content",
+  maxHeight: 400,
+  overflowY: "scroll",
+  overflowX: "clip",
+  zIndex: 5000,
+  backgroundColor: theme.palette.background.default,
+  // display: "inline",
+  [theme.breakpoints.down("xl")]: {
+    left: "35%",
+  },
+  [theme.breakpoints.down("lg")]: {
+    left: "50%",
+    maxWidth: "40hw",
+  },
+  [theme.breakpoints.down("md")]: {
+    // left: "40%",
+    maxWidth: 300,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: 340,
+    left: 5,
+  },
+  [theme.breakpoints.down("sm")]: {
+    top: 170,
+    width: "100hw",
+    left: 0,
+  },
+}));
+
+const EventDetail = ({ showDetail, current, setCurrent }) => {
   const theme = useTheme();
-  const [current] = useState(currentEvent);
-  const [showDetails, setShowDetails] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const { data, loading, error } = useQuery(GET_EVENT, {
+    variables: { id: current?.event?.id },
+  });
 
-  const toggleDetails = () => {
-    setShowDetails((prev) => !prev);
-  };
+  const [thumb, setThumb] = useState(false);
+  const [large, setLarge] = useState(false);
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      // setCurrent({ name: error.message });
+    }
+    if (loading) {
+      console.log("loading");
+      setLoader(true);
+    }
+    if (data) {
+      setLoader(false);
+      setCurrent(data?.event?.data?.attributes);
+    }
+  }, [loading, data, error]);
 
-  const handleClick = () => {
-    console.log(current);
-    setShowDetails((prev) => !prev);
-  };
+  useEffect(() => {
+    setThumb(getThumb(current?.image?.data?.attributes));
+    setLarge(getLarge(current?.image?.data?.attributes));
+  }, [data]);
 
-  const StyledCard = styled("div")(({ theme }) => ({
-    // postion: "absolute",
-    border: "1px solid red",
-    // left: -100,
-    zIndex: 5000,
-    backgroundColor: "yellow",
-    // display: "inline",
-    [theme.breakpoints.down("xl")]: {},
-    [theme.breakpoints.down("lg")]: {},
-    [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {},
-  }));
-
-  if (!showDetails) {
-    return (
-      <div
-        style={{
-          //   position: "absolute",
-          display: showDetails ? "none" : "block",
-          //   marginLeft: 10,
-          //height: 50,
-          //   whiteSpace: "nowrap",
-        }}
-      >
-        <div
-          style={{
-            ...theme.typography.caption,
-            // textTransform: "none",
-            padding: 1,
-            margin: 0,
-            // marginTop: 10,
-            // paddingBottom: 10,
-            border: "1px solid",
-            borderColor: theme.palette.primary.dark,
-            // height: 80,
-            // blockSize: "fit-content",
-            cursor: "pointer",
-          }}
-          onClick={handleClick}
-        >
-          {current.title}
-        </div>
-      </div>
-    );
-  }
-
+  console.log(thumb);
   return (
-    <ClickAwayListener onClickAway={() => setShowDetails(false)}>
-      <StyledCard>
-        <Button onClick={handleClick}>close</Button>
-        <pre>{JSON.stringify(current, null, 3)}</pre>
-      </StyledCard>
-    </ClickAwayListener>
+    <div>
+      <Zoom in={true}>
+        <StyledCard>
+          <div style={{ display: loader ? "none" : "block" }}>Loading</div>
+          <Button onClick={() => setCurrent({ empty: true })}>close</Button>
+          <div>
+            <div style={{ ...theme.typography.h4 }}>{current?.name}</div>
+            <div
+              style={{ ...theme.typography.body1 }}
+              dangerouslySetInnerHTML={createMarkup(current?.body)}
+            ></div>
+
+            {current?.link && (
+              <div>
+                {current.link[0]?.url.indexOf("http") === 0 ? (
+                  <a target="_new" href={current.link[0]?.url}>
+                    {current.link[0].description || current.link[0].url}
+                  </a>
+                ) : (
+                  <Link to={"/page/" + current.link[0]?.slug}>
+                    {current.link[0]?.description || current.link[0]?.slug}
+                  </Link>
+                )}
+              </div>
+            )}
+
+            {current?.web_url && (
+              <div>
+                <a target="_new" href={current.web_url}>
+                  {current?.link_label || current?.link_description}
+                </a>
+              </div>
+            )}
+            {current?.image_url && (
+              <div>
+                <img
+                  style={{ maxWidth: 180, height: "auto" }}
+                  src={current?.image_url}
+                />
+              </div>
+            )}
+            {thumb && (
+              <div>
+                <img
+                  className="fade-in-image"
+                  style={{ maxWidth: large.width, height: "auto" }}
+                  onClick={(e) =>
+                    (e.currentTarget.src =
+                      process.env.REACT_APP_STRAPI + large.url)
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.src =
+                      process.env.REACT_APP_STRAPI + thumb.url)
+                  }
+                  src={process.env.REACT_APP_STRAPI + thumb.url}
+                />
+              </div>
+            )}
+
+            {current.street && (
+              <div>
+                <div style={{ ...theme.typography.h6 }}>location</div>
+                <div style={{ ...theme.flexRows, gap: 5 }}>
+                  {current.street && <div>{current.street}</div>}
+                  {current.city && <div>{current.city}</div>}
+                  {current.state && <div>{current.state}</div>}
+                  {current.zip && <div>{current.zip}</div>}
+                </div>
+              </div>
+            )}
+            {current?.lat && current?.lng && (
+              <div>
+                <GoogleMapApp
+                  markerText={current.name}
+                  markerImage={<img />}
+                  description={""}
+                  lat={current.lat}
+                  lng={current.lng}
+                  zoom={14}
+                />
+              </div>
+            )}
+          </div>
+          <pre style={{ display: "none" }}>
+            {JSON.stringify(current, null, 3)}
+          </pre>
+        </StyledCard>
+      </Zoom>
+    </div>
   );
 };
 

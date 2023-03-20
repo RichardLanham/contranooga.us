@@ -15,10 +15,20 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
   // ...theme.flexRows,
   // position: "relative",
   // gap: 0,
-  width: "100%",
+  width: "20%",
   marginBottom: 25,
-  // ...theme.flexRows,
-  // border: "2px solid green",
+  [theme.breakpoints.down("xl")]: {
+    width: "30%",
+  },
+  [theme.breakpoints.down("lg")]: {
+    width: "40%",
+  },
+  [theme.breakpoints.down("md")]: {
+    width: "50%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
 }));
 
 export const StyledEventColumn = styled("div")(({ theme }) => ({

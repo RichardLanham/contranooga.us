@@ -74,21 +74,29 @@ export const GET_EVENT = gql`
           createdAt
           name
           startTime
+          endTime
           body
           note
           email
+          lat
+          lng
+          street
+          city
+          state
+          zip
+          image_url
           web_url
           link_label
           link_description
-          image_url
           approved
           link {
             id
-            slug
             url
             newTab
             text
             description
+            slug
+            __typename
           }
           image {
             data {
@@ -97,9 +105,13 @@ export const GET_EVENT = gql`
                 createdAt
                 name
                 formats
+                __typename
               }
+              __typename
             }
+            __typename
           }
+          __typename
         }
       }
     }

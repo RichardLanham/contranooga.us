@@ -59,6 +59,11 @@ const AppRoutes = () => {
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
   };
+  theme.label = {
+    whiteSpace: "nowrap",
+    // border: "1px solid",
+    // borderColor: theme.palette.primary.main,
+  };
   // console.log(theme.global);
   useStrapiDefaultThemeId();
   //theme.feature = feature.attributes;
