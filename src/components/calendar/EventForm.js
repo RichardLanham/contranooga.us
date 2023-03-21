@@ -5,6 +5,7 @@ import {
   Button,
   IconButton,
   Input,
+  Checkbox,
   Select,
   MenuItem,
   TextareaAutosize,
@@ -21,6 +22,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import useGetPages from "../../hooks/useGetPages";
 import useGetUploads from "../../hooks/useGetUploads";
 
+import ConfirmButtons from "../../components/ConfirmButtons";
+
 require("./eventForm.css");
 
 const EventForm = ({ events }) => {
@@ -29,7 +32,7 @@ const EventForm = ({ events }) => {
   const [show, setShow] = useState(false);
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
-  const [eventSelection, setEventSelection] = useState("events...");
+  const [eventSelection, setEventSelection] = useState(false);
   const [user, setUser] = useState(true);
   const [mode, setMode] = useState("add"); // || edit
   // const [fromDateTime, setFromDateTime] = useState(new Date());
@@ -86,10 +89,10 @@ const EventForm = ({ events }) => {
     const event = events.find((event) => event.id === e.target.value);
     const imgId = event.attributes?.image?.data?.id;
     const fileId = event?.attributes?.link?.id;
-    console.log(fileId);
+    // console.log(fileId);
     setPage(fileId);
     setImageSelection(imgId);
-    console.log(imgId);
+    console.log(event.attributes);
     setFormdata(event.attributes);
   };
 
@@ -263,34 +266,7 @@ const EventForm = ({ events }) => {
 
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
-        setMessage(
-          "Event Updated"
-          // JSON.parse(request.response).data.attributes.name +
-          // " updated"
-        );
-
-        // setFormdata({
-        //   name: "",
-        //   body: "",
-        //   note: "",
-        //   startTime: new Date().toDateString(),
-        //   endTime: new Date().toDateString(),
-        //   email: "",
-        //   image_url: "",
-        //   web_url: "",
-        //   lat: "",
-        //   lng: "",
-        //   approved: false,
-        //   street: "",
-        //   city: "",
-        //   state: "",
-        //   zip: "",
-        //   link: "",
-        //   image: "",
-        //   link_label: "",
-        //   link_description: "",
-        //   geocode: "",
-        // });
+        setMessage("Event Updated");
       }
     };
 
@@ -352,6 +328,24 @@ const EventForm = ({ events }) => {
     );
     request.setRequestHeader("Authorization", "Bearer " + token);
     request.send(formData);
+  };
+
+  const submitDelete = () => {
+    const request = new XMLHttpRequest();
+    const token = localStorage.getItem("strapi_jwt");
+
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        setMessage("Event Deleted");
+      }
+    };
+
+    request.open(
+      "DELETE",
+      process.env.REACT_APP_STRAPI_API + "/events/" + eventSelection
+    );
+    request.setRequestHeader("Authorization", "Bearer " + token);
+    request.send();
   };
 
   if (!show)
@@ -670,6 +664,7 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                     />
                     <Input
+                      value={formdata["link_label"]}
                       name="link_label"
                       placeholder="link label"
                       style={{
@@ -677,52 +672,68 @@ const EventForm = ({ events }) => {
                       }}
                     />
                     <Input
-                      onChange={handleDeepField}
+                      value={formdata["link_description"]}
                       name="link_description"
                       placeholder="link description"
                       style={{
                         backgroundColor: theme.palette.background.default,
                       }}
                     />
+                    <input type="checkbox" checked={formdata["approved"]} />
                   </div>
                 </div>
               </LocalizationProvider>
             </form>
 
-            <Button
-              onClick={() => submit()}
+            <div
               style={{
-                width: 100,
-                borderRadius: 5,
-                backgroundColor: theme.palette.primary.dark,
-                color: theme.palette.primary.contrastDark,
+                ...theme.flexRows,
+                width: "100%",
+                border: "1px none red",
+                gap: "20%",
               }}
             >
-              Add Event
-            </Button>
-            <Button
-              onClick={() => submitUpdate()}
-              style={{
-                width: 100,
-                borderRadius: 5,
-                backgroundColor: theme.palette.primary.dark,
-                color: theme.palette.primary.contrastDark,
-              }}
-            >
-              Update Event
-            </Button>
-            <Button
-              onClick={() => setShow(false)}
-              style={{
-                width: 100,
-                borderRadius: 5,
-                backgroundColor: theme.palette.primary.dark,
-                color: theme.palette.primary.contrastDark,
-                marginLeft: 10,
-              }}
-            >
-              Close
-            </Button>
+              <Button
+                onClick={() => submit()}
+                style={{
+                  maxWidth: 100,
+                  borderRadius: 5,
+                  backgroundColor: theme.palette.primary.dark,
+                  color: theme.palette.primary.contrastDark,
+                }}
+              >
+                {eventSelection ? "Copy " : "Add "} Event
+              </Button>
+              {eventSelection && (
+                <Button
+                  onClick={() => submitUpdate()}
+                  style={{
+                    maxWidth: 100,
+                    borderRadius: 5,
+                    backgroundColor: theme.palette.primary.dark,
+                    color: theme.palette.primary.contrastDark,
+                  }}
+                >
+                  Update Event
+                </Button>
+              )}
+              {eventSelection && (
+                <ConfirmButtons action={submitDelete} label="delete">
+                  Delete
+                </ConfirmButtons>
+              )}
+              <Button
+                onClick={() => setShow(false)}
+                style={{
+                  maxWidth: 100,
+                  borderRadius: 5,
+                  backgroundColor: theme.palette.primary.dark,
+                  color: theme.palette.primary.contrastDark,
+                }}
+              >
+                Close
+              </Button>
+            </div>
             <div
               style={{
                 display: message === "" ? "none" : "inline",
