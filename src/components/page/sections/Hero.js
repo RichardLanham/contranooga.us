@@ -67,9 +67,10 @@ export const Hero = ({ section }) => {
         <Button
           target="_self"
           style={{
-            maxWidth: 200,
-            maxHeight: 50,
+            // maxWidth: 200,
+            // maxHeight: 50,
             backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
             // position: "absolute",
             // top: 0,
             // right: 0,

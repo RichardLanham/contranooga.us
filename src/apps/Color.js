@@ -1239,6 +1239,10 @@ const Color = (props) => {
       theme.typography.h6.fontFamily = fnt;
       theme.typography.caption.fontFamily = fnt;
       theme.typography.body1.fontFamily = fnt;
+      theme.typography.body1.fontWeight = 500;
+      theme.typography.body1.fontSize = "1.2rem";
+      theme.typography.body1.lineHeight = 1.8;
+      theme.typography.body1.letterSpacing = "0.00110";
       theme.typography.body2.fontFamily = fnt;
       theme.typography.button.fontFamily = fnt;
       theme.typography.subtitle1.fontFamily = fnt;
@@ -1352,6 +1356,8 @@ const Color = (props) => {
               <Select value={font} onChange={(e) => handleFontChange(e)}>
                 <MenuItem value="Roboto">Roboto</MenuItem>
                 <MenuItem value="Anton">Anton</MenuItem>
+                <MenuItem value="'PT Sans'">PT Sans</MenuItem>
+                <MenuItem value="'PT Sans Caption'">PT Sans Caption</MenuItem>
                 <MenuItem value="'Roboto Serif', serif">Roboto Serif</MenuItem>
                 <MenuItem value="'Roboto Flex', 'Helvetica','Arial', sans-serif">
                   Roboto Flex
