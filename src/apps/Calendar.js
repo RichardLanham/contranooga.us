@@ -6,8 +6,12 @@ import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { StyledCalendar, StyledEventButton } from "../styles/CalendarStyles";
-import { StyledPage } from "../styles/PageStyles";
+import {
+  StyledCalendar,
+  StyledEventButton,
+  StyledDateTime,
+} from "../styles/CalendarStyles";
+import { StyledCalendarPage } from "../styles/PageStyles";
 import Site from "../Site";
 import { eventEmitter } from "../events.tsx";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -181,21 +185,18 @@ const Calendar = (props) => {
             date: ({ label, day }) => {
               const future = new Date(day) > new Date();
               return (
-                <div
+                <StyledDateTime
                   style={{
-                    borderRadius: 3,
                     color: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200],
                     backgroundColor: future
                       ? theme.palette.primary.contrastText
                       : "#000", // greyed
-                    padding: 0,
-                    margin: 0,
                   }}
                 >
                   <div>{label}</div>
-                </div>
+                </StyledDateTime>
               );
             },
             time: ({ label, event }) => {
@@ -212,25 +213,23 @@ const Calendar = (props) => {
               const future = new Date(event.end) > new Date();
 
               return (
-                <div
+                <StyledDateTime
                   style={{
                     // maxWidth: 60,
                     //overflow: "hidden",
                     // border: "1px solid yellow",
-                    borderRadius: 3,
+
                     color: future
                       ? theme.palette.primary.main
                       : theme.palette.grey[200], //the past is
                     backgroundColor: future
                       ? theme.palette.primary.contrastText
                       : "#000", // greyed
-                    padding: 0,
-                    margin: 0,
                   }}
                 >
                   <div>{from_}</div>
                   <div style={{ display: "none" }}>{to_}</div>
-                </div>
+                </StyledDateTime>
               );
             },
             event: ({ event }) => {
@@ -357,11 +356,11 @@ const Calendar = (props) => {
 
   return (
     <Site title="Events">
-      <StyledPage>
+      <StyledCalendarPage>
         <SiteHeader metaTitle="Upcoming Events" />
         <EventCalendar />
         <EventForm events={events.data.data} />
-      </StyledPage>
+      </StyledCalendarPage>
     </Site>
   );
 };

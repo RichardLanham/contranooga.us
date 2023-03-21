@@ -31,15 +31,39 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
   },
 }));
 
+export const StyledDateTime = styled("div")(({ theme }) => ({
+  ...theme.typography.h6,
+  padding: 1,
+  margin: 0,
+  borderRadius: 3,
+  textTransform: "unset",
+  // minHeight: 40,
+  // marginBottom: 25,
+  boxShadow: theme.shadows[1],
+  // width: "fit-content",
+
+  [theme.breakpoints.down("xl")]: {},
+  [theme.breakpoints.down("lg")]: {
+    // whiteSpace: "wrap",
+    // maxWidth: 200,
+  },
+  [theme.breakpoints.down("md")]: {
+    ...theme.typography.body1,
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: 120,
+    ...theme.typography.body2,
+  },
+}));
 export const StyledEventButton = styled(Button)(({ theme }) => ({
   ...theme.typography.h6,
   textTransform: "unset",
-  whiteSpace: "nowrap",
+  // whiteSpace: "nowrap",
   cursor: "pointer",
   minHeight: 40,
   marginBottom: 25,
   boxShadow: theme.shadows[3],
-  width: "fit-content",
+  // width: "fit-content",
   cursor: "pointer",
   "&:hover": {
     border: "1px solid",
@@ -47,12 +71,17 @@ export const StyledEventButton = styled(Button)(({ theme }) => ({
     boxShadow: theme.shadows[8],
   },
   [theme.breakpoints.down("xl")]: {},
-  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("lg")]: {
+    // whiteSpace: "wrap",
+    maxWidth: 200,
+  },
   [theme.breakpoints.down("md")]: {
     ...theme.typography.body1,
-    whiteSpace: "unset",
   },
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: 120,
+    ...theme.typography.body2,
+  },
 }));
 
 export const StyledEventColumn = styled("div")(({ theme }) => ({

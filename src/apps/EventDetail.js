@@ -16,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const StyledCard = styled("div")(({ theme }) => ({
   zIndex: theme.zIndex.tooltip,
   position: "fixed",
-  left: "35%",
+  left: "40%",
   //   width: "fit-content",
   //   maxWidth: 600,
   //   height: "fit-content",
@@ -32,7 +32,7 @@ const StyledCard = styled("div")(({ theme }) => ({
 
   // display: "inline",
   [theme.breakpoints.down("xl")]: {
-    left: "35%",
+    left: "50%",
   },
   [theme.breakpoints.down("lg")]: {
     left: "50%",
