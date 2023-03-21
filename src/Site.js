@@ -71,7 +71,7 @@ const Site = (props) => {
 
   if (!theme.global) return null;
 
-  const StyledSiteDiv = styled("div")(({ theme }) => ({}));
+  //const StyledSiteDiv = styled("div")(({ theme }) => ({}));
 
   return (
     <HelmetProvider title={title}>
@@ -93,7 +93,7 @@ const Site = (props) => {
         />
         <link rel="canonical" href="https://contranooga.us/" />
       </Helmet>
-      <StyledSiteDiv>
+      <div>
         {user && (
           <div
             style={{
@@ -122,7 +122,7 @@ const Site = (props) => {
           {props.children}
         </div>
         <Footer />
-      </StyledSiteDiv>
+      </div>
     </HelmetProvider>
   );
 };

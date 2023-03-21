@@ -31,25 +31,33 @@ export const StyledSiteName = styled("div")(({ theme }) => ({
 // on /Page.js
 export const StyledPage = styled("div")(({ theme }) => ({
   position: "relative",
-  width: theme.menuPosition === "side" ? "calc(70% - 1px)" : "95vw",
-  margin: "auto",
-  marginTop: 190,
+  width: theme.menuPosition === "side" ? "calc(70% - 1px)" : "55vw",
+  marginRight: "auto",
+  padding: 30,
+  marginTop: 110,
   borderRadius: 10,
   zIndex: 0,
   // minHeight: 1200,
 
   [theme.breakpoints.down("xl")]: {
-    width: theme.menuPosition === "side" ? "calc(65% - 1px)" : "95vw",
+    width: theme.menuPosition === "side" ? "calc(65% - 1px)" : "70vw",
   },
   [theme.breakpoints.down("lg")]: {
-    width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "98vw",
-    width: "95vw",
+    //width: theme.menuPosition === "side" ? "calc(85% - 1px)" : "60vw",
+    width: "90vw",
+    padding: 10,
     // width: "calc(85% - 1px)",
+    // marginTop: 140,
   },
   [theme.breakpoints.down("md")]: {
-    // width: "90vw",
+    width: "95vw",
     // width: "calc(95% - 1rem)",
-    marginTop: 125,
+    marginTop: 40,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "98vw",
+    // width: "calc(95% - 1rem)",
+    marginTop: 10,
   },
 }));
 export const StyledPageSection = styled("div")(({ theme }) => ({

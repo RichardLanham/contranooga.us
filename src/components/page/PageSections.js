@@ -246,35 +246,29 @@ export const LeadForm = ({ section }) => {
         marginTop: 20,
         marginBottom: 30,
         width: 300,
+        width: "fit-content",
       }}
     >
-      <Zoom in={true}>
-        <Fab
-          style={{
-            position: "absolute",
-            left: -18,
-            top: -15,
-            // display: "inline",
-            zIndex: theme.zIndex.fab,
-            width: 35,
-            height: 35,
-            backgroundColor: theme.palette.info.main,
-            color: theme.palette.info.contrastText,
-            transform: "rotate(-0.70turn)",
-          }}
-        >
-          <PanToolAltTwoToneIcon />
-        </Fab>
-      </Zoom>
+      <Fab
+        onClick={() => setOpen("form")}
+        style={{
+          position: "absolute",
+          right: -50,
+          cursor: "pointer",
 
-      {/* <img
-          src={hand}
-          style={{
-            width: 35,
-            height: 35,
-            transform: "rotate(-0.25turn)",
-          }}
-        /> */}
+          // top: -15,
+          // display: "inline",
+          zIndex: theme.zIndex.fab,
+          width: 35,
+          height: 35,
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          transform: "rotate(-0.25turn)",
+          boxShadow: theme.shadows[3],
+        }}
+      >
+        <PanToolAltTwoToneIcon />
+      </Fab>
 
       {section.submitButton ? (
         <Button
