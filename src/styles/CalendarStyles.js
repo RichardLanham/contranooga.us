@@ -15,13 +15,13 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
   // ...theme.flexRows,
   // position: "relative",
   // gap: 0,
-  width: "20%",
+  width: "50%",
   marginBottom: 25,
   [theme.breakpoints.down("xl")]: {
-    width: "30%",
+    // width: "30%",
   },
   [theme.breakpoints.down("lg")]: {
-    width: "40%",
+    // width: "40%",
   },
   [theme.breakpoints.down("md")]: {
     width: "100%",
@@ -29,6 +29,27 @@ export const StyledCalendar = styled(Calendar)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     // width: "100%",
   },
+}));
+
+export const StyledEventButton = styled(Button)(({ theme }) => ({
+  ...theme.typography.h6,
+  textTransform: "unset",
+  whiteSpace: "nowrap",
+  cursor: "pointer",
+  minHeight: 40,
+  marginBottom: 25,
+  boxShadow: theme.shadows[3],
+  width: "fit-content",
+  cursor: "pointer",
+  "&:hover": {
+    border: "1px solid",
+    borderColor: theme.palette.primary.dark,
+    boxShadow: theme.shadows[8],
+  },
+  [theme.breakpoints.down("xl")]: {},
+  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("md")]: {},
+  [theme.breakpoints.down("sm")]: {},
 }));
 
 export const StyledEventColumn = styled("div")(({ theme }) => ({
@@ -52,25 +73,6 @@ export const StyledCard = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {
     // backgroundColor: "yellow",
   },
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
-
-export const StyleEventButton = styled(Button)(({ theme }) => ({
-  ...theme.typography.h6,
-  textTransform: "unset",
-
-  // ...theme.typography.body1,
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-
-  cursor: "pointer",
-  "&:hover": {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.primary.contrastDark,
-  },
-  [theme.breakpoints.down("xl")]: {},
-  [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
 }));
@@ -112,17 +114,3 @@ export const StyledEventTypography = styled(Typography)(
     },
   })
 );
-export const StyledEventButton = styled(Button)(({ theme }) => ({
-  cursor: "pointer",
-  minHeight: 40,
-  marginBottom: 25,
-  textTransform: "none",
-  backgroundColor: theme.palette.primary.contrastText,
-  boxShadow: theme.shadows[3],
-  textTransform: "none",
-  "&:hover": {
-    border: "1px solid",
-    borderColor: theme.palette.primary.dark,
-    boxShadow: theme.shadows[8],
-  },
-}));
