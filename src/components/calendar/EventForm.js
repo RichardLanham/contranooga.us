@@ -24,6 +24,8 @@ import useGetUploads from "../../hooks/useGetUploads";
 
 import ConfirmButtons from "../../components/ConfirmButtons";
 
+import CloseIcon from "@mui/icons-material/Close";
+
 require("./eventForm.css");
 
 const EventForm = ({ events }) => {
@@ -32,7 +34,7 @@ const EventForm = ({ events }) => {
   const [show, setShow] = useState(false);
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
-  const [eventSelection, setEventSelection] = useState(false);
+  const [eventSelection, setEventSelection] = useState("events...");
   const [user, setUser] = useState(true);
   const [mode, setMode] = useState("add"); // || edit
   // const [fromDateTime, setFromDateTime] = useState(new Date());
@@ -69,6 +71,7 @@ const EventForm = ({ events }) => {
   const uploads = useGetUploads();
 
   useEffect(() => {
+    setMessage("");
     setPages(_pages);
     setImages(uploads);
     setUser(window.localStorage.getItem("strapi_user") === null ? false : true);
@@ -101,6 +104,16 @@ const EventForm = ({ events }) => {
     const val = e.target.value;
     const form = Object.assign({}, formdata);
     form[field] = val;
+    setFormdata(form);
+    console.log(form);
+  };
+
+  const handleCheck = (e) => {
+    const field = e.target.name;
+    const val = e.target.checked === "on" ? true : false;
+    const form = Object.assign({}, formdata);
+    form[field] = val;
+    form.approved = form.approved === "on" ? true : false;
     setFormdata(form);
   };
 
@@ -249,6 +262,8 @@ const EventForm = ({ events }) => {
       return;
     }
 
+    data.approved = data.approved === "on" ? true : false;
+
     formData.append("data", JSON.stringify(data));
     request.open("POST", process.env.REACT_APP_STRAPI_API + "/events");
     request.send(formData);
@@ -276,6 +291,7 @@ const EventForm = ({ events }) => {
       formElements.lng.value === "" ? 0 : formElements.lng.value;
 
     for (let i = 0; i < formElements.length; i++) {
+      // console.log(formElements[i]);
       const currentElement = formElements[i];
       if (!["submit", "file"].includes(currentElement.type)) {
         data[currentElement.name] = currentElement.value;
@@ -320,7 +336,6 @@ const EventForm = ({ events }) => {
       setMessage("event name missing");
       return;
     }
-
     formData.append("data", JSON.stringify(data));
     request.open(
       "PUT",
@@ -365,6 +380,41 @@ const EventForm = ({ events }) => {
   return (
     <div>
       <div>
+        <CloseIcon
+          onClick={() => setShow(false)}
+          style={{
+            cursor: "pointer",
+
+            backgroundColor: theme.palette.primary.dark,
+            color: theme.palette.primary.contrastDark,
+          }}
+        />
+        <div
+          name="positionedMessage"
+          style={{
+            // position: "absolute",
+            // left: "50%",
+            display: message === "" ? "none" : "inline",
+            backgroundColor: theme.palette.info.main,
+            color: theme.palette.info.contrastText,
+            // width: "fit-content",
+          }}
+        >
+          <Button
+            variant="contained"
+            style={{
+              position: "absolute",
+              zIndex: theme.zIndex.tooltip,
+              left: "10%",
+              ...theme.typography.h4,
+              backgroundColor: theme.palette.info.main,
+              color: theme.palette.info.contrastText,
+            }}
+            onClick={() => setMessage("")}
+          >
+            {message}
+          </Button>
+        </div>
         <Zoom in={true}>
           <StyledFormContainer>
             <form onSubmit={submit}>
@@ -666,6 +716,7 @@ const EventForm = ({ events }) => {
                     <Input
                       value={formdata["link_label"]}
                       name="link_label"
+                      onChange={handleFormField}
                       placeholder="link label"
                       style={{
                         backgroundColor: theme.palette.background.default,
@@ -674,12 +725,21 @@ const EventForm = ({ events }) => {
                     <Input
                       value={formdata["link_description"]}
                       name="link_description"
+                      onChange={handleFormField}
                       placeholder="link description"
                       style={{
                         backgroundColor: theme.palette.background.default,
                       }}
                     />
-                    <input type="checkbox" checked={formdata["approved"]} />
+                    <Select
+                      name="approved"
+                      value={formdata["approved"]}
+                      onChange={handleFormField}
+                      // style={{ display: "block", width: "fit-content" }}
+                    >
+                      <MenuItem value={false}>unapproved</MenuItem>
+                      <MenuItem value={true}>approved</MenuItem>
+                    </Select>
                   </div>
                 </div>
               </LocalizationProvider>
@@ -702,9 +762,9 @@ const EventForm = ({ events }) => {
                   color: theme.palette.primary.contrastDark,
                 }}
               >
-                {eventSelection ? "Copy " : "Add "} Event
+                {eventSelection === "events..." ? "Add " : "Copy "} Event
               </Button>
-              {eventSelection && (
+              {eventSelection !== "events..." && (
                 <Button
                   onClick={() => submitUpdate()}
                   style={{
@@ -717,44 +777,11 @@ const EventForm = ({ events }) => {
                   Update Event
                 </Button>
               )}
-              {eventSelection && (
+              {eventSelection !== "events..." && (
                 <ConfirmButtons action={submitDelete} label="delete">
                   Delete
                 </ConfirmButtons>
               )}
-              <Button
-                onClick={() => setShow(false)}
-                style={{
-                  maxWidth: 100,
-                  borderRadius: 5,
-                  backgroundColor: theme.palette.primary.dark,
-                  color: theme.palette.primary.contrastDark,
-                }}
-              >
-                Close
-              </Button>
-            </div>
-            <div
-              style={{
-                display: message === "" ? "none" : "inline",
-                backgroundColor: theme.palette.info.main,
-                color: theme.palette.info.contrastText,
-                width: "fit-content",
-              }}
-            >
-              <Button
-                variant="contained"
-                style={{
-                  ...theme.typography.caption,
-                  width: "fit-content",
-
-                  backgroundColor: theme.palette.info.main,
-                  color: theme.palette.info.contrastText,
-                }}
-                onClick={() => setMessage("")}
-              >
-                {message}
-              </Button>
             </div>
           </StyledFormContainer>
         </Zoom>

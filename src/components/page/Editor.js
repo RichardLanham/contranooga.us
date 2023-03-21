@@ -35,6 +35,46 @@ const RichEditor = ({ container }) => {
   const theme = useTheme();
   const [show, setShow] = useState(false);
 
+  const colors = [];
+  const contrastColors = [];
+
+  const muiColors = [
+    "primary",
+    "secondary",
+    "info",
+    "warning",
+    "error",
+    "success",
+  ];
+
+  muiColors.map((color) => {
+    console.log(contrastColors);
+    colors.push({ color: theme.palette[color].main, label: color });
+    contrastColors.push({
+      color: theme.palette[color].contrastText,
+      label: color + "_contrastText",
+    });
+  });
+
+  useEffect(() => {
+    // const muiColors = [
+    //   "primary",
+    //   "secondary",
+    //   "info",
+    //   "warning",
+    //   "error",
+    //   "success",
+    // ];
+    // muiColors.map((color) => {
+    //   console.log(contrastColors);
+    //   editColors.push({ color: theme.palette[color].main, label: color });
+    //   contrastColors.push({
+    //     color: theme.palette[color].contrastText,
+    //     label: color + "_contrastText",
+    //   });
+    // });
+  }, []);
+
   useEffect(() => {
     console.log(typename);
     switch (typename) {
@@ -136,9 +176,6 @@ const RichEditor = ({ container }) => {
       return;
     }
 
-    // console.log(JSON.stringify(put));
-    // log
-
     const _put = Object.assign({}, put);
 
     switch (typename) {
@@ -174,12 +211,6 @@ const RichEditor = ({ container }) => {
     });
   };
 
-  // "Georgia, serif",
-  //     "Lucida Sans Unicode, Lucida Grande, sans-serif",
-  //     "Tahoma, Geneva, sans-serif",
-  //     "Times New Roman, Times, serif",
-  //     "Trebuchet MS, Helvetica, sans-serif",
-  //     "Verdana, Geneva, sans-serif",
   const fontFamilyConfig = {
     options: [
       "default",
@@ -197,10 +228,15 @@ const RichEditor = ({ container }) => {
   };
 
   const config = {
+    allowedContent:
+      "p{text-align}(*); strong(*); em(*); b(*); i(*); u(*); sup(*); sub(*); ul(*); ol(*); li(*); a[!href](*); br(*); hr(*); img{*}[*](*);div{*}[*](*);iframe(*)",
+    fontBackgroundColor: { contrastColors },
+    fontColor: { colors },
     fontFamily: fontFamilyConfig,
     allowedContent: true,
   };
 
+  console.log(config);
   return (
     <div
       onKeyDown={handleKeys}
@@ -223,83 +259,7 @@ const RichEditor = ({ container }) => {
         editor={Editor}
         data={content}
         allowedContent={true}
-        // editorConfig={(config) => {
-        //   config.allowedContent = true;
-        // }}
         config={config}
-        // config={{
-        //   // plugins: [Paragraph],
-        //   toolbar: [
-        //     "sourceEditing",
-        //     "heading",
-        //     "|",
-        //     "bold",
-        //     "italic",
-        //     "underline",
-        //     "strikethrough",
-        //     "link",
-        //     "bulletedList",
-        //     "numberedList",
-        //     "blockQuote",
-        //     "fontFamily",
-        //     "fontSize",
-        //   ],
-        //   fontFamily: {
-        //     options: [
-        //       "default",
-        //       "Ubuntu, Arial, sans-serif",
-        //       "Ubuntu Mono, Courier New, Courier, monospace",
-        //     ],
-        //   },
-        //   fontSize: {
-        //     options: [9, 11, 13, "default", 17, 19, 21],
-        //   },
-        //   heading: {
-        //     options: [
-        //       {
-        //         model: "paragraph",
-        //         title: "Paragraph",
-        //         class: "ck-heading_paragraph",
-        //       },
-        //       {
-        //         model: "heading1",
-        //         view: "h1",
-        //         title: "Heading 1",
-        //         class: "ck-heading_heading1",
-        //       },
-        //       {
-        //         model: "heading2",
-        //         view: "h2",
-        //         title: "Heading 2",
-        //         class: "ck-heading_heading2",
-        //       },
-        //       {
-        //         model: "heading3",
-        //         view: "h3",
-        //         title: "Heading 3",
-        //         class: "ck-heading_heading3",
-        //       },
-        //       {
-        //         model: "heading4",
-        //         view: "h4",
-        //         title: "Heading 4",
-        //         class: "ck-heading_heading4",
-        //       },
-        //       {
-        //         model: "heading5",
-        //         view: "h5",
-        //         title: "Heading 5",
-        //         class: "ck-heading_heading5",
-        //       },
-        //       {
-        //         model: "heading6",
-        //         view: "h6",
-        //         title: "Heading 6",
-        //         class: "ck-heading_heading6",
-        //       },
-        //     ],
-        //   },
-        // }}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
           // console.log("Editor is ready to use!", editor);

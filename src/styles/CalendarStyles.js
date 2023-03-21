@@ -48,7 +48,10 @@ export const StyledEventButton = styled(Button)(({ theme }) => ({
   },
   [theme.breakpoints.down("xl")]: {},
   [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
+  [theme.breakpoints.down("md")]: {
+    ...theme.typography.body1,
+    whiteSpace: "unset",
+  },
   [theme.breakpoints.down("sm")]: {},
 }));
 
