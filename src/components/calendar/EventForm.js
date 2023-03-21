@@ -169,7 +169,31 @@ const EventForm = ({ events }) => {
         setMessage(err.message);
       });
   };
-
+  const clearForm = () => {
+    setEventSelection("events...");
+    setFormdata({
+      name: "",
+      body: "",
+      note: "",
+      startTime: new Date().toDateString(),
+      endTime: new Date().toDateString(),
+      email: "",
+      image_url: "",
+      web_url: "",
+      lat: "",
+      lng: "",
+      approved: false,
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      link: "",
+      image: "",
+      link_label: "",
+      link_description: "",
+      geocode: "",
+    });
+  };
   const submit = () => {
     const request = new XMLHttpRequest();
     const formData = new FormData();
@@ -180,34 +204,13 @@ const EventForm = ({ events }) => {
 
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
+        setEventSelection(JSON.parse(request.response).data.id);
         setMessage(
           "Event " +
             JSON.parse(request.response).data.attributes.name +
             " added"
         );
-
-        setFormdata({
-          name: "",
-          body: "",
-          note: "",
-          startTime: new Date().toDateString(),
-          endTime: new Date().toDateString(),
-          email: "",
-          image_url: "",
-          web_url: "",
-          lat: "",
-          lng: "",
-          approved: false,
-          street: "",
-          city: "",
-          state: "",
-          zip: "",
-          link: "",
-          image: "",
-          link_label: "",
-          link_description: "",
-          geocode: "",
-        });
+        // clearForm();
       }
     };
 
@@ -352,6 +355,7 @@ const EventForm = ({ events }) => {
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
         setMessage("Event Deleted");
+        clearForm();
       }
     };
 
