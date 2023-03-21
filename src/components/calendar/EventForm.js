@@ -17,9 +17,7 @@ import client from "../../apollo/client";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import useGetPages from "../../hooks/useGetPages";
 import useGetUploads from "../../hooks/useGetUploads";
 
@@ -27,24 +25,16 @@ require("./eventForm.css");
 
 const EventForm = ({ events }) => {
   const theme = useTheme();
-
   const [imgUrl, setImgUrl] = useState(null);
-
   const [show, setShow] = useState(false);
-
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
-
   const [eventSelection, setEventSelection] = useState("events...");
   const [user, setUser] = useState(true);
-
   const [mode, setMode] = useState("add"); // || edit
-
-  const [fromDateTime, setFromDateTime] = useState(new Date());
-  const [toDateTime, setToDateTime] = useState(new Date());
+  // const [fromDateTime, setFromDateTime] = useState(new Date());
+  // const [toDateTime, setToDateTime] = useState(new Date());
   const [message, setMessage] = useState("");
-
-  // const [images, setImages] = useState({ data: [] });
   const [page, setPage] = useState("none");
   const [image, setImage] = useState("none");
   const [imageUrl, setImageUrl] = useState("");
@@ -72,11 +62,6 @@ const EventForm = ({ events }) => {
     geocode: "",
   });
 
-  // const [geo, setGeo] = useState({});
-  // const _pages = useGetPages();
-  // const uploads = useGetUploads();
-  // console.log(_pages);
-
   const _pages = useGetPages();
   const uploads = useGetUploads();
 
@@ -88,14 +73,8 @@ const EventForm = ({ events }) => {
     form["approved"] =
       window.localStorage.getItem("strapi_user") !== null || false;
     setFormdata(form);
-    // console.log(window.localStorage.getItem("strapi_user"));
-    // console.log(user);
   }, []);
 
-  // const [page, setPage] = useState("");
-  // const handleImageChange = (e) => {
-  //   setImage(e.target.value);
-  // };
   const handlePageChange = (e) => {
     setPage(e.target.value);
   };
@@ -111,12 +90,10 @@ const EventForm = ({ events }) => {
     setPage(fileId);
     setImageSelection(imgId);
     console.log(imgId);
-    // event.attributes.image = imgId;
     setFormdata(event.attributes);
   };
 
   const handleFormField = (e) => {
-    // console.log(formdata);
     const field = e.target.name;
     const val = e.target.value;
     const form = Object.assign({}, formdata);
@@ -125,7 +102,6 @@ const EventForm = ({ events }) => {
   };
 
   const handleDeepField = (e) => {
-    // console.log(formdata);
     const fields = e.target.name.split(".");
     const val = e.target.value;
     const form = Object.assign({}, formdata);
@@ -133,12 +109,10 @@ const EventForm = ({ events }) => {
 
     f1[0][`${fields[1]}`] = val;
 
-    //form[`${fields[0]}`][0][`${fields[1]}`] = val;
     setFormdata(form);
   };
 
   const handleImageSelection = (e) => {
-    // console.log(formdata);
     const field = e.target.name;
     const val = e.target.value;
     const form = Object.assign({}, formdata);
@@ -162,16 +136,12 @@ const EventForm = ({ events }) => {
 
   const handleGeoCode = () => {
     // https://maps.googleapis.com/maps/api/geocode/json?address=302%20hemphill%20ave,%20chattanooga%20tn,%2037411&key=AIzaSyA8eUANvHM-checxqXc-bv66AST5RATmsM
-
     const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${formdata.street},${formdata.city},${formdata.state},${formdata.zip}&key=${process.env.REACT_APP_GMAP_KEY}`;
 
     fetch(geoUrl)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.results[0]);
-
         const form = Object.assign({}, formdata);
-
         const lat = data.results[0].geometry.location.lat;
         const lng = data.results[0].geometry.location.lng;
         form.lat = lat;
@@ -181,15 +151,7 @@ const EventForm = ({ events }) => {
       })
       .catch((err) => {
         setMessage(err.message);
-        // return;
       });
-    // fetch(geoUrl).then((response) => response.json()).then((data))  {
-    //   console.log(data);
-    //   setGeo(response); //.results[0].geometry.location.lat
-    //   formdata.geocode = JSON.stringify(response);
-    // });
-
-    // console.log(geoUrl);
   };
 
   const submit = () => {
@@ -246,11 +208,10 @@ const EventForm = ({ events }) => {
     }
 
     delete data.EventSelect;
-    // delete data.image;
+
     if (data.image === "[object Object]") {
       delete data.image;
     }
-    // data.image = 1;
     if (data.image === "0") {
       delete data.image;
     }
@@ -286,14 +247,110 @@ const EventForm = ({ events }) => {
     }
 
     formData.append("data", JSON.stringify(data));
-
     request.open("POST", process.env.REACT_APP_STRAPI_API + "/events");
+    request.send(formData);
+  };
 
-    // request.setRequestHeader(
-    //   "Authorization",
-    //   "Bearer " + window.localStorage.getItem("strapi_jwt")
-    // );
+  const submitUpdate = () => {
+    const request = new XMLHttpRequest();
+    const formData = new FormData();
+    const formElement = document.querySelector("form");
+    const formElements = formElement.elements;
 
+    const token = localStorage.getItem("strapi_jwt");
+
+    const data = {};
+
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        setMessage(
+          "Event Updated"
+          // JSON.parse(request.response).data.attributes.name +
+          // " updated"
+        );
+
+        // setFormdata({
+        //   name: "",
+        //   body: "",
+        //   note: "",
+        //   startTime: new Date().toDateString(),
+        //   endTime: new Date().toDateString(),
+        //   email: "",
+        //   image_url: "",
+        //   web_url: "",
+        //   lat: "",
+        //   lng: "",
+        //   approved: false,
+        //   street: "",
+        //   city: "",
+        //   state: "",
+        //   zip: "",
+        //   link: "",
+        //   image: "",
+        //   link_label: "",
+        //   link_description: "",
+        //   geocode: "",
+        // });
+      }
+    };
+
+    formElements.lat.value =
+      formElements.lat.value === "" ? 0 : formElements.lat.value;
+    formElements.lng.value =
+      formElements.lng.value === "" ? 0 : formElements.lng.value;
+
+    for (let i = 0; i < formElements.length; i++) {
+      const currentElement = formElements[i];
+      if (!["submit", "file"].includes(currentElement.type)) {
+        data[currentElement.name] = currentElement.value;
+      }
+    }
+
+    delete data.EventSelect;
+
+    if (data.image === "[object Object]") {
+      delete data.image;
+    }
+    if (data.image === "0") {
+      delete data.image;
+    }
+    data.lat = Number(data.lat);
+    data.lng = Number(data.lng);
+    data.endTime = new Date(data.endTime).toISOString();
+    data.startTime = new Date(data.startTime).toISOString();
+    data.geocode = formdata.geocode;
+
+    if (data.url !== "none") {
+      data.link = [
+        {
+          url: data.url === "external" ? data.linkExternal : "/" + data.url,
+          newTab: !data.url.startsWith("http") ? true : false,
+          text: data.text,
+          description: data.richtext,
+        },
+      ];
+      delete data.url;
+      delete data.text;
+      delete data.richtext;
+      delete data.linkExternal;
+    }
+
+    if (data.image === "none") {
+      delete data.image;
+    }
+    console.log(data);
+
+    if (data.name === "") {
+      setMessage("event name missing");
+      return;
+    }
+
+    formData.append("data", JSON.stringify(data));
+    request.open(
+      "PUT",
+      process.env.REACT_APP_STRAPI_API + "/events/" + eventSelection
+    );
+    request.setRequestHeader("Authorization", "Bearer " + token);
     request.send(formData);
   };
 
@@ -312,15 +369,7 @@ const EventForm = ({ events }) => {
       </IconButton>
     );
   return (
-    <div
-      style={
-        {
-          // position: "absolute",
-          // width: "100%",
-          // border: "10px solid red",
-        }
-      }
-    >
+    <div>
       <div>
         <Zoom in={true}>
           <StyledFormContainer>
@@ -332,15 +381,12 @@ const EventForm = ({ events }) => {
                     zIndex: theme.zIndex.modal,
                     display: user ? "block" : "none",
                   }}
-                  //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
                   name="EventSelect"
                   value={eventSelection}
                   onChange={handleEventSelection}
                 >
                   <MenuItem value="events...">events...</MenuItem>
                   {events.map((event, key) => {
-                    // return <div key={key}>{event.attributes.name}</div>;
-
                     return (
                       <MenuItem selected={key === 0} key={key} value={event.id}>
                         {event.attributes.name}
@@ -362,14 +408,10 @@ const EventForm = ({ events }) => {
                     <MobileDateTimePicker
                       disablePast
                       value={formdata["startTime"]}
-                      // name="startTime"
                       onChange={(e) => handleDateField(e, "startTime")}
                       renderInput={(params) => (
                         <Input
                           name="startTime"
-                          // value={formdata["startTime"]}
-                          // name="startTime"
-                          // onChange={handleFormField}
                           {...params}
                           style={{ width: 160 }}
                           helperText="Start"
@@ -383,8 +425,6 @@ const EventForm = ({ events }) => {
                       renderInput={(params) => (
                         <Input
                           name="endTime"
-                          // value={formdata["endTime"]}
-                          // onChange={handleFormField}
                           {...params}
                           style={{ width: 160 }}
                           helperText="End"
@@ -419,15 +459,11 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       style={{
                         width: "100%",
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                   </div>
                   <div>
                     <Input
-                      // onChange={(e) => setImageUrl(e.currentTarget.value)}
                       size="small"
                       placeholder="image url"
                       name="image_url"
@@ -435,10 +471,6 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       style={{
                         width: 120,
-                        // width: "100%",
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                     <img
@@ -476,9 +508,6 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       style={{
                         width: 40,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                     <Input
@@ -489,9 +518,6 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       style={{
                         width: 80,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                     <Input
@@ -502,9 +528,6 @@ const EventForm = ({ events }) => {
                       name="lat"
                       style={{
                         width: 100,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                     <Input
@@ -515,9 +538,6 @@ const EventForm = ({ events }) => {
                       onChange={handleFormField}
                       style={{
                         width: 100,
-                        // marginTop: 5,
-                        // marginBottom: 5,
-                        // border: "1px solid black",
                       }}
                     />
                     <Button
@@ -541,7 +561,6 @@ const EventForm = ({ events }) => {
                         width: 220,
                         zIndex: theme.zIndex.modal,
                       }}
-                      //onOpen={(e) => (e.currentTarget.style.width = "50vw")}
                       name="image"
                       value={imageSelection}
                       onChange={handleImageSelection}
@@ -549,12 +568,9 @@ const EventForm = ({ events }) => {
                       <MenuItem value="none">images</MenuItem>
 
                       {images?.uploadFiles?.data?.map((image, key) => {
-                        // const thumb = getImageThumb(image.formats);
-                        // const width = isNaN(thumb.width) ? 0 : thumb.width * 0.5;
                         return (
                           <MenuItem
                             style={{
-                              // width: width,
                               height: "auto",
                               width: "fit-content",
                             }}
@@ -562,11 +578,6 @@ const EventForm = ({ events }) => {
                             value={image.id}
                           >
                             {image.attributes.name}
-                            {/* <img
-                              className="fade-in-image"
-                              style={{ width: width, height: "auto" }}
-                              src={process.env.REACT_APP_STRAPI + thumb.url}
-                            /> */}
                           </MenuItem>
                         );
                       })}
@@ -607,7 +618,6 @@ const EventForm = ({ events }) => {
                       <MenuItem value="none">page</MenuItem>
                       <MenuItem value="external">external link</MenuItem>
                       {pages?.pages?.data.map((page, key) => {
-                        // const thumb = getImageThumb(image.formats);
                         console.log("stop");
                         return (
                           <MenuItem
@@ -623,7 +633,6 @@ const EventForm = ({ events }) => {
                   </div>
                   <div
                     style={{
-                      //display: page === "none" ? "none" : "flex",
                       flexDirection: "column",
                       flexWrap: "wrap",
                       alignItems: "flex-start",
@@ -659,13 +668,6 @@ const EventForm = ({ events }) => {
                       name="web_url"
                       value={formdata["web_url"]}
                       onChange={handleFormField}
-                      style={
-                        {
-                          // marginTop: 5,
-                          // marginBottom: 5,
-                          // border: "1px solid black",
-                        }
-                      }
                     />
                     <Input
                       name="link_label"
@@ -699,6 +701,17 @@ const EventForm = ({ events }) => {
               Add Event
             </Button>
             <Button
+              onClick={() => submitUpdate()}
+              style={{
+                width: 100,
+                borderRadius: 5,
+                backgroundColor: theme.palette.primary.dark,
+                color: theme.palette.primary.contrastDark,
+              }}
+            >
+              Update Event
+            </Button>
+            <Button
               onClick={() => setShow(false)}
               style={{
                 width: 100,
@@ -723,8 +736,7 @@ const EventForm = ({ events }) => {
                 style={{
                   ...theme.typography.caption,
                   width: "fit-content",
-                  // padding: 2,
-                  // margin: 2,
+
                   backgroundColor: theme.palette.info.main,
                   color: theme.palette.info.contrastText,
                 }}
