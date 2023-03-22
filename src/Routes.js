@@ -48,7 +48,7 @@ const AppRoutes = () => {
     return () => {};
   }, []);
 
-  let theme = createTheme({ DefaultTheme });
+  let theme = createTheme({ ...DefaultTheme });
   theme.global = global.attributes;
   theme.menuPosition = "top";
   theme.button = {
