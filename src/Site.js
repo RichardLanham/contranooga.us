@@ -28,21 +28,6 @@ const Site = (props) => {
 
   const [upvisible, setUpvisible] = useState(false);
 
-  const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setUpvisible(true);
-    } else if (scrolled <= 300) {
-      setUpvisible(false);
-    }
-  };
-  // const scrollToTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth",
-  //   });
-  // };
-
   useEffect(() => {
     window.scrollTo(0, 0);
     setuser(window.localStorage.getItem("strapi_user"));

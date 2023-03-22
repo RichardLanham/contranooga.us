@@ -75,15 +75,6 @@ const AppRoutes = () => {
   theme.bgCount = 0;
   delete theme.pages;
   let counter = 1;
-  const switchBg = () => {
-    document.body.style.backgroundImage =
-      "url('/images/bgimages/bg" + counter + ".png')";
-
-    counter++;
-    if (counter > 14) {
-      counter = 1;
-    }
-  };
 
   return (
     <ThemeProvider theme={theme}>

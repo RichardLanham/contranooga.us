@@ -34,6 +34,7 @@ export const GET_PAGE = gql`
     label
     text {
       content
+      id
     }
     picture {
       ...FileParts

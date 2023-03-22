@@ -213,7 +213,7 @@ export const Hero = ({ section }) => {
           <RichEditor
             container={{
               content: section.text?.content,
-              field: "richtext",
+              field: "content",
               id: section.text?.id,
               typename: section.text?.__typename,
             }}

@@ -48,7 +48,7 @@ const RichEditor = ({ container }) => {
   ];
 
   muiColors.map((color) => {
-    console.log(contrastColors);
+    // console.log(contrastColors);
     colors.push({ color: theme.palette[color].main, label: color });
     contrastColors.push({
       color: theme.palette[color].contrastText,
@@ -230,7 +230,7 @@ const RichEditor = ({ container }) => {
   const config = {
     allowedContent:
       "p{text-align}(*); strong(*); em(*); b(*); i(*); u(*); sup(*); sub(*); ul(*); ol(*); li(*); a[!href](*); br(*); hr(*); img{*}[*](*);div{*}[*](*);iframe(*)",
-    fontBackgroundColor: { contrastColors },
+    fontBackgroundColor: { colors },
     fontColor: { colors },
     fontFamily: fontFamilyConfig,
     allowedContent: true,
