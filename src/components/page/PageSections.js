@@ -38,7 +38,7 @@ import RichEditor from "./Editor";
 import PanToolAltTwoToneIcon from "@mui/icons-material/PanToolAltTwoTone";
 import Fab from "@mui/material/Fab";
 
-import FlexGroup from "./FlexGroup";
+import FlexGroup from "./sections/FlexGroup";
 
 const StyledWrap = styled("div")(({ theme }) => ({
   position: "relative",

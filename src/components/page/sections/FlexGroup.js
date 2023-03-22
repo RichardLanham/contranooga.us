@@ -5,9 +5,9 @@ import { Box, Card, Button, Input, IconButton, Zoom } from "@mui/material";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 
-import GoogleMapApp from "../../apps/GoogleMapApp";
+import GoogleMapApp from "../../../apps/GoogleMapApp";
 
-import { GET_PAGE } from "../../gql/site";
+import { GET_PAGE } from "../../../gql/site";
 
 import {
   StyledSubHead,
@@ -17,15 +17,15 @@ import {
   StyledImgGroup,
   StyledImg,
   StyledImgCaption,
-} from "../../styles/PageStyles";
+} from "../../../styles/PageStyles";
 
-import PledgeForm from "./PledgeForm";
+import PledgeForm from "../PledgeForm";
 
-import LargeVideo from "./sections/LargeVideo";
+import LargeVideo from "./LargeVideo";
 
-import { getThumb, createMarkup, getLarge } from "../../apps/functions";
+import { getThumb, createMarkup, getLarge } from "../../../apps/functions";
 
-import { POST_LEAD } from "../../gql/leadForm";
+import { POST_LEAD } from "../../../gql/leadForm";
 import { useMutation, useQuery } from "@apollo/client";
 
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -33,7 +33,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import ReactDOMServer from "react-dom/server";
 // import { theme } from "../../assets/theme";
 
-import RichEditor from "./Editor";
+import RichEditor from "../Editor";
 
 import PanToolAltTwoToneIcon from "@mui/icons-material/PanToolAltTwoTone";
 import Fab from "@mui/material/Fab";

@@ -26,7 +26,7 @@ import {
 import Tabs from "./components/page/sections/Tabs";
 import Hero from "./components/page/sections/Hero";
 import LargeVideo from "./components/page/sections/LargeVideo";
-import FlexGroup from "./components/page/FlexGroup";
+import FlexGroup from "./components/page/sections/FlexGroup";
 
 import PledgeForm from "./components/page/PledgeForm";
 

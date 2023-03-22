@@ -1,47 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import {
-  Box,
-  Card,
-  Button,
-  Input,
-  IconButton,
-  MenuItem,
-  Zoom,
-} from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-// import FaceBookPlayer from "../../apps/FaceBookPlayer";
-
-import GoogleMapApp from "../../../apps/GoogleMapApp";
-
-import { GET_PAGE } from "../../../gql/site";
-
-import {
-  StyledSubHead,
-  // StyledPage,
-  StyledPageSection,
-  StyledHeading,
-  StyledBody1,
-  // StyledColumns,
-  // StyledColumn,
-  StyledImgGroup,
-  StyledImg,
-  StyledImgCaption,
-} from "../../../styles/PageStyles";
-
-import PledgeForm from "../PledgeForm";
-
-import { getThumb, createMarkup, getLarge } from "../../../apps/functions";
-
-import { POST_LEAD } from "../../../gql/leadForm";
-import { useMutation, useQuery } from "@apollo/client";
-
-import CancelIcon from "@mui/icons-material/Cancel";
-
-import ReactDOMServer from "react-dom/server";
-import { doTypesOverlap } from "graphql";
+import { createMarkup } from "../../../apps/functions";
 
 const LargeVideo = ({ section }) => {
   const theme = useTheme();
@@ -84,25 +46,19 @@ const LargeVideo = ({ section }) => {
   };
 
   const pl_ = section?.playlistItem || section?.playlist?.playlistItem || [];
-
   const pl = pl_.slice();
-
   const playlist = pl.map((item) => item.url);
 
-  const defaultVideo = playlist[0];
+  // const defaultVideo = playlist[0];
 
-  // const [listVal, setListVal] = useState(pl[0]?.text ? pl[0].text : "");
   const [listVal, setListVal] = useState("Playlist...");
-
   const [stopLabel, setStopLabel] = useState("");
 
   const handleChangeTrack = (event) => {
-    console.log("handleChangeTrack");
+    //    console.log("handleChangeTrack");
     event.stopPropagation();
     setListVal(event.target.value);
     const targ = pl.find((item) => item.text === event.target.value);
-    //console.log(targ);
-    // onClick={() => load(url, label, label === stopLabel)}
     load(targ.url, targ.text);
   };
 
@@ -114,26 +70,24 @@ const LargeVideo = ({ section }) => {
   const renderLoadButton = (url, label, key) => {
     return (
       <Button
-        // variant="outline"
+        // variant="outlined"
         key={key}
         onClick={() => load(url, label, label === stopLabel)}
         style={{
-          // minWidth: 100,
-          // maxWidth: 250,
-          // maxHeight: 100,
-          whiteSpace: "nowrap",
+          ...theme.typography.subtitle2,
+          fontFamily: "",
+          // whiteSpace: "nowrap",
+          // maxWidth: 100,
           padding: 1,
           margin: 1,
-          // color: theme.palette.primary.contrastText,
-          // backgroundColor: theme.palette.secondary.main,
           backgroundColor:
             label === stopLabel
               ? theme.palette.primary.main
-              : theme.palette.secondary.main,
+              : theme.palette.background.default,
           color:
             label === stopLabel
               ? theme.palette.primary.contrastText
-              : theme.palette.secondary.contrastText,
+              : theme.palette.info.dark,
         }}
       >
         {label}
@@ -249,9 +203,7 @@ const LargeVideo = ({ section }) => {
   const [url, setUrl] = useState(playlist);
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    // ...theme.flexRows,
-    // flexWrap: "wrap",
-    // gap: 3,
+    width: 400,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
@@ -261,215 +213,92 @@ const LargeVideo = ({ section }) => {
     },
     [theme.breakpoints.down("sm")]: {
       width: 300,
-      display: "none",
-    },
-  }));
-
-  const StyledPlayListSelect = styled("div")(({ theme }) => ({
-    display: "none",
-    [theme.breakpoints.down("lg")]: {
-      // padding: 0,
-    },
-    [theme.breakpoints.down("md")]: {
-      // display: "block",
-    },
-    [theme.breakpoints.down("sm")]: {
-      display: "block",
+      // display: "none",
     },
   }));
 
   const StyledPlayerWrap = styled("div")(({ theme }) => ({
-    // border: "1px none",
-    // borderColor: theme.palette.info.light,
     width: state.url === null ? 100 : 400,
     height: state.url === null ? 100 : 225,
-    // height: "auto !important",
-    // aspectRatio: "16/9",
-    // objectFit: "fill",
+    marginBottom: 5,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
-    [theme.breakpoints.down("md")]: {
-      // width: state.url === null ? 100 : 400,
-      // height: state.url === null ? 100 : "min-content",
-    },
+    [theme.breakpoints.down("md")]: {},
     [theme.breakpoints.down("sm")]: {
       width: state.url === null ? 100 : 300,
       height: state.url === null ? 100 : 170,
     },
   }));
 
-  // console.log("down here");
   return (
-    <div style={{ zIndex: 3000 }}>
+    <div>
       <div dangerouslySetInnerHTML={createMarkup(section.richtext)}></div>
-      <StyledPlayListSelect>
-        <div style={{ display: "block", flexWrap: "wrap" }}>
-          <span
-            style={{
-              ...theme.typography.h5,
-              fontSize: "larger",
-              color: theme.palette.primary.main,
-              backgroundColor: theme.palette.primary.contrastText,
-              marginRight: 10,
-              whiteSpace: "nowrap",
-              borderRadius: 5,
-            }}
-          >
-            {section.title ? section.title : ""}
-          </span>
-          <Select
-            style={{ ...theme.typography.h5 }}
-            onChange={handleChangeTrack}
-            name="Play List"
-            // value={<MenuItem>{listVal}</MenuItem>}
-            value={listVal}
-            // onChange={(e) => handle(e)}
-          >
-            <MenuItem value={"Playlist..."}>Playlist...</MenuItem>
-            {pl.map((item, key) => {
-              // console.log(item);
-              return (
-                <MenuItem key={key} value={item.text}>
-                  {item.text}
-                </MenuItem>
-              );
-            })}
-          </Select>
-          <Button
-            onClick={handleStop}
-            style={{
-              display:
-                state.url === null ||
-                listVal.toLocaleLowerCase() === "playlist..."
-                  ? "none"
-                  : "inline",
-
-              padding: 0,
-              maring: 0,
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-              // display: "inline",
-            }}
-            variant="outline"
-          >
-            close
-          </Button>
-        </div>
-
-        <Button
-          style={{ display: "none" }}
-          onClick={() => load(url)}
-          variant="contained"
-        >
-          Play {listVal}
-        </Button>
-      </StyledPlayListSelect>
-
-      <StyledVideoButtonGroup>
-        <span
-          style={{
-            ...theme.typography.h5,
-            fontSize: "larger",
-            color: theme.palette.primary.main,
-            backgroundColor: theme.palette.primary.contrastText,
-            marginRight: 10,
-            whiteSpace: "nowrap",
-            borderRadius: 5,
-          }}
-        >
-          {section.title ? section.title : ""}
-        </span>
-        {pl.map((item, key) => {
-          return renderLoadButton(item.url, item.text, key);
-        })}
-        <Button
-          onClick={handleStop}
-          style={{
-            display: state.url === null ? "none" : "inline",
-            display: "none", // hiding this now.
-            padding: 0,
-            maring: 0,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
-            // display: "inline",
-          }}
-          variant="outline"
-        >
-          close {listVal}
-        </Button>
-      </StyledVideoButtonGroup>
-      <StyledPlayerWrap>
-        <div
-          style={{
-            ...theme.typography.h6,
-            display: state.url === null ? "block" : "none",
-            height: "min-content",
-          }}
-        >
-          Select from the Playlist
-        </div>
-        <ReactPlayer
-          // style={{ objectFit: "cover" }}
-          ref={playerRef}
-          // className="react-player"
-          width="100%"
-          height="100%"
-          // height="100%"
-          // url={state.url || defaultVideo}
-          url={state.url}
-          pip={state.pip}
-          playing={state.playing} //{playing}
-          controls={true}
-          light={state.light}
-          loop={state.loop}
-          playbackRate={state.playbackRate}
-          volume={state.volume}
-          muted={state.muted}
-          // onReady={() => console.log("onReady")}
-          // onStart={() => console.log("onStart")}
-          onPlay={handlePlay}
-          onEnablePIP={handleEnablePIP}
-          onDisablePIP={handleDisablePIP}
-          // onPause={handlePause}
-          onBuffer={() => console.log("onBuffer")}
-          onPlaybackRateChange={handleOnPlaybackRateChange}
-          // onSeek={(e) => console.log("onSeek", e)}
-          onEnded={handleEnded}
-          onError={(e) => console.log("onError", e)}
-          onProgress={handleProgress}
-          onDuration={handleDuration}
-          playIcon={<Button>Play</Button>}
-        />
-        <Button
-          onClick={handleStop}
-          style={{
-            display: state.url === null ? "none" : "inline",
-            display: "none", // hiding this now.
-            padding: 0,
-            maring: 0,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
-            // display: "inline",
-          }}
-          variant="outline"
-        >
-          close {listVal}
-        </Button>
-      </StyledPlayerWrap>
-
+      <div style={{ ...theme.typography.subtitle1 }}>{section.description}</div>
       <div
         style={{
-          // display: "flex",
-          backgroundColor: "yellow",
-          opacity: 0.2,
-          position: "relative",
-          flexDirection: "row",
-          zIndex: 2000,
+          ...theme.flexRows,
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      ></div>
-      <div style={{ position: "relative", width: 320 }}>
-        {section.description}
+      >
+        <StyledPlayerWrap>
+          <ReactPlayer
+            // style={{ objectFit: "cover" }}
+
+            // className="react-player"
+            width="100%"
+            height="100%"
+            // height="100%"
+            // url={state.url || defaultVideo}
+            url={state.url}
+            pip={state.pip}
+            playing={state.playing} //{playing}
+            controls={true}
+            light={state.light}
+            loop={state.loop}
+            playbackRate={state.playbackRate}
+            volume={state.volume}
+            muted={state.muted}
+            // onReady={() => console.log("onReady")}
+            // onStart={() => console.log("onStart")}
+            onPlay={handlePlay}
+            onEnablePIP={handleEnablePIP}
+            onDisablePIP={handleDisablePIP}
+            // onPause={handlePause}
+            onBuffer={() => console.log("onBuffer")}
+            onPlaybackRateChange={handleOnPlaybackRateChange}
+            // onSeek={(e) => console.log("onSeek", e)}
+            onEnded={handleEnded}
+            onError={(e) => console.log("onError", e)}
+            onProgress={handleProgress}
+            onDuration={handleDuration}
+          />
+        </StyledPlayerWrap>
+        <StyledVideoButtonGroup>
+          <span
+            style={{
+              ...theme.typography.subtitle1,
+            }}
+          >
+            {section.title}
+          </span>
+          <div
+            style={{
+              gap: 2,
+              width: "fit-content",
+              display: "flex",
+              flexDirection: "column",
+              // flexWrap: "wrap",
+              // justifyContent: "center",
+              // alignContent: "center",
+            }}
+          >
+            {pl.map((item, key) => {
+              return renderLoadButton(item.url, item.text, key);
+            })}
+          </div>
+        </StyledVideoButtonGroup>
       </div>
     </div>
   );
