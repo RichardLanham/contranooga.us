@@ -203,16 +203,22 @@ const LargeVideo = ({ section }) => {
   const [url, setUrl] = useState(playlist);
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    width: 400,
+    gap: 2,
+    width: "fit-content",
+    ...theme.flexRows,
+    // display: "flex",
+    // flexDirection: "column",
+    // flexWrap: "wrap",
+    // justifyContent: "center",
+    // alignContent: "center",
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
     [theme.breakpoints.down("md")]: {
-      // width: 300,
-      // display: "none",
+      // flexDirection: "row",
+      // flexWrap: "wrap",
     },
     [theme.breakpoints.down("sm")]: {
-      width: 300,
       // display: "none",
     },
   }));
@@ -275,30 +281,20 @@ const LargeVideo = ({ section }) => {
             onDuration={handleDuration}
           />
         </StyledPlayerWrap>
-        <StyledVideoButtonGroup>
+        <div style={{ width: 300 }}>
           <span
             style={{
-              ...theme.typography.subtitle1,
+              ...theme.typography.caption,
             }}
           >
             {section.title}
           </span>
-          <div
-            style={{
-              gap: 2,
-              width: "fit-content",
-              display: "flex",
-              flexDirection: "column",
-              // flexWrap: "wrap",
-              // justifyContent: "center",
-              // alignContent: "center",
-            }}
-          >
+          <StyledVideoButtonGroup>
             {pl.map((item, key) => {
               return renderLoadButton(item.url, item.text, key);
             })}
-          </div>
-        </StyledVideoButtonGroup>
+          </StyledVideoButtonGroup>
+        </div>
       </div>
     </div>
   );
