@@ -31,7 +31,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import ReactDOMServer from "react-dom/server";
-import { theme } from "../../assets/theme";
+// import { theme } from "../../assets/theme";
 
 import RichEditor from "./Editor";
 

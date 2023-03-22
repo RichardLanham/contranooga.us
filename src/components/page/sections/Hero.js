@@ -186,7 +186,7 @@ export const Hero = ({ section }) => {
     <StyledPageSection
       style={{
         border: "1px none red",
-        minHeight: thumb.height ? thumb.height + 5 : 50,
+        minHeight: thumb.height ? thumb.height + 5 : 10,
       }}
     >
       <div style={{ position: "relative" }}>
@@ -223,27 +223,18 @@ export const Hero = ({ section }) => {
           dangerouslySetInnerHTML={createMarkup(section?.text?.content)}
         ></div>
 
-        <div
-          style={{
-            // backgroundColor: theme.palette.background.default,
-            padding: 4,
-            // color: theme.palette.secondary.contrastText,
-            // maxWidth: "50%",
-          }}
-        >
-          {section.googleMap && (
-            <div>
-              <GoogleMapApp
-                markerText={section.googleMap.markerText}
-                lat={section.googleMap.lat}
-                lng={section.googleMap.lng}
-                zoom={section.googleMap.zoom}
-                markerImage={section.googleMap.markerImage}
-                description={section.googleMap.description}
-              />
-            </div>
-          )}
-        </div>
+        {section.googleMap && (
+          <div>
+            <GoogleMapApp
+              markerText={section.googleMap.markerText}
+              lat={section.googleMap.lat}
+              lng={section.googleMap.lng}
+              zoom={section.googleMap.zoom}
+              markerImage={section.googleMap.markerImage}
+              description={section.googleMap.description}
+            />
+          </div>
+        )}
       </StyledHeroBox>
     </StyledPageSection>
   );

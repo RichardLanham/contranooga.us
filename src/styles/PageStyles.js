@@ -93,8 +93,8 @@ export const StyledPage = styled("div")(({ theme }) => ({
 }));
 export const StyledPageSection = styled("div")(({ theme }) => ({
   // width: "calc(95% - 1px)",
-  width: "fit-content",
-  blockSize: "fit-content",
+  // width: "fit-content",
+  // blockSize: "fit-content",
   marginRight: "auto",
 
   borderRadius: 10,

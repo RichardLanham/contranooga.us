@@ -6,6 +6,7 @@ import CollapsedMenuItemTop from "./CollapsedMenuItemTop";
 import ColorButton from "./ColorButton";
 import MenuButton from "./MenuButton";
 const StrapiPages = (props) => {
+  //console.log("StrapiPages");
   const location = useLocation();
   const theme = useTheme();
   const [loaded, setLoaded] = useState(false);

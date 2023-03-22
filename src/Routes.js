@@ -12,9 +12,11 @@ import Calendar from "./apps/Calendar";
 import "./App.css";
 import client from "./apollo/client";
 
-import useStrapiTheme from "./hooks/useStrapiTheme";
-import useStrapiDefaultThemeId from "./hooks/useStrapiDefaultThemeId";
+// import useStrapiTheme from "./hooks/useStrapiTheme";
+// import useStrapiDefaultThemeId from "./hooks/useStrapiDefaultThemeId";
 import useStrapiGlobal from "./hooks/useStrapiGlobal";
+
+import { DefaultTheme, ColorModes } from "./Model";
 
 const AppRoutes = () => {
   // const t2 = new Date();
@@ -22,14 +24,14 @@ const AppRoutes = () => {
 
   const global = useStrapiGlobal();
 
-  const themeId = useStrapiDefaultThemeId();
-  const storedTheme = useStrapiTheme(themeId);
+  const themeId = 1; //useStrapiDefaultThemeId();
+  // const storedTheme = useStrapiTheme(themeId);
 
-  if (storedTheme.theme) {
-    storedTheme.theme.defaultThemeId = themeId;
-  }
+  // if (storedTheme.theme) {
+  //   storedTheme.theme.defaultThemeId = themeId;
+  // }
 
-  const lTheme = storedTheme.theme;
+  // const lTheme = storedTheme.theme;
 
   useEffect(async () => {
     const jd = window.localStorage.getItem("jwt_date");
@@ -46,8 +48,9 @@ const AppRoutes = () => {
     return () => {};
   }, []);
 
-  let theme = createTheme({ ...lTheme });
+  let theme = createTheme({ DefaultTheme });
   theme.global = global.attributes;
+  theme.menuPosition = "top";
   theme.button = {
     ...theme.typography.button,
     // textTransform: "uppercase",
@@ -65,12 +68,12 @@ const AppRoutes = () => {
     // borderColor: theme.palette.primary.main,
   };
   // console.log(theme.global);
-  useStrapiDefaultThemeId();
+  // useStrapiDefaultThemeId();
   //theme.feature = feature.attributes;
   //theme.access_token = access_token;
   theme.themeId = themeId;
 
-  theme.color_modes = storedTheme.color_modes;
+  theme.color_modes = ColorModes;
 
   theme.bgCount = 0;
   delete theme.pages;
