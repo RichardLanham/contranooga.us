@@ -44,7 +44,61 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <style>
+      .header {
+        font-family: "PT Sans Caption";
+        font-weight: 400;
+        font-size: 2em;
+        line-height: 1.235;
+        letter-spacing: 0.00735em;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        block-size: -webkit-fit-content;
+        block-size: -moz-fit-content;
+        block-size: fit-content;
+
+        border-radius: 5px;
+        padding: 3px;
+        background-color: #881610;
+        color: rgb(255, 255, 255);
+      }
+      .topBar {
+        position: relative;
+        height: 10vh;
+        background-image: url(/banner.webp);
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        margin: auto;
+      }
+    </style>
+    <div id="root">
+      <div class="topBar">
+        <div style="position: absolute; left: 30; top: 5">
+          <img style="height: 10vh" src="/logo.webp" />
+        </div>
+      </div>
+
+      <h2 class="header">Chattanooga Traditional Dance Society</h2>
+      <p>
+        We host regular contra dances on the 2nd &amp; 4th Saturdays of each
+        month. Beginner's lesson starts at 7:30 and the dance starts at 8:00. We
+        dance in the gym of the East Ridge Presbyterian Church. The address is
+        4919 Court Dr. Chattanooga TN 37412.&nbsp;
+      </p>
+      <p>
+        <span
+          style="
+            font-size: 18px;
+            background-color: rgb(255, 255, 255);
+            color: rgba(0, 0, 0, 0.87);
+          "
+          >© COPYRIGHT 2023. ALL RIGHTS RESERVED</span
+        >
+      </p>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
