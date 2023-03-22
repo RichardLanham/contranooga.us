@@ -34,6 +34,8 @@ import PageHeader from "./components/page/PageHeader";
 
 import { StyledSiteName } from "./styles/PageStyles";
 
+import { eventEmitter } from "./events";
+
 const StyledHeader = styled("div")(({ theme }) => ({
   ...theme.typography.h3,
   // opacity: ".1",
@@ -64,6 +66,9 @@ const StyledHeader = styled("div")(({ theme }) => ({
 // import { isNullableType } from "graphql";
 
 function Page({ _slug }) {
+  const toggleDrawer = () => {
+    eventEmitter.dispatch("TOGGLE_DRAWER");
+  };
   // console.log("page");
   // https://cms.contranooga.us/api/pages/5?populate[contentSections][populate]=*
 
@@ -133,7 +138,7 @@ function Page({ _slug }) {
       return (
         <Site title={metaTitle} description={attribs.metadata.metaDescription}>
           <Zoom in={true}>
-            <StyledPage id="sitePage">
+            <StyledPage id="sitePage" onTouchStart={toggleDrawer}>
               <PageHeader metaTitle={metaTitle} />
 
               <SiteFeature slug={slug} />

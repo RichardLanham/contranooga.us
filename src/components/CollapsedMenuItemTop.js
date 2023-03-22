@@ -82,8 +82,10 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
         onClick={handleClick}
         style={{
           backgroundColor: theme.palette.background.default,
-
+          paddingTop: 2,
+          paddingBottom: 2,
           margin: "1px 5px 6px 2px",
+          textTransform: "none",
           borderRadius: 5,
           boxShadow:
             "inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5)",
@@ -106,6 +108,7 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
                 key={key}
                 title={page.description}
                 style={{
+                  textTransform: "none",
                   marginRight: "auto",
                   backgroundColor:
                     location.pathname === "/page/" + page.slug

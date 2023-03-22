@@ -14,15 +14,16 @@ const MenuButton = (props) => {
       button="true"
       component={Link}
       style={{
-        ...theme.typography.button,
+        ...theme.typography.h5,
+        textTransform: "none",
         height: 30,
         borderRadius: 5,
         margin: 3,
         width: "calc(80%)",
         maxWidth: 150,
         boxShadow: theme.shadows[10],
-        // boxShadow:
-        //   "inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5)",
+        boxShadow:
+          "inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5)",
         border: 0,
         backgroundColor:
           location.pathname === page.url

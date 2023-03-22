@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Toolbar, Button } from "@mui/material";
+import { Toolbar, Button, ClickAwayListener } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import StrapiPagesTop from "./StrapiPagesTop";
 import { eventEmitter } from "../events.tsx";
@@ -11,7 +11,7 @@ import HideOnScroll from "./HideOnScroll";
 import { getThumb } from "../apps/functions";
 import { Link } from "react-router-dom";
 
-const SiteTopBar = () => {
+const SiteTopBar = ({ force }) => {
   const theme = useTheme();
   const [user, setUser] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -39,8 +39,8 @@ const SiteTopBar = () => {
     display: "none",
     position: "absolute",
     right: 0,
-    bottom: 0,
-    zIndex: theme.zIndex.tooltip,
+    top: 0,
+    zIndex: theme.zIndex.tooltip + 100,
     "&:hover": {
       // backgroundColor: theme.palette.info.dark,
     },
@@ -51,7 +51,10 @@ const SiteTopBar = () => {
       // right:0,
     },
     [theme.breakpoints.down("sm")]: {
-      bottom: 30,
+      // bottom: 30,
+      // top: 0,
+      // bottom: "unset",
+      // border: "1px solid green",
     },
   }));
 
@@ -85,12 +88,12 @@ const SiteTopBar = () => {
     // alignItems: "baseline",
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
-      backgroundSize: "100% 18vh",
+      backgroundSize: "100% 60px",
       height: 120,
     },
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
-      backgroundSize: "100% 8vh",
+      // backgroundSize: "100% 60px",
       // height: 120,
     },
   }));
@@ -126,14 +129,16 @@ const SiteTopBar = () => {
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
       // width: "15%",
       // width: "19vw",
-      top: 10,
+      width: 60,
+      top: 0,
+      left: 0,
     },
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // width: theme.menuPosition === "side" ? "8%" : "calc(15%)",
-      width: "20vw",
-      top: 4,
-      left: 4,
+      // width: 60,
+      // top: 0,
+      // left: 0,
       // width: "20vw",
     },
   }));
@@ -153,11 +158,14 @@ const SiteTopBar = () => {
   // console.log(theme?.global?.navbar?.logo?.data);
   return (
     <div>
-      <SlideDrawer show={drawerOpen} />
+      <ClickAwayListener onClickAway={() => setDrawerOpen(false)}>
+        <SlideDrawer setDrawerOpen={setDrawerOpen} show={drawerOpen} />
+      </ClickAwayListener>
+
       <HideOnScroll>
         <StyledAppBar>
-          <StyledToolbar>
-            <CornerBurger />
+          <CornerBurger />
+          <StyledToolbar onClick={() => setDrawerOpen(false)}>
             <div style={{ paddingLeft: "10vw" }}>
               <Link to="/" style={{ zIndex: 3000 }}>
                 <StyledLogo src={process.env.REACT_APP_STRAPI + thumb.url} />

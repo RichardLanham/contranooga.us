@@ -8,7 +8,7 @@ export const StyledSiteName = styled("div")(({ theme }) => ({
   fontSize: "2.5vw",
   width: "fit-content",
   blockSize: "fit-content",
-  opacity: ".75",
+  // opacity: ".75",
   marginTop: 60,
   borderRadius: 5,
   padding: 3,

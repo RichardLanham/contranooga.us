@@ -42,6 +42,11 @@ const Calendar = (props) => {
 
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
+
+  const toggleDrawer = () => {
+    eventEmitter.dispatch("TOGGLE_DRAWER");
+  };
+
   useEffect(() => {
     // console.log(fillStart);
     // setFillStart(theme.global.eventFillStart);
@@ -162,7 +167,7 @@ const Calendar = (props) => {
     };
     // console.log(current?.event?.id);
     return (
-      <div>
+      <div onTouchStart={toggleDrawer}>
         {!current?.empty && (
           <EventDetail
             showDetail={showDetail}

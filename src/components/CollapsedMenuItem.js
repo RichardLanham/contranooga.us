@@ -83,10 +83,12 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
       <ListItem
         onClick={handleClick}
         style={{
+          ...theme.typography.h5,
           backgroundColor: theme.palette.background.default,
-
           margin: "1px 5px 6px 2px",
+          padding: 3,
           borderRadius: 5,
+          textTransform: "none",
           boxShadow:
             "inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.5)",
         }}
@@ -108,6 +110,7 @@ const CollapsedMenuItem = ({ subMenusPages, hideOnRender }) => {
                 title={page.description}
                 key={key}
                 style={{
+                  textTransform: "none",
                   marginRight: "auto",
                   backgroundColor:
                     location.pathname === "/page/" + page.slug
