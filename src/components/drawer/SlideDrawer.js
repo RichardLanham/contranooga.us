@@ -5,7 +5,7 @@ import { theme } from "../../assets/theme";
 
 const slideDrawer = (props) => {
   // const [open, setOpen] = useState(false);
-  console.log(props);
+  // console.log(props);
   const setDrawerOpen = props.setDrawerOpen;
   // console.log("Show: " + props.show);
   let drawerClasses = "side-drawer";

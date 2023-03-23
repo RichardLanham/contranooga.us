@@ -158,10 +158,7 @@ const SiteTopBar = ({ force }) => {
   // console.log(theme?.global?.navbar?.logo?.data);
   return (
     <div>
-      <ClickAwayListener onClickAway={() => setDrawerOpen(false)}>
-        <SlideDrawer setDrawerOpen={setDrawerOpen} show={drawerOpen} />
-      </ClickAwayListener>
-
+      <SlideDrawer setDrawerOpen={setDrawerOpen} show={drawerOpen} />
       <HideOnScroll>
         <StyledAppBar>
           <CornerBurger />

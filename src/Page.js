@@ -25,6 +25,7 @@ import {
 
 import Tabs from "./components/page/sections/Tabs";
 import Hero from "./components/page/sections/Hero";
+import Scroller from "./components/page/sections/Scroller";
 import LargeVideo from "./components/page/sections/LargeVideo";
 import FlexGroup from "./components/page/sections/FlexGroup";
 
@@ -79,25 +80,17 @@ function Page({ _slug }) {
 
   // target.scrollHeight — target.scrollTop === target.clientHeight
   useEffect(() => {
-    window.onscroll = function (ev) {
-      if (
-        window.innerHeight + window.pageYOffset >=
-        document.body.offsetHeight
-      ) {
-        console.log("you're at the bottom of the page");
-      }
-    };
-    const scrollObj = document.getElementById("root");
-    scrollObj.onscroll = () => {
-      if (
-        scrollObj.scrollHeight - scrollObj.scrollTop ===
-        scrollObj.clientHeight
-      ) {
-        console.log(scrollObj.scrollHeight);
-        console.log(scrollObj.scrollTop);
-        console.log(scrollObj.clientHeight);
-      }
-    };
+    // const scrollObj = document.getElementById("root");
+    // scrollObj.onscroll = () => {
+    //   if (
+    //     scrollObj.scrollHeight - scrollObj.scrollTop ===
+    //     scrollObj.clientHeight
+    //   ) {
+    //     console.log(scrollObj.scrollHeight);
+    //     console.log(scrollObj.scrollTop);
+    //     console.log(scrollObj.clientHeight);
+    //   }
+    // };
     if (logout) {
       window.localStorage.removeItem("strapi_jwt");
       window.localStorage.removeItem("strapi_user");
@@ -157,6 +150,8 @@ function Page({ _slug }) {
                     return <RichText key={key} section={section} />;
                   case "Hero":
                     return <Hero key={key} section={section} />;
+                  case "Scroller":
+                    return <Scroller key={key} section={section} />;
                   case "PageFeature":
                     return <Feature key={key} section={section} />;
                   case "LargeVideo":

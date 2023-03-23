@@ -1,32 +1,28 @@
 import { useState, useEffect } from "react";
 import {
   FormLabel,
-  InputLabel,
   Button,
   IconButton,
   Input,
-  Checkbox,
   Select,
   MenuItem,
   TextareaAutosize,
   Zoom,
 } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
-//import "react-big-calendar/lib/css/react-big-calendar.css";
 import { StyledFormContainer } from "../../styles/CalendarStyles";
 import client from "../../apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_EVENT } from "../../gql/events";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import useGetPages from "../../hooks/useGetPages";
 import useGetUploads from "../../hooks/useGetUploads";
-
 import ConfirmButtons from "../../components/ConfirmButtons";
-
 import CloseIcon from "@mui/icons-material/Close";
-
-require("./eventForm.css");
+require("../../styles/eventForm.css");
 
 const EventForm = ({ events }) => {
   const theme = useTheme();
@@ -34,7 +30,7 @@ const EventForm = ({ events }) => {
   const [show, setShow] = useState(false);
   const [images, setImages] = useState({ data: [] });
   const [pages, setPages] = useState("");
-  const [eventSelection, setEventSelection] = useState("events...");
+  const [eventID, setEventID] = useState("events...");
   const [user, setUser] = useState(true);
   const [mode, setMode] = useState("add"); // || edit
   // const [fromDateTime, setFromDateTime] = useState(new Date());
@@ -66,9 +62,26 @@ const EventForm = ({ events }) => {
     link_description: "",
     geocode: "",
   });
-
+  const [imageSelection, setImageSelection] = useState("none");
   const _pages = useGetPages();
   const uploads = useGetUploads();
+
+  const { data, loading, error } = useQuery(GET_EVENT, {
+    variables: { id: eventID },
+  });
+
+  useEffect(() => {
+    if (error) {
+    }
+
+    if (loading) {
+    }
+
+    if (data) {
+      console.log(data);
+      setFormdata(data?.event?.data?.attributes);
+    }
+  }, [data, loading, error, eventID]);
 
   useEffect(() => {
     setMessage("");
@@ -85,18 +98,17 @@ const EventForm = ({ events }) => {
     setPage(e.target.value);
   };
 
-  const [imageSelection, setImageSelection] = useState("none");
-
   const handleEventSelection = (e) => {
-    setEventSelection(e.target.value);
-    const event = events.find((event) => event.id === e.target.value);
-    const imgId = event.attributes?.image?.data?.id;
-    const fileId = event?.attributes?.link?.id;
-    // console.log(fileId);
-    setPage(fileId);
-    setImageSelection(imgId);
-    console.log(event.attributes);
-    setFormdata(event.attributes);
+    clearForm();
+    setEventID(e.target.value);
+    // const event = events.find((event) => event.id === e.target.value);
+    // const imgId = event.attributes?.image?.data?.id;
+    // const fileId = event?.attributes?.link?.id;
+    // // console.log(fileId);
+    // setPage(fileId);
+    // setImageSelection(imgId);
+    // console.log(event.attributes);
+    // setFormdata(event.attributes);
   };
 
   const handleFormField = (e) => {
@@ -170,7 +182,7 @@ const EventForm = ({ events }) => {
       });
   };
   const clearForm = () => {
-    setEventSelection("events...");
+    setEventID("events...");
     setFormdata({
       name: "",
       body: "",
@@ -204,7 +216,7 @@ const EventForm = ({ events }) => {
 
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
-        setEventSelection(JSON.parse(request.response).data.id);
+        setEventID(JSON.parse(request.response).data.id);
         setMessage(
           "Event " +
             JSON.parse(request.response).data.attributes.name +
@@ -342,7 +354,7 @@ const EventForm = ({ events }) => {
     formData.append("data", JSON.stringify(data));
     request.open(
       "PUT",
-      process.env.REACT_APP_STRAPI_API + "/events/" + eventSelection
+      process.env.REACT_APP_STRAPI_API + "/events/" + eventID
     );
     request.setRequestHeader("Authorization", "Bearer " + token);
     request.send(formData);
@@ -361,7 +373,7 @@ const EventForm = ({ events }) => {
 
     request.open(
       "DELETE",
-      process.env.REACT_APP_STRAPI_API + "/events/" + eventSelection
+      process.env.REACT_APP_STRAPI_API + "/events/" + eventID
     );
     request.setRequestHeader("Authorization", "Bearer " + token);
     request.send();
@@ -423,36 +435,45 @@ const EventForm = ({ events }) => {
           <StyledFormContainer>
             <form onSubmit={submit}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Select
-                  style={{
-                    width: 220,
-                    zIndex: theme.zIndex.modal,
-                    display: user ? "block" : "none",
-                  }}
-                  name="EventSelect"
-                  value={eventSelection}
-                  onChange={handleEventSelection}
-                >
-                  <MenuItem value="events...">events...</MenuItem>
-                  {events.map((event, key) => {
-                    return (
-                      <MenuItem selected={key === 0} key={key} value={event.id}>
-                        {event.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
+                <div style={{ ...theme.flexRows }}>
+                  <Select
+                    style={{
+                      width: "fit-content",
+                      zIndex: theme.zIndex.modal,
+                      display: user ? "block" : "none",
+                    }}
+                    name="EventSelect"
+                    value={eventID}
+                    onChange={handleEventSelection}
+                  >
+                    <MenuItem value="events...">events...</MenuItem>
+                    {events.map((event, key) => {
+                      return (
+                        <MenuItem
+                          selected={key === 0}
+                          key={key}
+                          value={event.id}
+                          style={{ ...theme.typography.subtitle2 }}
+                        >
+                          {event.attributes.name}
+                          {" @ "}
+                          {new Date(event.attributes.startTime).toDateString()}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                  <Input
+                    value={formdata["name"]}
+                    onChange={handleFormField}
+                    size="small"
+                    placeholder="event name"
+                    name="name"
+                    required="true"
+                    style={{ width: "50%" }}
+                  />
+                </div>
                 <div className="eventFormFields" style={{ ...theme.flexRows }}>
                   <div>
-                    <Input
-                      value={formdata["name"]}
-                      onChange={handleFormField}
-                      size="small"
-                      placeholder="event name"
-                      name="name"
-                      required="true"
-                      style={{ width: 200 }}
-                    />
                     <MobileDateTimePicker
                       disablePast
                       value={formdata["startTime"]}
@@ -735,15 +756,17 @@ const EventForm = ({ events }) => {
                         backgroundColor: theme.palette.background.default,
                       }}
                     />
-                    <Select
-                      name="approved"
-                      value={formdata["approved"]}
-                      onChange={handleFormField}
-                      // style={{ display: "block", width: "fit-content" }}
-                    >
-                      <MenuItem value={false}>unapproved</MenuItem>
-                      <MenuItem value={true}>approved</MenuItem>
-                    </Select>
+                    {user && (
+                      <Select
+                        name="approved"
+                        value={formdata["approved"]}
+                        onChange={handleFormField}
+                        // style={{ display: "block", width: "fit-content" }}
+                      >
+                        <MenuItem value={false}>unapproved</MenuItem>
+                        <MenuItem value={true}>approved</MenuItem>
+                      </Select>
+                    )}
                   </div>
                 </div>
               </LocalizationProvider>
@@ -766,9 +789,9 @@ const EventForm = ({ events }) => {
                   color: theme.palette.primary.contrastDark,
                 }}
               >
-                {eventSelection === "events..." ? "Add " : "Copy "} Event
+                {eventID === "events..." ? "Add " : "Copy "} Event
               </Button>
-              {eventSelection !== "events..." && (
+              {eventID !== "events..." && (
                 <Button
                   onClick={() => submitUpdate()}
                   style={{
@@ -781,7 +804,7 @@ const EventForm = ({ events }) => {
                   Update Event
                 </Button>
               )}
-              {eventSelection !== "events..." && (
+              {eventID !== "events..." && (
                 <ConfirmButtons action={submitDelete} label="delete">
                   Delete
                 </ConfirmButtons>

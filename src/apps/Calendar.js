@@ -18,9 +18,9 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import SiteHeader from "../components/page/PageHeader";
 import EventForm from "../components/calendar/EventForm";
-import EventDetail from "./EventDetail";
+import EventDetail from "../components/calendar/EventDetail";
 // import { createMarkup } from "../apps/functions";
-require("./calendar.css");
+require("../styles/calendar.css");
 
 const localizer = momentLocalizer(moment);
 const Calendar = (props) => {

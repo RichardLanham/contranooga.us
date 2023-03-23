@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, Zoom } from "@mui/material";
+import { Zoom } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, styled } from "@mui/material/styles";
-
-import { createMarkup, getThumb, getLarge } from "../apps/functions";
-
+import { createMarkup, getThumb, getLarge } from "../../apps/functions";
 import { useQuery } from "@apollo/client";
-import { GET_EVENT } from "../gql/events";
-
-import GoogleMapApp from "./GoogleMapApp";
-
-import EditIcon from "@mui/icons-material/Edit";
+import { GET_EVENT } from "../../gql/events";
+import GoogleMapApp from "../../apps/GoogleMapApp";
 import CloseIcon from "@mui/icons-material/Close";
 
 const StyledCard = styled("div")(({ theme }) => ({

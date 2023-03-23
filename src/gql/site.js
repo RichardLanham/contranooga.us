@@ -153,6 +153,18 @@ export const GET_PAGE = gql`
           }
           contentSections {
             __typename
+            ... on ComponentSectionsScroller {
+              id
+              slugs {
+                id
+                slug
+                title
+                __typename
+                blurb
+                load
+                __typename
+              }
+            }
             ... on ComponentSectionsInputs {
               id
               title
