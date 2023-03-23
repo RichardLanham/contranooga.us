@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { Button, IconButton, Zoom } from "@mui/material";
-import { useTheme, styled } from "@mui/material/styles";
+import { IconButton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import axios from "axios";
 import { momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -337,6 +337,7 @@ const Calendar = (props) => {
                           }}
                         />
                       </IconButton>
+                      {user && <EventForm events={events.data.data} />}
                       <span
                         style={{
                           ...theme.typography.caption,

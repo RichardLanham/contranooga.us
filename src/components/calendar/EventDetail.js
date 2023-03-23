@@ -12,9 +12,6 @@ const StyledCard = styled("div")(({ theme }) => ({
   zIndex: theme.zIndex.tooltip,
   position: "fixed",
   left: "40%",
-  //   width: "fit-content",
-  //   maxWidth: 600,
-  //   height: "fit-content",
   minHeight: 200,
   minWidth: 500,
   overflowY: "scroll",
@@ -24,8 +21,6 @@ const StyledCard = styled("div")(({ theme }) => ({
   boxShadow: theme.shadows[9],
   borderRadius: 15,
   padding: 5,
-
-  // display: "inline",
   [theme.breakpoints.down("xl")]: {
     left: "50%",
   },
@@ -36,13 +31,9 @@ const StyledCard = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    // position: "sticky",
     top: 170,
     left: 3,
-    // bottom: 0,
     width: "95vw",
-    // margin: "auto",
-    // border: "1px solid red",
   },
 }));
 
@@ -106,11 +97,11 @@ const EventDetail = ({ showDetail, current, setCurrent }) => {
               <div>
                 {current.link[0]?.url.indexOf("http") === 0 ? (
                   <a target="_new" href={current.link[0]?.url}>
-                    {current.link[0].description || current.link[0].url}
+                    {current.link[0].text || current.link[0].url}
                   </a>
                 ) : (
                   <Link to={"/page/" + current.link[0]?.slug}>
-                    {current.link[0]?.description || current.link[0]?.slug}
+                    {current.link[0]?.text || current.link[0]?.slug}
                   </Link>
                 )}
               </div>
