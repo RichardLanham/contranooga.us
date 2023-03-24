@@ -137,7 +137,7 @@ const EventDetail = ({ current, setCurrent }) => {
                   </div>
                 )}
                 {current?.lat !== 0 && current?.lng !== 0 && (
-                  <div style={{ display: "none" }}>
+                  <div style={{ display: "block" }}>
                     <GoogleMapApp
                       markerText={current.name}
                       markerImage={<img />}
