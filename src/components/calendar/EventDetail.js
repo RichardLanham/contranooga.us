@@ -9,15 +9,16 @@ import GoogleMapApp from "../../apps/GoogleMapApp";
 import CloseIcon from "@mui/icons-material/Close";
 
 const StyledCard = styled("div")(({ theme }) => ({
-  zIndex: theme.zIndex.tooltip,
+  // zIndex: 5000,
   position: "fixed",
-  left: "40%",
+  left: 650,
+  top: 300,
   minHeight: 200,
   minWidth: 500,
   overflowY: "scroll",
-  overflowX: "clip",
+  overflowX: "hidden",
   zIndex: 5000,
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
   boxShadow: theme.shadows[9],
   borderRadius: 15,
   padding: 5,
@@ -31,13 +32,13 @@ const StyledCard = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    top: 170,
+    top: 60,
     left: 3,
     width: "95vw",
   },
 }));
 
-const EventDetail = ({ showDetail, current, setCurrent }) => {
+const EventDetail = ({ current, setCurrent }) => {
   const theme = useTheme();
   const [loader, setLoader] = useState(false);
   const { data, loading, error } = useQuery(GET_EVENT, {
@@ -67,110 +68,123 @@ const EventDetail = ({ showDetail, current, setCurrent }) => {
   useEffect(() => {
     setThumb(getThumb(current?.image?.data?.attributes));
     setLarge(getLarge(current?.image?.data?.attributes));
+    console.log(large);
   }, [data]);
 
   console.log(thumb);
   return (
     <Zoom in={true}>
-      <StyledCard>
-        <div style={{ display: loader ? "none" : "block" }}>Loading</div>
-        <CloseIcon
-          style={{
-            cursor: "pointer",
-            position: "absolute",
-            top: 10,
-            right: 10,
-            fontSize: 32,
-          }}
-          onClick={() => setCurrent({ empty: true })}
-        >
-          close
-        </CloseIcon>
-        <div>
-          <div style={{ ...theme.typography.h5 }}>{current?.name}</div>
+      <div style={{ position: "relative" }}>
+        <StyledCard>
+          <div style={{ display: loader ? "none" : "block" }}>Loading</div>
+          <CloseIcon
+            style={{
+              cursor: "pointer",
+              position: "absolute",
+              top: 10,
+              right: 10,
+              fontSize: 32,
+            }}
+            onClick={() => setCurrent({ empty: true })}
+          >
+            close
+          </CloseIcon>
           <div
-            style={{ ...theme.typography.body1 }}
-            dangerouslySetInnerHTML={createMarkup(current?.body)}
-          ></div>
-          <div style={{ ...theme.flexRows, gap: 10 }}>
-            {current?.link && (
-              <div>
-                {current.link[0]?.url.indexOf("http") === 0 ? (
-                  <a target="_new" href={current.link[0]?.url}>
-                    {current.link[0].text || current.link[0].url}
-                  </a>
-                ) : (
-                  <Link to={"/page/" + current.link[0]?.slug}>
-                    {current.link[0]?.text || current.link[0]?.slug}
-                  </Link>
-                )}
-              </div>
-            )}
-
-            {current?.web_url && (
-              <div>
-                <a target="_new" href={current.web_url}>
-                  {current?.link_label || current?.link_description}
-                </a>
-              </div>
-            )}
-            {current?.image_url && (
-              <div>
-                <img
-                  style={{ maxWidth: 180, height: "auto" }}
-                  src={current?.image_url}
-                />
-              </div>
-            )}
-            {thumb && (
-              <div>
-                <img
-                  className="fade-in-image"
-                  style={{ maxWidth: large.width, height: "auto" }}
-                  onClick={(e) =>
-                    (e.currentTarget.src =
-                      process.env.REACT_APP_STRAPI + large.url)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.src =
-                      process.env.REACT_APP_STRAPI + thumb.url)
-                  }
-                  src={process.env.REACT_APP_STRAPI + thumb.url}
-                />
-              </div>
-            )}
-
-            <div>
-              {current.street && (
+            style={{
+              ...theme.flexRows,
+              gap: 8,
+              maxWidth: 500,
+            }}
+          >
+            <div style={{ ...theme.typography.h5 }}>{current?.name}</div>
+            <div
+              style={{ ...theme.typography.body1 }}
+              dangerouslySetInnerHTML={createMarkup(current?.body)}
+            ></div>
+            <div style={{ ...theme.flexRows, gap: 10 }}>
+              {current?.link && (
                 <div>
-                  <div style={{ ...theme.typography.h6 }}>location</div>
-                  <div style={{ ...theme.flexRows, gap: 5 }}>
-                    {current.street && <div>{current.street}</div>}
-                    {current.city && <div>{current.city}</div>}
-                    {current.state && <div>{current.state}</div>}
-                    {current.zip && <div>{current.zip}</div>}
-                  </div>
+                  {current.link?.url.indexOf("http") === 0 ? (
+                    <a target="_new" href={current.link?.url}>
+                      {current.link.text || current.link.url}
+                    </a>
+                  ) : (
+                    <Link to={"/page/" + current.link?.slug}>
+                      {current.link?.text || current.link?.slug}
+                    </Link>
+                  )}
                 </div>
               )}
-              {current?.lat && current?.lng && (
+
+              {current?.web_url && (
                 <div>
-                  <GoogleMapApp
-                    markerText={current.name}
-                    markerImage={<img />}
-                    description={""}
-                    lat={current.lat}
-                    lng={current.lng}
-                    zoom={14}
+                  <a target="_new" href={current.web_url}>
+                    {current?.link_label || current?.link_description}
+                  </a>
+                </div>
+              )}
+
+              <div>
+                {current.street && (
+                  <div style={{ ...theme.flexRows, gap: 5 }}>
+                    <div style={{ ...theme.typography.h6 }}>location</div>
+                    <div style={{ ...theme.flexRows, gap: 5 }}>
+                      {current.street && <div>{current.street}</div>}
+                      {current.city && <div>{current.city}</div>}
+                      {current.state && <div>{current.state}</div>}
+                      {current.zip && <div>{current.zip}</div>}
+                    </div>
+                  </div>
+                )}
+                {current?.lat !== 0 && current?.lng !== 0 && (
+                  <div>
+                    <GoogleMapApp
+                      markerText={current.name}
+                      markerImage={<img />}
+                      description={""}
+                      lat={current.lat}
+                      lng={current.lng}
+                      zoom={14}
+                    />
+                  </div>
+                )}
+              </div>
+              {current?.image_url && (
+                <div>
+                  <img
+                    style={{ maxWidth: 180, height: "auto" }}
+                    src={current?.image_url}
+                  />
+                </div>
+              )}
+              {thumb && (
+                <div>
+                  <img
+                    className="fade-in-image"
+                    style={{
+                      maxWidth: large?.width,
+                      height: "auto",
+                      float: "right",
+                    }}
+                    onClick={(e) =>
+                      (e.currentTarget.src =
+                        process.env.REACT_APP_STRAPI + large?.url)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.src =
+                        process.env.REACT_APP_STRAPI + thumb?.url)
+                    }
+                    src={process.env.REACT_APP_STRAPI + thumb?.url}
                   />
                 </div>
               )}
             </div>
           </div>
-        </div>
-        <pre style={{ display: "none" }}>
-          {JSON.stringify(current, null, 3)}
-        </pre>
-      </StyledCard>
+          <pre style={{ display: "none" }}>
+            {JSON.stringify(current, null, 3)}
+          </pre>
+        </StyledCard>
+      </div>
     </Zoom>
   );
 };

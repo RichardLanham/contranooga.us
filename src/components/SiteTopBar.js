@@ -69,7 +69,8 @@ const SiteTopBar = ({ force }) => {
     zIndex: theme.zIndex.tooltip,
 
     opacity: 1,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
+      height: 60,
       //backgroundColor: "yellow",
     },
   }));
@@ -94,7 +95,7 @@ const SiteTopBar = ({ force }) => {
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",
       // backgroundSize: "100% 60px",
-      // height: 120,
+      height: 60,
     },
   }));
 

@@ -91,7 +91,19 @@ const Calendar = (props) => {
           "/events?fields[0]=name&fields[1]=startTime&fields[2]=endTime&fields[3]=body&fields[4]=note&fields[5]=email&fields[6]=image_url&fields[7]=web_url&fields[9]=approved&fields[9]=lat&fields[1]=lng&fields[11]=street&fields[12]=city&fields[13]=state&fields[14]=zip&fields[15]=id&fields[16]=approved&fields[17]=link_label&fields[18]=link_description"
       )
       .then((res) => {
-        setEvents(res);
+        const rs = JSON.parse(JSON.stringify(res));
+
+        const dt = rs.data.data.splice(0);
+
+        dt.sort((a, b) => {
+          // a.attributes.startTime < b.attributes.startTime;
+          if (a.attributes.startTime < b.attributes.startTime) {
+            return -1;
+          }
+        });
+        rs.data.data = dt;
+
+        setEvents(rs);
         // window.localStorage.setItem("strapiEvents", JSON.stringify(res));
       })
       .catch((err) => {

@@ -345,7 +345,7 @@ const EventForm = ({ events, _pages, uploads }) => {
                           // onChange={handleFormField}
                           {...params}
                           style={{ width: "50%" }}
-                          helperText="Start"
+                          // helperText="Start"
                         />
                       )}
                     />
@@ -360,7 +360,7 @@ const EventForm = ({ events, _pages, uploads }) => {
                           // onChange={handleFormField}
                           {...params}
                           style={{ width: "50%" }}
-                          helperText="End"
+                          // helperText="End"
                         />
                       )}
                     />
@@ -636,7 +636,7 @@ const EventForm = ({ events, _pages, uploads }) => {
                     </FormLabel>
                   </a>
                   <TextField
-                    value={formdata.link && formdata.link[0]?.description}
+                    value={formdata.link && formdata.link?.description}
                     name="linkExternal"
                     placeholder="http://..."
                     style={{

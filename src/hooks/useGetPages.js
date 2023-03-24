@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import client from "../apollo/client";
 // FOR REFERENCE, a pattern, not is use; it was folded into useStrapiTheme.
 const useGetPages = () => {
+  console.log("getpages");
   let ret = [];
   // console.log("GETPAGES");
   //   const [data, setData] = useState(null);

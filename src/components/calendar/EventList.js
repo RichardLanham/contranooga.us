@@ -138,7 +138,7 @@ const EventList = () => {
       setPage(e.target.value);
     };
     const link = Array.isArray(event_.attributes.link)
-      ? event_.attributes.link[0]
+      ? event_.attributes.link
       : false;
 
     // const eventEntity = event_.__typename === "EventEntity";
@@ -258,7 +258,7 @@ const EventList = () => {
       setPage(
         attribs.link
           ? attribs.link.length > 0
-            ? attribs.link[0].url.replace("/", "")
+            ? attribs.link.url.replace("/", "")
             : "none"
           : "none"
       );
@@ -613,7 +613,7 @@ const EventList = () => {
                         name="startTime"
                         {...params}
                         style={{ width: "50%" }}
-                        helperText="Start"
+                        // helperText="Start"
                       />
                     )}
                   />
@@ -628,7 +628,7 @@ const EventList = () => {
                         name="endTime"
                         {...params}
                         style={{ width: "50%" }}
-                        helperText="End"
+                        // helperText="End"
                       />
                     )}
                   />
@@ -757,7 +757,7 @@ const EventList = () => {
                 ></TextField>
                 <TextField
                   name="text"
-                  defaultValue={elink.length > 0 ? elink[0].text : ""}
+                  defaultValue={elink.length > 0 ? elink.text : ""}
                   placeholder="link label"
                   style={{
                     backgroundColor: theme.palette.background.default,
@@ -765,7 +765,7 @@ const EventList = () => {
                 ></TextField>
                 <TextField
                   name="description"
-                  defaultValue={elink.length > 0 ? elink[0].description : ""}
+                  defaultValue={elink.length > 0 ? elink.description : ""}
                   placeholder="link description"
                   style={{
                     backgroundColor: theme.palette.background.default,

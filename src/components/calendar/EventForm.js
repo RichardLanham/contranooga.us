@@ -13,7 +13,7 @@ import { useTheme, styled } from "@mui/material/styles";
 import { StyledFormContainer } from "../../styles/CalendarStyles";
 import client from "../../apollo/client";
 import { useQuery } from "@apollo/client";
-import { GET_EVENT } from "../../gql/events";
+import { GET_EVENT_LITE } from "../../gql/events";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -66,7 +66,7 @@ const EventForm = ({ events }) => {
   const _pages = useGetPages();
   const uploads = useGetUploads();
 
-  const { data, loading, error } = useQuery(GET_EVENT, {
+  const { data, loading, error } = useQuery(GET_EVENT_LITE, {
     variables: { id: eventID },
   });
 
@@ -79,7 +79,16 @@ const EventForm = ({ events }) => {
 
     if (data) {
       console.log(data);
-      setFormdata(data?.event?.data?.attributes);
+
+      const d = JSON.parse(JSON.stringify(data));
+      // delete d?.event?.data?.attributes?.image?.data?.attributes;
+      d.event.data.attributes.image =
+        d.event?.data?.attributes?.image?.data?.id;
+
+      // setFormdata(data?.event?.data?.attributes);
+      setFormdata(d.event?.data?.attributes);
+
+      console.log(formdata.link?.slug);
     }
   }, [data, loading, error, eventID]);
 
@@ -88,6 +97,8 @@ const EventForm = ({ events }) => {
     setPages(_pages);
     setImages(uploads);
     setUser(window.localStorage.getItem("strapi_user") === null ? false : true);
+  });
+  useEffect(() => {
     const form = Object.assign({}, formdata);
     form["approved"] =
       window.localStorage.getItem("strapi_user") !== null || false;
@@ -95,7 +106,25 @@ const EventForm = ({ events }) => {
   }, []);
 
   const handlePageChange = (e) => {
-    setPage(e.target.value);
+    // let form = Object.assign({}, formdata);
+    let form = JSON.parse(JSON.stringify(formdata));
+
+    if (!form?.link?.url) {
+      const linkObj = {
+        url: "/",
+        slug: "none",
+        text: "",
+        description: "",
+        newTab: false,
+      };
+      linkObj[e.target.name] = e.target.value;
+      form.link = linkObj;
+    } else {
+      form.link[e.target.name] = e.target.value;
+    }
+
+    setFormdata(form);
+    // setPage(e.target.value);
   };
 
   const handleEventSelection = (e) => {
@@ -141,11 +170,8 @@ const EventForm = ({ events }) => {
   };
 
   const handleImageSelection = (e) => {
-    const field = e.target.name;
-    const val = e.target.value;
-    const form = Object.assign({}, formdata);
-
-    setImageSelection(val);
+    let form = JSON.parse(JSON.stringify(formdata));
+    form.image = e.target.value;
     setFormdata(form);
   };
 
@@ -252,20 +278,20 @@ const EventForm = ({ events }) => {
     data.startTime = new Date(data.startTime).toISOString();
     data.geocode = formdata.geocode;
 
-    if (data.url !== "none") {
-      data.link = [
-        {
-          url: data.url === "external" ? data.linkExternal : "/" + data.url,
-          newTab: !data.url.startsWith("http") ? true : false,
-          text: data.text,
-          description: data.richtext,
-        },
-      ];
-      delete data.url;
-      delete data.text;
-      delete data.richtext;
-      delete data.linkExternal;
-    }
+    // if (data.url !== "none") {
+    //   data.link = [
+    //     {
+    //       url: data.url === "external" ? data.linkExternal : "/" + data.url,
+    //       newTab: !data.url.startsWith("http") ? true : false,
+    //       text: data.text,
+    //       description: data.richtext,
+    //     },
+    //   ];
+    //   delete data.url;
+    //   delete data.text;
+    //   delete data.richtext;
+    //   delete data.linkExternal;
+    // }
 
     if (data.image === "none") {
       delete data.image;
@@ -286,77 +312,25 @@ const EventForm = ({ events }) => {
 
   const submitUpdate = () => {
     const request = new XMLHttpRequest();
-    const formData = new FormData();
-    const formElement = document.querySelector("form");
-    const formElements = formElement.elements;
-
     const token = localStorage.getItem("strapi_jwt");
-
-    const data = {};
-
+    const formData = new FormData();
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
         setMessage("Event Updated");
       }
     };
 
-    formElements.lat.value =
-      formElements.lat.value === "" ? 0 : formElements.lat.value;
-    formElements.lng.value =
-      formElements.lng.value === "" ? 0 : formElements.lng.value;
+    const form = JSON.parse(JSON.stringify(formdata));
 
-    for (let i = 0; i < formElements.length; i++) {
-      // console.log(formElements[i]);
-      const currentElement = formElements[i];
-      if (!["submit", "file"].includes(currentElement.type)) {
-        data[currentElement.name] = currentElement.value;
-      }
-    }
-
-    delete data.EventSelect;
-
-    if (data.image === "[object Object]") {
-      delete data.image;
-    }
-    if (data.image === "0") {
-      delete data.image;
-    }
-    data.lat = Number(data.lat);
-    data.lng = Number(data.lng);
-    data.endTime = new Date(data.endTime).toISOString();
-    data.startTime = new Date(data.startTime).toISOString();
-    data.geocode = formdata.geocode;
-
-    if (data.url !== "none") {
-      data.link = [
-        {
-          url: data.url === "external" ? data.linkExternal : "/" + data.url,
-          newTab: !data.url.startsWith("http") ? true : false,
-          text: data.text,
-          description: data.richtext,
-        },
-      ];
-      delete data.url;
-      delete data.text;
-      delete data.richtext;
-      delete data.linkExternal;
-    }
-
-    if (data.image === "none") {
-      delete data.image;
-    }
-    console.log(data);
-
-    if (data.name === "") {
-      setMessage("event name missing");
-      return;
-    }
-    formData.append("data", JSON.stringify(data));
+    // form.event.data.attributes.image = form.event.data.attributes.image.data.id;
+    formData.append("data", JSON.stringify(form));
     request.open(
       "PUT",
       process.env.REACT_APP_STRAPI_API + "/events/" + eventID
     );
     request.setRequestHeader("Authorization", "Bearer " + token);
+
+    const d = JSON.stringify(formData);
     request.send(formData);
   };
 
@@ -468,7 +442,7 @@ const EventForm = ({ events }) => {
                     size="small"
                     placeholder="event name"
                     name="name"
-                    required="true"
+                    required={true}
                     style={{ width: "50%" }}
                   />
                 </div>
@@ -483,7 +457,7 @@ const EventForm = ({ events }) => {
                           name="startTime"
                           {...params}
                           style={{ width: 160 }}
-                          helperText="Start"
+                          // helperText="Start"
                         />
                       )}
                     />
@@ -496,7 +470,7 @@ const EventForm = ({ events }) => {
                           name="endTime"
                           {...params}
                           style={{ width: 160 }}
-                          helperText="End"
+                          // helperText="End"
                         />
                       )}
                     />
@@ -526,35 +500,36 @@ const EventForm = ({ events }) => {
                       name="email"
                       value={formdata["email"]}
                       onChange={handleFormField}
-                      style={{
-                        width: "100%",
-                      }}
+                      style={
+                        {
+                          // width: "100%",
+                        }
+                      }
                     />
                   </div>
-                  <div>
-                    <Input
-                      size="small"
-                      placeholder="image url"
-                      name="image_url"
-                      value={formdata["image_url"]}
+
+                  {user && (
+                    <Select
+                      name="approved"
+                      value={formdata["approved"]}
                       onChange={handleFormField}
-                      style={{
-                        width: 120,
-                      }}
-                    />
-                    <img
-                      style={{
-                        maxWidth: 25,
-                        height: "auto",
-                        display:
-                          formdata["image_url"] === "" ? "none" : "inline",
-                      }}
-                      src={formdata["image_url"]}
-                    ></img>
-                  </div>
+                      // style={{ display: "block", width: "fit-content" }}
+                    >
+                      <MenuItem value={false}>unapproved</MenuItem>
+                      <MenuItem value={true}>approved</MenuItem>
+                    </Select>
+                  )}
+
                   <div></div>
 
-                  <div style={{ ...theme.flexRows, gap: 4 }}>
+                  <div
+                    style={{
+                      ...theme.flexRows,
+                      gap: 4,
+                      // border: "1px solid black",
+                      width: "fit-content",
+                    }}
+                  >
                     <Input
                       size="small"
                       placeholder="street"
@@ -631,7 +606,7 @@ const EventForm = ({ events }) => {
                         zIndex: theme.zIndex.modal,
                       }}
                       name="image"
-                      value={imageSelection}
+                      value={formdata.image}
                       onChange={handleImageSelection}
                     >
                       <MenuItem value="none">images</MenuItem>
@@ -672,22 +647,21 @@ const EventForm = ({ events }) => {
                   <div
                     name="FileSelection"
                     style={{
-                      display: user ? "block" : "none",
+                      border: "1px solid black",
+                      marginRight: 5,
+                      display: user ? "flex" : "none",
                     }}
                   >
-                    <pre style={{ display: "none" }}>
-                      {JSON.stringify(formdata, null, 3)}
-                    </pre>
                     <Select
-                      name="url"
-                      value={page}
+                      name="slug"
+                      value={formdata?.link?.slug || ""}
                       onChange={handlePageChange}
                       style={{ display: "block", width: "fit-content" }}
                     >
-                      <MenuItem value="none">page</MenuItem>
-                      <MenuItem value="external">external link</MenuItem>
+                      <MenuItem value="">pages...</MenuItem>
+
                       {pages?.pages?.data.map((page, key) => {
-                        console.log("stop");
+                        // console.log("stop");
                         return (
                           <MenuItem
                             selected={key === 0}
@@ -699,9 +673,31 @@ const EventForm = ({ events }) => {
                         );
                       })}
                     </Select>
+                    <Input
+                      value={formdata?.link?.text}
+                      onChange={handlePageChange}
+                      name="text"
+                      placeholder="label"
+                      style={{
+                        backgroundColor: theme.palette.background.default,
+                        // display: page === "external" ? "inline" : "none",
+                      }}
+                    />
+                    <Input
+                      onChange={handlePageChange}
+                      value={formdata.link && formdata.link?.url}
+                      name="url"
+                      placeholder="http..."
+                      style={{
+                        display: "none", // hide, redundant with web_url, focus on internal page links
+                        backgroundColor: theme.palette.background.default,
+                        // display: page === "external" ? "inline" : "none",
+                      }}
+                    />
                   </div>
                   <div
                     style={{
+                      border: "1px solid black",
                       flexDirection: "column",
                       flexWrap: "wrap",
                       alignItems: "flex-start",
@@ -723,8 +719,8 @@ const EventForm = ({ events }) => {
                       </FormLabel>
                     </a>
                     <Input
-                      value={formdata.link && formdata.link[0]?.description}
-                      name="linkExternal"
+                      value={formdata.web_url}
+                      name="web_url"
                       placeholder="http://..."
                       style={{
                         backgroundColor: theme.palette.background.default,
@@ -756,22 +752,29 @@ const EventForm = ({ events }) => {
                         backgroundColor: theme.palette.background.default,
                       }}
                     />
-                    {user && (
-                      <Select
-                        name="approved"
-                        value={formdata["approved"]}
-                        onChange={handleFormField}
-                        // style={{ display: "block", width: "fit-content" }}
-                      >
-                        <MenuItem value={false}>unapproved</MenuItem>
-                        <MenuItem value={true}>approved</MenuItem>
-                      </Select>
-                    )}
+                    <Input
+                      size="small"
+                      placeholder="image url"
+                      name="image_url"
+                      value={formdata["image_url"]}
+                      onChange={handleFormField}
+                      style={{
+                        width: 120,
+                      }}
+                    />
+                    <img
+                      style={{
+                        maxWidth: 25,
+                        height: "auto",
+                        display:
+                          formdata["image_url"] === "" ? "none" : "inline",
+                      }}
+                      src={formdata["image_url"]}
+                    ></img>
                   </div>
                 </div>
               </LocalizationProvider>
             </form>
-
             <div
               style={{
                 ...theme.flexRows,
@@ -809,7 +812,7 @@ const EventForm = ({ events }) => {
                   Delete
                 </ConfirmButtons>
               )}
-            </div>
+            </div>{" "}
           </StyledFormContainer>
         </Zoom>
       </div>

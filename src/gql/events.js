@@ -65,6 +65,48 @@ export const GET_EVENTIDS = gql`
   }
 `;
 
+export const GET_EVENT_LITE = gql`
+  query GetEvent($id: ID!) {
+    event(id: $id) {
+      data {
+        id
+        attributes {
+          createdAt
+          name
+          startTime
+          endTime
+          body
+          note
+          email
+          lat
+          lng
+          street
+          city
+          state
+          zip
+          image_url
+          web_url
+          link_label
+          link_description
+          approved
+          link {
+            url
+            newTab
+            text
+            description
+            slug
+          }
+          image {
+            data {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_EVENT = gql`
   query GetEvent($id: ID!) {
     event(id: $id) {
