@@ -171,22 +171,14 @@ const Calendar = (props) => {
     const [showDetail, setShowDetail] = useState(false);
 
     const handleClick = (c) => {
-      //    console.log(c);
       const cur = Object.assign({}, current);
-      cur.Test = "test";
       setCurrent(c);
-      setShowDetail((prev) => !prev);
+      // setShowDetail((prev) => !prev);
     };
     // console.log(current?.event?.id);
     return (
       <div onTouchStart={toggleDrawer}>
-        {!current?.empty && (
-          <EventDetail
-            showDetail={showDetail}
-            current={current}
-            setCurrent={setCurrent}
-          />
-        )}
+        {!current?.empty && <EventDetail currentID={current?.event?.id} />}
         <StyledCalendar
           defaultView="agenda"
           localizer={localizer}

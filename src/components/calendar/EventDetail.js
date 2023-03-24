@@ -38,12 +38,15 @@ const StyledCard = styled("div")(({ theme }) => ({
   },
 }));
 
-const EventDetail = ({ current, setCurrent }) => {
+const EventDetail = ({ currentID }) => {
   const theme = useTheme();
   const [loader, setLoader] = useState(false);
+
   const { data, loading, error } = useQuery(GET_EVENT, {
-    variables: { id: current?.event?.id },
+    variables: { id: currentID },
   });
+
+  const [current, setCur] = useState(false);
 
   const [thumb, setThumb] = useState(false);
   const [large, setLarge] = useState(false);
@@ -61,17 +64,21 @@ const EventDetail = ({ current, setCurrent }) => {
       let cur = Object.assign({}, data?.event?.data?.attributes);
       cur.id = data?.event?.data?.id;
       console.log(data);
-      setCurrent(cur);
+      setCur(cur);
     }
   }, [loading, data, error]);
 
   useEffect(() => {
     setThumb(getThumb(current?.image?.data?.attributes));
     setLarge(getLarge(current?.image?.data?.attributes));
-    console.log(large);
-  }, [data]);
+  }, [current]);
 
   console.log(thumb);
+  console.log(large);
+
+  if (!current) {
+    return <div>Wait</div>;
+  }
   return (
     <Zoom in={true}>
       <div style={{ position: "relative" }}>
@@ -85,7 +92,7 @@ const EventDetail = ({ current, setCurrent }) => {
               right: 10,
               fontSize: 32,
             }}
-            onClick={() => setCurrent({ empty: true })}
+            onClick={() => setCur("")}
           >
             close
           </CloseIcon>
@@ -157,7 +164,7 @@ const EventDetail = ({ current, setCurrent }) => {
                   />
                 </div>
               )}
-              {thumb && (
+              {large && (
                 <div>
                   <img
                     className="fade-in-image"
@@ -174,6 +181,20 @@ const EventDetail = ({ current, setCurrent }) => {
                       (e.currentTarget.src =
                         process.env.REACT_APP_STRAPI + thumb?.url)
                     }
+                    src={process.env.REACT_APP_STRAPI + thumb?.url}
+                  />
+                </div>
+              )}
+
+              {!large && thumb && (
+                <div>
+                  <img
+                    className="fade-in-imagex"
+                    style={{
+                      maxWidth: large?.width,
+                      height: "auto",
+                      float: "right",
+                    }}
                     src={process.env.REACT_APP_STRAPI + thumb?.url}
                   />
                 </div>
