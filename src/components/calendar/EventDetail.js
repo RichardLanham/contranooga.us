@@ -83,7 +83,7 @@ const EventDetail = ({ currentID }) => {
     <Zoom in={true}>
       <div style={{ position: "relative" }}>
         <StyledCard>
-          <div style={{ display: loader ? "none" : "block" }}>Loading</div>
+          <div style={{ display: loader ? "none" : "none" }}>Loading</div>
           <CloseIcon
             style={{
               cursor: "pointer",

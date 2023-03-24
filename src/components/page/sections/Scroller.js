@@ -64,17 +64,18 @@ export const Scroller = ({ section }) => {
         const distance =
           window.innerHeight + window.pageYOffset - document.body.offsetHeight;
         //   setMsg("you're at nar bottom of the page " + distance);
-        //setSlug(slugs.length > 0 ? slugs[0]?.slug : "");
+        console.log("setSLug");
+        setSlug(slugs[0].slug);
 
         if (slug === "") {
-          setSlug(slugs[0]);
+          // setSlug(slugs[0]);
         } else {
           // const array1 = [5, 12, 8, 130, 44];
           // const isLargeNumber = (element) => element > 13;
           // console.log(array1.findIndex(isLargeNumber));
-          const arrayNumber = slugs.findIndex((s) => s.slug === slug);
-          const next = slugs[arrayNumber + 1];
-          console.log(next.slug);
+          // const arrayNumber = slugs.findIndex((s) => s.slug === slug);
+          // const next = slugs[arrayNumber + 1];
+          // console.log(next.slug);
           //setSlug(next.slug);
         }
       }
@@ -94,8 +95,12 @@ export const Scroller = ({ section }) => {
         border: "1px none red",
       }}
     >
-      <Button name={section.slugs[0].slug} onClick={loadSlug}>
-        {section.slugs[0].slug} ok
+      <Button
+        style={{ display: "none" }}
+        name={section.slugs[0].slug}
+        onClick={loadSlug}
+      >
+        {section.slugs[0].slug}
       </Button>
       {msg}
 
