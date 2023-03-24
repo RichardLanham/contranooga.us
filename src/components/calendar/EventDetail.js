@@ -18,7 +18,7 @@ const StyledCard = styled("div")(({ theme }) => ({
   overflowY: "scroll",
   overflowX: "hidden",
   zIndex: 5000,
-  // backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.grey[200],
   boxShadow: theme.shadows[9],
   borderRadius: 15,
   padding: 5,
@@ -137,7 +137,7 @@ const EventDetail = ({ current, setCurrent }) => {
                   </div>
                 )}
                 {current?.lat !== 0 && current?.lng !== 0 && (
-                  <div>
+                  <div style={{ display: "none" }}>
                     <GoogleMapApp
                       markerText={current.name}
                       markerImage={<img />}
