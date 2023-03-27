@@ -175,8 +175,10 @@ const LargeVideo = ({ section }) => {
   const [url, setUrl] = useState(playlist);
 
   const StyledButton = styled(Button)(({ theme }) => ({
-    maxWidth: 150,
-    height: "fit-content",
+    // maxWidth: 150,
+    // height: "fit-content",
+    width: "fit-content",
+    justifyContent: "left",
     // maxHeight: 80,
     padding: 1,
     margin: 1,
@@ -218,28 +220,27 @@ const LargeVideo = ({ section }) => {
   };
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    gap: 2,
+    // gap: 2,
     // ...theme.flexRows,
     // flexDirection: "column",
     width: 300,
-    maxHeight: 200,
+    // maxHeight: 200,
 
-    overFlowY: "scroll",
+    overFlowX: "scroll",
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
     [theme.breakpoints.down("md")]: {
       // flexDirection: "row",
-      flexWrap: "wrap",
-      ...theme.typography.caption,
-
+      // flexWrap: "wrap",
+      // ...theme.typography.caption,
       // flexWrap: "wrap",
     },
     [theme.breakpoints.down("sm")]: {
-      display: "flex",
-      // flexDirection: "column",
-      justifyContent: "left",
-      alignContent: "left",
+      // display: "flex",
+      // // flexDirection: "column",
+      // justifyContent: "center",
+      // alignContent: "left",
       // display: "none",
     },
   }));
