@@ -44,6 +44,7 @@ export const GET_PAGE = gql`
     }
     button {
       id
+      url
       slug
       urlIsLocal
       type

@@ -7,6 +7,7 @@ import { StyledPageSection, StyledHeading } from "../../../styles/PageStyles";
 import { getThumb, getLarge } from "../../../apps/functions";
 import { createMarkup } from "../../../apps/functions";
 import RichEditor from "../Editor";
+import OpenInNewTwoToneIcon from "@mui/icons-material/OpenInNewTwoTone";
 const StyledHeroBox = styled("div")(({ theme }) => ({
   // ...theme.flexRows,
   // flexDirection: "row",
@@ -115,6 +116,7 @@ export const Hero = ({ section }) => {
           title={section.title}
           href={goTo}
         >
+          <OpenInNewTwoToneIcon />
           {section?.button?.text}
         </a>
       );
