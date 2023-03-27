@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Zoom } from "@mui/material";
+import { Button, Zoom } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, styled } from "@mui/material/styles";
 import { createMarkup, getThumb, getLarge } from "../../apps/functions";
@@ -76,6 +76,52 @@ const EventDetail = ({ currentID }) => {
   console.log(thumb);
   console.log(large);
 
+  const MapDirections = ({ current }) => {
+    //  const getDirections = () => {};
+    const href = `https://www.google.com/maps/dir/?api=1&destination=${current.lat},${current.lng}`;
+    return (
+      <div>
+        <Button element="a" target="_new" href={href}>
+          Get Directions
+        </Button>
+      </div>
+    );
+  };
+
+  const MapButtonized = ({ current }) => {
+    const [show, setShow] = useState(false);
+
+    if (!show) {
+      return (
+        <div>
+          <Button onClick={() => setShow(true)}>show map</Button>
+        </div>
+      );
+    }
+    return (
+      <div
+        style={{
+          display: "block",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          backgroundColor: theme.palette.background.default,
+        }}
+      >
+        <CloseIcon onClick={() => setShow(false)}></CloseIcon>
+        <Button onClick={() => setShow(false)}>close map</Button>
+        <GoogleMapApp
+          markerText={current.name}
+          markerImage={<img />}
+          description={""}
+          lat={current.lat}
+          lng={current.lng}
+          zoom={14}
+        />
+      </div>
+    );
+  };
+
   if (!current) {
     return <div>Wait</div>;
   }
@@ -133,9 +179,9 @@ const EventDetail = ({ currentID }) => {
 
               <div>
                 {current.street && (
-                  <div style={{ ...theme.flexRows, gap: 5 }}>
-                    <div style={{ ...theme.typography.h6 }}>location</div>
+                  <div>
                     <div style={{ ...theme.flexRows, gap: 5 }}>
+                      Address:
                       {current.street && <div>{current.street}</div>}
                       {current.city && <div>{current.city}</div>}
                       {current.state && <div>{current.state}</div>}
@@ -144,15 +190,8 @@ const EventDetail = ({ currentID }) => {
                   </div>
                 )}
                 {current?.lat !== 0 && current?.lng !== 0 && (
-                  <div style={{ display: "block" }}>
-                    <GoogleMapApp
-                      markerText={current.name}
-                      markerImage={<img />}
-                      description={""}
-                      lat={current.lat}
-                      lng={current.lng}
-                      zoom={14}
-                    />
+                  <div>
+                    <MapDirections current={current} />
                   </div>
                 )}
               </div>
