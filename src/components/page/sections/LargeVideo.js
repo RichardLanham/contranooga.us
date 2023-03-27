@@ -67,34 +67,6 @@ const LargeVideo = ({ section }) => {
     setListVal(pl_[0].text);
   }, [pl_]);
 
-  const renderLoadButton = (url, label, key) => {
-    return (
-      <Button
-        // variant="outlined"
-        key={key}
-        onClick={() => load(url, label, label === stopLabel)}
-        style={{
-          ...theme.typography.subtitle2,
-          fontFamily: "",
-          // whiteSpace: "nowrap",
-          // maxWidth: 100,
-          padding: 1,
-          margin: 1,
-          backgroundColor:
-            label === stopLabel
-              ? theme.palette.primary.main
-              : theme.palette.background.default,
-          color:
-            label === stopLabel
-              ? theme.palette.primary.contrastText
-              : theme.palette.info.dark,
-        }}
-      >
-        {label}
-      </Button>
-    );
-  };
-
   const handlePlayPause = () => {
     setState({ playing: !state.playing });
   };
@@ -202,20 +174,64 @@ const LargeVideo = ({ section }) => {
   // console.log(playlist[0]);
   const [url, setUrl] = useState(playlist);
 
-  const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
-    gap: 2,
-    width: "fit-content",
-    ...theme.flexRows,
-    // display: "flex",
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    // justifyContent: "center",
-    // alignContent: "center",
+  const StyledButton = styled(Button)(({ theme }) => ({
+    maxWidth: 150,
+    height: "fit-content",
+    maxHeight: 60,
+    padding: 1,
+    margin: 1,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
     [theme.breakpoints.down("md")]: {
       // flexDirection: "row",
+    },
+    [theme.breakpoints.down("sm")]: {
+      // display: "none",
+      ...theme.typography.caption,
+    },
+  }));
+
+  const renderLoadButton = (url, label, key) => {
+    return (
+      <StyledButton
+        // variant="outlined"
+        key={key}
+        onClick={() => load(url, label, label === stopLabel)}
+        style={{
+          // ...theme.typography.caption,
+
+          backgroundColor:
+            label === stopLabel
+              ? theme.palette.primary.main
+              : theme.palette.background.default,
+          color:
+            label === stopLabel
+              ? theme.palette.primary.contrastText
+              : theme.palette.info.dark,
+        }}
+      >
+        {label}
+      </StyledButton>
+    );
+  };
+
+  const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
+    gap: 2,
+    ...theme.flexRows,
+    flexDirection: "column",
+    width: 400,
+    height: 100,
+    justifyContent: "left",
+    alignContent: "left",
+    [theme.breakpoints.down("lg")]: {
+      // padding: 0,
+    },
+    [theme.breakpoints.down("md")]: {
+      // flexDirection: "row",
+      flexWrap: "wrap",
+      ...theme.typography.caption,
+
       // flexWrap: "wrap",
     },
     [theme.breakpoints.down("sm")]: {
@@ -244,8 +260,8 @@ const LargeVideo = ({ section }) => {
       <div
         style={{
           ...theme.flexRows,
-          justifyContent: "center",
-          alignItems: "center",
+          // justifyContent: "center",
+          // alignItems: "center",
         }}
       >
         <StyledPlayerWrap>
@@ -281,7 +297,7 @@ const LargeVideo = ({ section }) => {
             onDuration={handleDuration}
           />
         </StyledPlayerWrap>
-        <div style={{ width: 300 }}>
+        <div>
           <span
             style={{
               ...theme.typography.caption,
