@@ -27,6 +27,7 @@ const StyledCardImage = styled("img")(({ theme }) => ({
   float: "left",
   cursor: "ns-resize",
   maxWidth: "30vw",
+  marginRight: 5,
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("sm")]: {
     maxWidth: "50vw",

@@ -177,7 +177,7 @@ const LargeVideo = ({ section }) => {
   const StyledButton = styled(Button)(({ theme }) => ({
     maxWidth: 150,
     height: "fit-content",
-    maxHeight: 60,
+    // maxHeight: 80,
     padding: 1,
     margin: 1,
     [theme.breakpoints.down("lg")]: {
@@ -188,6 +188,7 @@ const LargeVideo = ({ section }) => {
     },
     [theme.breakpoints.down("sm")]: {
       // display: "none",
+      // maxWidth: 100,
       ...theme.typography.caption,
     },
   }));
@@ -218,12 +219,12 @@ const LargeVideo = ({ section }) => {
 
   const StyledVideoButtonGroup = styled("div")(({ theme }) => ({
     gap: 2,
-    ...theme.flexRows,
-    flexDirection: "column",
-    width: 400,
-    maxHeight: 400,
-    justifyContent: "left",
-    alignContent: "left",
+    // ...theme.flexRows,
+    // flexDirection: "column",
+    width: 300,
+    maxHeight: 200,
+
+    overFlowY: "scroll",
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
@@ -235,6 +236,10 @@ const LargeVideo = ({ section }) => {
       // flexWrap: "wrap",
     },
     [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      // flexDirection: "column",
+      justifyContent: "left",
+      alignContent: "left",
       // display: "none",
     },
   }));
@@ -242,7 +247,7 @@ const LargeVideo = ({ section }) => {
   const StyledPlayerWrap = styled("div")(({ theme }) => ({
     width: state.url === null ? 100 : 400,
     height: state.url === null ? 100 : 225,
-    marginBottom: 5,
+    marginRight: 5,
     [theme.breakpoints.down("lg")]: {
       // padding: 0,
     },
