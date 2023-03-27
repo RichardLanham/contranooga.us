@@ -221,7 +221,7 @@ const LargeVideo = ({ section }) => {
     ...theme.flexRows,
     flexDirection: "column",
     width: 400,
-    height: 100,
+    maxHeight: 400,
     justifyContent: "left",
     alignContent: "left",
     [theme.breakpoints.down("lg")]: {
