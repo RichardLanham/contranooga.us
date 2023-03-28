@@ -58,7 +58,7 @@ export const Scroller = ({ section }) => {
     window.onscroll = function (ev) {
       setMsg("");
       if (
-        window.innerHeight + window.pageYOffset + 20 >=
+        window.innerHeight + window.pageYOffset + 400 >=
         document.body.offsetHeight
       ) {
         const distance =
