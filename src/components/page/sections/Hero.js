@@ -198,7 +198,11 @@ export const Hero = ({ section }) => {
       return (
         <div>
           <StyledCardImage
-            style={{ float: section.float, maxWidth: medium.width }}
+            style={{
+              float: section.float,
+              width: medium.width,
+              maxWidth: "100%",
+            }}
             src={process.env.REACT_APP_STRAPI + medium.url}
           />
           <div>{section.description}</div>
@@ -209,7 +213,11 @@ export const Hero = ({ section }) => {
       return (
         <div>
           <StyledCardImage
-            style={{ float: section.float, maxWidth: large.width }}
+            style={{
+              float: section.float,
+              width: large.width,
+              maxWidth: "100%",
+            }}
             src={process.env.REACT_APP_STRAPI + large.url}
           />
           <div>{section.description}</div>
