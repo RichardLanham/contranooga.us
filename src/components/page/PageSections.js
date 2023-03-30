@@ -334,16 +334,6 @@ export const RichText = ({ section }) => {
   // {user ? <Editor content={section.content} /> : null}
   return (
     <StyledPageSection>
-      {user ? (
-        <RichEditor
-          container={{
-            content: section.content,
-            field: "content",
-            id: section.id,
-            typename: section.__typename,
-          }}
-        />
-      ) : null}
       <StyledRichText>
         <div dangerouslySetInnerHTML={createMarkup(section.content)}></div>
       </StyledRichText>

@@ -37,6 +37,41 @@ export const getLarge = (attribs) => {
   }
 };
 
+export const getMedium = (attribs) => {
+  if (!attribs) {
+    return false;
+  }
+  const formats = attribs.formats;
+  if (!formats) {
+    return false;
+  }
+  if (formats.medium) {
+    return formats.medium;
+  }
+  if (formats.small) {
+    return formats.small;
+  }
+  if (formats.thumbnails) {
+    return formats.thumbnails;
+  }
+};
+
+export const getSmall = (attribs) => {
+  if (!attribs) {
+    return false;
+  }
+  const formats = attribs.formats;
+  if (!formats) {
+    return false;
+  }
+  if (formats.small) {
+    return formats.small;
+  }
+  if (formats.thumbnails) {
+    return formats.thumbnails;
+  }
+};
+
 export const createMarkup = (html) => {
   return { __html: html };
 };

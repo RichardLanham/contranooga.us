@@ -32,6 +32,18 @@ export const GET_PAGE = gql`
     title
     description
     label
+    playlist {
+      id
+      playlistItem {
+        id
+        url
+        slug
+        newTab
+        text
+        description
+        __typename
+      }
+    }
     text {
       content
       id
@@ -39,6 +51,8 @@ export const GET_PAGE = gql`
     picture {
       ...FileParts
     }
+    size
+    float
     googleMap {
       ...GMapParts
     }
@@ -154,6 +168,12 @@ export const GET_PAGE = gql`
           }
           contentSections {
             __typename
+            ... on ComponentSectionsFlex {
+              id
+              box {
+                ...HeroParts
+              }
+            }
             ... on ComponentSectionsScroller {
               id
               slugs {
@@ -268,6 +288,7 @@ export const GET_PAGE = gql`
               }
               __typename
             }
+
             ... on ComponentSectionsFlexGroup {
               id
               group {

@@ -28,6 +28,7 @@ import Hero from "./components/page/sections/Hero";
 import Scroller from "./components/page/sections/Scroller";
 import LargeVideo from "./components/page/sections/LargeVideo";
 import FlexGroup from "./components/page/sections/FlexGroup";
+import Flex from "./components/page/sections/Flex";
 
 import PledgeForm from "./components/page/PledgeForm";
 
@@ -129,7 +130,10 @@ function Page({ _slug }) {
         );
       }
       return (
-        <Site title={metaTitle} description={attribs.metadata.metaDescription}>
+        <Site
+          title={metaTitle}
+          description={attribs?.metadata?.metaDescription}
+        >
           <Zoom in={true}>
             <StyledPage id="sitePage" onTouchStart={toggleDrawer}>
               <PageHeader metaTitle={metaTitle} />
@@ -146,6 +150,8 @@ function Page({ _slug }) {
                     return <LeadForm key={key} section={section} />;
                   case "FlexGroup":
                     return <FlexGroup key={key} section={section} />;
+                  case "Flex":
+                    return <Flex key={key} section={section} />;
                   case "RichText":
                     return <RichText key={key} section={section} />;
                   case "Hero":

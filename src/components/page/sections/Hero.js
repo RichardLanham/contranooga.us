@@ -4,33 +4,26 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import GoogleMapApp from "../../../apps/GoogleMapApp";
 import { StyledPageSection, StyledHeading } from "../../../styles/PageStyles";
-import { getThumb, getLarge } from "../../../apps/functions";
+import {
+  getThumb,
+  getLarge,
+  getMedium,
+  getSmall,
+} from "../../../apps/functions";
 import { createMarkup } from "../../../apps/functions";
 import RichEditor from "../Editor";
 import OpenInNewTwoToneIcon from "@mui/icons-material/OpenInNewTwoTone";
-const StyledHeroBox = styled("div")(({ theme }) => ({
-  // ...theme.flexRows,
-  // flexDirection: "row",
-  // outline: "1px solid red",
-  width: "100%",
-
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {
-    //  width: "85%",
-  },
-  [theme.breakpoints.down("sm")]: {
-    // width: 300,
-  },
-}));
+import Playlist from "./Playlist";
+require("./hero.css");
 
 const StyledCardImage = styled("img")(({ theme }) => ({
-  float: "left",
+  // float: "left",
   cursor: "ns-resize",
-  maxWidth: "30vw",
+  // maxWidth: "30vw",
   marginRight: 5,
   borderRadius: 15,
   [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     maxWidth: "50vw",
   },
   [theme.breakpoints.down("sm")]: {
@@ -39,18 +32,12 @@ const StyledCardImage = styled("img")(({ theme }) => ({
 }));
 
 export const Hero = ({ section }) => {
-  //const img = section.data.attr;
-  // log
-  // console.log("hero");
-  const thumb = getThumb(section?.picture?.data?.attributes);
-  const large = getLarge(section?.picture?.data?.attributes);
   const theme = useTheme();
-
+  const thumb = getThumb(section?.picture?.data?.attributes);
   const [user, setUser] = useState(null);
   useEffect(() => {
     setUser(window.localStorage.getItem("strapi_user") ? true : false);
   }, []);
-  // {user ? <Editor content={section.content} /> : null}
 
   const HeroButton = ({ section }) => {
     const buttonThumb = getThumb(section?.button?.image?.data?.attributes);
@@ -186,11 +173,72 @@ export const Hero = ({ section }) => {
     return <div>What did I miss?</div>;
   };
 
+  const FlexImage = ({ section }) => {
+    // console.log(section);
+    const thumb = getThumb(section?.picture?.data?.attributes);
+    const large = getLarge(section?.picture?.data?.attributes);
+    const medium = getMedium(section?.picture?.data?.attributes);
+    const small = getSmall(section?.picture?.data?.attributes);
+    if (!thumb & !large) {
+      return null;
+    }
+
+    if (section.size === "smal" && small) {
+      return (
+        <div>
+          <StyledCardImage
+            style={{ float: section.float, maxWidth: medium.width }}
+            src={process.env.REACT_APP_STRAPI + small.url}
+          />
+          <div>{section.description}</div>
+        </div>
+      );
+    }
+    if (section.size === "medium" && medium) {
+      return (
+        <div>
+          <StyledCardImage
+            style={{ float: section.float, maxWidth: medium.width }}
+            src={process.env.REACT_APP_STRAPI + medium.url}
+          />
+          <div>{section.description}</div>
+        </div>
+      );
+    }
+    if (section.size === "large" && large) {
+      return (
+        <div>
+          <StyledCardImage
+            style={{ float: section.float, maxWidth: large.width }}
+            src={process.env.REACT_APP_STRAPI + large.url}
+          />
+          <div>{section.description}</div>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <StyledCardImage
+          style={{ float: section.float }}
+          onClick={(e) =>
+            (e.currentTarget.src = process.env.REACT_APP_STRAPI + large.url)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.src = process.env.REACT_APP_STRAPI + thumb.url)
+          }
+          src={process.env.REACT_APP_STRAPI + thumb.url}
+        />
+        <div>{section.description}</div>
+      </div>
+    );
+  };
   return (
     <StyledPageSection
       style={{
         border: "1px none red",
-        minHeight: thumb.height ? thumb.height + 5 : 10,
+        minHeight: 100,
+        minHeight:
+          thumb.height && section.float !== "none" ? thumb.height + 5 : 10,
       }}
     >
       <div style={{ position: "relative" }}>
@@ -198,22 +246,13 @@ export const Hero = ({ section }) => {
 
         {section.button && <HeroButton section={section} />}
       </div>
-      <StyledHeroBox>
+      <div className="hero">
         <pre style={{ display: "none" }}>
-          {JSON.stringify(section, null, 3)}
+          {JSON.stringify(section.Playlist, null, 3)}
         </pre>
-        {thumb && (
-          <StyledCardImage
-            onClick={(e) =>
-              (e.currentTarget.src = process.env.REACT_APP_STRAPI + large.url)
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.src = process.env.REACT_APP_STRAPI + thumb.url)
-            }
-            src={process.env.REACT_APP_STRAPI + thumb.url}
-          />
-        )}
-        {user ? (
+        <FlexImage section={section} />
+
+        {user && section.text ? (
           <RichEditor
             container={{
               content: section.text?.content,
@@ -228,18 +267,16 @@ export const Hero = ({ section }) => {
         ></div>
 
         {section.googleMap && (
-          <div>
-            <GoogleMapApp
-              markerText={section.googleMap.markerText}
-              lat={section.googleMap.lat}
-              lng={section.googleMap.lng}
-              zoom={section.googleMap.zoom}
-              markerImage={section.googleMap.markerImage}
-              description={section.googleMap.description}
-            />
-          </div>
+          <GoogleMapApp
+            markerText={section.googleMap.markerText}
+            lat={section.googleMap.lat}
+            lng={section.googleMap.lng}
+            zoom={section.googleMap.zoom}
+            markerImage={section.googleMap.markerImage}
+          />
         )}
-      </StyledHeroBox>
+        {section.playlist && <Playlist section={section.playlist} />}
+      </div>
     </StyledPageSection>
   );
 };
