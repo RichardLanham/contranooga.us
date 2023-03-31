@@ -11,6 +11,8 @@ import HideOnScroll from "./HideOnScroll";
 import { getThumb } from "../apps/functions";
 import { Link } from "react-router-dom";
 
+import { StyledSiteNameNew } from "../styles/PageStyles";
+
 const SiteTopBar = ({ force }) => {
   const theme = useTheme();
   const [user, setUser] = useState(false);
@@ -78,7 +80,7 @@ const SiteTopBar = ({ force }) => {
   const bgTop = require("../assets/bgimages/oldbg.webp");
 
   const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    height: 180,
+    height: 280,
     backgroundImage: `url(${bgTop})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -170,6 +172,10 @@ const SiteTopBar = ({ force }) => {
               </Link>
               <StrapiPagesTop position="top" />
             </div>
+
+            <StyledSiteNameNew>
+              Chattanooga Traditional Dance Society
+            </StyledSiteNameNew>
           </StyledToolbar>
         </StyledAppBar>
       </HideOnScroll>

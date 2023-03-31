@@ -17,8 +17,8 @@ import Playlist from "./Playlist";
 require("./hero.css");
 
 const StyledCardImage = styled("img")(({ theme }) => ({
-  // float: "left",
-  cursor: "ns-resize",
+  float: "left",
+  //cursor: "ns-resize",
   // maxWidth: "30vw",
   marginRight: 5,
   borderRadius: 15,
@@ -41,6 +41,11 @@ export const Hero = ({ section }) => {
 
   const HeroButton = ({ section }) => {
     const buttonThumb = getThumb(section?.button?.image?.data?.attributes);
+
+    const large = getLarge(section?.button?.image?.data?.attributes);
+    const medium = getMedium(section?.button?.image?.data?.attributes);
+    const small = getSmall(section?.button?.image?.data?.attributes);
+
     const url = section?.button?.url;
     const slug = section?.button?.slug;
 
@@ -124,26 +129,16 @@ export const Hero = ({ section }) => {
         </Link>
       );
     }
-
+    console.log("link");
     if (section?.button?.type === "image" && localLink) {
       return (
-        <Link target="_self" to={goTo}>
-          <Button
-            title={section.title}
-            style={{
-              float: "left",
-              backgroundColor: theme.palette.secondary.main,
-            }}
-            startIcon={
-              buttonThumb ? (
-                <img
-                  style={{ width: buttonThumb.width, height: "auto" }}
-                  src={process.env.REACT_APP_STRAPI + buttonThumb?.url}
-                />
-              ) : null
-            }
-            variant="contained"
-          ></Button>
+        <Link
+          element="a"
+          target="_self"
+          to={goTo}
+          style={{ cursor: "pointer" }}
+        >
+          <FlexImage attributes={section?.button?.image?.data?.attributes} />
         </Link>
       );
     }
@@ -173,17 +168,17 @@ export const Hero = ({ section }) => {
     return <div>What did I miss?</div>;
   };
 
-  const FlexImage = ({ section }) => {
-    // console.log(section);
-    const thumb = getThumb(section?.picture?.data?.attributes);
-    const large = getLarge(section?.picture?.data?.attributes);
-    const medium = getMedium(section?.picture?.data?.attributes);
-    const small = getSmall(section?.picture?.data?.attributes);
+  const FlexImage = ({ attributes }) => {
+    console.log(section);
+    const thumb = getThumb(attributes);
+    const large = getLarge(attributes);
+    const medium = getMedium(attributes);
+    const small = getSmall(attributes);
     if (!thumb & !large) {
       return null;
     }
 
-    if (section.size === "smal" && small) {
+    if (section.size === "small" && small) {
       return (
         <div>
           <StyledCardImage
@@ -258,7 +253,7 @@ export const Hero = ({ section }) => {
         <pre style={{ display: "none" }}>
           {JSON.stringify(section.Playlist, null, 3)}
         </pre>
-        <FlexImage section={section} />
+        <FlexImage attributes={section?.picture?.data?.attributes} />
 
         {user && section.text ? (
           <RichEditor

@@ -11,7 +11,7 @@ const PageHeader = ({ metaTitle }) => {
     fontSize: "2.6vw",
     width: "fit-content",
     blockSize: "fit-content",
-    marginTop: 20,
+    marginTop: 190,
     marginBottom: 15,
     borderRadius: 5,
     borderColor: theme.palette.primary.main,
@@ -23,17 +23,18 @@ const PageHeader = ({ metaTitle }) => {
       fontSize: "3.3vw",
     },
     [theme.breakpoints.down("md")]: {
+      marginTop: 60,
       fontSize: "4.2vw",
     },
     [theme.breakpoints.down("sm")]: {
       left: 20,
       fontSize: "6vw",
+      marginTop: 60,
     },
   }));
 
   return (
     <div>
-      <StyledSiteName>{theme.global.metadata.metaTitle}</StyledSiteName>
       <StyledHeader>{metaTitle}</StyledHeader>
     </div>
   );

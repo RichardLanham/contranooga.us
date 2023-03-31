@@ -2,6 +2,38 @@ import { Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
+export const StyledSiteNameNew = styled("div")(({ theme }) => ({
+  ...theme.typography.h4,
+  // fontSize: "2.5vw",
+  // width: "fit-content",
+  // blockSize: "fit-content",
+  // opacity: ".75",
+  // marginTop: 60,
+  marginLeft: 20,
+  borderRadius: 5,
+  padding: 3,
+  // backgroundColor: theme.palette.primary.light,
+  color: theme.palette.primary.contrastText,
+  boxShadow: theme.shadows[4],
+  [theme.breakpoints.down("xl")]: {
+    ...theme.typography.h5,
+    // fontSize: "3vw",
+  },
+  [theme.breakpoints.down("lg")]: {
+    // fontSize: "3.2vw",
+    ...theme.typography.h6,
+  },
+  [theme.breakpoints.down("md")]: {
+    ...theme.typography.h5,
+    // fontSize: "3.8vw",
+  },
+  [theme.breakpoints.down("sm")]: {
+    // ...theme.typography.body2,
+    // left: 20,
+    // fontSize: "5vw",
+  },
+}));
+
 // Three uses, has to stay here. shows on every page SITE NAME sitename Site Name
 export const StyledSiteName = styled("div")(({ theme }) => ({
   ...theme.typography.h4,

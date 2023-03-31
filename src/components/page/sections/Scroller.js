@@ -20,6 +20,7 @@ import Tabs from "../../../components/page/sections/Tabs";
 import Hero from "../../../components/page/sections/Hero";
 import LargeVideo from "../../../components/page/sections/LargeVideo";
 import FlexGroup from "../../../components/page/sections/FlexGroup";
+import Flex from "../../../components/page/sections/Flex";
 
 export const Scroller = ({ section }) => {
   const theme = useTheme();
@@ -92,11 +93,14 @@ export const Scroller = ({ section }) => {
   const StyledHeader = styled("div")(({ theme }) => ({
     ...theme.typography.h3,
     // opacity: ".1",
-    width: "calc(50% - 1px)",
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 20,
-    marginLeft: 10,
+    // width: "calc(50% - 1px)",
+    width: "fit-content",
+    height: "fit-content",
+    // maxHeight: 120,
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    marginTop: 50,
+    // marginLeft: 10,
     borderRadius: 5,
     borderColor: theme.palette.primary.main,
     boxShadow: theme.shadows[10],
@@ -147,6 +151,8 @@ export const Scroller = ({ section }) => {
               return <LeadForm key={key} section={section} />;
             case "FlexGroup":
               return <FlexGroup key={key} section={section} />;
+            case "Flex":
+              return <Flex key={key} section={section} />;
             case "RichText":
               return <RichText key={key} section={section} />;
             case "Hero":
