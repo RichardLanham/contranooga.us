@@ -29,6 +29,7 @@ export const Scroller = ({ section }) => {
   const [msg, setMsg] = useState("");
 
   const [slug, setSlug] = useState("");
+  const [title, setTitle] = useState("");
   const [slugs, setSlugs] = useState([]);
 
   const [attribs, setAttribs] = useState([]);
@@ -45,6 +46,8 @@ export const Scroller = ({ section }) => {
         const attrbs = data?.pages?.data[0]?.attributes;
         const pageId = data?.pages?.data[0]?.id;
         const metaTitle = attribs?.metadata?.metaTitle;
+        console.log(attrbs);
+        setTitle(attrbs?.metadata?.metaTitle);
         setAttribs(attrbs);
       } else {
         // handle error
@@ -125,7 +128,7 @@ export const Scroller = ({ section }) => {
         border: "1px none red",
       }}
     >
-      <StyledHeader>{slug}</StyledHeader>
+      <StyledHeader>{title}</StyledHeader>
       <Button
         style={{ display: "none" }}
         name={section.slugs[0].slug}

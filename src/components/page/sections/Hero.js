@@ -102,7 +102,7 @@ export const Hero = ({ section }) => {
     }
 
     if (section?.button?.type === "link" && !localLink) {
-      console.log(section.button);
+      // console.log(section.button);
       return (
         <a
           style={{ ...theme.typography.h6 }}
@@ -129,7 +129,7 @@ export const Hero = ({ section }) => {
         </Link>
       );
     }
-    console.log("link");
+    // console.log("link");
     if (section?.button?.type === "image" && localLink) {
       return (
         <Link
@@ -169,7 +169,7 @@ export const Hero = ({ section }) => {
   };
 
   const FlexImage = ({ attributes }) => {
-    console.log(section);
+    // console.log(section);
     const thumb = getThumb(attributes);
     const large = getLarge(attributes);
     const medium = getMedium(attributes);
