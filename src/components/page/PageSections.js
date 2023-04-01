@@ -275,7 +275,8 @@ export const LeadForm = ({ section }) => {
           onClick={() => setOpen("form")}
           variant="outlined"
           style={{
-            ...theme.typography.h6,
+            // ...theme.typography.h6,
+            fontSize: "1em",
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText,
           }}
@@ -285,9 +286,9 @@ export const LeadForm = ({ section }) => {
       ) : (
         <Button
           onClick={() => setOpen("form")}
-          variant="outlined"
           style={{
-            ...theme.typography.h6,
+            // ...theme.typography.h6,
+            fontSize: "1em",
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText,
           }}

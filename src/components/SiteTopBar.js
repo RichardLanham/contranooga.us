@@ -92,7 +92,7 @@ const SiteTopBar = ({ force }) => {
     //marginTop: 10,
     [theme.breakpoints.down("md")]: {
       backgroundSize: "100% 60px",
-      height: 120,
+      height: 10,
     },
     [theme.breakpoints.down("sm")]: {
       //   display: theme.menuPosition === "side" ? "none" : "block",

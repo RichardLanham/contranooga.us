@@ -4,17 +4,19 @@ import { styled } from "@mui/material/styles";
 
 export const StyledSiteNameNew = styled("div")(({ theme }) => ({
   ...theme.typography.h4,
+
   // fontSize: "2.5vw",
   // width: "fit-content",
   // blockSize: "fit-content",
   // opacity: ".75",
   // marginTop: 60,
-  marginLeft: 20,
+  // marginLeft: 20,
+  // margin: "auto",
   borderRadius: 5,
   padding: 3,
   // backgroundColor: theme.palette.primary.light,
   color: theme.palette.primary.contrastText,
-  boxShadow: theme.shadows[4],
+  // boxShadow: theme.shadows[1],
   [theme.breakpoints.down("xl")]: {
     ...theme.typography.h5,
     // fontSize: "3vw",
@@ -28,7 +30,9 @@ export const StyledSiteNameNew = styled("div")(({ theme }) => ({
     // fontSize: "3.8vw",
   },
   [theme.breakpoints.down("sm")]: {
-    // ...theme.typography.body2,
+    ...theme.typography.h6,
+    width: "80vw",
+    // marginLeft: 10,
     // left: 20,
     // fontSize: "5vw",
   },
