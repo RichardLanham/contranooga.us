@@ -8,6 +8,7 @@ import About from "./pages/About";
 import FourOhFour from "./pages/404";
 import Page from "./Page";
 import Calendar from "./apps/Calendar";
+import Unsubscribe from "./apps/Unsubscribe";
 
 import "./App.css";
 import client from "./apollo/client";
@@ -95,6 +96,8 @@ const AppRoutes = () => {
             />
             <Route path="/page/:slug" element={<Page _slug="" />} />
             <Route path="/color" element={<Color />} />
+
+            <Route path="/unsubscribe/:id" element={<Unsubscribe id="" />} />
 
             <Route path="/about" element={<About client={client} />} />
 

@@ -16,6 +16,16 @@ export const POST_LEAD = gql`
   }
 `;
 
+export const DELETE_LEADFORM = gql`
+  mutation DeleteLeadForm($id: ID!) {
+    deleteLeadFormSubmission(id: $id) {
+      data {
+        id
+      }
+    }
+  }
+`;
+
 /// copied stuff
 export const GET_THEMEIDS = gql`
   query GetThemes {
