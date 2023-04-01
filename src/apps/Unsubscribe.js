@@ -3,6 +3,7 @@ import { useTheme, styled } from "@mui/material/styles";
 import Site from "../Site";
 import { useSearchParams, useParams } from "react-router-dom";
 import { DELETE_LEADFORM } from "../gql/leadForm";
+import { GET_LEADFORM } from "../gql/leadForm";
 import { useMutation, useQuery } from "@apollo/client";
 
 import { StyledPage, StyledBody } from "../styles/ComponentStyles";
@@ -17,25 +18,41 @@ const Unsubscribe = () => {
 
   const theme = useTheme();
 
+  const { data, loading, error } = useQuery(GET_LEADFORM, {
+    variables: { id: id },
+  });
+
   useEffect(async () => {
     const email = searchParams.get("email");
-    await deleteLeadform(
-      {
-        variables: {
-          id: id,
-        },
-      },
-      []
-    )
-      .then((res) => {
-        console.log(res);
-        setMessage(`Your email ${email} is unsubscribed Thanks.`);
-      })
-      .catch((err) => {
-        // console.log(err.message);\
-        setMessage(err.message);
-      });
-  }, []);
+    if (!error) {
+      if (data) {
+        const _email = data?.leadFormSubmission?.data.attributes.email;
+        console.log(_email);
+        if (_email === email) {
+          await deleteLeadform(
+            {
+              variables: {
+                id: id,
+              },
+            },
+            []
+          )
+            .then((res) => {
+              console.log(res);
+              setMessage(`Your email ${email} is unsubscribed Thanks.`);
+            })
+            .catch((err) => {
+              // console.log(err.message);\
+              setMessage(err.message);
+            });
+        } else {
+          setMessage("Email does not exist. It may have already been deleted");
+        }
+      }
+    }
+  }, [data, error, loading]);
+
+  useEffect(async () => {}, []);
 
   const StyledAnchor = styled("a")(({ theme }) => ({
     // backgroundColor: theme.palette.background.default,

@@ -1,5 +1,17 @@
 import { gql } from "@apollo/client";
 
+export const GET_LEADFORM = gql`
+  query GetLeadForm($id: ID!) {
+    leadFormSubmission(id: $id) {
+      data {
+        id
+        attributes {
+          email
+        }
+      }
+    }
+  }
+`;
 export const POST_LEAD = gql`
   mutation CreateLeadForm($name: String, $email: String!, $phone: String) {
     createLeadFormSubmission(
