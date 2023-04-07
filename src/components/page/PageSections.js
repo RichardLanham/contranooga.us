@@ -25,7 +25,7 @@ import LargeVideo from "./sections/LargeVideo";
 
 import { getThumb, createMarkup, getLarge } from "../../apps/functions";
 
-import { POST_LEAD } from "../../gql/leadForm";
+import { POST_LEAD_FORM } from "../../gql/leadForm";
 import { useMutation, useQuery } from "@apollo/client";
 
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -107,7 +107,7 @@ export const LeadForm = ({ section }) => {
   const [email, setEmail] = useState(theme.leadFormEmail);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState("none");
-  const [postLead] = useMutation(POST_LEAD);
+  const [postLead] = useMutation(POST_LEAD_FORM);
 
   const handleSubmit = async () => {
     await postLead({

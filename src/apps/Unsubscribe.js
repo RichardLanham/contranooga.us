@@ -52,8 +52,6 @@ const Unsubscribe = () => {
     }
   }, [data, error, loading]);
 
-  useEffect(async () => {}, []);
-
   const StyledAnchor = styled("a")(({ theme }) => ({
     // backgroundColor: theme.palette.background.default,
     ...theme.typography.overline,

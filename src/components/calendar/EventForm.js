@@ -22,7 +22,7 @@ import useGetPages from "../../hooks/useGetPages";
 import useGetUploads from "../../hooks/useGetUploads";
 import ConfirmButtons from "../../components/ConfirmButtons";
 import CloseIcon from "@mui/icons-material/Close";
-require("../../styles/eventForm.css");
+require("./css/eventForm.css");
 
 const EventForm = ({ events }) => {
   const theme = useTheme();

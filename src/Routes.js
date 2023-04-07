@@ -9,6 +9,7 @@ import FourOhFour from "./pages/404";
 import Page from "./Page";
 import Calendar from "./apps/Calendar";
 import Unsubscribe from "./apps/Unsubscribe";
+import Crm from "./apps/Crm";
 
 import "./App.css";
 import client from "./apollo/client";
@@ -34,7 +35,7 @@ const AppRoutes = () => {
 
   // const lTheme = storedTheme.theme;
 
-  useEffect(async () => {
+  useEffect(() => {
     const jd = window.localStorage.getItem("jwt_date");
     if (!jd) {
       window.localStorage.removeItem("strapi_jwt");
@@ -96,6 +97,7 @@ const AppRoutes = () => {
             />
             <Route path="/page/:slug" element={<Page _slug="" />} />
             <Route path="/color" element={<Color />} />
+            <Route path="/crm" element={<Crm />} />
 
             <Route path="/unsubscribe/:id" element={<Unsubscribe id="" />} />
 

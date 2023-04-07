@@ -1,5 +1,67 @@
 import { gql } from "@apollo/client";
 
+// {"email": "richard.lanham2@gmail.com", "name": "Richard","leadFormId": 3}
+export const CREATE_EMAIL_HISTORY = gql`
+  mutation CreateEmailHistory(
+    $name: String
+    $email: String!
+    $leadFormId: Int!
+    $info: String!
+    $day: String!
+  ) {
+    createEmailHistory(
+      data: {
+        name: $name
+        email: $email
+        leadFormId: $leadFormId
+        day: $day
+        info: $info
+      }
+    ) {
+      data {
+        id
+        attributes {
+          createdAt
+          name
+        }
+      }
+    }
+  }
+`;
+
+//{"email": "richard.lanham2@gmail.com"}
+export const EMAIL_HISTORY = gql`
+  query EmailHistory($email: String!) {
+    emailHistories(filters: { email: { eq: $email } }) {
+      data {
+        id
+        attributes {
+          name
+          email
+          leadFormId
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+export const EMAIL_HISTORIES = gql`
+  query EmailHistories {
+    emailHistories(pagination: { start: 0, limit: 200 }) {
+      data {
+        id
+        attributes {
+          name
+          email
+          leadFormId
+          createdAt
+        }
+      }
+    }
+  }
+`;
+
 export const GET_LEADFORM = gql`
   query GetLeadForm($id: ID!) {
     leadFormSubmission(id: $id) {
@@ -12,7 +74,7 @@ export const GET_LEADFORM = gql`
     }
   }
 `;
-export const POST_LEAD = gql`
+export const POST_LEAD_FORM = gql`
   mutation CreateLeadForm($name: String, $email: String!, $phone: String) {
     createLeadFormSubmission(
       data: { name: $name, email: $email, phone: $phone }
@@ -28,11 +90,59 @@ export const POST_LEAD = gql`
   }
 `;
 
+// {"id": 40,"name": "Richard","email": "richard.lanham@gmail.com","blurb": "some comment","phone": "212222","last_email_date": "2023-04-03T02:34:37Z" }
+export const UPDATE_LEAD_FORM = gql`
+  mutation UpdateLeadForm(
+    $id: ID!
+    $name: String!
+    $email: String!
+    $blurb: String
+    $phone: String
+    $last_email_date: DateTime
+  ) {
+    updateLeadFormSubmission(
+      id: $id
+      data: {
+        name: $name
+        email: $email
+        blurb: $blurb
+        phone: $phone
+        last_email_date: $last_email_date
+      }
+    ) {
+      data {
+        id
+        attributes {
+          name
+        }
+      }
+    }
+  }
+`;
 export const DELETE_LEADFORM = gql`
   mutation DeleteLeadForm($id: ID!) {
     deleteLeadFormSubmission(id: $id) {
       data {
         id
+      }
+    }
+  }
+`;
+
+export const GET_LEADFORMS = gql`
+  query GetLeadForms {
+    leadFormSubmissions(pagination: { start: 0, limit: 200 }) {
+      data {
+        id
+        attributes {
+          name
+          email
+          status
+          location
+          phone
+          blurb
+          last_email_date
+        }
       }
     }
   }

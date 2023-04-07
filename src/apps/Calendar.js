@@ -20,7 +20,7 @@ import SiteHeader from "../components/page/PageHeader";
 import EventForm from "../components/calendar/EventForm";
 import EventDetail from "../components/calendar/EventDetail";
 // import { createMarkup } from "../apps/functions";
-require("../styles/calendar.css");
+require("./css/calendar.css");
 
 const localizer = momentLocalizer(moment);
 const Calendar = (props) => {

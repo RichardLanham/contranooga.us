@@ -48,7 +48,7 @@ const ConfirmButtons = ({ action, args, label, icon }) => {
     },
 
     resetButtons: {
-      display: "flex",
+      display: "inline",
       flexDirect: "row",
       // width: 20,
       // height: 15,
