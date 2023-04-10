@@ -94,7 +94,11 @@ const ContactDetail = ({ contact }) => {
         <Button onClick={() => setShow(false)}>close</Button>
         <Button onClick={handleUpdate}>Update</Button>
 
-        <ConfirmButtons action={handleDelete} label="Delete!">
+        <ConfirmButtons
+          action={handleDelete}
+          value={contact.id}
+          label="Delete!"
+        >
           Delete
         </ConfirmButtons>
 

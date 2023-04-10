@@ -272,6 +272,9 @@ const EventForm = ({ events }) => {
     if (data.image === "0") {
       delete data.image;
     }
+    if (data.image === "") {
+      delete data.image;
+    }
     data.lat = Number(data.lat);
     data.lng = Number(data.lng);
     data.endTime = new Date(data.endTime).toISOString();
@@ -342,6 +345,9 @@ const EventForm = ({ events }) => {
       if (request.readyState === 4) {
         setMessage("Event Deleted");
         clearForm();
+        // client.refetchQueries({
+        //   include: "active",
+        // });
       }
     };
 
@@ -792,7 +798,8 @@ const EventForm = ({ events }) => {
                   color: theme.palette.primary.contrastDark,
                 }}
               >
-                {eventID === "events..." ? "Add " : "Copy "} Event
+                {eventID === "events..." ? "Add " : "Copy "} Event&nbsp;(id:
+                {eventID})
               </Button>
               {eventID !== "events..." && (
                 <Button

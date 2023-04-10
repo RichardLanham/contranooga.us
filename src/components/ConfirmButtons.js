@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Zoom from "@mui/material/Zoom";
 import { useTheme } from "@mui/material/styles";
 
-const ConfirmButtons = ({ action, args, label, icon }) => {
+const ConfirmButtons = ({ action, args, value, label, icon }) => {
   args = args ? args : null;
 
   // console.log("ConfirmButton");
@@ -96,8 +96,9 @@ const ConfirmButtons = ({ action, args, label, icon }) => {
           </Zoom>
           <Zoom in={true}>
             <Button
+              value={value}
               style={classes.confirmButton}
-              onClick={(e) => handleClick(e)}
+              onClick={action}
             >
               {label}
             </Button>
