@@ -115,7 +115,7 @@ export const LeadForm = ({ section }) => {
         // name: theme.leadFormName,
         // email: theme.leadFormEmail,
         // phone: theme.leadFormPhone,
-        name: name,
+        name: !name ? email.split("@")[0] : name,
         email: email,
         phone: phone,
       },

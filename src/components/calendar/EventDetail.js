@@ -123,7 +123,7 @@ const EventDetail = ({ currentID }) => {
   };
 
   if (!current) {
-    return <div>Wait</div>;
+    return <></>;
   }
   return (
     <Zoom in={true}>
