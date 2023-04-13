@@ -110,121 +110,118 @@ function Page({ _slug }) {
   const { data, loading, error } = useQuery(GET_PAGE, {
     variables: { slug: slug, publicationState: "LIVE", locale: "en" },
   });
-  if (!loading) {
-    if (!error) {
-      const attribs = data?.pages?.data[0]?.attributes;
-      const pageId = data?.pages?.data[0]?.id;
-      const metaTitle = attribs?.metadata?.metaTitle;
+  // if (!loading) {
+  if (!error) {
+    const attribs = data?.pages?.data[0]?.attributes;
+    const pageId = data?.pages?.data[0]?.id;
+    const metaTitle = attribs?.metadata?.metaTitle;
 
-      if (!attribs) {
-        return (
-          <Site>
-            title="empty page"
-            <Zoom in={true}>
-              <StyledPage>
-                <PageHeader metaTitle={metaTitle} />
-                <h4>Empty Page</h4>
-              </StyledPage>
-            </Zoom>
-          </Site>
-        );
-      }
+    if (!attribs) {
       return (
-        <Site
-          title={metaTitle}
-          description={attribs?.metadata?.metaDescription}
-        >
+        <Site>
+          title="empty page"
           <Zoom in={true}>
-            <StyledPage id="sitePage" onTouchStart={toggleDrawer}>
+            <StyledPage>
               <PageHeader metaTitle={metaTitle} />
-
-              <SiteFeature slug={slug} />
-              {attribs.contentSections.map((section, key) => {
-                // ComponentSections
-                switch (section.__typename.replace("ComponentSections", "")) {
-                  case "Tabs":
-                    return <Tabs key={key} section={section} />;
-                  case "GoogleMap":
-                    return <GoogleMap key={key} section={section} />;
-                  case "LeadForm":
-                    return <LeadForm key={key} section={section} />;
-                  case "FlexGroup":
-                    return <FlexGroup key={key} section={section} />;
-                  case "Flex":
-                    return <Flex key={key} section={section} />;
-                  case "RichText":
-                    return <RichText key={key} section={section} />;
-                  case "Hero":
-                    return <Hero key={key} section={section} />;
-                  case "Scroller":
-                    return <Scroller key={key} section={section} />;
-                  case "PageFeature":
-                    return <Feature key={key} section={section} />;
-                  case "LargeVideo":
-                    return <LargeVideo key={key} section={section} />;
-                  case "FeatureColumnsGroup":
-                    return <FeatureColumnsGroup key={key} section={section} />;
-                  case "FeatureRowsGroup":
-                    return <FeatureRowsGroup key={key} section={section} />;
-                  case "BottomActions":
-                    return <BottomActions key={key} section={section} />;
-                  case "PledgeForm":
-                    return (
-                      <StyledPage key={key}>
-                        <StyledPageSection>
-                          <PledgeForm key={key} section={section} />
-                        </StyledPageSection>
-                      </StyledPage>
-                    );
-                  default:
-                    return <div key={key}></div>;
-                    break;
-                }
-              })}
+              <h4>Empty Page</h4>
             </StyledPage>
           </Zoom>
         </Site>
       );
-    } else {
-      return (
-        // ERRROR (some errors fall thru here, not all, bad Auth does not)
-        <div style={{ width: "100%", height: "100%" }}>
-          <Site title="CDTS" description="loading...">
-            <StyledPage>
-              <StyledSiteName>
-                Chattanooga Traditional Dance Society
-              </StyledSiteName>
-              <StyledHeader>Sorry</StyledHeader>
-              An error occurred
-              <br />
-              <a style={{ fontSize: 22, fontWeight: "bold" }} href="/?lo=true">
-                Try Refreshing!
-              </a>
-            </StyledPage>
-          </Site>
-        </div>
-      );
     }
-  }
-  return (
-    // LOADING, waiting for graphql
-    <div style={{ width: "100%", height: "100%" }}>
-      <Site title="CDTS" description="loading...">
-        <StyledPage>
-          <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
-          <StyledHeader>loading</StyledHeader>
-          <DownloadingIcon
-            style={{
-              margin: "auto",
-              width: "20%",
-              maxWidth: 40,
-              height: "auto",
-            }}
-          />
-        </StyledPage>
+    return (
+      <Site title={metaTitle} description={attribs?.metadata?.metaDescription}>
+        <Zoom in={true}>
+          <StyledPage id="sitePage" onTouchStart={toggleDrawer}>
+            <PageHeader metaTitle={metaTitle} />
+
+            <SiteFeature slug={slug} />
+            {attribs.contentSections.map((section, key) => {
+              // ComponentSections
+              switch (section.__typename.replace("ComponentSections", "")) {
+                case "Tabs":
+                  return <Tabs key={key} section={section} />;
+                case "GoogleMap":
+                  return <GoogleMap key={key} section={section} />;
+                case "LeadForm":
+                  return <LeadForm key={key} section={section} />;
+                case "FlexGroup":
+                  return <FlexGroup key={key} section={section} />;
+                case "Flex":
+                  return <Flex key={key} section={section} />;
+                case "RichText":
+                  return <RichText key={key} section={section} />;
+                case "Hero":
+                  return <Hero key={key} section={section} />;
+                case "Scroller":
+                  return <Scroller key={key} section={section} />;
+                case "PageFeature":
+                  return <Feature key={key} section={section} />;
+                case "LargeVideo":
+                  return <LargeVideo key={key} section={section} />;
+                case "FeatureColumnsGroup":
+                  return <FeatureColumnsGroup key={key} section={section} />;
+                case "FeatureRowsGroup":
+                  return <FeatureRowsGroup key={key} section={section} />;
+                case "BottomActions":
+                  return <BottomActions key={key} section={section} />;
+                case "PledgeForm":
+                  return (
+                    <StyledPage key={key}>
+                      <StyledPageSection>
+                        <PledgeForm key={key} section={section} />
+                      </StyledPageSection>
+                    </StyledPage>
+                  );
+                default:
+                  return <div key={key}></div>;
+                  break;
+              }
+            })}
+          </StyledPage>
+        </Zoom>
       </Site>
-    </div>
-  );
+    );
+  } else {
+    return (
+      // ERRROR (some errors fall thru here, not all, bad Auth does not)
+      <div style={{ width: "100%", height: "100%" }}>
+        <Site title="CDTS" description="loading...">
+          <StyledPage>
+            <StyledSiteName>
+              Chattanooga Traditional Dance Society
+            </StyledSiteName>
+            <StyledHeader>Sorry</StyledHeader>
+            An error occurred
+            <br />
+            <a style={{ fontSize: 22, fontWeight: "bold" }} href="/?lo=true">
+              Try Refreshing!
+            </a>
+          </StyledPage>
+        </Site>
+      </div>
+    );
+  }
+  // }
+  // return (
+  //   // LOADING, waiting for graphql
+  //   <div style={{ width: "100%", height: "100%" }}>
+  //     <Site title="CDTS" description="loading...">
+  //       <StyledPage>
+  //         <StyledSiteName>Chattanooga Traditional Dance Society</StyledSiteName>
+  //         <StyledHeader>loading</StyledHeader>
+  //         <DownloadingIcon
+  //           style={{
+  //             margin: "auto",
+  //             width: "20%",
+  //             maxWidth: 40,
+  //             height: "auto",
+  //           }}
+  //         />
+  //       </StyledPage>
+  //     </Site>
+  //   </div>
+  // );
 }
 
 export default Page;

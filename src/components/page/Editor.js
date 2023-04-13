@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import { useTheme, styled } from "@mui/material/styles";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
 import Editor from "ckeditor5-custom-build/build/ckeditor";
-
 import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 
 const RichEditor = ({ container }) => {
   // console.log(container);
   const field = container.field;
   const Id = container.id;
-  // console.log(Id);
-  // console.log(field);
   const content = container.content;
   const typename = container.typename;
-  // console.log(typename);
-  // console.log(typename);
-  // const [data, setData] = useState("");
   const [dirty, setDirty] = useState(false);
   const [url, setUrl] = useState(process.env.REACT_APP_SIDECAR_API);
   const [put, setPut] = useState({
@@ -55,25 +45,6 @@ const RichEditor = ({ container }) => {
       label: color + "_contrastText",
     });
   });
-
-  useEffect(() => {
-    // const muiColors = [
-    //   "primary",
-    //   "secondary",
-    //   "info",
-    //   "warning",
-    //   "error",
-    //   "success",
-    // ];
-    // muiColors.map((color) => {
-    //   console.log(contrastColors);
-    //   editColors.push({ color: theme.palette[color].main, label: color });
-    //   contrastColors.push({
-    //     color: theme.palette[color].contrastText,
-    //     label: color + "_contrastText",
-    //   });
-    // });
-  }, []);
 
   useEffect(() => {
     console.log(typename);
@@ -159,10 +130,6 @@ const RichEditor = ({ container }) => {
     setPut(_put);
   };
 
-  const handleKeys = (e) => {
-    // console.log(e.keyCode);
-  };
-
   function KeyPress(e) {
     // console.log(e.ctrlKey);
     if (e.keyCode === 83 && e.ctrlKey) {
@@ -239,7 +206,6 @@ const RichEditor = ({ container }) => {
   console.log(config);
   return (
     <div
-      onKeyDown={handleKeys}
       onKeyUp={KeyPress}
       style={{
         position: "absolute",
@@ -263,7 +229,7 @@ const RichEditor = ({ container }) => {
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
           // console.log("Editor is ready to use!", editor);
-          // console.log(editor.filter.allowedContent);
+          console.log(editor);
         }}
         onChange={(event, editor) => {
           const data = editor.getData();

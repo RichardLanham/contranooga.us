@@ -59,29 +59,15 @@ export const Scroller = ({ section }) => {
 
   useEffect(() => {
     setSlugs(section.slugs);
+  });
+  useEffect(() => {
     window.onscroll = function (ev) {
       setMsg("");
       if (
         window.innerHeight + window.pageYOffset + 400 >=
         document.body.offsetHeight
       ) {
-        const distance =
-          window.innerHeight + window.pageYOffset - document.body.offsetHeight;
-        //   setMsg("you're at nar bottom of the page " + distance);
-        console.log("setSLug");
-        setSlug(slugs[0].slug);
-
-        if (slug === "") {
-          // setSlug(slugs[0]);
-        } else {
-          // const array1 = [5, 12, 8, 130, 44];
-          // const isLargeNumber = (element) => element > 13;
-          // console.log(array1.findIndex(isLargeNumber));
-          // const arrayNumber = slugs.findIndex((s) => s.slug === slug);
-          // const next = slugs[arrayNumber + 1];
-          // console.log(next.slug);
-          //setSlug(next.slug);
-        }
+        setSlug(slugs[0].slug); // fix to single is upstream in Strapi, and across in gql. Was going to be many slugs per page, but it is only one, to form a linked list of pages.
       }
     };
 
