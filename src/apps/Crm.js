@@ -175,9 +175,9 @@ const Crm = () => {
   };
 
   const Controls = () => {
-    const [info, setInfo] = useState("The caller is Vicki Herndon");
+    const [info, setInfo] = useState("The caller is Sarah Melton");
     const [day, setDay] = useState("April 22nd");
-    theme.infoDay = "April 8th";
+    theme.infoDay = "April 2nd";
     theme.infoMessage = "The caller is Sarah Melton";
     const handleInfo = (e) => {
       console.log(e.target.value);
