@@ -110,7 +110,11 @@ const Calendar = (props) => {
         console.log(err);
       });
   };
-  useEffect(async () => {
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  useEffect(() => {
     axios
       .get(process.env.REACT_APP_STRAPI_API + "/upload/files")
       .then((res) => {
@@ -122,7 +126,7 @@ const Calendar = (props) => {
         console.log(err);
       });
 
-    await getEvents();
+    // await getEvents();
   }, []);
 
   const EventCalendar = () => {
