@@ -1,47 +1,39 @@
 import { useEffect, useState } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import Site from "../Site";
-import { useSearchParams, useParams } from "react-router-dom";
 import { Button, TextareaAutosize, Input } from "@mui/material";
 
 import {
-  UPDATE_LEAD_FORM,
   CREATE_EMAIL_HISTORY,
-  EMAIL_HISTORY,
   EMAIL_HISTORIES,
   GET_LEADFORMS,
-  GET_LEADFORM,
-  DELETE_LEADFORM,
+  GET_DAY_MESSAGE,
+  UPDATE_DAY_MESSAGE,
 } from "../gql/leadForm";
 
-//  CREATE_EMAIL_HISTORY
-// EMAIL_HISTORY
-// // {"email": "richard.lanham2@gmail.com", "name": "Richard","leadFormId": 3}
 import { useMutation, useQuery } from "@apollo/client";
 import client from "../apollo/client";
-
-import ConfirmButtons from "../components/ConfirmButtons";
-
 import ContactDetail from "../components/crm/ContactDetail";
 
 require("./css/crm.css");
 
 const Crm = () => {
-  const { id } = useParams();
-  let [searchParams, setSearchParams] = useSearchParams();
-
   const [createEmailHistory] = useMutation(CREATE_EMAIL_HISTORY);
-  const [message, setMessage] = useState("looking ...");
+
+  const [updateDayMsg] = useMutation(UPDATE_DAY_MESSAGE);
   const theme = useTheme();
+
   const { data, loading, error } = useQuery(GET_LEADFORMS);
+
   const [list, setList] = useState([]);
 
   const [emailHistory, setEmailHistory] = useState([]);
+
   useEffect(() => {
-    // const email = searchParams.get("email");
     if (!loading) {
       if (!error) {
         if (data) {
+          console.log(data);
           const d = JSON.parse(JSON.stringify(data));
           setList(
             d?.leadFormSubmissions?.data.sort((a, b) => {
@@ -77,6 +69,23 @@ const Crm = () => {
     }
   }, [emaildata, emailloading, emailerror]);
 
+  const updateDay_Msg = async (info, day) => {
+    await updateDayMsg({
+      variables: {
+        dance_day: day,
+        message: info,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        client.refetchQueries({
+          include: "active",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const sendEmail = async (contact) => {
     console.log(contact);
 
@@ -175,10 +184,10 @@ const Crm = () => {
   };
 
   const Controls = () => {
-    const [info, setInfo] = useState("The caller is Vicki Herndon");
-    const [day, setDay] = useState("June 10th");
-    theme.infoDay = "June 10th";
-    theme.infoMessage = "The caller is Vicki Herndon";
+    const [info, setInfo] = useState("");
+    const [day, setDay] = useState("");
+    theme.infoDay = day;
+    theme.infoMessage = info;
     const handleInfo = (e) => {
       console.log(e.target.value);
       setInfo(e.target.value);
@@ -189,6 +198,27 @@ const Crm = () => {
       setDay(e.target.value);
       theme.infoDay = e.target.value;
     };
+
+    // const { data, loading, error } = useQuery(GET_LEADFORMS);
+
+    const {
+      data: msgdata,
+      loading: msgloading,
+      error: msgerror,
+    } = useQuery(GET_DAY_MESSAGE);
+
+    useEffect(() => {
+      console.log(msgloading);
+      if (!msgloading) {
+        if (!msgerror) {
+          if (msgdata) {
+            console.log(msgdata.crm.data.attributes.message);
+            setInfo(msgdata.crm.data.attributes.message);
+            setDay(msgdata.crm.data.attributes.dance_day);
+          }
+        }
+      }
+    }, [msgdata, msgerror, msgloading]);
 
     return (
       <div
@@ -222,6 +252,8 @@ const Crm = () => {
           placeholder="Month Day"
         />
         <Sent />
+
+        <Button onClick={() => updateDay_Msg(info, day)}>update msg</Button>
       </div>
     );
   };

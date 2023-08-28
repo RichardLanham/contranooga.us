@@ -129,6 +129,32 @@ export const DELETE_LEADFORM = gql`
   }
 `;
 
+export const GET_DAY_MESSAGE = gql`
+  query {
+    crm {
+      data {
+        id
+        attributes {
+          dance_day
+          message
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_DAY_MESSAGE = gql`
+  mutation UpdateCRM($message: String!, $dance_day: String!) {
+    updateCrm(data: { message: $message, dance_day: $dance_day }) {
+      data {
+        attributes {
+          message
+        }
+      }
+    }
+  }
+`;
+
 export const GET_LEADFORMS = gql`
   query GetLeadForms {
     leadFormSubmissions(pagination: { start: 0, limit: 200 }) {
