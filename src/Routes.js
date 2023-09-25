@@ -10,6 +10,7 @@ import Page from "./Page";
 import Calendar from "./apps/Calendar";
 import Unsubscribe from "./apps/Unsubscribe";
 import Crm from "./apps/Crm";
+import Links from "./apps/Links";
 
 import "./App.css";
 import client from "./apollo/client";
@@ -98,6 +99,7 @@ const AppRoutes = () => {
             <Route path="/page/:slug" element={<Page _slug="" />} />
             <Route path="/color" element={<Color />} />
             <Route path="/crm" element={<Crm />} />
+            <Route path="/links" element={<Links />} />
 
             <Route path="/unsubscribe/:id" element={<Unsubscribe id="" />} />
 
