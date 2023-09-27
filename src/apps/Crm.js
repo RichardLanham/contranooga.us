@@ -18,6 +18,8 @@ import ContactDetail from "../components/crm/ContactDetail";
 require("./css/crm.css");
 
 const Crm = () => {
+  const [user, setuser] = useState(false);
+
   const [createEmailHistory] = useMutation(CREATE_EMAIL_HISTORY);
 
   const [updateDayMsg] = useMutation(UPDATE_DAY_MESSAGE);
@@ -30,6 +32,8 @@ const Crm = () => {
   const [emailHistory, setEmailHistory] = useState([]);
 
   useEffect(() => {
+    setuser(window.localStorage.getItem("strapi_user"));
+
     if (!loading) {
       if (!error) {
         if (data) {
@@ -69,11 +73,12 @@ const Crm = () => {
     }
   }, [emaildata, emailloading, emailerror]);
 
-  const updateDay_Msg = async (info, day) => {
+  const updateDay_Msg = async (info, day, template) => {
     await updateDayMsg({
       variables: {
         dance_day: day,
         message: info,
+        template: template,
       },
     })
       .then((res) => {
@@ -97,6 +102,7 @@ const Crm = () => {
         leadFormId: Number(contact.id),
         info: theme.infoMessage,
         day: theme.infoDay,
+        template: theme.template,
       },
     })
       .then((res) => {
@@ -186,8 +192,10 @@ const Crm = () => {
   const Controls = () => {
     const [info, setInfo] = useState("");
     const [day, setDay] = useState("");
+    const [template, setTemplate] = useState("");
     theme.infoDay = day;
     theme.infoMessage = info;
+    theme.template = template;
     const handleInfo = (e) => {
       console.log(e.target.value);
       setInfo(e.target.value);
@@ -197,6 +205,11 @@ const Crm = () => {
     const handleDay = (e) => {
       setDay(e.target.value);
       theme.infoDay = e.target.value;
+    };
+
+    const handleTempate = (e) => {
+      setTemplate(e.target.value);
+      theme.template = e.target.value;
     };
 
     // const { data, loading, error } = useQuery(GET_LEADFORMS);
@@ -215,6 +228,7 @@ const Crm = () => {
             console.log(msgdata.crm.data.attributes.message);
             setInfo(msgdata.crm.data.attributes.message);
             setDay(msgdata.crm.data.attributes.dance_day);
+            setTemplate(msgdata.crm.data.attributes.template);
           }
         }
       }
@@ -231,6 +245,7 @@ const Crm = () => {
           gap: 20,
           width: "100vw",
           border: "2px solid purple",
+          display: user ? "block" : "none",
         }}
       >
         <font style={{ ...theme.typography.h5 }}>Message:</font>
@@ -251,9 +266,20 @@ const Crm = () => {
           onChange={handleDay}
           placeholder="Month Day"
         />
+        <Input
+          variant="outlined"
+          style={{
+            ...theme.typography.h4,
+            backgroundColor: "#fff",
+          }}
+          value={template}
+          onChange={handleTempate}
+          placeholder="template"
+        />
         <Sent />
-
-        <Button onClick={() => updateDay_Msg(info, day)}>update msg</Button>
+        <Button onClick={() => updateDay_Msg(info, day, template)}>
+          update msg
+        </Button>
       </div>
     );
   };

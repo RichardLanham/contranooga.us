@@ -8,6 +8,7 @@ export const CREATE_EMAIL_HISTORY = gql`
     $leadFormId: Int!
     $info: String!
     $day: String!
+    $template: String!
   ) {
     createEmailHistory(
       data: {
@@ -16,6 +17,7 @@ export const CREATE_EMAIL_HISTORY = gql`
         leadFormId: $leadFormId
         day: $day
         info: $info
+        template: $template
       }
     ) {
       data {
@@ -137,6 +139,7 @@ export const GET_DAY_MESSAGE = gql`
         attributes {
           dance_day
           message
+          template
         }
       }
     }
@@ -144,8 +147,14 @@ export const GET_DAY_MESSAGE = gql`
 `;
 
 export const UPDATE_DAY_MESSAGE = gql`
-  mutation UpdateCRM($message: String!, $dance_day: String!) {
-    updateCrm(data: { message: $message, dance_day: $dance_day }) {
+  mutation UpdateCRM(
+    $message: String!
+    $dance_day: String!
+    $template: String!
+  ) {
+    updateCrm(
+      data: { message: $message, dance_day: $dance_day, template: $template }
+    ) {
       data {
         attributes {
           message
