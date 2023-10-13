@@ -22,13 +22,13 @@ const Unsubscribe = () => {
     variables: { id: id },
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     const email = searchParams.get("email");
     if (!error) {
       if (data) {
         const _email = data?.leadFormSubmission?.data.attributes.email;
         if (_email === email) {
-          await deleteLeadform(
+          deleteLeadform(
             {
               variables: {
                 id: id,
@@ -37,11 +37,9 @@ const Unsubscribe = () => {
             []
           )
             .then((res) => {
-              console.log(res);
               setMessage(`Your email ${email} is unsubscribed Thanks.`);
             })
             .catch((err) => {
-              // console.log(err.message);\
               setMessage(err.message);
             });
         } else {
