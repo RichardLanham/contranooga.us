@@ -26,7 +26,7 @@ const Unsubscribe = () => {
     const email = searchParams.get("email");
     if (!error) {
       if (data) {
-        const _email = data?.leadFormSubmission?.data.attributes.email;
+        const _email = data?.leadFormSubmission?.data?.attributes?.email;
         if (_email === email) {
           deleteLeadform(
             {
