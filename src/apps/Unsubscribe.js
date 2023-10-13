@@ -28,7 +28,7 @@ const Unsubscribe = () => {
       if (data) {
         const _email = data?.leadFormSubmission?.data.attributes.email;
         if (_email === email) {
-          deleteLeadform(
+          await deleteLeadform(
             {
               variables: {
                 id: id,
