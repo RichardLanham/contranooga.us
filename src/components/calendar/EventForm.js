@@ -189,7 +189,6 @@ const EventForm = ({ events }) => {
   };
 
   const handleGeoCode = () => {
-    // https://maps.googleapis.com/maps/api/geocode/json?address=302%20hemphill%20ave,%20chattanooga%20tn,%2037411&key=AIzaSyA8eUANvHM-checxqXc-bv66AST5RATmsM
     const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${formdata.street},${formdata.city},${formdata.state},${formdata.zip}&key=${process.env.REACT_APP_GMAP_KEY}`;
 
     fetch(geoUrl)
